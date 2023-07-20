@@ -10,45 +10,8 @@ mec_sites_controller = client.mec_sites
 
 ## Methods
 
-* [List MEC Site Locations](../../doc/controllers/mec-sites.md#list-mec-site-locations)
 * [List ERN Cluster Namespaces](../../doc/controllers/mec-sites.md#list-ern-cluster-namespaces)
-
-
-# List MEC Site Locations
-
-Supports fetching MEC locations so the user can view the city.
-
-```ruby
-def list_mec_site_locations(account_name: nil)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `account_name` | `String` | Header, Optional | User account name.<br>**Constraints**: *Maximum Length*: `64`, *Pattern*: `^[A-Za-z0-9]` |
-
-## Server
-
-`Server::SERVICES`
-
-## Response Type
-
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`MECSiteLocationsResult`](../../doc/models/mec-site-locations-result.md).
-
-## Example Usage
-
-```ruby
-account_name = 'test_account1'
-
-result = mec_sites_controller.list_mec_site_locations(account_name: account_name)
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Error Response. | [`EdgeServiceLaunchResultException`](../../doc/models/edge-service-launch-result-exception.md) |
+* [List MEC Site Locations](../../doc/controllers/mec-sites.md#list-mec-site-locations)
 
 
 # List ERN Cluster Namespaces
@@ -118,4 +81,41 @@ result = mec_sites_controller.list_ern_cluster_namespaces(
 | 404 | Not found. | [`EdgeServiceLaunchResultException`](../../doc/models/edge-service-launch-result-exception.md) |
 | 500 | Internal Server Error. | [`EdgeServiceLaunchResultException`](../../doc/models/edge-service-launch-result-exception.md) |
 | Default | Unexpected error. | [`EdgeServiceLaunchResultException`](../../doc/models/edge-service-launch-result-exception.md) |
+
+
+# List MEC Site Locations
+
+Supports fetching MEC locations so the user can view the city.
+
+```ruby
+def list_mec_site_locations(account_name: nil)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `account_name` | `String` | Header, Optional | User account name.<br>**Constraints**: *Maximum Length*: `64`, *Pattern*: `^[A-Za-z0-9]` |
+
+## Server
+
+`Server::SERVICES`
+
+## Response Type
+
+This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`MECSiteLocationsResult`](../../doc/models/mec-site-locations-result.md).
+
+## Example Usage
+
+```ruby
+account_name = 'test_account1'
+
+result = mec_sites_controller.list_mec_site_locations(account_name: account_name)
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Error Response. | [`EdgeServiceLaunchResultException`](../../doc/models/edge-service-launch-result-exception.md) |
 

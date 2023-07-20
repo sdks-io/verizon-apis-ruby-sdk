@@ -6,20 +6,19 @@
 module Verizon
   # SoftwareManagementLicensesV1Controller
   class SoftwareManagementLicensesV1Controller < BaseController
-    # Assigns licenses to a specified list of devices so that firmware upgrades
-    # can be scheduled for those devices.
+    # Remove unused licenses from device.
     # @param [String] account Required parameter: Account identifier in
     # "##########-#####".
     # @param [V1LicensesAssignedRemovedRequest] body Required parameter: IMEIs
-    # of the devices to assign licenses to.
+    # of the devices to remove licenses from.
     # @return [V1LicensesAssignedRemovedResult] response from the API call
-    def assign_licenses_to_devices(account,
-                                   body)
-      warn 'Endpoint assign_licenses_to_devices in SoftwareManagementLicensesV'\
-           '1Controller is deprecated'
+    def remove_licenses_from_devices(account,
+                                     body)
+      warn 'Endpoint remove_licenses_from_devices in SoftwareManagementLicense'\
+           'sV1Controller is deprecated'
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/licenses/{account}/assign',
+                                     '/licenses/{account}/remove',
                                      Server::SOFTWARE_MANAGEMENT_V1)
                    .template_param(new_parameter(account, key: 'account')
                                     .should_encode(true))
@@ -38,19 +37,45 @@ module Verizon
         .execute
     end
 
-    # Remove unused licenses from device.
+    # Deletes the entire list of cancellation candidate devices.
+    # @param [String] account Required parameter: Account identifier in
+    # "##########-#####".
+    # @return [FotaV1SuccessResult] response from the API call
+    def delete_list_of_licenses_to_remove(account)
+      warn 'Endpoint delete_list_of_licenses_to_remove in SoftwareManagementLi'\
+           'censesV1Controller is deprecated'
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::DELETE,
+                                     '/licenses/{account}/cancel',
+                                     Server::SOFTWARE_MANAGEMENT_V1)
+                   .template_param(new_parameter(account, key: 'account')
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(FotaV1SuccessResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Unexpected error.',
+                                FotaV1ResultException))
+        .execute
+    end
+
+    # Assigns licenses to a specified list of devices so that firmware upgrades
+    # can be scheduled for those devices.
     # @param [String] account Required parameter: Account identifier in
     # "##########-#####".
     # @param [V1LicensesAssignedRemovedRequest] body Required parameter: IMEIs
-    # of the devices to remove licenses from.
+    # of the devices to assign licenses to.
     # @return [V1LicensesAssignedRemovedResult] response from the API call
-    def remove_licenses_from_devices(account,
-                                     body)
-      warn 'Endpoint remove_licenses_from_devices in SoftwareManagementLicense'\
-           'sV1Controller is deprecated'
+    def assign_licenses_to_devices(account,
+                                   body)
+      warn 'Endpoint assign_licenses_to_devices in SoftwareManagementLicensesV'\
+           '1Controller is deprecated'
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/licenses/{account}/remove',
+                                     '/licenses/{account}/assign',
                                      Server::SOFTWARE_MANAGEMENT_V1)
                    .template_param(new_parameter(account, key: 'account')
                                     .should_encode(true))
@@ -94,31 +119,6 @@ module Verizon
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(V1ListOfLicensesToRemoveResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV1ResultException))
-        .execute
-    end
-
-    # Deletes the entire list of cancellation candidate devices.
-    # @param [String] account Required parameter: Account identifier in
-    # "##########-#####".
-    # @return [FotaV1SuccessResult] response from the API call
-    def delete_list_of_licenses_to_remove(account)
-      warn 'Endpoint delete_list_of_licenses_to_remove in SoftwareManagementLi'\
-           'censesV1Controller is deprecated'
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::DELETE,
-                                     '/licenses/{account}/cancel',
-                                     Server::SOFTWARE_MANAGEMENT_V1)
-                   .template_param(new_parameter(account, key: 'account')
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(FotaV1SuccessResult.method(:from_hash))
                    .is_api_response(true)
                    .local_error('400',
                                 'Unexpected error.',

@@ -32,6 +32,32 @@ module Verizon
         .execute
     end
 
+    # eletes the specified usage trigger from the given account
+    # @param [String] account_name Required parameter: Account name
+    # @param [String] trigger_id Required parameter: Usage trigger ID
+    # @return [DeviceLocationSuccessResult] response from the API call
+    def delete_trigger(account_name,
+                       trigger_id)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::DELETE,
+                                     '/usage/accounts/{accountName}/triggers/{triggerId}',
+                                     Server::SUBSCRIPTION_SERVER)
+                   .template_param(new_parameter(account_name, key: 'accountName')
+                                    .should_encode(true))
+                   .template_param(new_parameter(trigger_id, key: 'triggerId')
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(DeviceLocationSuccessResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Unexpected error',
+                                DeviceLocationResultException))
+        .execute
+    end
+
     # Update an existing usage trigger
     # @param [String] trigger_id Required parameter: Usage trigger ID
     # @param [UsageTriggerUpdateRequest] body Optional parameter: New trigger
@@ -53,32 +79,6 @@ module Verizon
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(UsageTriggerResponse.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error',
-                                DeviceLocationResultException))
-        .execute
-    end
-
-    # eletes the specified usage trigger from the given account
-    # @param [String] account_name Required parameter: Account name
-    # @param [String] trigger_id Required parameter: Usage trigger ID
-    # @return [DeviceLocationSuccessResult] response from the API call
-    def delete_trigger(account_name,
-                       trigger_id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::DELETE,
-                                     '/usage/accounts/{accountName}/triggers/{triggerId}',
-                                     Server::SUBSCRIPTION_SERVER)
-                   .template_param(new_parameter(account_name, key: 'accountName')
-                                    .should_encode(true))
-                   .template_param(new_parameter(trigger_id, key: 'triggerId')
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceLocationSuccessResult.method(:from_hash))
                    .is_api_response(true)
                    .local_error('400',
                                 'Unexpected error',

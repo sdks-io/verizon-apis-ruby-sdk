@@ -10,52 +10,8 @@ configuration_files_controller = client.configuration_files
 
 ## Methods
 
-* [Get List of Files](../../doc/controllers/configuration-files.md#get-list-of-files)
 * [Upload Config File](../../doc/controllers/configuration-files.md#upload-config-file)
-
-
-# Get List of Files
-
-You can retrieve a list of configuration or supplementary of files for an account.
-
-```ruby
-def get_list_of_files(acc,
-                      distribution_type)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `acc` | `String` | Template, Required | Account identifier. |
-| `distribution_type` | `String` | Query, Required | Filter the distributionType to only retrieve files for a specific distribution type. |
-
-## Server
-
-`Server::SOFTWARE_MANAGEMENT_V2`
-
-## Response Type
-
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`RetrievesAvailableFilesResponseList`](../../doc/models/retrieves-available-files-response-list.md).
-
-## Example Usage
-
-```ruby
-acc = '0402196254-00001'
-
-distribution_type = 'HTTP'
-
-result = configuration_files_controller.get_list_of_files(
-  acc,
-  distribution_type
-)
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Unexpected error. | [`FotaV2ResultException`](../../doc/models/fota-v2-result-exception.md) |
+* [Get List of Files](../../doc/controllers/configuration-files.md#get-list-of-files)
 
 
 # Upload Config File
@@ -109,6 +65,50 @@ result = configuration_files_controller.upload_config_file(
   make: make,
   model: model,
   local_target_path: local_target_path
+)
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Unexpected error. | [`FotaV2ResultException`](../../doc/models/fota-v2-result-exception.md) |
+
+
+# Get List of Files
+
+You can retrieve a list of configuration or supplementary of files for an account.
+
+```ruby
+def get_list_of_files(acc,
+                      distribution_type)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `acc` | `String` | Template, Required | Account identifier. |
+| `distribution_type` | `String` | Query, Required | Filter the distributionType to only retrieve files for a specific distribution type. |
+
+## Server
+
+`Server::SOFTWARE_MANAGEMENT_V2`
+
+## Response Type
+
+This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`RetrievesAvailableFilesResponseList`](../../doc/models/retrieves-available-files-response-list.md).
+
+## Example Usage
+
+```ruby
+acc = '0402196254-00001'
+
+distribution_type = 'HTTP'
+
+result = configuration_files_controller.get_list_of_files(
+  acc,
+  distribution_type
 )
 ```
 

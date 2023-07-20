@@ -6,45 +6,6 @@
 module Verizon
   # ServiceMetadataController
   class ServiceMetadataController < BaseController
-    # Create a new category within user's organization.
-    # @param [String] account_name Required parameter: User account name.
-    # @param [Array[Category]] body Required parameter: Example:
-    # @param [String] correlation_id Optional parameter: Example:
-    # @return [Array[Category]] response from the API call
-    def create_service_category(account_name,
-                                body,
-                                correlation_id: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/v1/category',
-                                     Server::SERVICES)
-                   .header_param(new_parameter(account_name, key: 'AccountName'))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter(correlation_id, key: 'correlationId'))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Category.method(:from_hash))
-                   .is_api_response(true)
-                   .is_response_array(true)
-                   .local_error('400',
-                                'Bad Request.',
-                                EdgeServiceOnboardingResultErrorException)
-                   .local_error('401',
-                                'Unauthorized.',
-                                EdgeServiceOnboardingResultErrorException)
-                   .local_error('404',
-                                'Not found.',
-                                EdgeServiceOnboardingResultErrorException)
-                   .local_error('500',
-                                'Internal Server Error.',
-                                EdgeServiceOnboardingResultErrorException))
-        .execute
-    end
-
     # Create a new Tag within user's organization.
     # @param [String] account_name Required parameter: User account name.
     # @param [Array[Tag]] body Required parameter: Example:
@@ -77,6 +38,45 @@ module Verizon
                                 EdgeServiceOnboardingResultErrorException)
                    .local_error('415',
                                 'Unsupported media type.',
+                                EdgeServiceOnboardingResultErrorException)
+                   .local_error('500',
+                                'Internal Server Error.',
+                                EdgeServiceOnboardingResultErrorException))
+        .execute
+    end
+
+    # Create a new category within user's organization.
+    # @param [String] account_name Required parameter: User account name.
+    # @param [Array[Category]] body Required parameter: Example:
+    # @param [String] correlation_id Optional parameter: Example:
+    # @return [Array[Category]] response from the API call
+    def create_service_category(account_name,
+                                body,
+                                correlation_id: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/v1/category',
+                                     Server::SERVICES)
+                   .header_param(new_parameter(account_name, key: 'AccountName'))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter(correlation_id, key: 'correlationId'))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(Category.method(:from_hash))
+                   .is_api_response(true)
+                   .is_response_array(true)
+                   .local_error('400',
+                                'Bad Request.',
+                                EdgeServiceOnboardingResultErrorException)
+                   .local_error('401',
+                                'Unauthorized.',
+                                EdgeServiceOnboardingResultErrorException)
+                   .local_error('404',
+                                'Not found.',
                                 EdgeServiceOnboardingResultErrorException)
                    .local_error('500',
                                 'Internal Server Error.',

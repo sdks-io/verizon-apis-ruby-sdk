@@ -6,31 +6,6 @@
 module Verizon
   # DeviceManagementController
   class DeviceManagementController < BaseController
-    # If the devices do not already exist in the account, this API resource adds
-    # them before activation.
-    # @param [CarrierActivateRequest] body Required parameter: Request for
-    # activating a service on devices.
-    # @return [DeviceManagementResult] response from the API call
-    def activate_service_for_devices(body)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/v1/devices/actions/activate',
-                                     Server::M2M)
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceManagementResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
-        .execute
-    end
-
     # Use this API if you want to manage some device settings before you are
     # ready to activate service for the devices.
     # @param [AddDevicesRequest] body Required parameter: Devices to add.
@@ -50,6 +25,157 @@ module Verizon
                    .deserialize_into(AddDevicesResult.method(:from_hash))
                    .is_api_response(true)
                    .is_response_array(true)
+                   .local_error('400',
+                                'Error response.',
+                                ConnectivityManagementResultException))
+        .execute
+    end
+
+    # Restores service to one or more suspended devices.
+    # @param [CarrierActionsRequest] body Required parameter: Request to restore
+    # services of one or more suspended devices.
+    # @return [DeviceManagementResult] response from the API call
+    def restore_service_for_suspended_devices(body)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/v1/devices/actions/restore',
+                                     Server::M2M)
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(DeviceManagementResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Error response.',
+                                ConnectivityManagementResultException))
+        .execute
+    end
+
+    # Changes or removes the CostCenterCode value or customer name and address
+    # (Primary Place of Use) for one or more devices.
+    # @param [DeviceCostCenterRequest] body Required parameter: Request to
+    # update cost center code value for one or more devices.
+    # @return [DeviceManagementResult] response from the API call
+    def update_devices_cost_center_code(body)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/v1/devices/costCenter',
+                                     Server::M2M)
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(DeviceManagementResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Error response.',
+                                ConnectivityManagementResultException))
+        .execute
+    end
+
+    # Returns the provisioning history of a specified device during a specified
+    # time period.
+    # @param [DeviceProvisioningHistoryListRequest] body Required parameter:
+    # Query to obtain device provisioning history.
+    # @return [Array[DeviceProvisioningHistoryListResult]] response from the API call
+    def list_devices_provisioning_history(body)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/v1/devices/history/actions/list',
+                                     Server::M2M)
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(DeviceProvisioningHistoryListResult.method(:from_hash))
+                   .is_api_response(true)
+                   .is_response_array(true)
+                   .local_error('400',
+                                'Error response.',
+                                ConnectivityManagementResultException))
+        .execute
+    end
+
+    # Returns DeviceSuspensionStatus callback messages containing the current
+    # device state and information on how many days a device has been suspended
+    # and can continue to be suspended.
+    # @param [DeviceSuspensionStatusRequest] body Required parameter: Request to
+    # obtain service suspenstion status for a device.
+    # @return [DeviceManagementResult] response from the API call
+    def get_device_service_suspension_status(body)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/v1/devices/suspension/status',
+                                     Server::M2M)
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(DeviceManagementResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Error response.',
+                                ConnectivityManagementResultException))
+        .execute
+    end
+
+    # Returns the network data usage history of a device during a specified time
+    # period.
+    # @param [DeviceUsageListRequest] body Required parameter: Request to obtain
+    # usage history for a specific device.
+    # @return [DeviceUsageListResult] response from the API call
+    def list_devices_usage_history(body)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/v1/devices/usage/actions/list',
+                                     Server::M2M)
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(DeviceUsageListResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Error response.',
+                                ConnectivityManagementResultException))
+        .execute
+    end
+
+    # The information is returned in a callback response, so you must register a
+    # URL for DeviceUsage callback messages using the POST /callbacks API.
+    # @param [DeviceAggregateUsageListRequest] body Required parameter: A
+    # request to retrieve aggregated device usage history information.
+    # @return [DeviceManagementResult] response from the API call
+    def retrieve_aggregate_device_usage_history(body)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/v1/devices/usage/actions/list/aggregate',
+                                     Server::M2M)
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(DeviceManagementResult.method(:from_hash))
+                   .is_api_response(true)
                    .local_error('400',
                                 'Error response.',
                                 ConnectivityManagementResultException))
@@ -108,84 +234,6 @@ module Verizon
         .execute
     end
 
-    # Deactivating service for a device may result in an early termination fee
-    # (ETF) being charged to the account, depending on the terms of the contract
-    # with Verizon. If your contract allows ETF waivers and if you want to use
-    # one for a particular deactivation, set the etfWaiver value to True.
-    # @param [CarrierDeactivateRequest] body Required parameter: Request to
-    # deactivate service for one or more devices.
-    # @return [DeviceManagementResult] response from the API call
-    def deactivate_service_for_devices(body)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/v1/devices/actions/deactivate',
-                                     Server::M2M)
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceManagementResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
-        .execute
-    end
-
-    # Use this API to remove unneeded devices from an account.
-    # @param [DeleteDevicesRequest] body Required parameter: Devices to
-    # delete.
-    # @return [Array[DeleteDevicesResult]] response from the API call
-    def delete_deactivated_devices(body)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/v1/devices/actions/delete',
-                                     Server::M2M)
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeleteDevicesResult.method(:from_hash))
-                   .is_api_response(true)
-                   .is_response_array(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
-        .execute
-    end
-
-    # Returns information about a single device or information about all devices
-    # that match the given parameters. Returned information includes device
-    # provisioning state, service plan, MDN, MIN, and IP address.
-    # @param [AccountDeviceListRequest] body Required parameter: Device
-    # information query.
-    # @return [AccountDeviceListResult] response from the API call
-    def list_devices_information(body)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/v1/devices/actions/list',
-                                     Server::M2M)
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(AccountDeviceListResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
-        .execute
-    end
-
     # Returns a list of all 4G devices with an ICCID (SIM) that was not
     # activated with the expected IMEI (hardware) during a specified time frame.
     # @param [DeviceMismatchListRequest] body Required parameter: Request to
@@ -204,31 +252,6 @@ module Verizon
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(DeviceMismatchListResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
-        .execute
-    end
-
-    # Move active devices from one billing account to another within a customer
-    # profile.
-    # @param [MoveDeviceRequest] body Required parameter: Request to move
-    # devices between accounts.
-    # @return [DeviceManagementResult] response from the API call
-    def move_devices_within_accounts_of_profile(body)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/v1/devices/actions/move',
-                                     Server::M2M)
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceManagementResult.method(:from_hash))
                    .is_api_response(true)
                    .local_error('400',
                                 'Error response.',
@@ -269,54 +292,6 @@ module Verizon
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/v1/devices/actions/plan',
-                                     Server::M2M)
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceManagementResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
-        .execute
-    end
-
-    # Suspends service for one or more devices.
-    # @param [CarrierActionsRequest] body Required parameter: Request to suspend
-    # service for one or more devices.
-    # @return [DeviceManagementResult] response from the API call
-    def suspend_service_for_devices(body)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/v1/devices/actions/suspend',
-                                     Server::M2M)
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceManagementResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
-        .execute
-    end
-
-    # Restores service to one or more suspended devices.
-    # @param [CarrierActionsRequest] body Required parameter: Request to restore
-    # services of one or more suspended devices.
-    # @return [DeviceManagementResult] response from the API call
-    def restore_service_for_suspended_devices(body)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/v1/devices/actions/restore',
                                      Server::M2M)
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .body_param(new_parameter(body))
@@ -384,31 +359,6 @@ module Verizon
         .execute
     end
 
-    # Changes or removes the CostCenterCode value or customer name and address
-    # (Primary Place of Use) for one or more devices.
-    # @param [DeviceCostCenterRequest] body Required parameter: Request to
-    # update cost center code value for one or more devices.
-    # @return [DeviceManagementResult] response from the API call
-    def update_devices_cost_center_code(body)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/v1/devices/costCenter',
-                                     Server::M2M)
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceManagementResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
-        .execute
-    end
-
     # Returns extended diagnostic information about a specified device,
     # including connectivity, provisioning, billing and location status.
     # @param [DeviceExtendedDiagnosticsRequest] body Required parameter: Request
@@ -434,15 +384,14 @@ module Verizon
         .execute
     end
 
-    # Returns the provisioning history of a specified device during a specified
-    # time period.
-    # @param [DeviceProvisioningHistoryListRequest] body Required parameter:
-    # Query to obtain device provisioning history.
-    # @return [Array[DeviceProvisioningHistoryListResult]] response from the API call
-    def list_devices_provisioning_history(body)
+    # Allows you to associate your own usage segmentation label with a device.
+    # @param [AssociateLabelRequest] body Required parameter: Request to
+    # associate a label to a device.
+    # @return [DeviceManagementResult] response from the API call
+    def usage_segmentation_label_association(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/v1/devices/history/actions/list',
+                                     '/v1/devices/actions/usagesegmentationlabels',
                                      Server::M2M)
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .body_param(new_parameter(body))
@@ -451,9 +400,85 @@ module Verizon
                    .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceProvisioningHistoryListResult.method(:from_hash))
+                   .deserialize_into(DeviceManagementResult.method(:from_hash))
                    .is_api_response(true)
-                   .is_response_array(true)
+                   .local_error('400',
+                                'Error response.',
+                                ConnectivityManagementResultException))
+        .execute
+    end
+
+    # Uploads and activates device identifiers and SKUs for new devices from
+    # OEMs to Verizon.
+    # @param [UploadsActivatesDeviceRequest] body Required parameter: Request to
+    # Uploads and activates device.
+    # @return [DeviceManagementResult] response from the API call
+    def activation_order_status(body)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/v1/devices/actions/uploadactivate',
+                                     Server::M2M)
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(DeviceManagementResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Error response.',
+                                ConnectivityManagementResultException))
+        .execute
+    end
+
+    # If the devices do not already exist in the account, this API resource adds
+    # them before activation.
+    # @param [CarrierActivateRequest] body Required parameter: Request for
+    # activating a service on devices.
+    # @return [DeviceManagementResult] response from the API call
+    def activate_service_for_devices(body)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/v1/devices/actions/activate',
+                                     Server::M2M)
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(DeviceManagementResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Error response.',
+                                ConnectivityManagementResultException))
+        .execute
+    end
+
+    # Deactivating service for a device may result in an early termination fee
+    # (ETF) being charged to the account, depending on the terms of the contract
+    # with Verizon. If your contract allows ETF waivers and if you want to use
+    # one for a particular deactivation, set the etfWaiver value to True.
+    # @param [CarrierDeactivateRequest] body Required parameter: Request to
+    # deactivate service for one or more devices.
+    # @return [DeviceManagementResult] response from the API call
+    def deactivate_service_for_devices(body)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/v1/devices/actions/deactivate',
+                                     Server::M2M)
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(DeviceManagementResult.method(:from_hash))
+                   .is_api_response(true)
                    .local_error('400',
                                 'Error response.',
                                 ConnectivityManagementResultException))
@@ -468,82 +493,6 @@ module Verizon
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/v1/devices/prl/actions/list',
-                                     Server::M2M)
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceManagementResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
-        .execute
-    end
-
-    # Returns DeviceSuspensionStatus callback messages containing the current
-    # device state and information on how many days a device has been suspended
-    # and can continue to be suspended.
-    # @param [DeviceSuspensionStatusRequest] body Required parameter: Request to
-    # obtain service suspenstion status for a device.
-    # @return [DeviceManagementResult] response from the API call
-    def get_device_service_suspension_status(body)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/v1/devices/suspension/status',
-                                     Server::M2M)
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceManagementResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
-        .execute
-    end
-
-    # Returns the network data usage history of a device during a specified time
-    # period.
-    # @param [DeviceUsageListRequest] body Required parameter: Request to obtain
-    # usage history for a specific device.
-    # @return [DeviceUsageListResult] response from the API call
-    def list_devices_usage_history(body)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/v1/devices/usage/actions/list',
-                                     Server::M2M)
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceUsageListResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
-        .execute
-    end
-
-    # The information is returned in a callback response, so you must register a
-    # URL for DeviceUsage callback messages using the POST /callbacks API.
-    # @param [DeviceAggregateUsageListRequest] body Required parameter: A
-    # request to retrieve aggregated device usage history information.
-    # @return [DeviceManagementResult] response from the API call
-    def retrieve_aggregate_device_usage_history(body)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/v1/devices/usage/actions/list/aggregate',
                                      Server::M2M)
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .body_param(new_parameter(body))
@@ -639,14 +588,90 @@ module Verizon
         .execute
     end
 
-    # Allows you to associate your own usage segmentation label with a device.
-    # @param [AssociateLabelRequest] body Required parameter: Request to
-    # associate a label to a device.
-    # @return [DeviceManagementResult] response from the API call
-    def usage_segmentation_label_association(body)
+    # Use this API to remove unneeded devices from an account.
+    # @param [DeleteDevicesRequest] body Required parameter: Devices to
+    # delete.
+    # @return [Array[DeleteDevicesResult]] response from the API call
+    def delete_deactivated_devices(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/v1/devices/actions/usagesegmentationlabels',
+                                     '/v1/devices/actions/delete',
+                                     Server::M2M)
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(DeleteDevicesResult.method(:from_hash))
+                   .is_api_response(true)
+                   .is_response_array(true)
+                   .local_error('400',
+                                'Error response.',
+                                ConnectivityManagementResultException))
+        .execute
+    end
+
+    # Returns information about a single device or information about all devices
+    # that match the given parameters. Returned information includes device
+    # provisioning state, service plan, MDN, MIN, and IP address.
+    # @param [AccountDeviceListRequest] body Required parameter: Device
+    # information query.
+    # @return [AccountDeviceListResult] response from the API call
+    def list_devices_information(body)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/v1/devices/actions/list',
+                                     Server::M2M)
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(AccountDeviceListResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Error response.',
+                                ConnectivityManagementResultException))
+        .execute
+    end
+
+    # Move active devices from one billing account to another within a customer
+    # profile.
+    # @param [MoveDeviceRequest] body Required parameter: Request to move
+    # devices between accounts.
+    # @return [DeviceManagementResult] response from the API call
+    def move_devices_within_accounts_of_profile(body)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/v1/devices/actions/move',
+                                     Server::M2M)
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(DeviceManagementResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Error response.',
+                                ConnectivityManagementResultException))
+        .execute
+    end
+
+    # Suspends service for one or more devices.
+    # @param [CarrierActionsRequest] body Required parameter: Request to suspend
+    # service for one or more devices.
+    # @return [DeviceManagementResult] response from the API call
+    def suspend_service_for_devices(body)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/v1/devices/actions/suspend',
                                      Server::M2M)
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .body_param(new_parameter(body))
@@ -678,31 +703,6 @@ module Verizon
                    .query_param(new_parameter(account_name, key: 'accountName'))
                    .query_param(new_parameter(label_list, key: 'LabelList'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceManagementResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
-        .execute
-    end
-
-    # Uploads and activates device identifiers and SKUs for new devices from
-    # OEMs to Verizon.
-    # @param [UploadsActivatesDeviceRequest] body Required parameter: Request to
-    # Uploads and activates device.
-    # @return [DeviceManagementResult] response from the API call
-    def activation_order_status(body)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/v1/devices/actions/uploadactivate',
-                                     Server::M2M)
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))

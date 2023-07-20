@@ -12,16 +12,16 @@ Verizon Terms of Service: [https://www.verizon.com/business/5g-edge-portal/legal
 Install the gem from the command line:
 
 ```ruby
-gem install verizon-ap-is-sdk -v 1.0.0
+gem install sdksio-verizon-apis-sdk -v 1.0.0
 ```
 
 Or add the gem to your Gemfile and run `bundle`:
 
 ```ruby
-gem 'verizon-ap-is-sdk', '1.0.0'
+gem 'sdksio-verizon-apis-sdk', '1.0.0'
 ```
 
-For additional gem details, see the [RubyGems page for the verizon-ap-is-sdk gem](https://rubygems.org/gems/verizon-ap-is-sdk/versions/1.0.0).
+For additional gem details, see the [RubyGems page for the sdksio-verizon-apis-sdk gem](https://rubygems.org/gems/sdksio-verizon-apis-sdk/versions/1.0.0).
 
 ## Initialize the API Client
 

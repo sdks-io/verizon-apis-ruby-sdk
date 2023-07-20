@@ -6,6 +6,44 @@
 module Verizon
   # RepositoriesController
   class RepositoriesController < BaseController
+    # Delete the repository.
+    # @param [String] account_name Required parameter: User account name.
+    # @param [String] repository_name Required parameter: Name of the repository
+    # which is about to be deleted.
+    # @param [String] correlation_id Optional parameter: Example:
+    # @return [EdgeServiceOnboardingDeleteResult] response from the API call
+    def delete_repository(account_name,
+                          repository_name,
+                          correlation_id: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::DELETE,
+                                     '/v1/config/repository/{repositoryName}',
+                                     Server::SERVICES)
+                   .header_param(new_parameter(account_name, key: 'AccountName'))
+                   .template_param(new_parameter(repository_name, key: 'repositoryName')
+                                    .should_encode(true))
+                   .header_param(new_parameter(correlation_id, key: 'correlationId'))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(EdgeServiceOnboardingDeleteResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Bad Request.',
+                                EdgeServiceOnboardingResultErrorException)
+                   .local_error('401',
+                                'Unauthorized.',
+                                EdgeServiceOnboardingResultErrorException)
+                   .local_error('404',
+                                'Not found.',
+                                EdgeServiceOnboardingResultErrorException)
+                   .local_error('500',
+                                'Internal Server Error.',
+                                EdgeServiceOnboardingResultErrorException))
+        .execute
+    end
+
     # Get all repositories in the platform.
     # @param [String] account_name Required parameter: User account name.
     # @param [String] correlation_id Optional parameter: Example:
@@ -68,44 +106,6 @@ module Verizon
                                 EdgeServiceOnboardingResultErrorException)
                    .local_error('401',
                                 'Unauthorized.',
-                                EdgeServiceOnboardingResultErrorException)
-                   .local_error('500',
-                                'Internal Server Error.',
-                                EdgeServiceOnboardingResultErrorException))
-        .execute
-    end
-
-    # Delete the repository.
-    # @param [String] account_name Required parameter: User account name.
-    # @param [String] repository_name Required parameter: Name of the repository
-    # which is about to be deleted.
-    # @param [String] correlation_id Optional parameter: Example:
-    # @return [EdgeServiceOnboardingDeleteResult] response from the API call
-    def delete_repository(account_name,
-                          repository_name,
-                          correlation_id: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::DELETE,
-                                     '/v1/config/repository/{repositoryName}',
-                                     Server::SERVICES)
-                   .header_param(new_parameter(account_name, key: 'AccountName'))
-                   .template_param(new_parameter(repository_name, key: 'repositoryName')
-                                    .should_encode(true))
-                   .header_param(new_parameter(correlation_id, key: 'correlationId'))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(EdgeServiceOnboardingDeleteResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Bad Request.',
-                                EdgeServiceOnboardingResultErrorException)
-                   .local_error('401',
-                                'Unauthorized.',
-                                EdgeServiceOnboardingResultErrorException)
-                   .local_error('404',
-                                'Not found.',
                                 EdgeServiceOnboardingResultErrorException)
                    .local_error('500',
                                 'Internal Server Error.',

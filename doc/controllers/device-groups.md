@@ -10,11 +10,148 @@ device_groups_controller = client.device_groups
 
 ## Methods
 
+* [Update Device Group](../../doc/controllers/device-groups.md#update-device-group)
+* [Get Device Group Information](../../doc/controllers/device-groups.md#get-device-group-information)
 * [Create Device Group](../../doc/controllers/device-groups.md#create-device-group)
 * [List Device Groups](../../doc/controllers/device-groups.md#list-device-groups)
-* [Get Device Group Information](../../doc/controllers/device-groups.md#get-device-group-information)
-* [Update Device Group](../../doc/controllers/device-groups.md#update-device-group)
 * [Delete Device Group](../../doc/controllers/device-groups.md#delete-device-group)
+
+
+# Update Device Group
+
+Make changes to a device group, including changing the name and description, and adding or removing devices.
+
+```ruby
+def update_device_group(aname,
+                        gname,
+                        body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `aname` | `String` | Template, Required | Account name. |
+| `gname` | `String` | Template, Required | Group name. |
+| `body` | [`DeviceGroupUpdateRequest`](../../doc/models/device-group-update-request.md) | Body, Required | Request to update device group. |
+
+## Server
+
+`Server::M2M`
+
+## Response Type
+
+This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ConnectivityManagementSuccessResult`](../../doc/models/connectivity-management-success-result.md).
+
+## Example Usage
+
+```ruby
+aname = '0252012345-00001'
+
+gname = 'gname2'
+
+body = DeviceGroupUpdateRequest.new(
+  [
+    DeviceId.new(
+      '990003420535537',
+      'imei'
+    )
+  ],
+  nil,
+  'All western region tank level monitors.',
+  'Western region tanks'
+)
+
+result = device_groups_controller.update_device_group(
+  aname,
+  gname,
+  body
+)
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "success": true
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
+
+
+# Get Device Group Information
+
+When HTTP status is 202, a URL will be returned in the Location header of the form /groups/{aname}/name/{gname}/?next={token}. This URL can be used to request the next set of groups.
+
+```ruby
+def get_device_group_information(aname,
+                                 gname,
+                                 mnext: nil)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `aname` | `String` | Template, Required | Account name. |
+| `gname` | `String` | Template, Required | Group name. |
+| `mnext` | `Integer` | Query, Optional | Continue the previous query from the pageUrl pagetoken. |
+
+## Server
+
+`Server::M2M`
+
+## Response Type
+
+This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceGroupDevicesData`](../../doc/models/device-group-devices-data.md).
+
+## Example Usage
+
+```ruby
+aname = '0252012345-00001'
+
+gname = 'gname2'
+
+result = device_groups_controller.get_device_group_information(
+  aname,
+  gname
+)
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "name": "Nebraska Trucks",
+  "description": "All service trucks in Nebraska.",
+  "hasMoreData": false,
+  "devices": [
+    {
+      "deviceIds": [
+        {
+          "id": "12345",
+          "kind": "meid"
+        },
+        {
+          "id": "54321",
+          "kind": "mdn"
+        }
+      ]
+    }
+  ]
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
 
 
 # Create Device Group
@@ -119,143 +256,6 @@ result = device_groups_controller.list_device_groups(aname)
     "extendedAttributes": []
   }
 ]
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
-
-
-# Get Device Group Information
-
-When HTTP status is 202, a URL will be returned in the Location header of the form /groups/{aname}/name/{gname}/?next={token}. This URL can be used to request the next set of groups.
-
-```ruby
-def get_device_group_information(aname,
-                                 gname,
-                                 mnext: nil)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `aname` | `String` | Template, Required | Account name. |
-| `gname` | `String` | Template, Required | Group name. |
-| `mnext` | `Integer` | Query, Optional | Continue the previous query from the pageUrl pagetoken. |
-
-## Server
-
-`Server::M2M`
-
-## Response Type
-
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceGroupDevicesData`](../../doc/models/device-group-devices-data.md).
-
-## Example Usage
-
-```ruby
-aname = '0252012345-00001'
-
-gname = 'gname2'
-
-result = device_groups_controller.get_device_group_information(
-  aname,
-  gname
-)
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "name": "Nebraska Trucks",
-  "description": "All service trucks in Nebraska.",
-  "hasMoreData": false,
-  "devices": [
-    {
-      "deviceIds": [
-        {
-          "id": "12345",
-          "kind": "meid"
-        },
-        {
-          "id": "54321",
-          "kind": "mdn"
-        }
-      ]
-    }
-  ]
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
-
-
-# Update Device Group
-
-Make changes to a device group, including changing the name and description, and adding or removing devices.
-
-```ruby
-def update_device_group(aname,
-                        gname,
-                        body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `aname` | `String` | Template, Required | Account name. |
-| `gname` | `String` | Template, Required | Group name. |
-| `body` | [`DeviceGroupUpdateRequest`](../../doc/models/device-group-update-request.md) | Body, Required | Request to update device group. |
-
-## Server
-
-`Server::M2M`
-
-## Response Type
-
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ConnectivityManagementSuccessResult`](../../doc/models/connectivity-management-success-result.md).
-
-## Example Usage
-
-```ruby
-aname = '0252012345-00001'
-
-gname = 'gname2'
-
-body = DeviceGroupUpdateRequest.new(
-  [
-    DeviceId.new(
-      '990003420535537',
-      'imei'
-    )
-  ],
-  nil,
-  'All western region tank level monitors.',
-  'Western region tanks'
-)
-
-result = device_groups_controller.update_device_group(
-  aname,
-  gname,
-  body
-)
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "success": true
-}
 ```
 
 ## Errors

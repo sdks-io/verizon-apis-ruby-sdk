@@ -6,58 +6,6 @@
 module Verizon
   # CSPProfilesController
   class CSPProfilesController < BaseController
-    # Fetch available cloud credentials within user's organization.
-    # @param [String] account_name Required parameter: User account name.
-    # @param [String] correlation_id Optional parameter: Example:
-    # @param [String] q Optional parameter: Use the coloumn (:) character to
-    # separate multiple query params eg
-    # type=AWS:awsCspProfile.credType=ACCESS_KEY,ROLE_ARN:state=UNVERIFIED,VERIF
-    # IED.
-    # @param [Integer] limit Optional parameter: Number of items to return.
-    # @param [Integer] off_set Optional parameter: Id of the last respose value
-    # in the previous list.
-    # @return [CSPProfileData] response from the API call
-    def fetch_cloud_credential_details(account_name,
-                                       correlation_id: nil,
-                                       q: nil,
-                                       limit: nil,
-                                       off_set: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/v1/cspProfiles/',
-                                     Server::SERVICES)
-                   .header_param(new_parameter(account_name, key: 'AccountName'))
-                   .header_param(new_parameter(correlation_id, key: 'correlationId'))
-                   .query_param(new_parameter(q, key: 'q'))
-                   .query_param(new_parameter(limit, key: 'limit'))
-                   .query_param(new_parameter(off_set, key: 'offSet'))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CSPProfileData.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('401',
-                                'Unauthorized.',
-                                EdgeServiceOnboardingResultErrorException)
-                   .local_error('403',
-                                'Forbidden.',
-                                EdgeServiceOnboardingResultErrorException)
-                   .local_error('404',
-                                'Not found.',
-                                EdgeServiceOnboardingResultErrorException)
-                   .local_error('429',
-                                'Too many requests.',
-                                EdgeServiceOnboardingResultErrorException)
-                   .local_error('500',
-                                'Internal Server Error.',
-                                EdgeServiceOnboardingResultErrorException)
-                   .local_error('default',
-                                'Forbidden.',
-                                EdgeServiceOnboardingResultErrorException))
-        .execute
-    end
-
     # Create a new cloud credential within user's organization.
     # @param [String] account_name Required parameter: User account name.
     # @param [CSPProfile] body Required parameter: Example:
@@ -132,6 +80,58 @@ module Verizon
                                 EdgeServiceOnboardingResultErrorException)
                    .local_error('500',
                                 'Internal Server Error.',
+                                EdgeServiceOnboardingResultErrorException))
+        .execute
+    end
+
+    # Fetch available cloud credentials within user's organization.
+    # @param [String] account_name Required parameter: User account name.
+    # @param [String] correlation_id Optional parameter: Example:
+    # @param [String] q Optional parameter: Use the coloumn (:) character to
+    # separate multiple query params eg
+    # type=AWS:awsCspProfile.credType=ACCESS_KEY,ROLE_ARN:state=UNVERIFIED,VERIF
+    # IED.
+    # @param [Integer] limit Optional parameter: Number of items to return.
+    # @param [Integer] off_set Optional parameter: Id of the last respose value
+    # in the previous list.
+    # @return [CSPProfileData] response from the API call
+    def fetch_cloud_credential_details(account_name,
+                                       correlation_id: nil,
+                                       q: nil,
+                                       limit: nil,
+                                       off_set: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/v1/cspProfiles/',
+                                     Server::SERVICES)
+                   .header_param(new_parameter(account_name, key: 'AccountName'))
+                   .header_param(new_parameter(correlation_id, key: 'correlationId'))
+                   .query_param(new_parameter(q, key: 'q'))
+                   .query_param(new_parameter(limit, key: 'limit'))
+                   .query_param(new_parameter(off_set, key: 'offSet'))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(CSPProfileData.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('401',
+                                'Unauthorized.',
+                                EdgeServiceOnboardingResultErrorException)
+                   .local_error('403',
+                                'Forbidden.',
+                                EdgeServiceOnboardingResultErrorException)
+                   .local_error('404',
+                                'Not found.',
+                                EdgeServiceOnboardingResultErrorException)
+                   .local_error('429',
+                                'Too many requests.',
+                                EdgeServiceOnboardingResultErrorException)
+                   .local_error('500',
+                                'Internal Server Error.',
+                                EdgeServiceOnboardingResultErrorException)
+                   .local_error('default',
+                                'Forbidden.',
                                 EdgeServiceOnboardingResultErrorException))
         .execute
     end

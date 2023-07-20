@@ -31,29 +31,6 @@ module Verizon
         .execute
     end
 
-    # Retrieves the current anomaly detection settings for an account.
-    # @param [String] account_name Required parameter: The name of the
-    # subscribed account.
-    # @return [AnomalyDetectionSettings] response from the API call
-    def list_anomaly_detection_settings(account_name)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/v1/intelligence/{accountName}/anomaly/settings',
-                                     Server::M2M)
-                   .template_param(new_parameter(account_name, key: 'accountName')
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(AnomalyDetectionSettings.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'An error occurred.',
-                                IntelligenceResultException))
-        .execute
-    end
-
     # Resets the thresholds to zero.
     # @param [String] account_name Required parameter: The name of the
     # subscribed account.
@@ -70,6 +47,29 @@ module Verizon
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(IntelligenceSuccessResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('default',
+                                'An error occurred.',
+                                IntelligenceResultException))
+        .execute
+    end
+
+    # Retrieves the current anomaly detection settings for an account.
+    # @param [String] account_name Required parameter: The name of the
+    # subscribed account.
+    # @return [AnomalyDetectionSettings] response from the API call
+    def list_anomaly_detection_settings(account_name)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/v1/intelligence/{accountName}/anomaly/settings',
+                                     Server::M2M)
+                   .template_param(new_parameter(account_name, key: 'accountName')
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(AnomalyDetectionSettings.method(:from_hash))
                    .is_api_response(true)
                    .local_error('default',
                                 'An error occurred.',

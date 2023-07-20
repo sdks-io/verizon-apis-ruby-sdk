@@ -1,5 +1,5 @@
 Gem::Specification.new do |s|
-  s.name = 'verizon-ap-is-sdk'
+  s.name = 'sdksio-verizon-apis-sdk'
   s.version = '1.0.0'
   s.summary = 'SDK for using Verizon APIs'
   s.description = 'Use the Verizon API for connectivity management, device diagnostics, device location, edge discovery service, edge performance, software management and much more.'

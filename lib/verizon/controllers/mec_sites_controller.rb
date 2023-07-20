@@ -6,27 +6,6 @@
 module Verizon
   # MECSitesController
   class MECSitesController < BaseController
-    # Supports fetching MEC locations so the user can view the city.
-    # @param [String] account_name Optional parameter: User account name.
-    # @return [MECSiteLocationsResult] response from the API call
-    def list_mec_site_locations(account_name: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/v1/mecsite/locations',
-                                     Server::SERVICES)
-                   .header_param(new_parameter(account_name, key: 'AccountName'))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(MECSiteLocationsResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error Response.',
-                                EdgeServiceLaunchResultException))
-        .execute
-    end
-
     # Retrieve all clusters for the customer.
     # @param [String] user_id Required parameter: Example:
     # @param [String] role Required parameter: Example:
@@ -80,6 +59,27 @@ module Verizon
                                 EdgeServiceLaunchResultException)
                    .local_error('default',
                                 'Unexpected error.',
+                                EdgeServiceLaunchResultException))
+        .execute
+    end
+
+    # Supports fetching MEC locations so the user can view the city.
+    # @param [String] account_name Optional parameter: User account name.
+    # @return [MECSiteLocationsResult] response from the API call
+    def list_mec_site_locations(account_name: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/v1/mecsite/locations',
+                                     Server::SERVICES)
+                   .header_param(new_parameter(account_name, key: 'AccountName'))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(MECSiteLocationsResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Error Response.',
                                 EdgeServiceLaunchResultException))
         .execute
     end

@@ -6,38 +6,6 @@
 module Verizon
   # SoftwareManagementReportsV1Controller
   class SoftwareManagementReportsV1Controller < BaseController
-    # Returns an array of all devices in the specified account. Each device
-    # object includes information needed for managing firmware, including the
-    # device make and model, MDN and IMEI, and current firmware version.
-    # @param [String] account Required parameter: Account identifier in
-    # "##########-#####".
-    # @param [String] start_index Required parameter: Only return devices with
-    # IMEIs larger than this value. Use 0 for the first request. If
-    # `hasMoreData`=true in the response, use the `lastSeenDeviceId` value from
-    # the response as the startIndex in the next request.
-    # @return [DeviceListQueryResult] response from the API call
-    def list_account_devices(account,
-                             start_index)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/devices/{account}/index/{startIndex}',
-                                     Server::SOFTWARE_MANAGEMENT_V1)
-                   .template_param(new_parameter(account, key: 'account')
-                                    .should_encode(true))
-                   .template_param(new_parameter(start_index, key: 'startIndex')
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceListQueryResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV1ResultException))
-        .execute
-    end
-
     # Returns a list of all upgrades with a specified status.
     # @param [String] account Required parameter: Account identifier in
     # "##########-#####".
@@ -66,6 +34,38 @@ module Verizon
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(UpgradeListQueryResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Unexpected error.',
+                                FotaV1ResultException))
+        .execute
+    end
+
+    # Returns an array of all devices in the specified account. Each device
+    # object includes information needed for managing firmware, including the
+    # device make and model, MDN and IMEI, and current firmware version.
+    # @param [String] account Required parameter: Account identifier in
+    # "##########-#####".
+    # @param [String] start_index Required parameter: Only return devices with
+    # IMEIs larger than this value. Use 0 for the first request. If
+    # `hasMoreData`=true in the response, use the `lastSeenDeviceId` value from
+    # the response as the startIndex in the next request.
+    # @return [DeviceListQueryResult] response from the API call
+    def list_account_devices(account,
+                             start_index)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/devices/{account}/index/{startIndex}',
+                                     Server::SOFTWARE_MANAGEMENT_V1)
+                   .template_param(new_parameter(account, key: 'account')
+                                    .should_encode(true))
+                   .template_param(new_parameter(start_index, key: 'startIndex')
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(DeviceListQueryResult.method(:from_hash))
                    .is_api_response(true)
                    .local_error('400',
                                 'Unexpected error.',

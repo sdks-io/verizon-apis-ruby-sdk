@@ -6,30 +6,6 @@
 module Verizon
   # AnomalyTriggersController
   class AnomalyTriggersController < BaseController
-    # Creates the trigger to identify an anomaly.
-    # @param [Array[CreateTriggerRequestOptions]] body Required parameter:
-    # Request to create an anomaly trigger.
-    # @return [AnomalyDetectionTrigger] response from the API call
-    def create_anomaly_detection_trigger(body)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/v2/triggers',
-                                     Server::M2M)
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(AnomalyDetectionTrigger.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'An error occurred.',
-                                IntelligenceResultException))
-        .execute
-    end
-
     # Updates an existing trigger using the account name.
     # @param [Array[UpdateTriggerRequestOptions]] body Required parameter:
     # Request to update existing trigger.
@@ -70,6 +46,30 @@ module Verizon
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(AnomalyTriggerResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('default',
+                                'An error occurred.',
+                                IntelligenceResultException))
+        .execute
+    end
+
+    # Creates the trigger to identify an anomaly.
+    # @param [Array[CreateTriggerRequestOptions]] body Required parameter:
+    # Request to create an anomaly trigger.
+    # @return [AnomalyDetectionTrigger] response from the API call
+    def create_anomaly_detection_trigger(body)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/v2/triggers',
+                                     Server::M2M)
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(AnomalyDetectionTrigger.method(:from_hash))
                    .is_api_response(true)
                    .local_error('default',
                                 'An error occurred.',

@@ -10,12 +10,56 @@ client_logging_controller = client.client_logging
 
 ## Methods
 
+* [Disable Device Logging](../../doc/controllers/client-logging.md#disable-device-logging)
 * [List Devices With Logging Enabled](../../doc/controllers/client-logging.md#list-devices-with-logging-enabled)
 * [Enable Logging for Devices](../../doc/controllers/client-logging.md#enable-logging-for-devices)
+* [List Device Logs](../../doc/controllers/client-logging.md#list-device-logs)
 * [Disable Logging for Devices](../../doc/controllers/client-logging.md#disable-logging-for-devices)
 * [Enable Device Logging](../../doc/controllers/client-logging.md#enable-device-logging)
-* [Disable Device Logging](../../doc/controllers/client-logging.md#disable-device-logging)
-* [List Device Logs](../../doc/controllers/client-logging.md#list-device-logs)
+
+
+# Disable Device Logging
+
+Disables logging for a specific device.
+
+```ruby
+def disable_device_logging(account,
+                           device_id)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `account` | `String` | Template, Required | Account identifier. |
+| `device_id` | `String` | Template, Required | Device IMEI identifier. |
+
+## Server
+
+`Server::SOFTWARE_MANAGEMENT_V2`
+
+## Response Type
+
+This method returns a `\ApiResponse` instance.
+
+## Example Usage
+
+```ruby
+account = '0000123456-00001'
+
+device_id = '990013907835573'
+
+result = client_logging_controller.disable_device_logging(
+  account,
+  device_id
+)
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Unexpected error. | [`FotaV2ResultException`](../../doc/models/fota-v2-result-exception.md) |
 
 
 # List Devices With Logging Enabled
@@ -161,6 +205,65 @@ result = client_logging_controller.enable_logging_for_devices(
 | 400 | Unexpected error. | [`FotaV2ResultException`](../../doc/models/fota-v2-result-exception.md) |
 
 
+# List Device Logs
+
+Gets logs for a specific device.
+
+```ruby
+def list_device_logs(account,
+                     device_id)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `account` | `String` | Template, Required | Account identifier. |
+| `device_id` | `String` | Template, Required | Device IMEI identifier. |
+
+## Server
+
+`Server::SOFTWARE_MANAGEMENT_V2`
+
+## Response Type
+
+This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<DeviceLog>`](../../doc/models/device-log.md).
+
+## Example Usage
+
+```ruby
+account = '0000123456-00001'
+
+device_id = '990013907835573'
+
+result = client_logging_controller.list_device_logs(
+  account,
+  device_id
+)
+```
+
+## Example Response *(as JSON)*
+
+```json
+[
+  {
+    "deviceId": "990013907835573",
+    "logTime": "2020-10-22T19:29:50.901Z",
+    "logType": "string",
+    "eventLog": "string",
+    "binaryLogFileBase64": "string",
+    "binaryLogFilename": "string"
+  }
+]
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Unexpected error. | [`FotaV2ResultException`](../../doc/models/fota-v2-result-exception.md) |
+
+
 # Disable Logging for Devices
 
 Turn logging off for a list of devices.
@@ -249,109 +352,6 @@ result = client_logging_controller.enable_device_logging(
   "deviceId": "990013907835573",
   "expiryDate": "2020-10-19"
 }
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Unexpected error. | [`FotaV2ResultException`](../../doc/models/fota-v2-result-exception.md) |
-
-
-# Disable Device Logging
-
-Disables logging for a specific device.
-
-```ruby
-def disable_device_logging(account,
-                           device_id)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `account` | `String` | Template, Required | Account identifier. |
-| `device_id` | `String` | Template, Required | Device IMEI identifier. |
-
-## Server
-
-`Server::SOFTWARE_MANAGEMENT_V2`
-
-## Response Type
-
-This method returns a `\ApiResponse` instance.
-
-## Example Usage
-
-```ruby
-account = '0000123456-00001'
-
-device_id = '990013907835573'
-
-result = client_logging_controller.disable_device_logging(
-  account,
-  device_id
-)
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Unexpected error. | [`FotaV2ResultException`](../../doc/models/fota-v2-result-exception.md) |
-
-
-# List Device Logs
-
-Gets logs for a specific device.
-
-```ruby
-def list_device_logs(account,
-                     device_id)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `account` | `String` | Template, Required | Account identifier. |
-| `device_id` | `String` | Template, Required | Device IMEI identifier. |
-
-## Server
-
-`Server::SOFTWARE_MANAGEMENT_V2`
-
-## Response Type
-
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<DeviceLog>`](../../doc/models/device-log.md).
-
-## Example Usage
-
-```ruby
-account = '0000123456-00001'
-
-device_id = '990013907835573'
-
-result = client_logging_controller.list_device_logs(
-  account,
-  device_id
-)
-```
-
-## Example Response *(as JSON)*
-
-```json
-[
-  {
-    "deviceId": "990013907835573",
-    "logTime": "2020-10-22T19:29:50.901Z",
-    "logType": "string",
-    "eventLog": "string",
-    "binaryLogFileBase64": "string",
-    "binaryLogFilename": "string"
-  }
-]
 ```
 
 ## Errors

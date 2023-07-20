@@ -6,30 +6,6 @@
 module Verizon
   # DevicesLocationSubscriptionsController
   class DevicesLocationSubscriptionsController < BaseController
-    # This subscriptions endpoint retrieves an account's current location
-    # subscription status.
-    # @param [String] account Required parameter: Account identifier in
-    # "##########-#####".
-    # @return [DeviceLocationSubscription] response from the API call
-    def get_location_service_subscription_status(account)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/subscriptions/{account}',
-                                     Server::DEVICE_LOCATION)
-                   .template_param(new_parameter(account, key: 'account')
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceLocationSubscription.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                DeviceLocationResultException))
-        .execute
-    end
-
     # This endpoint allows user to search for billable usage for accounts based
     # on the provided date range.
     # @param [BillUsageRequest] body Required parameter: Request to obtain
@@ -47,6 +23,30 @@ module Verizon
                    .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:json_deserialize))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Unexpected error.',
+                                DeviceLocationResultException))
+        .execute
+    end
+
+    # This subscriptions endpoint retrieves an account's current location
+    # subscription status.
+    # @param [String] account Required parameter: Account identifier in
+    # "##########-#####".
+    # @return [DeviceLocationSubscription] response from the API call
+    def get_location_service_subscription_status(account)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/subscriptions/{account}',
+                                     Server::DEVICE_LOCATION)
+                   .template_param(new_parameter(account, key: 'account')
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(DeviceLocationSubscription.method(:from_hash))
                    .is_api_response(true)
                    .local_error('400',
                                 'Unexpected error.',

@@ -85,30 +85,6 @@ module Verizon
         .execute
     end
 
-    # Request an asynchronous device location report.
-    # @param [LocationRequest] body Required parameter: Request for device
-    # location report.
-    # @return [AsynchronousLocationRequestResult] response from the API call
-    def create_location_report(body)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/locationreports',
-                                     Server::DEVICE_LOCATION)
-                   .header_param(new_parameter('*/*', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(AsynchronousLocationRequestResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'Unexpected error.',
-                                DeviceLocationResultException))
-        .execute
-    end
-
     # Download a completed asynchronous device location report.
     # @param [String] account Required parameter: Account identifier in
     # "##########-#####".
@@ -162,6 +138,30 @@ module Verizon
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(LocationReportStatus.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('default',
+                                'Unexpected error.',
+                                DeviceLocationResultException))
+        .execute
+    end
+
+    # Request an asynchronous device location report.
+    # @param [LocationRequest] body Required parameter: Request for device
+    # location report.
+    # @return [AsynchronousLocationRequestResult] response from the API call
+    def create_location_report(body)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/locationreports',
+                                     Server::DEVICE_LOCATION)
+                   .header_param(new_parameter('*/*', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(AsynchronousLocationRequestResult.method(:from_hash))
                    .is_api_response(true)
                    .local_error('default',
                                 'Unexpected error.',

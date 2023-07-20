@@ -10,86 +10,9 @@ anomaly_triggers_controller = client.anomaly_triggers
 
 ## Methods
 
-* [Create Anomaly Detection Trigger](../../doc/controllers/anomaly-triggers.md#create-anomaly-detection-trigger)
 * [Update Anomaly Detection Trigger](../../doc/controllers/anomaly-triggers.md#update-anomaly-detection-trigger)
 * [List Anomaly Detection Trigger Settings](../../doc/controllers/anomaly-triggers.md#list-anomaly-detection-trigger-settings)
-
-
-# Create Anomaly Detection Trigger
-
-Creates the trigger to identify an anomaly.
-
-```ruby
-def create_anomaly_detection_trigger(body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `body` | [`Array<CreateTriggerRequestOptions>`](../../doc/models/create-trigger-request-options.md) | Body, Required | Request to create an anomaly trigger. |
-
-## Server
-
-`Server::M2M`
-
-## Response Type
-
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`AnomalyDetectionTrigger`](../../doc/models/anomaly-detection-trigger.md).
-
-## Example Usage
-
-```ruby
-body = [
-  CreateTriggerRequestOptions.new(
-    'Anomaly Daily Usage REST Test-Patch 1',
-    'UsageAnomaly',
-    '0000123456-00001',
-    AnomalyTriggerRequest.new(
-      '0000123456-00001',
-      true,
-      true,
-      true,
-      true
-    ),
-    Notification.new(
-      'DailySummary',
-      true,
-      false,
-      'Anomaly Test API',
-      3,
-      'Hourly',
-      'placeholder@verizon.com',
-      true,
-      [
-        SMSNumber.new(
-          'US Cellular',
-          '9299280711'
-        )
-      ],
-      true,
-      'Critical'
-    ),
-    nil
-  )
-]
-
-result = anomaly_triggers_controller.create_anomaly_detection_trigger(body)
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "triggerId": "595f5c44-c31c-4552-8670-020a1545a84d"
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| Default | An error occurred. | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
+* [Create Anomaly Detection Trigger](../../doc/controllers/anomaly-triggers.md#create-anomaly-detection-trigger)
 
 
 # Update Anomaly Detection Trigger
@@ -237,6 +160,83 @@ result = anomaly_triggers_controller.list_anomaly_detection_trigger_settings(tri
       }
     }
   ]
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| Default | An error occurred. | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
+
+
+# Create Anomaly Detection Trigger
+
+Creates the trigger to identify an anomaly.
+
+```ruby
+def create_anomaly_detection_trigger(body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`Array<CreateTriggerRequestOptions>`](../../doc/models/create-trigger-request-options.md) | Body, Required | Request to create an anomaly trigger. |
+
+## Server
+
+`Server::M2M`
+
+## Response Type
+
+This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`AnomalyDetectionTrigger`](../../doc/models/anomaly-detection-trigger.md).
+
+## Example Usage
+
+```ruby
+body = [
+  CreateTriggerRequestOptions.new(
+    'Anomaly Daily Usage REST Test-Patch 1',
+    'UsageAnomaly',
+    '0000123456-00001',
+    AnomalyTriggerRequest.new(
+      '0000123456-00001',
+      true,
+      true,
+      true,
+      true
+    ),
+    Notification.new(
+      'DailySummary',
+      true,
+      false,
+      'Anomaly Test API',
+      3,
+      'Hourly',
+      'placeholder@verizon.com',
+      true,
+      [
+        SMSNumber.new(
+          'US Cellular',
+          '9299280711'
+        )
+      ],
+      true,
+      'Critical'
+    ),
+    nil
+  )
+]
+
+result = anomaly_triggers_controller.create_anomaly_detection_trigger(body)
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "triggerId": "595f5c44-c31c-4552-8670-020a1545a84d"
 }
 ```
 

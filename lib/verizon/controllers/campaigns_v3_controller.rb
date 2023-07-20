@@ -6,6 +6,34 @@
 module Verizon
   # CampaignsV3Controller
   class CampaignsV3Controller < BaseController
+    # This endpoint allows user to cancel a firmware campaign. A firmware
+    # campaign already started can not be cancelled.
+    # @param [String] acc Required parameter: Account identifier.
+    # @param [String] campaign_id Required parameter: Firmware upgrade
+    # information.
+    # @return [FotaV3SuccessResult] response from the API call
+    def cancel_campaign(acc,
+                        campaign_id)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::DELETE,
+                                     '/campaigns/{acc}/{campaignId}',
+                                     Server::SOFTWARE_MANAGEMENT_V3)
+                   .template_param(new_parameter(acc, key: 'acc')
+                                    .should_encode(true))
+                   .template_param(new_parameter(campaign_id, key: 'campaignId')
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(FotaV3SuccessResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Unexpected error.',
+                                FotaV3ResultException))
+        .execute
+    end
+
     # This endpoint allows a user to schedule a firmware upgrade for a list of
     # devices.
     # @param [String] acc Required parameter: Account identifier.
@@ -124,34 +152,6 @@ module Verizon
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(Campaign.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV3ResultException))
-        .execute
-    end
-
-    # This endpoint allows user to cancel a firmware campaign. A firmware
-    # campaign already started can not be cancelled.
-    # @param [String] acc Required parameter: Account identifier.
-    # @param [String] campaign_id Required parameter: Firmware upgrade
-    # information.
-    # @return [FotaV3SuccessResult] response from the API call
-    def cancel_campaign(acc,
-                        campaign_id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::DELETE,
-                                     '/campaigns/{acc}/{campaignId}',
-                                     Server::SOFTWARE_MANAGEMENT_V3)
-                   .template_param(new_parameter(acc, key: 'acc')
-                                    .should_encode(true))
-                   .template_param(new_parameter(campaign_id, key: 'campaignId')
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(FotaV3SuccessResult.method(:from_hash))
                    .is_api_response(true)
                    .local_error('400',
                                 'Unexpected error.',

@@ -6,6 +6,34 @@
 module Verizon
   # AccountDevicesController
   class AccountDevicesController < BaseController
+    # Retrieve device information for a list of devices on an account.
+    # @param [String] acc Required parameter: Account identifier.
+    # @param [DeviceIMEI] body Required parameter: Request device list
+    # information.
+    # @return [DeviceListResult] response from the API call
+    def list_account_devices_information(acc,
+                                         body)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/devices/{acc}',
+                                     Server::SOFTWARE_MANAGEMENT_V3)
+                   .template_param(new_parameter(acc, key: 'acc')
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(DeviceListResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Unexpected error.',
+                                FotaV3ResultException))
+        .execute
+    end
+
     # Retrieve account device information such as reported firmware on the
     # devices.
     # @param [String] acc Required parameter: Account identifier.
@@ -30,34 +58,6 @@ module Verizon
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(V3AccountDeviceList.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV3ResultException))
-        .execute
-    end
-
-    # Retrieve device information for a list of devices on an account.
-    # @param [String] acc Required parameter: Account identifier.
-    # @param [DeviceIMEI] body Required parameter: Request device list
-    # information.
-    # @return [DeviceListResult] response from the API call
-    def list_account_devices_information(acc,
-                                         body)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/devices/{acc}',
-                                     Server::SOFTWARE_MANAGEMENT_V3)
-                   .template_param(new_parameter(acc, key: 'acc')
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceListResult.method(:from_hash))
                    .is_api_response(true)
                    .local_error('400',
                                 'Unexpected error.',

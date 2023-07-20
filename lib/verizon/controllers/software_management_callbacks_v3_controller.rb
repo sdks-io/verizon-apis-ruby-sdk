@@ -28,34 +28,6 @@ module Verizon
         .execute
     end
 
-    # This endpoint allows the user to update the HTTPS callback address.
-    # @param [String] acc Required parameter: Account identifier.
-    # @param [FotaV3CallbackRegistrationRequest] body Required parameter:
-    # Callback URL registration.
-    # @return [FotaV3CallbackRegistrationResult] response from the API call
-    def update_callback(acc,
-                        body)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/callbacks/{acc}',
-                                     Server::SOFTWARE_MANAGEMENT_V3)
-                   .template_param(new_parameter(acc, key: 'acc')
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(FotaV3CallbackRegistrationResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV3ResultException))
-        .execute
-    end
-
     # This endpoint allows the user to create the HTTPS callback address.
     # @param [String] acc Required parameter: Account identifier.
     # @param [FotaV3CallbackRegistrationRequest] body Required parameter:
@@ -99,6 +71,34 @@ module Verizon
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(FotaV3SuccessResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Unexpected error.',
+                                FotaV3ResultException))
+        .execute
+    end
+
+    # This endpoint allows the user to update the HTTPS callback address.
+    # @param [String] acc Required parameter: Account identifier.
+    # @param [FotaV3CallbackRegistrationRequest] body Required parameter:
+    # Callback URL registration.
+    # @return [FotaV3CallbackRegistrationResult] response from the API call
+    def update_callback(acc,
+                        body)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/callbacks/{acc}',
+                                     Server::SOFTWARE_MANAGEMENT_V3)
+                   .template_param(new_parameter(acc, key: 'acc')
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(FotaV3CallbackRegistrationResult.method(:from_hash))
                    .is_api_response(true)
                    .local_error('400',
                                 'Unexpected error.',

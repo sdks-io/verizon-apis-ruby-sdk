@@ -6,6 +6,55 @@
 module Verizon
   # ServiceClaimsController
   class ServiceClaimsController < BaseController
+    # Associate an existing cloud credential with a service's claim which will
+    # be used to connect to user's cloud provider.
+    # @param [String] account_name Required parameter: User account name.
+    # @param [String] service_id Required parameter: System generated unique
+    # identifier of the service which user is using.
+    # @param [String] claim_id Required parameter: System generated unique
+    # identifier for the claim which user is using.
+    # @param [CSPProfileIdRequest] body Required parameter: Example:
+    # @param [String] correlation_id Optional parameter: Example:
+    # @return [AssociateCloudCredentialResult] response from the API call
+    def associate_cloud_credential_with_service_claim(account_name,
+                                                      service_id,
+                                                      claim_id,
+                                                      body,
+                                                      correlation_id: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/v1/services/{serviceId}/claims/{claimId}/associateCspProfile',
+                                     Server::SERVICES)
+                   .header_param(new_parameter(account_name, key: 'AccountName'))
+                   .template_param(new_parameter(service_id, key: 'serviceId')
+                                    .should_encode(true))
+                   .template_param(new_parameter(claim_id, key: 'claimId')
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter(correlation_id, key: 'correlationId'))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(AssociateCloudCredentialResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Bad request.',
+                                EdgeServiceOnboardingResultErrorException)
+                   .local_error('401',
+                                'Unauthorized.',
+                                EdgeServiceOnboardingResultErrorException)
+                   .local_error('404',
+                                'Not Found.',
+                                EdgeServiceOnboardingResultErrorException)
+                   .local_error('500',
+                                'Internal Server Error.',
+                                EdgeServiceOnboardingResultErrorException))
+        .execute
+    end
+
     # Fetch all service's claim(s) associated with a service. Service claims are
     # generated based on service's compatibility with different cloud service
     # provider.
@@ -75,24 +124,24 @@ module Verizon
         .execute
     end
 
-    # Associate an existing cloud credential with a service's claim which will
-    # be used to connect to user's cloud provider.
+    # Using this API user can update service's claim status as complete/verified
+    # etc.
     # @param [String] account_name Required parameter: User account name.
     # @param [String] service_id Required parameter: System generated unique
     # identifier of the service which user is using.
     # @param [String] claim_id Required parameter: System generated unique
-    # identifier for the claim which user is using.
-    # @param [CSPProfileIdRequest] body Required parameter: Example:
+    # identifier of the claim which user is using.
+    # @param [ClaimStatusRequest] body Required parameter: Example:
     # @param [String] correlation_id Optional parameter: Example:
-    # @return [AssociateCloudCredentialResult] response from the API call
-    def associate_cloud_credential_with_service_claim(account_name,
-                                                      service_id,
-                                                      claim_id,
-                                                      body,
-                                                      correlation_id: nil)
+    # @return [void] response from the API call
+    def update_service_claim_status(account_name,
+                                    service_id,
+                                    claim_id,
+                                    body,
+                                    correlation_id: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/v1/services/{serviceId}/claims/{claimId}/associateCspProfile',
+                                     '/v1/services/{serviceId}/claims/{claimId}/claimStatus',
                                      Server::SERVICES)
                    .header_param(new_parameter(account_name, key: 'AccountName'))
                    .template_param(new_parameter(service_id, key: 'serviceId')
@@ -102,12 +151,10 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .body_param(new_parameter(body))
                    .header_param(new_parameter(correlation_id, key: 'correlationId'))
-                   .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(AssociateCloudCredentialResult.method(:from_hash))
+                   .is_response_void(true)
                    .is_api_response(true)
                    .local_error('400',
                                 'Bad request.',
@@ -147,53 +194,6 @@ module Verizon
                    .template_param(new_parameter(claim_id, key: 'claimId')
                                     .should_encode(true))
                    .header_param(new_parameter(correlation_id, key: 'correlationId'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .is_response_void(true)
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Bad request.',
-                                EdgeServiceOnboardingResultErrorException)
-                   .local_error('401',
-                                'Unauthorized.',
-                                EdgeServiceOnboardingResultErrorException)
-                   .local_error('404',
-                                'Not Found.',
-                                EdgeServiceOnboardingResultErrorException)
-                   .local_error('500',
-                                'Internal Server Error.',
-                                EdgeServiceOnboardingResultErrorException))
-        .execute
-    end
-
-    # Using this API user can update service's claim status as complete/verified
-    # etc.
-    # @param [String] account_name Required parameter: User account name.
-    # @param [String] service_id Required parameter: System generated unique
-    # identifier of the service which user is using.
-    # @param [String] claim_id Required parameter: System generated unique
-    # identifier of the claim which user is using.
-    # @param [ClaimStatusRequest] body Required parameter: Example:
-    # @param [String] correlation_id Optional parameter: Example:
-    # @return [void] response from the API call
-    def update_service_claim_status(account_name,
-                                    service_id,
-                                    claim_id,
-                                    body,
-                                    correlation_id: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/v1/services/{serviceId}/claims/{claimId}/claimStatus',
-                                     Server::SERVICES)
-                   .header_param(new_parameter(account_name, key: 'AccountName'))
-                   .template_param(new_parameter(service_id, key: 'serviceId')
-                                    .should_encode(true))
-                   .template_param(new_parameter(claim_id, key: 'claimId')
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter(correlation_id, key: 'correlationId'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
                    .is_response_void(true)

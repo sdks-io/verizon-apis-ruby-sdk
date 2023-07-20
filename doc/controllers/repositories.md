@@ -10,9 +10,71 @@ repositories_controller = client.repositories
 
 ## Methods
 
+* [Delete Repository](../../doc/controllers/repositories.md#delete-repository)
 * [List Repositories](../../doc/controllers/repositories.md#list-repositories)
 * [Create Repository](../../doc/controllers/repositories.md#create-repository)
-* [Delete Repository](../../doc/controllers/repositories.md#delete-repository)
+
+
+# Delete Repository
+
+Delete the repository.
+
+```ruby
+def delete_repository(account_name,
+                      repository_name,
+                      correlation_id: nil)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `account_name` | `String` | Header, Required | User account name.<br>**Constraints**: *Maximum Length*: `32`, *Pattern*: `^[a-zA-Z0-9\-_]+$` |
+| `repository_name` | `String` | Template, Required | Name of the repository which is about to be deleted.<br>**Constraints**: *Maximum Length*: `32`, *Pattern*: `^[a-zA-Z0-9-]+$` |
+| `correlation_id` | `String` | Header, Optional | **Constraints**: *Maximum Length*: `50`, *Pattern*: `^[a-zA-Z0-9-]+$` |
+
+## Server
+
+`Server::SERVICES`
+
+## Response Type
+
+This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`EdgeServiceOnboardingDeleteResult`](../../doc/models/edge-service-onboarding-delete-result.md).
+
+## Example Usage
+
+```ruby
+account_name = 'test_account1'
+
+repository_name = 'dev-api-demo-repo-mdp'
+
+correlation_id = '9958f2f8-c4e3-46e0-8982-356de6515ae9'
+
+result = repositories_controller.delete_repository(
+  account_name,
+  repository_name,
+  correlation_id: correlation_id
+)
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "message": "service deleted succesfully",
+  "status": "success",
+  "subStatus": "service delete - success"
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Bad Request. | [`EdgeServiceOnboardingResultErrorException`](../../doc/models/edge-service-onboarding-result-error-exception.md) |
+| 401 | Unauthorized. | [`EdgeServiceOnboardingResultErrorException`](../../doc/models/edge-service-onboarding-result-error-exception.md) |
+| 404 | Not found. | [`EdgeServiceOnboardingResultErrorException`](../../doc/models/edge-service-onboarding-result-error-exception.md) |
+| 500 | Internal Server Error. | [`EdgeServiceOnboardingResultErrorException`](../../doc/models/edge-service-onboarding-result-error-exception.md) |
 
 
 # List Repositories
@@ -164,67 +226,5 @@ result = repositories_controller.create_repository(
 |  --- | --- | --- |
 | 400 | Bad Request. | [`EdgeServiceOnboardingResultErrorException`](../../doc/models/edge-service-onboarding-result-error-exception.md) |
 | 401 | Unauthorized. | [`EdgeServiceOnboardingResultErrorException`](../../doc/models/edge-service-onboarding-result-error-exception.md) |
-| 500 | Internal Server Error. | [`EdgeServiceOnboardingResultErrorException`](../../doc/models/edge-service-onboarding-result-error-exception.md) |
-
-
-# Delete Repository
-
-Delete the repository.
-
-```ruby
-def delete_repository(account_name,
-                      repository_name,
-                      correlation_id: nil)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `account_name` | `String` | Header, Required | User account name.<br>**Constraints**: *Maximum Length*: `32`, *Pattern*: `^[a-zA-Z0-9\-_]+$` |
-| `repository_name` | `String` | Template, Required | Name of the repository which is about to be deleted.<br>**Constraints**: *Maximum Length*: `32`, *Pattern*: `^[a-zA-Z0-9-]+$` |
-| `correlation_id` | `String` | Header, Optional | **Constraints**: *Maximum Length*: `50`, *Pattern*: `^[a-zA-Z0-9-]+$` |
-
-## Server
-
-`Server::SERVICES`
-
-## Response Type
-
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`EdgeServiceOnboardingDeleteResult`](../../doc/models/edge-service-onboarding-delete-result.md).
-
-## Example Usage
-
-```ruby
-account_name = 'test_account1'
-
-repository_name = 'dev-api-demo-repo-mdp'
-
-correlation_id = '9958f2f8-c4e3-46e0-8982-356de6515ae9'
-
-result = repositories_controller.delete_repository(
-  account_name,
-  repository_name,
-  correlation_id: correlation_id
-)
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "message": "service deleted succesfully",
-  "status": "success",
-  "subStatus": "service delete - success"
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Bad Request. | [`EdgeServiceOnboardingResultErrorException`](../../doc/models/edge-service-onboarding-result-error-exception.md) |
-| 401 | Unauthorized. | [`EdgeServiceOnboardingResultErrorException`](../../doc/models/edge-service-onboarding-result-error-exception.md) |
-| 404 | Not found. | [`EdgeServiceOnboardingResultErrorException`](../../doc/models/edge-service-onboarding-result-error-exception.md) |
 | 500 | Internal Server Error. | [`EdgeServiceOnboardingResultErrorException`](../../doc/models/edge-service-onboarding-result-error-exception.md) |
 

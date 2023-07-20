@@ -6,42 +6,6 @@
 module Verizon
   # ServiceProfilesController
   class ServiceProfilesController < BaseController
-    # Creates a service profile that describes the resource requirements of a
-    # service.
-    # @param [ResourcesServiceProfile] body Required parameter: The request body
-    # passes all of the needed parameters to create a service profile.
-    # Parameters will be edited here rather than the **Parameters** section
-    # above. The `maxLatencyMs` and `clientType` parameters are both required in
-    # the request body. **Note:** The `maxLatencyMs` value must be submitted in
-    # multiples of 5. Additionally, "GPU" is future functionality and the values
-    # are not captured.
-    # @return [CreateServiceProfileResult] response from the API call
-    def create_service_profile(body)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/serviceprofiles',
-                                     Server::EDGE_DISCOVERY)
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CreateServiceProfileResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'HTTP 400 Bad Request.',
-                                EdgeDiscoveryResultException)
-                   .local_error('401',
-                                'HTTP 401 Unauthorized.',
-                                EdgeDiscoveryResultException)
-                   .local_error('default',
-                                'HTTP 500 Internal Server Error.',
-                                EdgeDiscoveryResultException))
-        .execute
-    end
-
     # List all service profiles registered under your API key.
     # @return [ListServiceProfilesResult] response from the API call
     def list_service_profiles
@@ -67,21 +31,29 @@ module Verizon
         .execute
     end
 
-    # Returns a specified service profile.
-    # @param [String] service_profile_id Required parameter: Example:
-    # @return [ResourcesServiceProfileWithId] response from the API call
-    def get_service_profile(service_profile_id)
+    # Creates a service profile that describes the resource requirements of a
+    # service.
+    # @param [ResourcesServiceProfile] body Required parameter: The request body
+    # passes all of the needed parameters to create a service profile.
+    # Parameters will be edited here rather than the **Parameters** section
+    # above. The `maxLatencyMs` and `clientType` parameters are both required in
+    # the request body. **Note:** The `maxLatencyMs` value must be submitted in
+    # multiples of 5. Additionally, "GPU" is future functionality and the values
+    # are not captured.
+    # @return [CreateServiceProfileResult] response from the API call
+    def create_service_profile(body)
       new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/serviceprofiles/{serviceProfileId}',
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/serviceprofiles',
                                      Server::EDGE_DISCOVERY)
-                   .template_param(new_parameter(service_profile_id, key: 'serviceProfileId')
-                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ResourcesServiceProfileWithId.method(:from_hash))
+                   .deserialize_into(CreateServiceProfileResult.method(:from_hash))
                    .is_api_response(true)
                    .local_error('400',
                                 'HTTP 400 Bad Request.',
@@ -120,6 +92,34 @@ module Verizon
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(UpdateServiceProfileResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'HTTP 400 Bad Request.',
+                                EdgeDiscoveryResultException)
+                   .local_error('401',
+                                'HTTP 401 Unauthorized.',
+                                EdgeDiscoveryResultException)
+                   .local_error('default',
+                                'HTTP 500 Internal Server Error.',
+                                EdgeDiscoveryResultException))
+        .execute
+    end
+
+    # Returns a specified service profile.
+    # @param [String] service_profile_id Required parameter: Example:
+    # @return [ResourcesServiceProfileWithId] response from the API call
+    def get_service_profile(service_profile_id)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/serviceprofiles/{serviceProfileId}',
+                                     Server::EDGE_DISCOVERY)
+                   .template_param(new_parameter(service_profile_id, key: 'serviceProfileId')
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ResourcesServiceProfileWithId.method(:from_hash))
                    .is_api_response(true)
                    .local_error('400',
                                 'HTTP 400 Bad Request.',

@@ -6,66 +6,6 @@
 module Verizon
   # ServiceOnboardingController
   class ServiceOnboardingController < BaseController
-    # Upload workload payload/package in the MEC platform.
-    # @param [String] account_name Required parameter: User account name.
-    # @param [String] service_name Required parameter: Service name to which the
-    # file is going to be associated.
-    # @param [String] version Required parameter: Version of the service being
-    # used.
-    # @param [CategoryTypeEnum] category_type Required parameter: Type of the
-    # file being uploaded.
-    # @param [String] category_name Required parameter: `workloadName` used in
-    # the service while creation.
-    # @param [File | UploadIO] payload Required parameter: Payload/file which is
-    # to be uploaded should be provided in formData.
-    # @param [String] correlation_id Optional parameter: Example:
-    # @param [String] category_version Optional parameter: It is mandatory for
-    # only service file, not mandatory for workload and workflow file.
-    # @return [ServiceFile] response from the API call
-    def upload_service_workload_file(account_name,
-                                     service_name,
-                                     version,
-                                     category_type,
-                                     category_name,
-                                     payload,
-                                     correlation_id: nil,
-                                     category_version: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/v1/files/{serviceName}/{version}/uploadAndValidate',
-                                     Server::SERVICES)
-                   .header_param(new_parameter(account_name, key: 'AccountName'))
-                   .template_param(new_parameter(service_name, key: 'serviceName')
-                                    .should_encode(true))
-                   .template_param(new_parameter(version, key: 'version')
-                                    .should_encode(true))
-                   .query_param(new_parameter(category_type, key: 'categoryType'))
-                   .query_param(new_parameter(category_name, key: 'categoryName'))
-                   .multipart_param(new_parameter(payload, key: 'payload')
-                                     .default_content_type('application/octet-stream'))
-                   .header_param(new_parameter(correlation_id, key: 'correlationId'))
-                   .query_param(new_parameter(category_version, key: 'categoryVersion'))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ServiceFile.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Bad Request.',
-                                EdgeServiceOnboardingResultErrorException)
-                   .local_error('401',
-                                'Unauthorized.',
-                                EdgeServiceOnboardingResultErrorException)
-                   .local_error('404',
-                                'Not found.',
-                                EdgeServiceOnboardingResultErrorException)
-                   .local_error('500',
-                                'Internal Server Error.',
-                                EdgeServiceOnboardingResultErrorException))
-        .execute
-    end
-
     # Fetch all organizational services in the platform.
     # @param [String] account_name Required parameter: User account name.
     # @param [String] correlation_id Optional parameter: Example:
@@ -176,6 +116,66 @@ module Verizon
         .execute
     end
 
+    # Upload workload payload/package in the MEC platform.
+    # @param [String] account_name Required parameter: User account name.
+    # @param [String] service_name Required parameter: Service name to which the
+    # file is going to be associated.
+    # @param [String] version Required parameter: Version of the service being
+    # used.
+    # @param [CategoryTypeEnum] category_type Required parameter: Type of the
+    # file being uploaded.
+    # @param [String] category_name Required parameter: `workloadName` used in
+    # the service while creation.
+    # @param [File | UploadIO] payload Required parameter: Payload/file which is
+    # to be uploaded should be provided in formData.
+    # @param [String] correlation_id Optional parameter: Example:
+    # @param [String] category_version Optional parameter: It is mandatory for
+    # only service file, not mandatory for workload and workflow file.
+    # @return [ServiceFile] response from the API call
+    def upload_service_workload_file(account_name,
+                                     service_name,
+                                     version,
+                                     category_type,
+                                     category_name,
+                                     payload,
+                                     correlation_id: nil,
+                                     category_version: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/v1/files/{serviceName}/{version}/uploadAndValidate',
+                                     Server::SERVICES)
+                   .header_param(new_parameter(account_name, key: 'AccountName'))
+                   .template_param(new_parameter(service_name, key: 'serviceName')
+                                    .should_encode(true))
+                   .template_param(new_parameter(version, key: 'version')
+                                    .should_encode(true))
+                   .query_param(new_parameter(category_type, key: 'categoryType'))
+                   .query_param(new_parameter(category_name, key: 'categoryName'))
+                   .multipart_param(new_parameter(payload, key: 'payload')
+                                     .default_content_type('application/octet-stream'))
+                   .header_param(new_parameter(correlation_id, key: 'correlationId'))
+                   .query_param(new_parameter(category_version, key: 'categoryVersion'))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ServiceFile.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Bad Request.',
+                                EdgeServiceOnboardingResultErrorException)
+                   .local_error('401',
+                                'Unauthorized.',
+                                EdgeServiceOnboardingResultErrorException)
+                   .local_error('404',
+                                'Not found.',
+                                EdgeServiceOnboardingResultErrorException)
+                   .local_error('500',
+                                'Internal Server Error.',
+                                EdgeServiceOnboardingResultErrorException))
+        .execute
+    end
+
     # Fetch a service details within user's organization using service name and
     # version.
     # @param [String] account_name Required parameter: User account name.
@@ -223,6 +223,55 @@ module Verizon
         .execute
     end
 
+    # Initiate testing of a service in sandbox environment per claim based on
+    # service's compatibility(s).
+    # @param [String] account_name Required parameter: User account name.
+    # @param [String] service_id Required parameter: An id of the service
+    # created e.g. UUID.
+    # @param [String] claim_id Required parameter: Id of the claim created e.g.
+    # UUID.
+    # @param [ClusterInfoDetails] body Required parameter: Example:
+    # @param [String] correlation_id Optional parameter: Example:
+    # @return [ServiceManagementResult] response from the API call
+    def start_service_claim_sand_box_testing(account_name,
+                                             service_id,
+                                             claim_id,
+                                             body,
+                                             correlation_id: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/v1/services/{serviceId}/claims/{claimId}/sandBoxStart',
+                                     Server::SERVICES)
+                   .header_param(new_parameter(account_name, key: 'AccountName'))
+                   .template_param(new_parameter(service_id, key: 'serviceId')
+                                    .should_encode(true))
+                   .template_param(new_parameter(claim_id, key: 'claimId')
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter(correlation_id, key: 'correlationId'))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ServiceManagementResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Bad Request.',
+                                EdgeServiceOnboardingResultErrorException)
+                   .local_error('401',
+                                'Unauthorized.',
+                                EdgeServiceOnboardingResultErrorException)
+                   .local_error('500',
+                                'Internal Server Error.',
+                                EdgeServiceOnboardingResultErrorException)
+                   .local_error('default',
+                                'Unexpected error.',
+                                EdgeServiceOnboardingResultErrorException))
+        .execute
+    end
+
     # Remove a service from user's organization.
     # @param [String] account_name Required parameter: User account name.
     # @param [String] service_name Required parameter: Name of the service which
@@ -259,6 +308,95 @@ module Verizon
                                 EdgeServiceOnboardingResultErrorException)
                    .local_error('500',
                                 'Internal Server Error.',
+                                EdgeServiceOnboardingResultErrorException))
+        .execute
+    end
+
+    # Start service certification process. On successful completion of this
+    # process, service's status will change to certified.
+    # @param [String] account_name Required parameter: User account name.
+    # @param [String] service_name Required parameter: Name of the service e.g.
+    # any sub string of serviceName.
+    # @param [String] version Required parameter: Version of service which is to
+    # be certified.
+    # @param [String] correlation_id Optional parameter: Example:
+    # @return [ServiceManagementResult] response from the API call
+    def stop_service_testing(account_name,
+                             service_name,
+                             version,
+                             correlation_id: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/v1/services/{serviceName}/{version}/certify',
+                                     Server::SERVICES)
+                   .header_param(new_parameter(account_name, key: 'AccountName'))
+                   .template_param(new_parameter(service_name, key: 'serviceName')
+                                    .should_encode(true))
+                   .template_param(new_parameter(version, key: 'version')
+                                    .should_encode(true))
+                   .header_param(new_parameter(correlation_id, key: 'correlationId'))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ServiceManagementResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Bad Request.',
+                                EdgeServiceOnboardingResultErrorException)
+                   .local_error('401',
+                                'Unauthorized.',
+                                EdgeServiceOnboardingResultErrorException)
+                   .local_error('500',
+                                'Internal Server Error.',
+                                EdgeServiceOnboardingResultErrorException)
+                   .local_error('default',
+                                'Unexpected error.',
+                                EdgeServiceOnboardingResultErrorException))
+        .execute
+    end
+
+    # Start the process to change a service's status to "Ready to Use". On
+    # success, service's status will be changed to "Ready to Use". Only a ready
+    # to use service can be deployed in production environment.
+    # @param [String] account_name Required parameter: User account name.
+    # @param [String] service_name Required parameter: Name of the service e.g.
+    # any sub string of serviceName.
+    # @param [String] version Required parameter: Version of the service which
+    # is already certified and is ready for public use.
+    # @param [String] correlation_id Optional parameter: Example:
+    # @return [ServiceManagementResult] response from the API call
+    def mark_service_as_ready_for_public_use(account_name,
+                                             service_name,
+                                             version,
+                                             correlation_id: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/v1/services/{serviceName}/{version}/readyToPublicUse',
+                                     Server::SERVICES)
+                   .header_param(new_parameter(account_name, key: 'AccountName'))
+                   .template_param(new_parameter(service_name, key: 'serviceName')
+                                    .should_encode(true))
+                   .template_param(new_parameter(version, key: 'version')
+                                    .should_encode(true))
+                   .header_param(new_parameter(correlation_id, key: 'correlationId'))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ServiceManagementResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Bad Request.',
+                                EdgeServiceOnboardingResultErrorException)
+                   .local_error('401',
+                                'Unauthorized.',
+                                EdgeServiceOnboardingResultErrorException)
+                   .local_error('500',
+                                'Internal Server Error.',
+                                EdgeServiceOnboardingResultErrorException)
+                   .local_error('default',
+                                'Unexpected error.',
                                 EdgeServiceOnboardingResultErrorException))
         .execute
     end
@@ -352,55 +490,6 @@ module Verizon
         .execute
     end
 
-    # Initiate testing of a service in sandbox environment per claim based on
-    # service's compatibility(s).
-    # @param [String] account_name Required parameter: User account name.
-    # @param [String] service_id Required parameter: An id of the service
-    # created e.g. UUID.
-    # @param [String] claim_id Required parameter: Id of the claim created e.g.
-    # UUID.
-    # @param [ClusterInfoDetails] body Required parameter: Example:
-    # @param [String] correlation_id Optional parameter: Example:
-    # @return [ServiceManagementResult] response from the API call
-    def start_service_claim_sand_box_testing(account_name,
-                                             service_id,
-                                             claim_id,
-                                             body,
-                                             correlation_id: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/v1/services/{serviceId}/claims/{claimId}/sandBoxStart',
-                                     Server::SERVICES)
-                   .header_param(new_parameter(account_name, key: 'AccountName'))
-                   .template_param(new_parameter(service_id, key: 'serviceId')
-                                    .should_encode(true))
-                   .template_param(new_parameter(claim_id, key: 'claimId')
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter(correlation_id, key: 'correlationId'))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ServiceManagementResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Bad Request.',
-                                EdgeServiceOnboardingResultErrorException)
-                   .local_error('401',
-                                'Unauthorized.',
-                                EdgeServiceOnboardingResultErrorException)
-                   .local_error('500',
-                                'Internal Server Error.',
-                                EdgeServiceOnboardingResultErrorException)
-                   .local_error('default',
-                                'Unexpected error.',
-                                EdgeServiceOnboardingResultErrorException))
-        .execute
-    end
-
     # Start publishing a service. On successful completion, service's status can
     # be marked as Publish.
     # @param [String] account_name Required parameter: User account name.
@@ -417,95 +506,6 @@ module Verizon
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
                                      '/v1/services/{serviceName}/{version}/publish',
-                                     Server::SERVICES)
-                   .header_param(new_parameter(account_name, key: 'AccountName'))
-                   .template_param(new_parameter(service_name, key: 'serviceName')
-                                    .should_encode(true))
-                   .template_param(new_parameter(version, key: 'version')
-                                    .should_encode(true))
-                   .header_param(new_parameter(correlation_id, key: 'correlationId'))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ServiceManagementResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Bad Request.',
-                                EdgeServiceOnboardingResultErrorException)
-                   .local_error('401',
-                                'Unauthorized.',
-                                EdgeServiceOnboardingResultErrorException)
-                   .local_error('500',
-                                'Internal Server Error.',
-                                EdgeServiceOnboardingResultErrorException)
-                   .local_error('default',
-                                'Unexpected error.',
-                                EdgeServiceOnboardingResultErrorException))
-        .execute
-    end
-
-    # Start service certification process. On successful completion of this
-    # process, service's status will change to certified.
-    # @param [String] account_name Required parameter: User account name.
-    # @param [String] service_name Required parameter: Name of the service e.g.
-    # any sub string of serviceName.
-    # @param [String] version Required parameter: Version of service which is to
-    # be certified.
-    # @param [String] correlation_id Optional parameter: Example:
-    # @return [ServiceManagementResult] response from the API call
-    def stop_service_testing(account_name,
-                             service_name,
-                             version,
-                             correlation_id: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/v1/services/{serviceName}/{version}/certify',
-                                     Server::SERVICES)
-                   .header_param(new_parameter(account_name, key: 'AccountName'))
-                   .template_param(new_parameter(service_name, key: 'serviceName')
-                                    .should_encode(true))
-                   .template_param(new_parameter(version, key: 'version')
-                                    .should_encode(true))
-                   .header_param(new_parameter(correlation_id, key: 'correlationId'))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ServiceManagementResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Bad Request.',
-                                EdgeServiceOnboardingResultErrorException)
-                   .local_error('401',
-                                'Unauthorized.',
-                                EdgeServiceOnboardingResultErrorException)
-                   .local_error('500',
-                                'Internal Server Error.',
-                                EdgeServiceOnboardingResultErrorException)
-                   .local_error('default',
-                                'Unexpected error.',
-                                EdgeServiceOnboardingResultErrorException))
-        .execute
-    end
-
-    # Start the process to change a service's status to "Ready to Use". On
-    # success, service's status will be changed to "Ready to Use". Only a ready
-    # to use service can be deployed in production environment.
-    # @param [String] account_name Required parameter: User account name.
-    # @param [String] service_name Required parameter: Name of the service e.g.
-    # any sub string of serviceName.
-    # @param [String] version Required parameter: Version of the service which
-    # is already certified and is ready for public use.
-    # @param [String] correlation_id Optional parameter: Example:
-    # @return [ServiceManagementResult] response from the API call
-    def mark_service_as_ready_for_public_use(account_name,
-                                             service_name,
-                                             version,
-                                             correlation_id: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/v1/services/{serviceName}/{version}/readyToPublicUse',
                                      Server::SERVICES)
                    .header_param(new_parameter(account_name, key: 'AccountName'))
                    .template_param(new_parameter(service_name, key: 'serviceName')

@@ -6,95 +6,6 @@
 module Verizon
   # ServiceEndpointsController
   class ServiceEndpointsController < BaseController
-    # Returns a list of optimal Service Endpoints that client devices can
-    # connect to. **Note:** If a query is sent with all of the parameters, it
-    # will fail with a "400" error. You can search based on the following
-    # parameter combinations - Region plus Service Endpoints IDs and Subscriber
-    # density (density is optional but recommended), Region plus Service
-    # Endpoints IDs and UEIdentity(Including UEIdentity Type) and Service
-    # Endpoints IDs plus UEIdentity(Including UEIdentity Type).
-    # @param [String] region Optional parameter: MEC region name. Current valid
-    # values are US_WEST_2 and US_EAST_1.
-    # @param [Integer] subscriber_density Optional parameter: Minimum number of
-    # 4G/5G subscribers per square kilometer.
-    # @param [UserEquipmentIdentityTypeEnum] ue_identity_type Optional
-    # parameter: Type of User Equipment identifier used in `UEIdentity`.
-    # @param [String] ue_identity Optional parameter: The identifier value for
-    # User Equipment. The type of identifier is defined by the 'UEIdentityType'
-    # parameter. The`IPAddress`format can be IPv4 or IPv6.
-    # @param [String] service_endpoints_ids Optional parameter: A system-defined
-    # string identifier representing one or more registered Service Endpoints.
-    # @return [ListOptimalServiceEndpointsResult] response from the API call
-    def list_optimal_service_endpoints(region: nil,
-                                       subscriber_density: nil,
-                                       ue_identity_type: nil,
-                                       ue_identity: nil,
-                                       service_endpoints_ids: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/serviceendpoints',
-                                     Server::EDGE_DISCOVERY)
-                   .query_param(new_parameter(region, key: 'region'))
-                   .query_param(new_parameter(subscriber_density, key: 'subscriberDensity'))
-                   .query_param(new_parameter(ue_identity_type, key: 'UEIdentityType'))
-                   .query_param(new_parameter(ue_identity, key: 'UEIdentity'))
-                   .query_param(new_parameter(service_endpoints_ids, key: 'serviceEndpointsIds'))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ListOptimalServiceEndpointsResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'HTTP 400 Bad Request.',
-                                EdgeDiscoveryResultException)
-                   .local_error('401',
-                                'HTTP 401 Unauthorized.',
-                                EdgeDiscoveryResultException)
-                   .local_error('default',
-                                'HTTP 500 Internal Server Error.',
-                                EdgeDiscoveryResultException))
-        .execute
-    end
-
-    # Register Service Endpoints of a deployed application to specified MEC
-    # Platforms.
-    # @param [Array[ResourcesEdgeHostedServiceWithProfileId]] body Required
-    # parameter: An array of Service Endpoint data for a deployed application.
-    # The request body passes all of the needed parameters to create a service
-    # endpoint. Parameters will be edited here rather than the **Parameters**
-    # section above. The `ern`,`applicationServerProviderId`, `applicationId`
-    # and `serviceProfileID` parameters are required. **Note:** Currently, the
-    # only valid value for `applicationServerProviderId`is **AWS**. Also, if you
-    # do not know one of the optional values (i.e. URI), you can erase the line
-    # from the query by back-spacing over it.
-    # @return [RegisterServiceEndpointResult] response from the API call
-    def register_service_endpoints(body)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/serviceendpoints',
-                                     Server::EDGE_DISCOVERY)
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(RegisterServiceEndpointResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'HTTP 400 Bad Request.',
-                                EdgeDiscoveryResultException)
-                   .local_error('401',
-                                'HTTP 401 Unauthorized.',
-                                EdgeDiscoveryResultException)
-                   .local_error('default',
-                                'HTTP 500 Internal Server Error.',
-                                EdgeDiscoveryResultException))
-        .execute
-    end
-
     # Returns a list of all registered service endpoints.
     # @return [ListAllServiceEndpointsResult] response from the API call
     def list_all_service_endpoints
@@ -139,6 +50,57 @@ module Verizon
                    .deserialize_into(ResourcesEdgeHostedServiceWithProfileId.method(:from_hash))
                    .is_api_response(true)
                    .is_response_array(true)
+                   .local_error('400',
+                                'HTTP 400 Bad Request.',
+                                EdgeDiscoveryResultException)
+                   .local_error('401',
+                                'HTTP 401 Unauthorized.',
+                                EdgeDiscoveryResultException)
+                   .local_error('default',
+                                'HTTP 500 Internal Server Error.',
+                                EdgeDiscoveryResultException))
+        .execute
+    end
+
+    # Returns a list of optimal Service Endpoints that client devices can
+    # connect to. **Note:** If a query is sent with all of the parameters, it
+    # will fail with a "400" error. You can search based on the following
+    # parameter combinations - Region plus Service Endpoints IDs and Subscriber
+    # density (density is optional but recommended), Region plus Service
+    # Endpoints IDs and UEIdentity(Including UEIdentity Type) and Service
+    # Endpoints IDs plus UEIdentity(Including UEIdentity Type).
+    # @param [String] region Optional parameter: MEC region name. Current valid
+    # values are US_WEST_2 and US_EAST_1.
+    # @param [Integer] subscriber_density Optional parameter: Minimum number of
+    # 4G/5G subscribers per square kilometer.
+    # @param [UserEquipmentIdentityTypeEnum] ue_identity_type Optional
+    # parameter: Type of User Equipment identifier used in `UEIdentity`.
+    # @param [String] ue_identity Optional parameter: The identifier value for
+    # User Equipment. The type of identifier is defined by the 'UEIdentityType'
+    # parameter. The`IPAddress`format can be IPv4 or IPv6.
+    # @param [String] service_endpoints_ids Optional parameter: A system-defined
+    # string identifier representing one or more registered Service Endpoints.
+    # @return [ListOptimalServiceEndpointsResult] response from the API call
+    def list_optimal_service_endpoints(region: nil,
+                                       subscriber_density: nil,
+                                       ue_identity_type: nil,
+                                       ue_identity: nil,
+                                       service_endpoints_ids: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/serviceendpoints',
+                                     Server::EDGE_DISCOVERY)
+                   .query_param(new_parameter(region, key: 'region'))
+                   .query_param(new_parameter(subscriber_density, key: 'subscriberDensity'))
+                   .query_param(new_parameter(ue_identity_type, key: 'UEIdentityType'))
+                   .query_param(new_parameter(ue_identity, key: 'UEIdentity'))
+                   .query_param(new_parameter(service_endpoints_ids, key: 'serviceEndpointsIds'))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ListOptimalServiceEndpointsResult.method(:from_hash))
+                   .is_api_response(true)
                    .local_error('400',
                                 'HTTP 400 Bad Request.',
                                 EdgeDiscoveryResultException)
@@ -207,6 +169,44 @@ module Verizon
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(DeregisterServiceEndpointResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'HTTP 400 Bad Request.',
+                                EdgeDiscoveryResultException)
+                   .local_error('401',
+                                'HTTP 401 Unauthorized.',
+                                EdgeDiscoveryResultException)
+                   .local_error('default',
+                                'HTTP 500 Internal Server Error.',
+                                EdgeDiscoveryResultException))
+        .execute
+    end
+
+    # Register Service Endpoints of a deployed application to specified MEC
+    # Platforms.
+    # @param [Array[ResourcesEdgeHostedServiceWithProfileId]] body Required
+    # parameter: An array of Service Endpoint data for a deployed application.
+    # The request body passes all of the needed parameters to create a service
+    # endpoint. Parameters will be edited here rather than the **Parameters**
+    # section above. The `ern`,`applicationServerProviderId`, `applicationId`
+    # and `serviceProfileID` parameters are required. **Note:** Currently, the
+    # only valid value for `applicationServerProviderId`is **AWS**. Also, if you
+    # do not know one of the optional values (i.e. URI), you can erase the line
+    # from the query by back-spacing over it.
+    # @return [RegisterServiceEndpointResult] response from the API call
+    def register_service_endpoints(body)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/serviceendpoints',
+                                     Server::EDGE_DISCOVERY)
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(RegisterServiceEndpointResult.method(:from_hash))
                    .is_api_response(true)
                    .local_error('400',
                                 'HTTP 400 Bad Request.',

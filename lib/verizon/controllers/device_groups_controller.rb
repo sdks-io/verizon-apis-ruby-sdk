@@ -6,6 +6,71 @@
 module Verizon
   # DeviceGroupsController
   class DeviceGroupsController < BaseController
+    # Make changes to a device group, including changing the name and
+    # description, and adding or removing devices.
+    # @param [String] aname Required parameter: Account name.
+    # @param [String] gname Required parameter: Group name.
+    # @param [DeviceGroupUpdateRequest] body Required parameter: Request to
+    # update device group.
+    # @return [ConnectivityManagementSuccessResult] response from the API call
+    def update_device_group(aname,
+                            gname,
+                            body)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/v1/groups/{aname}/name/{gname}',
+                                     Server::M2M)
+                   .template_param(new_parameter(aname, key: 'aname')
+                                    .should_encode(true))
+                   .template_param(new_parameter(gname, key: 'gname')
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ConnectivityManagementSuccessResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Error response.',
+                                ConnectivityManagementResultException))
+        .execute
+    end
+
+    # When HTTP status is 202, a URL will be returned in the Location header of
+    # the form /groups/{aname}/name/{gname}/?next={token}. This URL can be used
+    # to request the next set of groups.
+    # @param [String] aname Required parameter: Account name.
+    # @param [String] gname Required parameter: Group name.
+    # @param [Integer] mnext Optional parameter: Continue the previous query
+    # from the pageUrl pagetoken.
+    # @return [DeviceGroupDevicesData] response from the API call
+    def get_device_group_information(aname,
+                                     gname,
+                                     mnext: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/v1/groups/{aname}/name/{gname}',
+                                     Server::M2M)
+                   .template_param(new_parameter(aname, key: 'aname')
+                                    .should_encode(true))
+                   .template_param(new_parameter(gname, key: 'gname')
+                                    .should_encode(true))
+                   .query_param(new_parameter(mnext, key: 'next'))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(DeviceGroupDevicesData.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Error response.',
+                                ConnectivityManagementResultException))
+        .execute
+    end
+
     # Create a new device group and optionally add devices to the group. Device
     # groups can make it easier to manage similar devices and to get reports on
     # their usage.
@@ -49,71 +114,6 @@ module Verizon
                    .deserialize_into(DeviceGroup.method(:from_hash))
                    .is_api_response(true)
                    .is_response_array(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
-        .execute
-    end
-
-    # When HTTP status is 202, a URL will be returned in the Location header of
-    # the form /groups/{aname}/name/{gname}/?next={token}. This URL can be used
-    # to request the next set of groups.
-    # @param [String] aname Required parameter: Account name.
-    # @param [String] gname Required parameter: Group name.
-    # @param [Integer] mnext Optional parameter: Continue the previous query
-    # from the pageUrl pagetoken.
-    # @return [DeviceGroupDevicesData] response from the API call
-    def get_device_group_information(aname,
-                                     gname,
-                                     mnext: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/v1/groups/{aname}/name/{gname}',
-                                     Server::M2M)
-                   .template_param(new_parameter(aname, key: 'aname')
-                                    .should_encode(true))
-                   .template_param(new_parameter(gname, key: 'gname')
-                                    .should_encode(true))
-                   .query_param(new_parameter(mnext, key: 'next'))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceGroupDevicesData.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
-        .execute
-    end
-
-    # Make changes to a device group, including changing the name and
-    # description, and adding or removing devices.
-    # @param [String] aname Required parameter: Account name.
-    # @param [String] gname Required parameter: Group name.
-    # @param [DeviceGroupUpdateRequest] body Required parameter: Request to
-    # update device group.
-    # @return [ConnectivityManagementSuccessResult] response from the API call
-    def update_device_group(aname,
-                            gname,
-                            body)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/v1/groups/{aname}/name/{gname}',
-                                     Server::M2M)
-                   .template_param(new_parameter(aname, key: 'aname')
-                                    .should_encode(true))
-                   .template_param(new_parameter(gname, key: 'gname')
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ConnectivityManagementSuccessResult.method(:from_hash))
-                   .is_api_response(true)
                    .local_error('400',
                                 'Error response.',
                                 ConnectivityManagementResultException))

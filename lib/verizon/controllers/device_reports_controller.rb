@@ -47,16 +47,15 @@ module Verizon
         .execute
     end
 
-    # Calculate aggregated report per day with number of sessions and usage
-    # information. User will receive an asynchronous callback for the specified
-    # list of devices (Max 10000) and date range (Max 180 days).
-    # @param [AggregateSessionReportRequest] body Required parameter: Aggregated
-    # session report request.
-    # @return [AggregatedReportCallbackResult] response from the API call
-    def calculate_aggregated_report_asynchronous(body)
+    # Detailed report of session duration and number of bytes transferred per
+    # day.
+    # @param [SessionReportRequest] body Required parameter: Request for
+    # sessions report.
+    # @return [SessionReport] response from the API call
+    def get_sessions_report(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/report/async/aggregate',
+                                     '/report/sessions',
                                      Server::HYPER_PRECISE_LOCATION)
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .body_param(new_parameter(body))
@@ -65,7 +64,7 @@ module Verizon
                    .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(AggregatedReportCallbackResult.method(:from_hash))
+                   .deserialize_into(SessionReport.method(:from_hash))
                    .is_api_response(true)
                    .local_error('400',
                                 'Bad request.',
@@ -88,15 +87,16 @@ module Verizon
         .execute
     end
 
-    # Detailed report of session duration and number of bytes transferred per
-    # day.
-    # @param [SessionReportRequest] body Required parameter: Request for
-    # sessions report.
-    # @return [SessionReport] response from the API call
-    def get_sessions_report(body)
+    # Calculate aggregated report per day with number of sessions and usage
+    # information. User will receive an asynchronous callback for the specified
+    # list of devices (Max 10000) and date range (Max 180 days).
+    # @param [AggregateSessionReportRequest] body Required parameter: Aggregated
+    # session report request.
+    # @return [AggregatedReportCallbackResult] response from the API call
+    def calculate_aggregated_report_asynchronous(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/report/sessions',
+                                     '/report/async/aggregate',
                                      Server::HYPER_PRECISE_LOCATION)
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .body_param(new_parameter(body))
@@ -105,7 +105,7 @@ module Verizon
                    .auth(Single.new('global')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SessionReport.method(:from_hash))
+                   .deserialize_into(AggregatedReportCallbackResult.method(:from_hash))
                    .is_api_response(true)
                    .local_error('400',
                                 'Bad request.',

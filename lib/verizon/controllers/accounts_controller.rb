@@ -6,6 +6,34 @@
 module Verizon
   # AccountsController
   class AccountsController < BaseController
+    # When HTTP status is 202, a URL will be returned in the Location header of
+    # the form /leads/{aname}?next={token}. This URL can be used to request the
+    # next set of leads.
+    # @param [String] aname Required parameter: Account name.
+    # @param [Integer] mnext Optional parameter: Continue the previous query
+    # from the pageUrl in Location Header.
+    # @return [AccountLeadsResult] response from the API call
+    def list_account_leads(aname,
+                           mnext: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/v1/leads/{aname}',
+                                     Server::M2M)
+                   .template_param(new_parameter(aname, key: 'aname')
+                                    .should_encode(true))
+                   .query_param(new_parameter(mnext, key: 'next'))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(AccountLeadsResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Error response.',
+                                ConnectivityManagementResultException))
+        .execute
+    end
+
     # Returns information about a specified account.
     # @param [String] aname Required parameter: Account name.
     # @return [Account] response from the API call
@@ -44,34 +72,6 @@ module Verizon
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(AccountStatesAndServices.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
-        .execute
-    end
-
-    # When HTTP status is 202, a URL will be returned in the Location header of
-    # the form /leads/{aname}?next={token}. This URL can be used to request the
-    # next set of leads.
-    # @param [String] aname Required parameter: Account name.
-    # @param [Integer] mnext Optional parameter: Continue the previous query
-    # from the pageUrl in Location Header.
-    # @return [AccountLeadsResult] response from the API call
-    def list_account_leads(aname,
-                           mnext: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/v1/leads/{aname}',
-                                     Server::M2M)
-                   .template_param(new_parameter(aname, key: 'aname')
-                                    .should_encode(true))
-                   .query_param(new_parameter(mnext, key: 'next'))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(AccountLeadsResult.method(:from_hash))
                    .is_api_response(true)
                    .local_error('400',
                                 'Error response.',

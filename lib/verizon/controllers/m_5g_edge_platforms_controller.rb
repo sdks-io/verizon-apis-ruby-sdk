@@ -6,6 +6,33 @@
 module Verizon
   # M5gEdgePlatformsController
   class M5gEdgePlatformsController < BaseController
+    # List the geographical regions available, based on the user's bearer token.
+    # **Note:** Country code, Metropolitan area, Area and Zone are future
+    # functionality and will currently return a "null" value.
+    # @return [ListRegionsResult] response from the API call
+    def list_regions
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/regions',
+                                     Server::EDGE_DISCOVERY)
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ListRegionsResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'HTTP 400 Bad Request.',
+                                EdgeDiscoveryResultException)
+                   .local_error('401',
+                                'HTTP 401 Unauthorized.',
+                                EdgeDiscoveryResultException)
+                   .local_error('default',
+                                'HTTP 500 Internal Server Error.',
+                                EdgeDiscoveryResultException))
+        .execute
+    end
+
     # Returns a list of optimal MEC Platforms where you can register your
     # deployed application. **Note:** If a query is sent with all of the
     # parameters, it will fail with a "400" error. You can search based on the
@@ -44,33 +71,6 @@ module Verizon
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ListMECPlatformsResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'HTTP 400 Bad Request.',
-                                EdgeDiscoveryResultException)
-                   .local_error('401',
-                                'HTTP 401 Unauthorized.',
-                                EdgeDiscoveryResultException)
-                   .local_error('default',
-                                'HTTP 500 Internal Server Error.',
-                                EdgeDiscoveryResultException))
-        .execute
-    end
-
-    # List the geographical regions available, based on the user's bearer token.
-    # **Note:** Country code, Metropolitan area, Area and Zone are future
-    # functionality and will currently return a "null" value.
-    # @return [ListRegionsResult] response from the API call
-    def list_regions
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/regions',
-                                     Server::EDGE_DISCOVERY)
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ListRegionsResult.method(:from_hash))
                    .is_api_response(true)
                    .local_error('400',
                                 'HTTP 400 Bad Request.',

@@ -33,6 +33,32 @@ module Verizon
         .execute
     end
 
+    # Ask a device to report its firmware version asynchronously.
+    # @param [String] acc Required parameter: Account identifier.
+    # @param [String] device_id Required parameter: Device identifier.
+    # @return [DeviceFirmwareVersionUpdateResult] response from the API call
+    def report_device_firmware(acc,
+                               device_id)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/firmware/{acc}/async/{deviceId}',
+                                     Server::SOFTWARE_MANAGEMENT_V3)
+                   .template_param(new_parameter(acc, key: 'acc')
+                                    .should_encode(true))
+                   .template_param(new_parameter(device_id, key: 'deviceId')
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(DeviceFirmwareVersionUpdateResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Unexpected error.',
+                                FotaV3ResultException))
+        .execute
+    end
+
     # Synchronize ThingSpace with the FOTA server for up to 100 devices.
     # @param [String] acc Required parameter: Account identifier.
     # @param [FirmwareIMEI] body Required parameter: DeviceIds to get firmware
@@ -54,32 +80,6 @@ module Verizon
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(DeviceFirmwareList.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV3ResultException))
-        .execute
-    end
-
-    # Ask a device to report its firmware version asynchronously.
-    # @param [String] acc Required parameter: Account identifier.
-    # @param [String] device_id Required parameter: Device identifier.
-    # @return [DeviceFirmwareVersionUpdateResult] response from the API call
-    def report_device_firmware(acc,
-                               device_id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/firmware/{acc}/async/{deviceId}',
-                                     Server::SOFTWARE_MANAGEMENT_V3)
-                   .template_param(new_parameter(acc, key: 'acc')
-                                    .should_encode(true))
-                   .template_param(new_parameter(device_id, key: 'deviceId')
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceFirmwareVersionUpdateResult.method(:from_hash))
                    .is_api_response(true)
                    .local_error('400',
                                 'Unexpected error.',

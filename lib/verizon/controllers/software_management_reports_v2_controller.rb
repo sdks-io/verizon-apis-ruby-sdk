@@ -35,6 +35,37 @@ module Verizon
         .execute
     end
 
+    # The report endpoint allows user to get campaign history of an account for
+    # specified status.
+    # @param [String] account Required parameter: Account identifier.
+    # @param [String] campaign_status Required parameter: Status of the
+    # campaign.
+    # @param [String] last_seen_campaign_id Optional parameter: Last seen
+    # campaign Id.
+    # @return [V2CampaignHistory] response from the API call
+    def get_campaign_history_by_status(account,
+                                       campaign_status,
+                                       last_seen_campaign_id: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/reports/{account}/campaigns',
+                                     Server::SOFTWARE_MANAGEMENT_V2)
+                   .template_param(new_parameter(account, key: 'account')
+                                    .should_encode(true))
+                   .query_param(new_parameter(campaign_status, key: 'campaignStatus'))
+                   .query_param(new_parameter(last_seen_campaign_id, key: 'lastSeenCampaignId'))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(V2CampaignHistory.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Unexpected error.',
+                                FotaV2ResultException))
+        .execute
+    end
+
     # The device endpoint gets devices information of an account.
     # @param [String] account Required parameter: Account identifier.
     # @param [String] last_seen_device_id Optional parameter: Last seen device
@@ -88,37 +119,6 @@ module Verizon
                    .deserialize_into(DeviceSoftwareUpgrade.method(:from_hash))
                    .is_api_response(true)
                    .is_response_array(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV2ResultException))
-        .execute
-    end
-
-    # The report endpoint allows user to get campaign history of an account for
-    # specified status.
-    # @param [String] account Required parameter: Account identifier.
-    # @param [String] campaign_status Required parameter: Status of the
-    # campaign.
-    # @param [String] last_seen_campaign_id Optional parameter: Last seen
-    # campaign Id.
-    # @return [V2CampaignHistory] response from the API call
-    def get_campaign_history_by_status(account,
-                                       campaign_status,
-                                       last_seen_campaign_id: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/reports/{account}/campaigns',
-                                     Server::SOFTWARE_MANAGEMENT_V2)
-                   .template_param(new_parameter(account, key: 'account')
-                                    .should_encode(true))
-                   .query_param(new_parameter(campaign_status, key: 'campaignStatus'))
-                   .query_param(new_parameter(last_seen_campaign_id, key: 'lastSeenCampaignId'))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(V2CampaignHistory.method(:from_hash))
-                   .is_api_response(true)
                    .local_error('400',
                                 'Unexpected error.',
                                 FotaV2ResultException))

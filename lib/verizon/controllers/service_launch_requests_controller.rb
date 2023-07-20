@@ -6,6 +6,51 @@
 module Verizon
   # ServiceLaunchRequestsController
   class ServiceLaunchRequestsController < BaseController
+    # Create a request for launching a service.
+    # @param [String] account_name Required parameter: User account name.
+    # @param [String] user_name Required parameter: Example:
+    # @param [String] correlation_id Optional parameter: Example:
+    # @param [CreateServiceLaunchRequest] body Optional parameter: Request for
+    # launching a service.
+    # @return [ServiceLaunchRequestResult] response from the API call
+    def create_service_launch_request(account_name,
+                                      user_name,
+                                      correlation_id: nil,
+                                      body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/v1/service/launch/request',
+                                     Server::SERVICES)
+                   .header_param(new_parameter(account_name, key: 'AccountName'))
+                   .header_param(new_parameter(user_name, key: 'userName'))
+                   .header_param(new_parameter('*/*', key: 'Content-Type'))
+                   .header_param(new_parameter(correlation_id, key: 'correlationId'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ServiceLaunchRequestResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'HTTP 400 Bad Request.',
+                                EdgeServiceLaunchResultException)
+                   .local_error('401',
+                                'HTTP 401 Unauthorized.',
+                                EdgeServiceLaunchResultException)
+                   .local_error('404',
+                                'HTTP 404 Not found.',
+                                EdgeServiceLaunchResultException)
+                   .local_error('500',
+                                'Internal Server Error.',
+                                EdgeServiceLaunchResultException)
+                   .local_error('default',
+                                'HTTP 500 Internal Server Error.',
+                                EdgeServiceLaunchResultException))
+        .execute
+    end
+
     # Get information related to a service launch request.
     # @param [String] account_name Required parameter: User account name.
     # @param [String] user_name Required parameter: Example:
@@ -62,51 +107,6 @@ module Verizon
                                 EdgeServiceLaunchResultException)
                    .local_error('default',
                                 'Unexpected error.',
-                                EdgeServiceLaunchResultException))
-        .execute
-    end
-
-    # Create a request for launching a service.
-    # @param [String] account_name Required parameter: User account name.
-    # @param [String] user_name Required parameter: Example:
-    # @param [String] correlation_id Optional parameter: Example:
-    # @param [CreateServiceLaunchRequest] body Optional parameter: Request for
-    # launching a service.
-    # @return [ServiceLaunchRequestResult] response from the API call
-    def create_service_launch_request(account_name,
-                                      user_name,
-                                      correlation_id: nil,
-                                      body: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/v1/service/launch/request',
-                                     Server::SERVICES)
-                   .header_param(new_parameter(account_name, key: 'AccountName'))
-                   .header_param(new_parameter(user_name, key: 'userName'))
-                   .header_param(new_parameter('*/*', key: 'Content-Type'))
-                   .header_param(new_parameter(correlation_id, key: 'correlationId'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ServiceLaunchRequestResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'HTTP 400 Bad Request.',
-                                EdgeServiceLaunchResultException)
-                   .local_error('401',
-                                'HTTP 401 Unauthorized.',
-                                EdgeServiceLaunchResultException)
-                   .local_error('404',
-                                'HTTP 404 Not found.',
-                                EdgeServiceLaunchResultException)
-                   .local_error('500',
-                                'Internal Server Error.',
-                                EdgeServiceLaunchResultException)
-                   .local_error('default',
-                                'HTTP 500 Internal Server Error.',
                                 EdgeServiceLaunchResultException))
         .execute
     end
