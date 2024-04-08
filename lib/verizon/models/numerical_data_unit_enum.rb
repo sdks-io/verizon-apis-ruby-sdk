@@ -19,5 +19,11 @@ module Verizon
       # TODO: Write general description for DAY
       DAY = 'DAY'.freeze
     ].freeze
+
+    def self.validate(value)
+      return false if value.nil?
+
+      NUMERICAL_DATA_UNIT_ENUM.include?(value)
+    end
   end
 end

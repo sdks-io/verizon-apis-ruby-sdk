@@ -28,7 +28,7 @@ def assign_license_to_devices(body,
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `body` | [`AssignLicenseRequest`](../../doc/models/assign-license-request.md) | Body, Required | Request to assign license to devices. |
-| `x_request_id` | `String` | Header, Optional | Transaction Id.<br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[0-9]-[0-9]{3,32}$` |
+| `x_request_id` | `String` | Header, Optional | Transaction Id. |
 
 ## Server
 
@@ -50,8 +50,7 @@ body = AssignLicenseRequest.new(
           '864508030109877',
           'IMEI'
         )
-      ],
-      nil
+      ]
     )
   ],
   'SIMSec-IoT-Lt'
@@ -93,7 +92,7 @@ def unassign_license_to_devices(x_request_id)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `x_request_id` | `String` | Header, Required | Transaction Id.<br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[0-9]-[0-9]{3,32}$` |
+| `x_request_id` | `String` | Header, Required | Transaction Id. |
 
 ## Server
 

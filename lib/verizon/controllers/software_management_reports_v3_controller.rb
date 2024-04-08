@@ -26,7 +26,7 @@ module Verizon
                    .query_param(new_parameter(campaign_status, key: 'campaignStatus'))
                    .query_param(new_parameter(last_seen_campaign_id, key: 'lastSeenCampaignId'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(V3CampaignHistory.method(:from_hash))
@@ -52,7 +52,7 @@ module Verizon
                    .template_param(new_parameter(device_id, key: 'deviceId')
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(DeviceFirmwareUpgrade.method(:from_hash))
@@ -84,7 +84,7 @@ module Verizon
                                     .should_encode(true))
                    .query_param(new_parameter(last_seen_device_id, key: 'lastSeenDeviceId'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(V3CampaignDevice.method(:from_hash))

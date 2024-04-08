@@ -241,7 +241,7 @@ module Verizon
                    last_connection_time)
     end
 
-    def to_last_connection_time
+    def to_custom_last_connection_time
       DateTimeHelper.to_rfc3339(last_connection_time)
     end
   end

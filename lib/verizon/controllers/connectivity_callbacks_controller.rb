@@ -6,33 +6,6 @@
 module Verizon
   # ConnectivityCallbacksController
   class ConnectivityCallbacksController < BaseController
-    # Stops ThingSpace from sending callback messages for the specified account
-    # and service.
-    # @param [String] aname Required parameter: Account name.
-    # @param [String] sname Required parameter: Service name.
-    # @return [CallbackActionResult] response from the API call
-    def deregister_callback(aname,
-                            sname)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::DELETE,
-                                     '/v1/callbacks/{aname}/name/{sname}',
-                                     Server::M2M)
-                   .template_param(new_parameter(aname, key: 'aname')
-                                    .should_encode(true))
-                   .template_param(new_parameter(sname, key: 'sname')
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CallbackActionResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
-        .execute
-    end
-
     # Returns the name and endpoint URL of the callback listening services
     # registered for a given account.
     # @param [String] aname Required parameter: Account name.
@@ -40,12 +13,12 @@ module Verizon
     def list_registered_callbacks(aname)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/v1/callbacks/{aname}',
-                                     Server::M2M)
+                                     '/m2m/v1/callbacks/{aname}',
+                                     Server::THINGSPACE)
                    .template_param(new_parameter(aname, key: 'aname')
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ConnectivityManagementCallback.method(:from_hash))
@@ -67,15 +40,42 @@ module Verizon
                           body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/v1/callbacks/{aname}',
-                                     Server::M2M)
+                                     '/m2m/v1/callbacks/{aname}',
+                                     Server::THINGSPACE)
                    .template_param(new_parameter(aname, key: 'aname')
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(CallbackActionResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Error response.',
+                                ConnectivityManagementResultException))
+        .execute
+    end
+
+    # Stops ThingSpace from sending callback messages for the specified account
+    # and service.
+    # @param [String] aname Required parameter: Account name.
+    # @param [String] sname Required parameter: Service name.
+    # @return [CallbackActionResult] response from the API call
+    def deregister_callback(aname,
+                            sname)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::DELETE,
+                                     '/m2m/v1/callbacks/{aname}/name/{sname}',
+                                     Server::THINGSPACE)
+                   .template_param(new_parameter(aname, key: 'aname')
+                                    .should_encode(true))
+                   .template_param(new_parameter(sname, key: 'sname')
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CallbackActionResult.method(:from_hash))

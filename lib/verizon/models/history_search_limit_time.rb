@@ -63,7 +63,7 @@ module Verizon
                                  duration)
     end
 
-    def to_start_on
+    def to_custom_start_on
       DateTimeHelper.to_rfc3339(start_on)
     end
   end

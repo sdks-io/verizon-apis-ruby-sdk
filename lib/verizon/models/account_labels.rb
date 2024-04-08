@@ -28,7 +28,6 @@ module Verizon
     # An array for optional fields
     def self.optionals
       %w[
-        devices
         label
       ]
     end
@@ -38,9 +37,9 @@ module Verizon
       []
     end
 
-    def initialize(devices = SKIP,
+    def initialize(devices = nil,
                    label = SKIP)
-      @devices = devices unless devices == SKIP
+      @devices = devices
       @label = label unless label == SKIP
     end
 
@@ -58,7 +57,7 @@ module Verizon
         end
       end
 
-      devices = SKIP unless hash.key?('devices')
+      devices = nil unless hash.key?('devices')
       # Parameter is an array, so we need to iterate through it
       label = nil
       unless hash['label'].nil?

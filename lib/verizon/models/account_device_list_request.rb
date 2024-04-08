@@ -48,6 +48,14 @@ module Verizon
     # @return [String]
     attr_accessor :service_plan
 
+    # Only include devices that have this service plan.
+    # @return [Integer]
+    attr_accessor :max_number_of_devices
+
+    # Only include devices that have this service plan.
+    # @return [Integer]
+    attr_accessor :largest_device_id_seen
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -60,6 +68,8 @@ module Verizon
       @_hash['group_name'] = 'groupName'
       @_hash['latest'] = 'latest'
       @_hash['service_plan'] = 'servicePlan'
+      @_hash['max_number_of_devices'] = 'maxNumberOfDevices'
+      @_hash['largest_device_id_seen'] = 'largestDeviceIdSeen'
       @_hash
     end
 
@@ -75,6 +85,8 @@ module Verizon
         group_name
         latest
         service_plan
+        max_number_of_devices
+        largest_device_id_seen
       ]
     end
 
@@ -91,7 +103,9 @@ module Verizon
                    earliest = SKIP,
                    group_name = SKIP,
                    latest = SKIP,
-                   service_plan = SKIP)
+                   service_plan = SKIP,
+                   max_number_of_devices = SKIP,
+                   largest_device_id_seen = SKIP)
       @account_name = account_name unless account_name == SKIP
       @device_id = device_id unless device_id == SKIP
       @filter = filter unless filter == SKIP
@@ -101,6 +115,8 @@ module Verizon
       @group_name = group_name unless group_name == SKIP
       @latest = latest unless latest == SKIP
       @service_plan = service_plan unless service_plan == SKIP
+      @max_number_of_devices = max_number_of_devices unless max_number_of_devices == SKIP
+      @largest_device_id_seen = largest_device_id_seen unless largest_device_id_seen == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -126,6 +142,10 @@ module Verizon
       group_name = hash.key?('groupName') ? hash['groupName'] : SKIP
       latest = hash.key?('latest') ? hash['latest'] : SKIP
       service_plan = hash.key?('servicePlan') ? hash['servicePlan'] : SKIP
+      max_number_of_devices =
+        hash.key?('maxNumberOfDevices') ? hash['maxNumberOfDevices'] : SKIP
+      largest_device_id_seen =
+        hash.key?('largestDeviceIdSeen') ? hash['largestDeviceIdSeen'] : SKIP
 
       # Create object from extracted values.
       AccountDeviceListRequest.new(account_name,
@@ -136,7 +156,9 @@ module Verizon
                                    earliest,
                                    group_name,
                                    latest,
-                                   service_plan)
+                                   service_plan,
+                                   max_number_of_devices,
+                                   largest_device_id_seen)
     end
   end
 end

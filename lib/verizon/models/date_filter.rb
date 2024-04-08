@@ -27,10 +27,7 @@ module Verizon
 
     # An array for optional fields
     def self.optionals
-      %w[
-        earliest
-        latest
-      ]
+      []
     end
 
     # An array for nullable fields
@@ -38,10 +35,10 @@ module Verizon
       []
     end
 
-    def initialize(earliest = SKIP,
-                   latest = SKIP)
-      @earliest = earliest unless earliest == SKIP
-      @latest = latest unless latest == SKIP
+    def initialize(earliest = nil,
+                   latest = nil)
+      @earliest = earliest
+      @latest = latest
     end
 
     # Creates an instance of the object from a hash.
@@ -49,8 +46,8 @@ module Verizon
       return nil unless hash
 
       # Extract variables from the hash.
-      earliest = hash.key?('earliest') ? hash['earliest'] : SKIP
-      latest = hash.key?('latest') ? hash['latest'] : SKIP
+      earliest = hash.key?('earliest') ? hash['earliest'] : nil
+      latest = hash.key?('latest') ? hash['latest'] : nil
 
       # Create object from extracted values.
       DateFilter.new(earliest,

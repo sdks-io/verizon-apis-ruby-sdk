@@ -25,5 +25,11 @@ module Verizon
       # TODO: Write general description for UPGRADEFAILED
       UPGRADEFAILED = 'UpgradeFailed'.freeze
     ].freeze
+
+    def self.validate(value)
+      return false if value.nil?
+
+      UPGRADE_STATUS_ENUM.include?(value)
+    end
   end
 end

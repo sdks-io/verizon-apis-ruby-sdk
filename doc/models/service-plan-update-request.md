@@ -11,12 +11,14 @@ Request to update service plan.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
+| `service_plan` | `String` | Required | The service plan code that you want to assign to all specified devices. |
 | `account_name` | `String` | Optional | The name of a billing account. |
 | `current_service_plan` | `String` | Optional | The name of a service plan, if you want to only include devices that have that service plan. |
 | `custom_fields` | [`Array<CustomFields>`](../../doc/models/custom-fields.md) | Optional | Custom field names and values, if you want to only include devices that have matching values. |
 | `devices` | [`Array<AccountDeviceList>`](../../doc/models/account-device-list.md) | Optional | A list of the devices that you want to change, specified by device identifier. |
 | `group_name` | `String` | Optional | The name of a device group, if you want to restore service for all devices in that group. |
-| `service_plan` | `String` | Optional | The service plan code that you want to assign to all specified devices. |
+| `carrier_ip_pool_name` | `String` | Optional | **Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[A-Za-z0-9]{3,32}$` |
+| `take_effect` | `DateTime` | Optional | - |
 
 ## Example (as JSON)
 
@@ -29,7 +31,8 @@ Request to update service plan.
           "id": "A100003685E561",
           "kind": "meid"
         }
-      ]
+      ],
+      "ipAddress": "ipAddress4"
     }
   ],
   "servicePlan": "new_service_plan_code",
@@ -41,12 +44,8 @@ Request to update service plan.
       "value": "value2"
     },
     {
-      "key": "key1",
-      "value": "value3"
-    },
-    {
-      "key": "key2",
-      "value": "value4"
+      "key": "key0",
+      "value": "value2"
     }
   ],
   "groupName": "groupName0"

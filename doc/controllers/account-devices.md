@@ -10,8 +10,57 @@ account_devices_controller = client.account_devices
 
 ## Methods
 
-* [List Account Devices Information](../../doc/controllers/account-devices.md#list-account-devices-information)
 * [Get Account Device Information](../../doc/controllers/account-devices.md#get-account-device-information)
+* [List Account Devices Information](../../doc/controllers/account-devices.md#list-account-devices-information)
+
+
+# Get Account Device Information
+
+Retrieve account device information such as reported firmware on the devices.
+
+```ruby
+def get_account_device_information(acc,
+                                   last_seen_device_id: nil,
+                                   protocol: DevicesProtocolEnum::LW_M2M)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `acc` | `String` | Template, Required | Account identifier. |
+| `last_seen_device_id` | `String` | Query, Optional | Last seen device identifier. |
+| `protocol` | [`DevicesProtocolEnum`](../../doc/models/devices-protocol-enum.md) | Query, Optional | Filter to retrieve a specific protocol type used. |
+
+## Server
+
+`Server::SOFTWARE_MANAGEMENT_V3`
+
+## Response Type
+
+This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V3AccountDeviceList`](../../doc/models/v3-account-device-list.md).
+
+## Example Usage
+
+```ruby
+acc = '0000123456-00001'
+
+last_seen_device_id = '0'
+
+protocol = DevicesProtocolEnum::LW_M2M
+
+result = account_devices_controller.get_account_device_information(
+  acc,
+  last_seen_device_id: last_seen_device_id,
+  protocol: protocol
+)
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Unexpected error. | [`FotaV3ResultException`](../../doc/models/fota-v3-result-exception.md) |
 
 
 # List Account Devices Information
@@ -79,55 +128,6 @@ result = account_devices_controller.list_account_devices_information(
     }
   ]
 }
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Unexpected error. | [`FotaV3ResultException`](../../doc/models/fota-v3-result-exception.md) |
-
-
-# Get Account Device Information
-
-Retrieve account device information such as reported firmware on the devices.
-
-```ruby
-def get_account_device_information(acc,
-                                   last_seen_device_id: nil,
-                                   protocol: DevicesProtocolEnum::LW_M2M)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `acc` | `String` | Template, Required | Account identifier. |
-| `last_seen_device_id` | `String` | Query, Optional | Last seen device identifier. |
-| `protocol` | [`DevicesProtocolEnum`](../../doc/models/devices-protocol-enum.md) | Query, Optional | Filter to retrieve a specific protocol type used.<br>**Default**: `DevicesProtocolEnum::LW_M2M` |
-
-## Server
-
-`Server::SOFTWARE_MANAGEMENT_V3`
-
-## Response Type
-
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V3AccountDeviceList`](../../doc/models/v3-account-device-list.md).
-
-## Example Usage
-
-```ruby
-acc = '0000123456-00001'
-
-last_seen_device_id = '0'
-
-protocol = DevicesProtocolEnum::LW_M2M
-
-result = account_devices_controller.get_account_device_information(
-  acc,
-  last_seen_device_id: last_seen_device_id,
-  protocol: protocol
-)
 ```
 
 ## Errors

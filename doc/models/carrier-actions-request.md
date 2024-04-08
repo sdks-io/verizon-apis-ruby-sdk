@@ -14,6 +14,7 @@ Request for a carrier action.
 | `account_name` | `String` | Optional | The name of a billing account. |
 | `custom_fields` | [`Array<CustomFields>`](../../doc/models/custom-fields.md) | Optional | Custom field names and values, if you want to only include devices that have matching values. |
 | `devices` | [`Array<AccountDeviceList>`](../../doc/models/account-device-list.md) | Optional | The devices for which you want to restore service, specified by device identifier. |
+| `with_billing` | `TrueClass \| FalseClass` | Optional | set to "true" to suspend with billing, set to "false" to suspend without billing |
 | `group_name` | `String` | Optional | The name of a device group, if you want to restore service for all devices in that group. |
 | `service_plan` | `String` | Optional | The name of a service plan, if you want to only include devices that have that service plan. |
 
@@ -28,26 +29,27 @@ Request for a carrier action.
           "id": "89148000000800139708",
           "kind": "iccid"
         }
-      ]
+      ],
+      "ipAddress": "ipAddress4"
     }
   ],
-  "accountName": "accountName4",
+  "accountName": "accountName0",
   "customFields": [
     {
       "key": "key0",
       "value": "value2"
     },
     {
-      "key": "key1",
-      "value": "value3"
+      "key": "key0",
+      "value": "value2"
     },
     {
-      "key": "key2",
-      "value": "value4"
+      "key": "key0",
+      "value": "value2"
     }
   ],
-  "groupName": "groupName0",
-  "servicePlan": "servicePlan0"
+  "withBilling": false,
+  "groupName": "groupName4"
 }
 ```
 

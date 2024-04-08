@@ -88,7 +88,7 @@ module Verizon
                                     http_headers)
     end
 
-    def to_created_on
+    def to_custom_created_on
       DateTimeHelper.to_rfc3339(created_on)
     end
   end

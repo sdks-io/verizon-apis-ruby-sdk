@@ -6,34 +6,6 @@
 module Verizon
   # SoftwareManagementCallbacksV2Controller
   class SoftwareManagementCallbacksV2Controller < BaseController
-    # This endpoint allows user to create the HTTPS callback address.
-    # @param [String] account Required parameter: Account identifier.
-    # @param [FotaV2CallbackRegistrationRequest] body Required parameter:
-    # Callback URL registration.
-    # @return [FotaV2CallbackRegistrationResult] response from the API call
-    def register_callback(account,
-                          body)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/callbacks/{account}',
-                                     Server::SOFTWARE_MANAGEMENT_V2)
-                   .template_param(new_parameter(account, key: 'account')
-                                    .should_encode(true))
-                   .header_param(new_parameter('*/*', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(FotaV2CallbackRegistrationResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV2ResultException))
-        .execute
-    end
-
     # This endpoint allows user to get the registered callback information.
     # @param [String] account Required parameter: Account identifier.
     # @return [CallbackSummary] response from the API call
@@ -45,7 +17,7 @@ module Verizon
                    .template_param(new_parameter(account, key: 'account')
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CallbackSummary.method(:from_hash))
@@ -73,7 +45,35 @@ module Verizon
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(FotaV2CallbackRegistrationResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Unexpected error.',
+                                FotaV2ResultException))
+        .execute
+    end
+
+    # This endpoint allows user to create the HTTPS callback address.
+    # @param [String] account Required parameter: Account identifier.
+    # @param [FotaV2CallbackRegistrationRequest] body Required parameter:
+    # Callback URL registration.
+    # @return [FotaV2CallbackRegistrationResult] response from the API call
+    def register_callback(account,
+                          body)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/callbacks/{account}',
+                                     Server::SOFTWARE_MANAGEMENT_V2)
+                   .template_param(new_parameter(account, key: 'account')
+                                    .should_encode(true))
+                   .header_param(new_parameter('*/*', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(FotaV2CallbackRegistrationResult.method(:from_hash))
@@ -95,7 +95,7 @@ module Verizon
                    .template_param(new_parameter(account, key: 'account')
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(FotaV2SuccessResult.method(:from_hash))

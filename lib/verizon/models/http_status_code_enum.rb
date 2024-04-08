@@ -218,5 +218,11 @@ module Verizon
       # ENUM_511_NETWORK_AUTHENTICATION_REQUIRED
       ENUM_511_NETWORK_AUTHENTICATION_REQUIRED = '511 NETWORK_AUTHENTICATION_REQUIRED'.freeze
     ].freeze
+
+    def self.validate(value)
+      return false if value.nil?
+
+      HTTP_STATUS_CODE_ENUM.include?(value)
+    end
   end
 end

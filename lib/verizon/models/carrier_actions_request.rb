@@ -23,6 +23,11 @@ module Verizon
     # @return [Array[AccountDeviceList]]
     attr_accessor :devices
 
+    # set to "true" to suspend with billing, set to "false" to suspend without
+    # billing
+    # @return [TrueClass | FalseClass]
+    attr_accessor :with_billing
+
     # The name of a device group, if you want to restore service for all devices
     # in that group.
     # @return [String]
@@ -39,6 +44,7 @@ module Verizon
       @_hash['account_name'] = 'accountName'
       @_hash['custom_fields'] = 'customFields'
       @_hash['devices'] = 'devices'
+      @_hash['with_billing'] = 'withBilling'
       @_hash['group_name'] = 'groupName'
       @_hash['service_plan'] = 'servicePlan'
       @_hash
@@ -50,6 +56,7 @@ module Verizon
         account_name
         custom_fields
         devices
+        with_billing
         group_name
         service_plan
       ]
@@ -63,11 +70,13 @@ module Verizon
     def initialize(account_name = SKIP,
                    custom_fields = SKIP,
                    devices = SKIP,
+                   with_billing = SKIP,
                    group_name = SKIP,
                    service_plan = SKIP)
       @account_name = account_name unless account_name == SKIP
       @custom_fields = custom_fields unless custom_fields == SKIP
       @devices = devices unless devices == SKIP
+      @with_billing = with_billing unless with_billing == SKIP
       @group_name = group_name unless group_name == SKIP
       @service_plan = service_plan unless service_plan == SKIP
     end
@@ -98,6 +107,7 @@ module Verizon
       end
 
       devices = SKIP unless hash.key?('devices')
+      with_billing = hash.key?('withBilling') ? hash['withBilling'] : SKIP
       group_name = hash.key?('groupName') ? hash['groupName'] : SKIP
       service_plan = hash.key?('servicePlan') ? hash['servicePlan'] : SKIP
 
@@ -105,6 +115,7 @@ module Verizon
       CarrierActionsRequest.new(account_name,
                                 custom_fields,
                                 devices,
+                                with_billing,
                                 group_name,
                                 service_plan)
     end

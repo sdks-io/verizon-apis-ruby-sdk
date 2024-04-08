@@ -14,7 +14,7 @@ module Verizon
     attr_accessor :id
 
     # TODO: Write general description for this method
-    # @return [Kind1Enum]
+    # @return [String]
     attr_accessor :kind
 
     # A mapping from model property names to API property names.

@@ -10,10 +10,6 @@ module Verizon
     SKIP = Object.new
     private_constant :SKIP
 
-    # An identifier for a single device.
-    # @return [DeviceId]
-    attr_accessor :device_id
-
     # The earliest date for which you want usage data.
     # @return [String]
     attr_accessor :earliest
@@ -22,12 +18,21 @@ module Verizon
     # @return [String]
     attr_accessor :latest
 
+    # An identifier for a single device.
+    # @return [DeviceId]
+    attr_accessor :device_id
+
+    # An identifier for a single device.
+    # @return [Label]
+    attr_accessor :label
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
-      @_hash['device_id'] = 'deviceId'
       @_hash['earliest'] = 'earliest'
       @_hash['latest'] = 'latest'
+      @_hash['device_id'] = 'deviceId'
+      @_hash['label'] = 'label'
       @_hash
     end
 
@@ -35,8 +40,7 @@ module Verizon
     def self.optionals
       %w[
         device_id
-        earliest
-        latest
+        label
       ]
     end
 
@@ -45,12 +49,14 @@ module Verizon
       []
     end
 
-    def initialize(device_id = SKIP,
-                   earliest = SKIP,
-                   latest = SKIP)
+    def initialize(earliest = nil,
+                   latest = nil,
+                   device_id = SKIP,
+                   label = SKIP)
+      @earliest = earliest
+      @latest = latest
       @device_id = device_id unless device_id == SKIP
-      @earliest = earliest unless earliest == SKIP
-      @latest = latest unless latest == SKIP
+      @label = label unless label == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -58,14 +64,16 @@ module Verizon
       return nil unless hash
 
       # Extract variables from the hash.
+      earliest = hash.key?('earliest') ? hash['earliest'] : nil
+      latest = hash.key?('latest') ? hash['latest'] : nil
       device_id = DeviceId.from_hash(hash['deviceId']) if hash['deviceId']
-      earliest = hash.key?('earliest') ? hash['earliest'] : SKIP
-      latest = hash.key?('latest') ? hash['latest'] : SKIP
+      label = Label.from_hash(hash['label']) if hash['label']
 
       # Create object from extracted values.
-      DeviceUsageListRequest.new(device_id,
-                                 earliest,
-                                 latest)
+      DeviceUsageListRequest.new(earliest,
+                                 latest,
+                                 device_id,
+                                 label)
     end
   end
 end

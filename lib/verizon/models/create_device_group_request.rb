@@ -15,11 +15,6 @@ module Verizon
     # @return [String]
     attr_accessor :account_name
 
-    # Zero or more devices to add to the device group. You can use POST
-    # /devices/actions/list to get a list of all devices in the account.
-    # @return [Array[DeviceId]]
-    attr_accessor :devices_to_add
-
     # A description for the device group.
     # @return [String]
     attr_accessor :group_description
@@ -29,23 +24,25 @@ module Verizon
     # @return [String]
     attr_accessor :group_name
 
+    # Zero or more devices to add to the device group. You can use POST
+    # /devices/actions/list to get a list of all devices in the account.
+    # @return [Array[DeviceId]]
+    attr_accessor :devices_to_add
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
       @_hash['account_name'] = 'accountName'
-      @_hash['devices_to_add'] = 'devicesToAdd'
       @_hash['group_description'] = 'groupDescription'
       @_hash['group_name'] = 'groupName'
+      @_hash['devices_to_add'] = 'devicesToAdd'
       @_hash
     end
 
     # An array for optional fields
     def self.optionals
       %w[
-        account_name
         devices_to_add
-        group_description
-        group_name
       ]
     end
 
@@ -54,14 +51,14 @@ module Verizon
       []
     end
 
-    def initialize(account_name = SKIP,
-                   devices_to_add = SKIP,
-                   group_description = SKIP,
-                   group_name = SKIP)
-      @account_name = account_name unless account_name == SKIP
+    def initialize(account_name = nil,
+                   group_description = nil,
+                   group_name = nil,
+                   devices_to_add = SKIP)
+      @account_name = account_name
+      @group_description = group_description
+      @group_name = group_name
       @devices_to_add = devices_to_add unless devices_to_add == SKIP
-      @group_description = group_description unless group_description == SKIP
-      @group_name = group_name unless group_name == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -69,7 +66,10 @@ module Verizon
       return nil unless hash
 
       # Extract variables from the hash.
-      account_name = hash.key?('accountName') ? hash['accountName'] : SKIP
+      account_name = hash.key?('accountName') ? hash['accountName'] : nil
+      group_description =
+        hash.key?('groupDescription') ? hash['groupDescription'] : nil
+      group_name = hash.key?('groupName') ? hash['groupName'] : nil
       # Parameter is an array, so we need to iterate through it
       devices_to_add = nil
       unless hash['devicesToAdd'].nil?
@@ -80,15 +80,12 @@ module Verizon
       end
 
       devices_to_add = SKIP unless hash.key?('devicesToAdd')
-      group_description =
-        hash.key?('groupDescription') ? hash['groupDescription'] : SKIP
-      group_name = hash.key?('groupName') ? hash['groupName'] : SKIP
 
       # Create object from extracted values.
       CreateDeviceGroupRequest.new(account_name,
-                                   devices_to_add,
                                    group_description,
-                                   group_name)
+                                   group_name,
+                                   devices_to_add)
     end
   end
 end

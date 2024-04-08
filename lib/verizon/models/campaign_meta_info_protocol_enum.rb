@@ -13,5 +13,11 @@ module Verizon
       # TODO: Write general description for OMDDM
       OMDDM = 'OMD-DM'.freeze
     ].freeze
+
+    def self.validate(value)
+      return false if value.nil?
+
+      CAMPAIGN_META_INFO_PROTOCOL_ENUM.include?(value)
+    end
   end
 end

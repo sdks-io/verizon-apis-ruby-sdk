@@ -11,8 +11,8 @@ Request to register a callback.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `name` | `String` | Optional | The name of the callback service that you want to subscribe to. |
-| `url` | `String` | Optional | The address on your server where you have enabled a listening service for callback messages. |
+| `name` | `String` | Required | The name of the callback service that you want to subscribe to. |
+| `url` | `String` | Required | The address on your server where you have enabled a listening service for callback messages. |
 | `username` | `String` | Optional | The user name that the M2M Platform should return in the callback messages. |
 | `password` | `String` | Optional | The password that the M2M Platform should return in the callback messages. |
 
@@ -21,7 +21,7 @@ Request to register a callback.
 ```json
 {
   "name": "CarrierService",
-  "url": "http://10.120.102.183:50559/CallbackListener/CarrierServiceMessages.asmx",
+  "url": "https://mock.thingspace.verizon.com/webhook",
   "username": "username0",
   "password": "password4"
 }

@@ -32,26 +32,17 @@ module Verizon
       # TODO: Write general description for TS_APPLICATION_RO
       TS_APPLICATION_RO = 'ts.application.ro'.freeze,
 
-      # TODO: Write general description for EDGEDISCOVERYREAD
-      EDGEDISCOVERYREAD = 'edge:discovery:read'.freeze,
-
-      # TODO: Write general description for EDGESERVICEPROFILEREAD
-      EDGESERVICEPROFILEREAD = 'edge:serviceprofile:read'.freeze,
-
-      # TODO: Write general description for EDGESERVICEPROFILEWRITE
-      EDGESERVICEPROFILEWRITE = 'edge:serviceprofile:write'.freeze,
-
-      # TODO: Write general description for EDGESERVICEREGISTRYREAD
-      EDGESERVICEREGISTRYREAD = 'edge:serviceregistry:read'.freeze,
-
-      # TODO: Write general description for EDGESERVICEREGISTRYWRITE
-      EDGESERVICEREGISTRYWRITE = 'edge:serviceregistry:write'.freeze,
-
       # read access
       READ = 'read'.freeze,
 
       # read/write access
       WRITE = 'write'.freeze
     ].freeze
+
+    def self.validate(value)
+      return false if value.nil?
+
+      OAUTH_SCOPE_ENUM.include?(value)
+    end
   end
 end

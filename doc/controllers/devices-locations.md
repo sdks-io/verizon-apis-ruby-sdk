@@ -13,9 +13,9 @@ devices_locations_controller = client.devices_locations
 * [List Devices Locations Synchronous](../../doc/controllers/devices-locations.md#list-devices-locations-synchronous)
 * [List Devices Locations Asynchronous](../../doc/controllers/devices-locations.md#list-devices-locations-asynchronous)
 * [Cancel Device Location Request](../../doc/controllers/devices-locations.md#cancel-device-location-request)
+* [Create Location Report](../../doc/controllers/devices-locations.md#create-location-report)
 * [Retrieve Location Report](../../doc/controllers/devices-locations.md#retrieve-location-report)
 * [Get Location Report Status](../../doc/controllers/devices-locations.md#get-location-report-status)
-* [Create Location Report](../../doc/controllers/devices-locations.md#create-location-report)
 * [Cancel Queued Location Report Generation](../../doc/controllers/devices-locations.md#cancel-queued-location-report-generation)
 
 
@@ -46,8 +46,6 @@ This method returns a `\ApiResponse` instance. The `data` property in this insta
 ```ruby
 body = LocationRequest.new(
   '1234567890-00001',
-  0,
-  CacheModeEnum::ENUM_1,
   [
     DeviceInfo.new(
       '980003420535573',
@@ -64,7 +62,9 @@ body = LocationRequest.new(
       'meid',
       '7897650914'
     )
-  ]
+  ],
+  AccuracyModeEnum::ENUM_0,
+  CacheModeEnum::ENUM_1
 )
 
 result = devices_locations_controller.list_devices_locations_synchronous(body)
@@ -142,15 +142,15 @@ This method returns a `\ApiResponse` instance. The `data` property in this insta
 ```ruby
 body = LocationRequest.new(
   '2234434445-32333',
-  0,
-  CacheModeEnum::ENUM_2,
   [
     DeviceInfo.new(
       '354677790348290',
       'imei',
       '5557337468'
     )
-  ]
+  ],
+  AccuracyModeEnum::ENUM_0,
+  CacheModeEnum::ENUM_2
 )
 
 result = devices_locations_controller.list_devices_locations_asynchronous(body)
@@ -214,6 +214,73 @@ result = devices_locations_controller.cancel_device_location_request(
 ```json
 {
   "txid": "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33"
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| Default | Unexpected error. | [`DeviceLocationResultException`](../../doc/models/device-location-result-exception.md) |
+
+
+# Create Location Report
+
+Request an asynchronous device location report.
+
+```ruby
+def create_location_report(body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`LocationRequest`](../../doc/models/location-request.md) | Body, Required | Request for device location report. |
+
+## Server
+
+`Server::DEVICE_LOCATION`
+
+## Response Type
+
+This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`AsynchronousLocationRequestResult`](../../doc/models/asynchronous-location-request-result.md).
+
+## Example Usage
+
+```ruby
+body = LocationRequest.new(
+  '1234567890-00001',
+  [
+    DeviceInfo.new(
+      '980003420535573',
+      'imei',
+      '7892345678'
+    ),
+    DeviceInfo.new(
+      '375535024300089',
+      'imei',
+      '7897654321'
+    ),
+    DeviceInfo.new(
+      'A100003861E585',
+      'meid',
+      '7897650914'
+    )
+  ],
+  AccuracyModeEnum::ENUM_0,
+  CacheModeEnum::ENUM_1
+)
+
+result = devices_locations_controller.create_location_report(body)
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "txid": "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33",
+  "status": "QUEUED"
 }
 ```
 
@@ -360,73 +427,6 @@ result = devices_locations_controller.get_location_report_status(
 {
   "txid": "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33",
   "status": "INPROGRESS"
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| Default | Unexpected error. | [`DeviceLocationResultException`](../../doc/models/device-location-result-exception.md) |
-
-
-# Create Location Report
-
-Request an asynchronous device location report.
-
-```ruby
-def create_location_report(body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `body` | [`LocationRequest`](../../doc/models/location-request.md) | Body, Required | Request for device location report. |
-
-## Server
-
-`Server::DEVICE_LOCATION`
-
-## Response Type
-
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`AsynchronousLocationRequestResult`](../../doc/models/asynchronous-location-request-result.md).
-
-## Example Usage
-
-```ruby
-body = LocationRequest.new(
-  '1234567890-00001',
-  0,
-  CacheModeEnum::ENUM_1,
-  [
-    DeviceInfo.new(
-      '980003420535573',
-      'imei',
-      '7892345678'
-    ),
-    DeviceInfo.new(
-      '375535024300089',
-      'imei',
-      '7897654321'
-    ),
-    DeviceInfo.new(
-      'A100003861E585',
-      'meid',
-      '7897650914'
-    )
-  ]
-)
-
-result = devices_locations_controller.create_location_report(body)
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "txid": "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33",
-  "status": "QUEUED"
 }
 ```
 

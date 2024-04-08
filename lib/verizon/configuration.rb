@@ -15,6 +15,7 @@ module Verizon
   class Server
     SERVER = [
       EDGE_DISCOVERY = 'Edge Discovery'.freeze,
+      THINGSPACE = 'Thingspace'.freeze,
       OAUTH_SERVER = 'OAuth Server'.freeze,
       M2M = 'M2M'.freeze,
       DEVICE_LOCATION = 'Device Location'.freeze,
@@ -26,36 +27,46 @@ module Verizon
       DEVICE_DIAGNOSTICS = 'Device Diagnostics'.freeze,
       CLOUD_CONNECTOR = 'Cloud Connector'.freeze,
       HYPER_PRECISE_LOCATION = 'Hyper Precise Location'.freeze,
-      SERVICES = 'Services'.freeze
+      SERVICES = 'Services'.freeze,
+      QUALITY_OF_SERVICE = 'Quality Of Service'.freeze
     ].freeze
   end
 
   # All configuration including auth info and base URI for the API access
   # are configured in this class.
   class Configuration < CoreLibrary::HttpClientConfiguration
-    # The attribute readers for properties.
-    attr_reader :environment, :oauth_client_id, :oauth_client_secret, :oauth_scopes, :vz_m2m_token
+    def oauth_client_id
+      @client_credentials_auth_credentials.oauth_client_id
+    end
+
+    def oauth_client_secret
+      @client_credentials_auth_credentials.oauth_client_secret
+    end
 
     def oauth_token
-      if @oauth_token.is_a? OauthToken
-        OauthToken.from_hash @oauth_token.to_hash
-      else
-        @oauth_token
-      end
+      @client_credentials_auth_credentials.oauth_token
     end
+
+    def oauth_scopes
+      @client_credentials_auth_credentials.oauth_scopes
+    end
+
+    # The attribute readers for properties.
+    attr_reader :environment, :client_credentials_auth_credentials, :vz_m2m_token
 
     class << self
       attr_reader :environments
     end
 
-    def initialize(connection: nil, adapter: :net_http_persistent, timeout: 60,
-                   max_retries: 0, retry_interval: 1, backoff_factor: 2,
-                   retry_statuses: [408, 413, 429, 500, 502, 503, 504, 521, 522, 524],
-                   retry_methods: %i[get put], http_callback: nil,
-                   environment: Environment::PRODUCTION,
-                   oauth_client_id: 'TODO: Replace',
-                   oauth_client_secret: 'TODO: Replace', oauth_token: nil,
-                   oauth_scopes: nil, vz_m2m_token: 'TODO: Replace')
+    def initialize(
+      connection: nil, adapter: :net_http_persistent, timeout: 60,
+      max_retries: 0, retry_interval: 1, backoff_factor: 2,
+      retry_statuses: [408, 413, 429, 500, 502, 503, 504, 521, 522, 524],
+      retry_methods: %i[get put], http_callback: nil,
+      environment: Environment::PRODUCTION, oauth_client_id: nil,
+      oauth_client_secret: nil, oauth_token: nil, oauth_scopes: nil,
+      client_credentials_auth_credentials: nil, vz_m2m_token: 'TODO: Replace'
+    )
 
       super connection: connection, adapter: adapter, timeout: timeout,
             max_retries: max_retries, retry_interval: retry_interval,
@@ -78,11 +89,17 @@ module Verizon
                        oauth_token
                      end
 
-      # TODO: Replace
+      # List of scopes that apply to the OAuth token
       @oauth_scopes = oauth_scopes
 
-      # M2M Session Token
+      # M2M Session Token ([How to generate an M2M session token?](page:getting-started/5g-edge-developer-creds-token#obtaining-a-vz-m2m-session-token-programmatically))
       @vz_m2m_token = vz_m2m_token
+
+      # Initializing OAuth 2 Client Credentials Grant credentials with the provided auth parameters
+      @client_credentials_auth_credentials = create_auth_credentials_object(
+        oauth_client_id, oauth_client_secret, oauth_token, oauth_scopes,
+        client_credentials_auth_credentials
+      )
 
       # The Http Client to use for making requests.
       set_http_client CoreLibrary::FaradayClient.new(self)
@@ -93,7 +110,8 @@ module Verizon
                    retry_statuses: nil, retry_methods: nil, http_callback: nil,
                    environment: nil, oauth_client_id: nil,
                    oauth_client_secret: nil, oauth_token: nil,
-                   oauth_scopes: nil, vz_m2m_token: nil)
+                   oauth_scopes: nil, client_credentials_auth_credentials: nil,
+                   vz_m2m_token: nil)
       connection ||= self.connection
       adapter ||= self.adapter
       timeout ||= self.timeout
@@ -104,29 +122,55 @@ module Verizon
       retry_methods ||= self.retry_methods
       http_callback ||= self.http_callback
       environment ||= self.environment
-      oauth_client_id ||= self.oauth_client_id
-      oauth_client_secret ||= self.oauth_client_secret
-      oauth_token ||= self.oauth_token
-      oauth_scopes ||= self.oauth_scopes
       vz_m2m_token ||= self.vz_m2m_token
+      client_credentials_auth_credentials = create_auth_credentials_object(
+        oauth_client_id, oauth_client_secret, oauth_token, oauth_scopes,
+        client_credentials_auth_credentials || self.client_credentials_auth_credentials
+      )
 
-      Configuration.new(connection: connection, adapter: adapter,
-                        timeout: timeout, max_retries: max_retries,
-                        retry_interval: retry_interval,
-                        backoff_factor: backoff_factor,
-                        retry_statuses: retry_statuses,
-                        retry_methods: retry_methods,
-                        http_callback: http_callback, environment: environment,
-                        oauth_client_id: oauth_client_id,
-                        oauth_client_secret: oauth_client_secret,
-                        oauth_token: oauth_token, oauth_scopes: oauth_scopes,
-                        vz_m2m_token: vz_m2m_token)
+      Configuration.new(
+        connection: connection, adapter: adapter, timeout: timeout,
+        max_retries: max_retries, retry_interval: retry_interval,
+        backoff_factor: backoff_factor, retry_statuses: retry_statuses,
+        retry_methods: retry_methods, http_callback: http_callback,
+        environment: environment, vz_m2m_token: vz_m2m_token,
+        client_credentials_auth_credentials: client_credentials_auth_credentials
+      )
+    end
+
+    def create_auth_credentials_object(oauth_client_id, oauth_client_secret,
+                                       oauth_token, oauth_scopes,
+                                       client_credentials_auth_credentials)
+      return client_credentials_auth_credentials if oauth_client_id.nil? &&
+                                                    oauth_client_secret.nil? &&
+                                                    oauth_token.nil? &&
+                                                    oauth_scopes.nil?
+
+      warn('The \'oauth_client_id\', \'oauth_client_secret\', \'oauth_token\','\
+           ' \'oauth_scopes\' params are deprecated. Use \'client_credentials_'\
+           'auth_credentials\' param instead.')
+
+      unless client_credentials_auth_credentials.nil?
+        return client_credentials_auth_credentials.clone_with(
+          oauth_client_id: oauth_client_id,
+          oauth_client_secret: oauth_client_secret,
+          oauth_token: oauth_token,
+          oauth_scopes: oauth_scopes
+        )
+      end
+
+      ClientCredentialsAuthCredentials.new(
+        oauth_client_id: oauth_client_id,
+        oauth_client_secret: oauth_client_secret, oauth_token: oauth_token,
+        oauth_scopes: oauth_scopes
+      )
     end
 
     # All the environments the SDK can run in.
     ENVIRONMENTS = {
       Environment::PRODUCTION => {
         Server::EDGE_DISCOVERY => 'https://5gedge.verizon.com/api/mec/eds',
+        Server::THINGSPACE => 'https://thingspace.verizon.com/api',
         Server::OAUTH_SERVER => 'https://thingspace.verizon.com/api/ts/v1',
         Server::M2M => 'https://thingspace.verizon.com/api/m2m',
         Server::DEVICE_LOCATION => 'https://thingspace.verizon.com/api/loc/v1',
@@ -138,7 +182,8 @@ module Verizon
         Server::DEVICE_DIAGNOSTICS => 'https://thingspace.verizon.com/api/diagnostics/v1',
         Server::CLOUD_CONNECTOR => 'https://thingspace.verizon.com/api/cc/v1',
         Server::HYPER_PRECISE_LOCATION => 'https://thingspace.verizon.com/api/hyper-precise/v1',
-        Server::SERVICES => 'https://5gedge.verizon.com/api/mec/services'
+        Server::SERVICES => 'https://5gedge.verizon.com/api/mec/services',
+        Server::QUALITY_OF_SERVICE => 'https://thingspace.verizon.com/api/m2m/v1/devices'
       }
     }.freeze
 

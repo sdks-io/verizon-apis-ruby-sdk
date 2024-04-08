@@ -11,8 +11,8 @@ Custom data that can be included using key-value pairs.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `key` | `String` | Optional | The key for an extended attribute. |
-| `value` | `String` | Optional | The value of an extended attribute. |
+| `key` | `String` | Required | The key for an extended attribute. |
+| `value` | `String` | Required | The value of an extended attribute. |
 
 ## Example (as JSON)
 

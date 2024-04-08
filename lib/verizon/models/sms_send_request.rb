@@ -13,6 +13,11 @@ module Verizon
     # @return [String]
     attr_accessor :account_name
 
+    # The contents of the SMS message. The SMS message is limited to 160
+    # characters in 7-bit format, or 140 characters in 8-bit format.
+    # @return [String]
+    attr_accessor :sms_message
+
     # The names and values of custom fields, if you want to only include devices
     # that have matching custom fields.
     # @return [Array[CustomFields]]
@@ -38,34 +43,27 @@ module Verizon
     # @return [String]
     attr_accessor :service_plan
 
-    # The contents of the SMS message. The SMS message is limited to 160
-    # characters in 7-bit format, or 140 characters in 8-bit format.
-    # @return [String]
-    attr_accessor :sms_message
-
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
       @_hash['account_name'] = 'accountName'
+      @_hash['sms_message'] = 'smsMessage'
       @_hash['custom_fields'] = 'customFields'
       @_hash['data_encoding'] = 'dataEncoding'
       @_hash['device_ids'] = 'deviceIds'
       @_hash['group_name'] = 'groupName'
       @_hash['service_plan'] = 'servicePlan'
-      @_hash['sms_message'] = 'smsMessage'
       @_hash
     end
 
     # An array for optional fields
     def self.optionals
       %w[
-        account_name
         custom_fields
         data_encoding
         device_ids
         group_name
         service_plan
-        sms_message
       ]
     end
 
@@ -74,20 +72,20 @@ module Verizon
       []
     end
 
-    def initialize(account_name = SKIP,
+    def initialize(account_name = nil,
+                   sms_message = nil,
                    custom_fields = SKIP,
                    data_encoding = SKIP,
                    device_ids = SKIP,
                    group_name = SKIP,
-                   service_plan = SKIP,
-                   sms_message = SKIP)
-      @account_name = account_name unless account_name == SKIP
+                   service_plan = SKIP)
+      @account_name = account_name
+      @sms_message = sms_message
       @custom_fields = custom_fields unless custom_fields == SKIP
       @data_encoding = data_encoding unless data_encoding == SKIP
       @device_ids = device_ids unless device_ids == SKIP
       @group_name = group_name unless group_name == SKIP
       @service_plan = service_plan unless service_plan == SKIP
-      @sms_message = sms_message unless sms_message == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -95,7 +93,8 @@ module Verizon
       return nil unless hash
 
       # Extract variables from the hash.
-      account_name = hash.key?('accountName') ? hash['accountName'] : SKIP
+      account_name = hash.key?('accountName') ? hash['accountName'] : nil
+      sms_message = hash.key?('smsMessage') ? hash['smsMessage'] : nil
       # Parameter is an array, so we need to iterate through it
       custom_fields = nil
       unless hash['customFields'].nil?
@@ -119,16 +118,15 @@ module Verizon
       device_ids = SKIP unless hash.key?('deviceIds')
       group_name = hash.key?('groupName') ? hash['groupName'] : SKIP
       service_plan = hash.key?('servicePlan') ? hash['servicePlan'] : SKIP
-      sms_message = hash.key?('smsMessage') ? hash['smsMessage'] : SKIP
 
       # Create object from extracted values.
       SMSSendRequest.new(account_name,
+                         sms_message,
                          custom_fields,
                          data_encoding,
                          device_ids,
                          group_name,
-                         service_plan,
-                         sms_message)
+                         service_plan)
     end
   end
 end

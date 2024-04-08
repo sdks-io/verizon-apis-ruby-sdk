@@ -22,9 +22,7 @@ module Verizon
 
     # An array for optional fields
     def self.optionals
-      %w[
-        old_password
-      ]
+      []
     end
 
     # An array for nullable fields
@@ -32,8 +30,8 @@ module Verizon
       []
     end
 
-    def initialize(old_password = SKIP)
-      @old_password = old_password unless old_password == SKIP
+    def initialize(old_password = nil)
+      @old_password = old_password
     end
 
     # Creates an instance of the object from a hash.
@@ -41,7 +39,7 @@ module Verizon
       return nil unless hash
 
       # Extract variables from the hash.
-      old_password = hash.key?('oldPassword') ? hash['oldPassword'] : SKIP
+      old_password = hash.key?('oldPassword') ? hash['oldPassword'] : nil
 
       # Create object from extracted values.
       SessionResetPasswordRequest.new(old_password)

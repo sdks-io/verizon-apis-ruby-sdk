@@ -21,10 +21,6 @@ module Verizon
     # @return [HyperPreciseLocationFault]
     attr_accessor :fault
 
-    # Fault occurred while responding.
-    # @return [Object]
-    attr_accessor :example
-
     # The constructor.
     # @param [String] The reason for raising an exception.
     # @param [HttpResponse] The HttpReponse of the API call.
@@ -41,7 +37,6 @@ module Verizon
       @response_code = hash.key?('responseCode') ? hash['responseCode'] : SKIP
       @message = hash.key?('message') ? hash['message'] : SKIP
       @fault = HyperPreciseLocationFault.from_hash(hash['fault']) if hash['fault']
-      @example = hash.key?('example') ? hash['example'] : SKIP
     end
   end
 end

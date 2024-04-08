@@ -28,10 +28,7 @@ module Verizon
 
     # An array for optional fields
     def self.optionals
-      %w[
-        account_name
-        labels
-      ]
+      []
     end
 
     # An array for nullable fields
@@ -39,10 +36,10 @@ module Verizon
       []
     end
 
-    def initialize(account_name = SKIP,
-                   labels = SKIP)
-      @account_name = account_name unless account_name == SKIP
-      @labels = labels unless labels == SKIP
+    def initialize(account_name = nil,
+                   labels = nil)
+      @account_name = account_name
+      @labels = labels
     end
 
     # Creates an instance of the object from a hash.
@@ -50,7 +47,7 @@ module Verizon
       return nil unless hash
 
       # Extract variables from the hash.
-      account_name = hash.key?('accountName') ? hash['accountName'] : SKIP
+      account_name = hash.key?('accountName') ? hash['accountName'] : nil
       labels = AccountLabels.from_hash(hash['labels']) if hash['labels']
 
       # Create object from extracted values.

@@ -29,10 +29,7 @@ module Verizon
 
     # An array for optional fields
     def self.optionals
-      %w[
-        id
-        kind
-      ]
+      []
     end
 
     # An array for nullable fields
@@ -40,10 +37,10 @@ module Verizon
       []
     end
 
-    def initialize(id = SKIP,
-                   kind = SKIP)
-      @id = id unless id == SKIP
-      @kind = kind unless kind == SKIP
+    def initialize(id = nil,
+                   kind = nil)
+      @id = id
+      @kind = kind
     end
 
     # Creates an instance of the object from a hash.
@@ -51,8 +48,8 @@ module Verizon
       return nil unless hash
 
       # Extract variables from the hash.
-      id = hash.key?('id') ? hash['id'] : SKIP
-      kind = hash.key?('kind') ? hash['kind'] : SKIP
+      id = hash.key?('id') ? hash['id'] : nil
+      kind = hash.key?('kind') ? hash['kind'] : nil
 
       # Create object from extracted values.
       DeviceId.new(id,

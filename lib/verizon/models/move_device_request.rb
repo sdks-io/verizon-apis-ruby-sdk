@@ -62,7 +62,6 @@ module Verizon
     # An array for optional fields
     def self.optionals
       %w[
-        account_name
         filter
         custom_fields
         devices
@@ -77,14 +76,14 @@ module Verizon
       []
     end
 
-    def initialize(account_name = SKIP,
+    def initialize(account_name = nil,
                    filter = SKIP,
                    custom_fields = SKIP,
                    devices = SKIP,
                    group_name = SKIP,
                    carrier_ip_pool_name = SKIP,
                    service_plan = SKIP)
-      @account_name = account_name unless account_name == SKIP
+      @account_name = account_name
       @filter = filter unless filter == SKIP
       @custom_fields = custom_fields unless custom_fields == SKIP
       @devices = devices unless devices == SKIP
@@ -98,7 +97,7 @@ module Verizon
       return nil unless hash
 
       # Extract variables from the hash.
-      account_name = hash.key?('accountName') ? hash['accountName'] : SKIP
+      account_name = hash.key?('accountName') ? hash['accountName'] : nil
       filter = DeviceFilter.from_hash(hash['filter']) if hash['filter']
       # Parameter is an array, so we need to iterate through it
       custom_fields = nil

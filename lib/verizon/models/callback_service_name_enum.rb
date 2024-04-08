@@ -13,5 +13,11 @@ module Verizon
       # TODO: Write general description for DEVICELOCATION
       DEVICELOCATION = 'DeviceLocation'.freeze
     ].freeze
+
+    def self.validate(value)
+      return false if value.nil?
+
+      CALLBACK_SERVICE_NAME_ENUM.include?(value)
+    end
   end
 end

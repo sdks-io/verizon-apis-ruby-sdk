@@ -10,11 +10,74 @@ service_profiles_controller = client.service_profiles
 
 ## Methods
 
-* [List Service Profiles](../../doc/controllers/service-profiles.md#list-service-profiles)
 * [Create Service Profile](../../doc/controllers/service-profiles.md#create-service-profile)
-* [Update Service Profile](../../doc/controllers/service-profiles.md#update-service-profile)
+* [List Service Profiles](../../doc/controllers/service-profiles.md#list-service-profiles)
 * [Get Service Profile](../../doc/controllers/service-profiles.md#get-service-profile)
+* [Update Service Profile](../../doc/controllers/service-profiles.md#update-service-profile)
 * [Delete Service Profile](../../doc/controllers/service-profiles.md#delete-service-profile)
+
+
+# Create Service Profile
+
+Creates a service profile that describes the resource requirements of a service.
+
+```ruby
+def create_service_profile(body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`ResourcesServiceProfile`](../../doc/models/resources-service-profile.md) | Body, Required | The request body passes all of the needed parameters to create a service profile. Parameters will be edited here rather than the **Parameters** section above. The `maxLatencyMs` and `clientType` parameters are both required in the request body. **Note:** The `maxLatencyMs` value must be submitted in multiples of 5. Additionally, "GPU" is future functionality and the values are not captured. |
+
+## Requires scope
+
+### oAuth2
+
+`discovery:read`, `serviceprofile:read`, `serviceprofile:write`, `serviceregistry:read`, `serviceregistry:write`, `ts.application.ro`, `ts.mec.fullaccess`, `ts.mec.limitaccess`
+
+## Response Type
+
+This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`CreateServiceProfileResult`](../../doc/models/create-service-profile-result.md).
+
+## Example Usage
+
+```ruby
+body = ResourcesServiceProfile.new(
+  ClientTypeEnum::V2_X,
+  'Verizon',
+  'time windows',
+  'BAY AREA',
+  NetworkResourcesType.new(
+    20,
+    1,
+    true,
+    15,
+    1
+  ),
+  ComputeResourcesType.new(
+    GPU.new(
+      1,
+      35740,
+      588,
+      33
+    ),
+    1,
+    1
+  )
+)
+
+result = service_profiles_controller.create_service_profile(body)
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | HTTP 400 Bad Request. | [`EdgeDiscoveryResultException`](../../doc/models/edge-discovery-result-exception.md) |
+| 401 | HTTP 401 Unauthorized. | [`EdgeDiscoveryResultException`](../../doc/models/edge-discovery-result-exception.md) |
+| Default | HTTP 500 Internal Server Error. | [`EdgeDiscoveryResultException`](../../doc/models/edge-discovery-result-exception.md) |
 
 
 # List Service Profiles
@@ -27,7 +90,9 @@ def list_service_profiles
 
 ## Requires scope
 
-`EDGEDISCOVERYREAD`, `EDGESERVICEPROFILEREAD`, `EDGESERVICEPROFILEWRITE`, `EDGESERVICEREGISTRYREAD`, `EDGESERVICEREGISTRYWRITE`, `TS_APPLICATION_RO`, `TS_MEC_FULLACCESS`, `TS_MEC_LIMITACCESS`
+### oAuth2
+
+`discovery:read`, `serviceprofile:read`, `serviceprofile:write`, `serviceregistry:read`, `serviceregistry:write`, `ts.application.ro`, `ts.mec.fullaccess`, `ts.mec.limitaccess`
 
 ## Response Type
 
@@ -59,146 +124,6 @@ result = service_profiles_controller.list_service_profiles
 | Default | HTTP 500 Internal Server Error. | [`EdgeDiscoveryResultException`](../../doc/models/edge-discovery-result-exception.md) |
 
 
-# Create Service Profile
-
-Creates a service profile that describes the resource requirements of a service.
-
-```ruby
-def create_service_profile(body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `body` | [`ResourcesServiceProfile`](../../doc/models/resources-service-profile.md) | Body, Required | The request body passes all of the needed parameters to create a service profile. Parameters will be edited here rather than the **Parameters** section above. The `maxLatencyMs` and `clientType` parameters are both required in the request body. **Note:** The `maxLatencyMs` value must be submitted in multiples of 5. Additionally, "GPU" is future functionality and the values are not captured. |
-
-## Requires scope
-
-`EDGEDISCOVERYREAD`, `EDGESERVICEPROFILEREAD`, `EDGESERVICEPROFILEWRITE`, `EDGESERVICEREGISTRYREAD`, `EDGESERVICEREGISTRYWRITE`, `TS_APPLICATION_RO`, `TS_MEC_FULLACCESS`, `TS_MEC_LIMITACCESS`
-
-## Response Type
-
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`CreateServiceProfileResult`](../../doc/models/create-service-profile-result.md).
-
-## Example Usage
-
-```ruby
-body = ResourcesServiceProfile.new(
-  ClientTypeEnum::V2_X,
-  'Verizon',
-  'time windows',
-  'BAY AREA',
-  NetworkResourcesType.new(
-    20,
-    1,
-    true,
-    15,
-    1
-  ),
-  ComputeResourcesType.new(
-    GPU.new(
-      1,
-      35740,
-      588,
-      33
-    ),
-    1,
-    1
-  ),
-  nil
-)
-
-result = service_profiles_controller.create_service_profile(body)
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | HTTP 400 Bad Request. | [`EdgeDiscoveryResultException`](../../doc/models/edge-discovery-result-exception.md) |
-| 401 | HTTP 401 Unauthorized. | [`EdgeDiscoveryResultException`](../../doc/models/edge-discovery-result-exception.md) |
-| Default | HTTP 500 Internal Server Error. | [`EdgeDiscoveryResultException`](../../doc/models/edge-discovery-result-exception.md) |
-
-
-# Update Service Profile
-
-Update the definition of a Service Profile.
-
-```ruby
-def update_service_profile(service_profile_id,
-                           body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `service_profile_id` | `String` | Template, Required | **Constraints**: *Maximum Length*: `36`, *Pattern*: `^[a-zA-Z0-9!@#$&()\-`.+,/"]{3,36}$` |
-| `body` | [`ResourcesServiceProfile`](../../doc/models/resources-service-profile.md) | Body, Required | The request body passes the rest of the needed parameters to create a service profile. The `maxLatencyMs` and `clientType` parameters are both required in the request body. **Note:** The `maxLatencyMs` value must be submitted in multiples of 5. Additionally, "GPU" is future functionality and the values are not captured. Default values to use are shown. |
-
-## Requires scope
-
-`EDGEDISCOVERYREAD`, `EDGESERVICEPROFILEREAD`, `EDGESERVICEPROFILEWRITE`, `EDGESERVICEREGISTRYREAD`, `EDGESERVICEREGISTRYWRITE`, `TS_APPLICATION_RO`, `TS_MEC_FULLACCESS`, `TS_MEC_LIMITACCESS`
-
-## Response Type
-
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`UpdateServiceProfileResult`](../../doc/models/update-service-profile-result.md).
-
-## Example Usage
-
-```ruby
-service_profile_id = 'serviceProfileId2'
-
-body = ResourcesServiceProfile.new(
-  ClientTypeEnum::V2_X,
-  'Verizon',
-  'time windows',
-  'BAY AREA',
-  NetworkResourcesType.new(
-    20,
-    1,
-    true,
-    15,
-    1
-  ),
-  ComputeResourcesType.new(
-    GPU.new(
-      1,
-      nil,
-      nil,
-      nil
-    ),
-    1,
-    1
-  ),
-  nil
-)
-
-result = service_profiles_controller.update_service_profile(
-  service_profile_id,
-  body
-)
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "status": "Success",
-  "message": "Service Profile Updated"
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | HTTP 400 Bad Request. | [`EdgeDiscoveryResultException`](../../doc/models/edge-discovery-result-exception.md) |
-| 401 | HTTP 401 Unauthorized. | [`EdgeDiscoveryResultException`](../../doc/models/edge-discovery-result-exception.md) |
-| Default | HTTP 500 Internal Server Error. | [`EdgeDiscoveryResultException`](../../doc/models/edge-discovery-result-exception.md) |
-
-
 # Get Service Profile
 
 Returns a specified service profile.
@@ -211,11 +136,13 @@ def get_service_profile(service_profile_id)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `service_profile_id` | `String` | Template, Required | **Constraints**: *Maximum Length*: `36`, *Pattern*: `^[a-zA-Z0-9!@#$&()\-`.+,/"]{3,36}$` |
+| `service_profile_id` | `String` | Template, Required | - |
 
 ## Requires scope
 
-`EDGEDISCOVERYREAD`, `EDGESERVICEPROFILEREAD`, `EDGESERVICEPROFILEWRITE`, `EDGESERVICEREGISTRYREAD`, `EDGESERVICEREGISTRYWRITE`, `TS_APPLICATION_RO`, `TS_MEC_FULLACCESS`, `TS_MEC_LIMITACCESS`
+### oAuth2
+
+`discovery:read`, `serviceprofile:read`, `serviceprofile:write`, `serviceregistry:read`, `serviceregistry:write`, `ts.application.ro`, `ts.mec.fullaccess`, `ts.mec.limitaccess`
 
 ## Response Type
 
@@ -267,6 +194,82 @@ result = service_profiles_controller.get_service_profile(service_profile_id)
 | Default | HTTP 500 Internal Server Error. | [`EdgeDiscoveryResultException`](../../doc/models/edge-discovery-result-exception.md) |
 
 
+# Update Service Profile
+
+Update the definition of a Service Profile.
+
+```ruby
+def update_service_profile(service_profile_id,
+                           body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `service_profile_id` | `String` | Template, Required | - |
+| `body` | [`ResourcesServiceProfile`](../../doc/models/resources-service-profile.md) | Body, Required | The request body passes the rest of the needed parameters to create a service profile. The `maxLatencyMs` and `clientType` parameters are both required in the request body. **Note:** The `maxLatencyMs` value must be submitted in multiples of 5. Additionally, "GPU" is future functionality and the values are not captured. Default values to use are shown. |
+
+## Requires scope
+
+### oAuth2
+
+`discovery:read`, `serviceprofile:read`, `serviceprofile:write`, `serviceregistry:read`, `serviceregistry:write`, `ts.application.ro`, `ts.mec.fullaccess`, `ts.mec.limitaccess`
+
+## Response Type
+
+This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`UpdateServiceProfileResult`](../../doc/models/update-service-profile-result.md).
+
+## Example Usage
+
+```ruby
+service_profile_id = 'serviceProfileId2'
+
+body = ResourcesServiceProfile.new(
+  ClientTypeEnum::V2_X,
+  'Verizon',
+  'time windows',
+  'BAY AREA',
+  NetworkResourcesType.new(
+    20,
+    1,
+    true,
+    15,
+    1
+  ),
+  ComputeResourcesType.new(
+    GPU.new(
+      1
+    ),
+    1,
+    1
+  )
+)
+
+result = service_profiles_controller.update_service_profile(
+  service_profile_id,
+  body
+)
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "status": "Success",
+  "message": "Service Profile Updated"
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | HTTP 400 Bad Request. | [`EdgeDiscoveryResultException`](../../doc/models/edge-discovery-result-exception.md) |
+| 401 | HTTP 401 Unauthorized. | [`EdgeDiscoveryResultException`](../../doc/models/edge-discovery-result-exception.md) |
+| Default | HTTP 500 Internal Server Error. | [`EdgeDiscoveryResultException`](../../doc/models/edge-discovery-result-exception.md) |
+
+
 # Delete Service Profile
 
 Delete Service Profile based on unique service profile ID.
@@ -279,11 +282,13 @@ def delete_service_profile(service_profile_id)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `service_profile_id` | `String` | Template, Required | **Constraints**: *Maximum Length*: `36`, *Pattern*: `^[a-zA-Z0-9!@#$&()\-`.+,/"]{3,36}$` |
+| `service_profile_id` | `String` | Template, Required | - |
 
 ## Requires scope
 
-`EDGEDISCOVERYREAD`, `EDGESERVICEPROFILEREAD`, `EDGESERVICEPROFILEWRITE`, `EDGESERVICEREGISTRYREAD`, `EDGESERVICEREGISTRYWRITE`, `TS_APPLICATION_RO`, `TS_MEC_FULLACCESS`, `TS_MEC_LIMITACCESS`
+### oAuth2
+
+`discovery:read`, `serviceprofile:read`, `serviceprofile:write`, `serviceregistry:read`, `serviceregistry:write`, `ts.application.ro`, `ts.mec.fullaccess`, `ts.mec.limitaccess`
 
 ## Response Type
 

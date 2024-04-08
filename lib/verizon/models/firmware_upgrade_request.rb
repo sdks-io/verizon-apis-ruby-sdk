@@ -86,7 +86,7 @@ module Verizon
                                  device_list)
     end
 
-    def to_start_date
+    def to_custom_start_date
       DateTimeHelper.to_rfc3339(start_date)
     end
   end

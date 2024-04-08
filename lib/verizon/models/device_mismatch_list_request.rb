@@ -10,14 +10,14 @@ module Verizon
     SKIP = Object.new
     private_constant :SKIP
 
+    # Filter out the dates.
+    # @return [DateFilter]
+    attr_accessor :filter
+
     # A list of specific devices that you want to check, specified by ICCID or
     # MDN.
     # @return [Array[AccountDeviceList]]
     attr_accessor :devices
-
-    # Filter out the dates.
-    # @return [DateFilter]
-    attr_accessor :filter
 
     # The account that you want to search for mismatched devices. If you don't
     # specify an accountName, the search includes all devices to which you have
@@ -32,8 +32,8 @@ module Verizon
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
-      @_hash['devices'] = 'devices'
       @_hash['filter'] = 'filter'
+      @_hash['devices'] = 'devices'
       @_hash['account_name'] = 'accountName'
       @_hash['group_name'] = 'groupName'
       @_hash
@@ -43,7 +43,6 @@ module Verizon
     def self.optionals
       %w[
         devices
-        filter
         account_name
         group_name
       ]
@@ -54,12 +53,12 @@ module Verizon
       []
     end
 
-    def initialize(devices = SKIP,
-                   filter = SKIP,
+    def initialize(filter = nil,
+                   devices = SKIP,
                    account_name = SKIP,
                    group_name = SKIP)
+      @filter = filter
       @devices = devices unless devices == SKIP
-      @filter = filter unless filter == SKIP
       @account_name = account_name unless account_name == SKIP
       @group_name = group_name unless group_name == SKIP
     end
@@ -69,6 +68,7 @@ module Verizon
       return nil unless hash
 
       # Extract variables from the hash.
+      filter = DateFilter.from_hash(hash['filter']) if hash['filter']
       # Parameter is an array, so we need to iterate through it
       devices = nil
       unless hash['devices'].nil?
@@ -79,13 +79,12 @@ module Verizon
       end
 
       devices = SKIP unless hash.key?('devices')
-      filter = DateFilter.from_hash(hash['filter']) if hash['filter']
       account_name = hash.key?('accountName') ? hash['accountName'] : SKIP
       group_name = hash.key?('groupName') ? hash['groupName'] : SKIP
 
       # Create object from extracted values.
-      DeviceMismatchListRequest.new(devices,
-                                    filter,
+      DeviceMismatchListRequest.new(filter,
+                                    devices,
                                     account_name,
                                     group_name)
     end

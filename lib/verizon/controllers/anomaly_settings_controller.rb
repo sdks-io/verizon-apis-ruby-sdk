@@ -13,37 +13,14 @@ module Verizon
     # @return [IntelligenceSuccessResult] response from the API call
     def activate_anomaly_detection(body)
       new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/v1/intelligence/anomaly/settings',
-                                     Server::M2M)
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/m2m/v1/intelligence/anomaly/settings',
+                                     Server::THINGSPACE)
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(IntelligenceSuccessResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'An error occurred.',
-                                IntelligenceResultException))
-        .execute
-    end
-
-    # Resets the thresholds to zero.
-    # @param [String] account_name Required parameter: The name of the
-    # subscribed account.
-    # @return [IntelligenceSuccessResult] response from the API call
-    def reset_anomaly_detection_parameters(account_name)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/v1/intelligence/{accountName}/anomaly/settings/reset',
-                                     Server::M2M)
-                   .template_param(new_parameter(account_name, key: 'accountName')
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(IntelligenceSuccessResult.method(:from_hash))
@@ -61,15 +38,38 @@ module Verizon
     def list_anomaly_detection_settings(account_name)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/v1/intelligence/{accountName}/anomaly/settings',
-                                     Server::M2M)
+                                     '/m2m/v1/intelligence/{accountName}/anomaly/settings',
+                                     Server::THINGSPACE)
                    .template_param(new_parameter(account_name, key: 'accountName')
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(AnomalyDetectionSettings.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('default',
+                                'An error occurred.',
+                                IntelligenceResultException))
+        .execute
+    end
+
+    # Resets the thresholds to zero.
+    # @param [String] account_name Required parameter: The name of the
+    # subscribed account.
+    # @return [IntelligenceSuccessResult] response from the API call
+    def reset_anomaly_detection_parameters(account_name)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/m2m/v1/intelligence/{accountName}/anomaly/settings/reset',
+                                     Server::THINGSPACE)
+                   .template_param(new_parameter(account_name, key: 'accountName')
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('oAuth2')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(IntelligenceSuccessResult.method(:from_hash))
                    .is_api_response(true)
                    .local_error('default',
                                 'An error occurred.',

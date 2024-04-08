@@ -6,31 +6,6 @@
 module Verizon
   # SessionManagementController
   class SessionManagementController < BaseController
-    # The new password is effective immediately. Passwords do not expire, but
-    # Verizon recommends changing your password every 90 days.
-    # @param [SessionResetPasswordRequest] body Required parameter: Request with
-    # current password that needs to be reset.
-    # @return [SessionResetPasswordResult] response from the API call
-    def reset_connectivity_management_password(body)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/v1/session/password/actions/reset',
-                                     Server::M2M)
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SessionResetPasswordResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
-        .execute
-    end
-
     # Initiates a Connectivity Management session and returns a VZ-M2M session
     # token that is required in subsequent API requests.
     # @param [LogInRequest] body Optional parameter: Request to initiate a
@@ -39,13 +14,13 @@ module Verizon
     def start_connectivity_management_session(body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/v1/session/login',
-                                     Server::M2M)
+                                     '/m2m/v1/session/login',
+                                     Server::THINGSPACE)
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(LogInResult.method(:from_hash))
@@ -61,13 +36,38 @@ module Verizon
     def end_connectivity_management_session
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/v1/session/logout',
-                                     Server::M2M)
+                                     '/m2m/v1/session/logout',
+                                     Server::THINGSPACE)
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(LogOutRequest.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Error response.',
+                                ConnectivityManagementResultException))
+        .execute
+    end
+
+    # The new password is effective immediately. Passwords do not expire, but
+    # Verizon recommends changing your password every 90 days.
+    # @param [SessionResetPasswordRequest] body Required parameter: Request with
+    # current password that needs to be reset.
+    # @return [SessionResetPasswordResult] response from the API call
+    def reset_connectivity_management_password(body)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/m2m/v1/session/password/actions/reset',
+                                     Server::THINGSPACE)
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('oAuth2')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(SessionResetPasswordResult.method(:from_hash))
                    .is_api_response(true)
                    .local_error('400',
                                 'Error response.',

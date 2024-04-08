@@ -40,8 +40,6 @@ module Verizon
     # An array for optional fields
     def self.optionals
       %w[
-        name
-        url
         username
         password
       ]
@@ -52,12 +50,12 @@ module Verizon
       []
     end
 
-    def initialize(name = SKIP,
-                   url = SKIP,
+    def initialize(name = nil,
+                   url = nil,
                    username = SKIP,
                    password = SKIP)
-      @name = name unless name == SKIP
-      @url = url unless url == SKIP
+      @name = name
+      @url = url
       @username = username unless username == SKIP
       @password = password unless password == SKIP
     end
@@ -67,8 +65,8 @@ module Verizon
       return nil unless hash
 
       # Extract variables from the hash.
-      name = hash.key?('name') ? hash['name'] : SKIP
-      url = hash.key?('url') ? hash['url'] : SKIP
+      name = hash.key?('name') ? hash['name'] : nil
+      url = hash.key?('url') ? hash['url'] : nil
       username = hash.key?('username') ? hash['username'] : SKIP
       password = hash.key?('password') ? hash['password'] : SKIP
 

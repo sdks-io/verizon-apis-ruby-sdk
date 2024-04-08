@@ -9,6 +9,16 @@ module Verizon
     SKIP = Object.new
     private_constant :SKIP
 
+    # The beginning of the reporting period. The startTime cannot be more than 6
+    # months before the current date.
+    # @return [String]
+    attr_accessor :start_time
+
+    # The end of the reporting period. The endTime date must be within on month
+    # of the startTime date.
+    # @return [String]
+    attr_accessor :end_time
+
     # One or more devices for which you want aggregate data, specified by device
     # ID.
     # @return [Array[DeviceId]]
@@ -23,24 +33,20 @@ module Verizon
     # @return [String]
     attr_accessor :group_name
 
-    # The beginning of the reporting period. The startTime cannot be more than 6
-    # months before the current date.
-    # @return [String]
-    attr_accessor :start_time
-
-    # The end of the reporting period. The endTime date must be within on month
-    # of the startTime date.
-    # @return [String]
-    attr_accessor :end_time
+    # The name of a device group, if you want to only include devices in that
+    # group.
+    # @return [Array[Label]]
+    attr_accessor :label
 
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
+      @_hash['start_time'] = 'startTime'
+      @_hash['end_time'] = 'endTime'
       @_hash['device_ids'] = 'deviceIds'
       @_hash['account_name'] = 'accountName'
       @_hash['group_name'] = 'groupName'
-      @_hash['start_time'] = 'startTime'
-      @_hash['end_time'] = 'endTime'
+      @_hash['label'] = 'label'
       @_hash
     end
 
@@ -50,8 +56,7 @@ module Verizon
         device_ids
         account_name
         group_name
-        start_time
-        end_time
+        label
       ]
     end
 
@@ -60,16 +65,18 @@ module Verizon
       []
     end
 
-    def initialize(device_ids = SKIP,
+    def initialize(start_time = nil,
+                   end_time = nil,
+                   device_ids = SKIP,
                    account_name = SKIP,
                    group_name = SKIP,
-                   start_time = SKIP,
-                   end_time = SKIP)
+                   label = SKIP)
+      @start_time = start_time
+      @end_time = end_time
       @device_ids = device_ids unless device_ids == SKIP
       @account_name = account_name unless account_name == SKIP
       @group_name = group_name unless group_name == SKIP
-      @start_time = start_time unless start_time == SKIP
-      @end_time = end_time unless end_time == SKIP
+      @label = label unless label == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -77,6 +84,8 @@ module Verizon
       return nil unless hash
 
       # Extract variables from the hash.
+      start_time = hash.key?('startTime') ? hash['startTime'] : nil
+      end_time = hash.key?('endTime') ? hash['endTime'] : nil
       # Parameter is an array, so we need to iterate through it
       device_ids = nil
       unless hash['deviceIds'].nil?
@@ -89,15 +98,24 @@ module Verizon
       device_ids = SKIP unless hash.key?('deviceIds')
       account_name = hash.key?('accountName') ? hash['accountName'] : SKIP
       group_name = hash.key?('groupName') ? hash['groupName'] : SKIP
-      start_time = hash.key?('startTime') ? hash['startTime'] : SKIP
-      end_time = hash.key?('endTime') ? hash['endTime'] : SKIP
+      # Parameter is an array, so we need to iterate through it
+      label = nil
+      unless hash['label'].nil?
+        label = []
+        hash['label'].each do |structure|
+          label << (Label.from_hash(structure) if structure)
+        end
+      end
+
+      label = SKIP unless hash.key?('label')
 
       # Create object from extracted values.
-      DeviceAggregateUsageListRequest.new(device_ids,
+      DeviceAggregateUsageListRequest.new(start_time,
+                                          end_time,
+                                          device_ids,
                                           account_name,
                                           group_name,
-                                          start_time,
-                                          end_time)
+                                          label)
     end
   end
 end

@@ -6,33 +6,49 @@
 module Verizon
   # DeviceGroupsController
   class DeviceGroupsController < BaseController
-    # Make changes to a device group, including changing the name and
-    # description, and adding or removing devices.
-    # @param [String] aname Required parameter: Account name.
-    # @param [String] gname Required parameter: Group name.
-    # @param [DeviceGroupUpdateRequest] body Required parameter: Request to
-    # update device group.
+    # Create a new device group and optionally add devices to the group. Device
+    # groups can make it easier to manage similar devices and to get reports on
+    # their usage.
+    # @param [CreateDeviceGroupRequest] body Required parameter: A request to
+    # create a new device group.
     # @return [ConnectivityManagementSuccessResult] response from the API call
-    def update_device_group(aname,
-                            gname,
-                            body)
+    def create_device_group(body)
       new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/v1/groups/{aname}/name/{gname}',
-                                     Server::M2M)
-                   .template_param(new_parameter(aname, key: 'aname')
-                                    .should_encode(true))
-                   .template_param(new_parameter(gname, key: 'gname')
-                                    .should_encode(true))
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/m2m/v1/groups',
+                                     Server::THINGSPACE)
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ConnectivityManagementSuccessResult.method(:from_hash))
                    .is_api_response(true)
+                   .local_error('400',
+                                'Error response.',
+                                ConnectivityManagementResultException))
+        .execute
+    end
+
+    # Returns a list of all device groups in a specified account.
+    # @param [String] aname Required parameter: Account name.
+    # @return [Array[DeviceGroup]] response from the API call
+    def list_device_groups(aname)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/m2m/v1/groups/{aname}',
+                                     Server::THINGSPACE)
+                   .template_param(new_parameter(aname, key: 'aname')
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('oAuth2')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(DeviceGroup.method(:from_hash))
+                   .is_api_response(true)
+                   .is_response_array(true)
                    .local_error('400',
                                 'Error response.',
                                 ConnectivityManagementResultException))
@@ -52,15 +68,15 @@ module Verizon
                                      mnext: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/v1/groups/{aname}/name/{gname}',
-                                     Server::M2M)
+                                     '/m2m/v1/groups/{aname}/name/{gname}',
+                                     Server::THINGSPACE)
                    .template_param(new_parameter(aname, key: 'aname')
                                     .should_encode(true))
                    .template_param(new_parameter(gname, key: 'gname')
                                     .should_encode(true))
                    .query_param(new_parameter(mnext, key: 'next'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(DeviceGroupDevicesData.method(:from_hash))
@@ -71,49 +87,33 @@ module Verizon
         .execute
     end
 
-    # Create a new device group and optionally add devices to the group. Device
-    # groups can make it easier to manage similar devices and to get reports on
-    # their usage.
-    # @param [CreateDeviceGroupRequest] body Required parameter: A request to
-    # create a new device group.
+    # Make changes to a device group, including changing the name and
+    # description, and adding or removing devices.
+    # @param [String] aname Required parameter: Account name.
+    # @param [String] gname Required parameter: Group name.
+    # @param [DeviceGroupUpdateRequest] body Required parameter: Request to
+    # update device group.
     # @return [ConnectivityManagementSuccessResult] response from the API call
-    def create_device_group(body)
+    def update_device_group(aname,
+                            gname,
+                            body)
       new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/v1/groups',
-                                     Server::M2M)
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/m2m/v1/groups/{aname}/name/{gname}',
+                                     Server::THINGSPACE)
+                   .template_param(new_parameter(aname, key: 'aname')
+                                    .should_encode(true))
+                   .template_param(new_parameter(gname, key: 'gname')
+                                    .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ConnectivityManagementSuccessResult.method(:from_hash))
                    .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
-        .execute
-    end
-
-    # Returns a list of all device groups in a specified account.
-    # @param [String] aname Required parameter: Account name.
-    # @return [Array[DeviceGroup]] response from the API call
-    def list_device_groups(aname)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/v1/groups/{aname}',
-                                     Server::M2M)
-                   .template_param(new_parameter(aname, key: 'aname')
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceGroup.method(:from_hash))
-                   .is_api_response(true)
-                   .is_response_array(true)
                    .local_error('400',
                                 'Error response.',
                                 ConnectivityManagementResultException))
@@ -129,14 +129,14 @@ module Verizon
                             gname)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::DELETE,
-                                     '/v1/groups/{aname}/name/{gname}',
-                                     Server::M2M)
+                                     '/m2m/v1/groups/{aname}/name/{gname}',
+                                     Server::THINGSPACE)
                    .template_param(new_parameter(aname, key: 'aname')
                                     .should_encode(true))
                    .template_param(new_parameter(gname, key: 'gname')
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ConnectivityManagementSuccessResult.method(:from_hash))

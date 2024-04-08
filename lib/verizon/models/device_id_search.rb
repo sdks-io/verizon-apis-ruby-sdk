@@ -21,8 +21,9 @@ module Verizon
     # @return [String]
     attr_accessor :endswith
 
-    # The type of the device identifier to match. Valid types of identifiers
-    # are:EID,ESN,ICCID,IMEI,MDN,MEID,MSISDN.
+    # The type of the device identifier. Valid types of identifiers are:ESN
+    # (decimal),EID,ICCID (up to 20 digits),IMEI (up to 16 digits),MDN,MEID
+    # (hexadecimal),MSISDN.
     # @return [String]
     attr_accessor :kind
 

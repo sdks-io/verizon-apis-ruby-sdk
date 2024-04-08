@@ -20,7 +20,7 @@ module Verizon
                    .query_param(new_parameter(account_name, key: 'accountName'))
                    .query_param(new_parameter(devices, key: 'devices'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(DiagnosticObservationSetting.method(:from_hash))

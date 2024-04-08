@@ -13,5 +13,11 @@ module Verizon
       # TODO: Write general description for FOTA
       FOTA = 'fota'.freeze
     ].freeze
+
+    def self.validate(value)
+      return false if value.nil?
+
+      SERVICE_NAME_ENUM.include?(value)
+    end
   end
 end

@@ -51,6 +51,12 @@ module Verizon
     # @return [String]
     attr_accessor :zip_code
 
+    # The ZIP code from which the MDN and MSISDN will be derived when
+    # assignNonGeoMDN is true. Specify the zip code of the location where the
+    # line of service will primarily be used.
+    # @return [String]
+    attr_accessor :smsr_oid
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -61,6 +67,7 @@ module Verizon
       @_hash['npa_nxx'] = 'npaNxx'
       @_hash['service_plan'] = 'servicePlan'
       @_hash['zip_code'] = 'zipCode'
+      @_hash['smsr_oid'] = 'smsrOid'
       @_hash
     end
 
@@ -69,11 +76,11 @@ module Verizon
       %w[
         assign_non_geo_mdn
         change4g_option
-        device_ids
         device_ids_to
         npa_nxx
         service_plan
         zip_code
+        smsr_oid
       ]
     end
 
@@ -82,20 +89,22 @@ module Verizon
       []
     end
 
-    def initialize(assign_non_geo_mdn = SKIP,
+    def initialize(device_ids = nil,
+                   assign_non_geo_mdn = SKIP,
                    change4g_option = SKIP,
-                   device_ids = SKIP,
                    device_ids_to = SKIP,
                    npa_nxx = SKIP,
                    service_plan = SKIP,
-                   zip_code = SKIP)
+                   zip_code = SKIP,
+                   smsr_oid = SKIP)
       @assign_non_geo_mdn = assign_non_geo_mdn unless assign_non_geo_mdn == SKIP
       @change4g_option = change4g_option unless change4g_option == SKIP
-      @device_ids = device_ids unless device_ids == SKIP
+      @device_ids = device_ids
       @device_ids_to = device_ids_to unless device_ids_to == SKIP
       @npa_nxx = npa_nxx unless npa_nxx == SKIP
       @service_plan = service_plan unless service_plan == SKIP
       @zip_code = zip_code unless zip_code == SKIP
+      @smsr_oid = smsr_oid unless smsr_oid == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -103,10 +112,6 @@ module Verizon
       return nil unless hash
 
       # Extract variables from the hash.
-      assign_non_geo_mdn =
-        hash.key?('assignNonGeoMdn') ? hash['assignNonGeoMdn'] : SKIP
-      change4g_option =
-        hash.key?('change4gOption') ? hash['change4gOption'] : SKIP
       # Parameter is an array, so we need to iterate through it
       device_ids = nil
       unless hash['deviceIds'].nil?
@@ -116,7 +121,11 @@ module Verizon
         end
       end
 
-      device_ids = SKIP unless hash.key?('deviceIds')
+      device_ids = nil unless hash.key?('deviceIds')
+      assign_non_geo_mdn =
+        hash.key?('assignNonGeoMdn') ? hash['assignNonGeoMdn'] : SKIP
+      change4g_option =
+        hash.key?('change4gOption') ? hash['change4gOption'] : SKIP
       # Parameter is an array, so we need to iterate through it
       device_ids_to = nil
       unless hash['deviceIdsTo'].nil?
@@ -130,15 +139,17 @@ module Verizon
       npa_nxx = hash.key?('npaNxx') ? hash['npaNxx'] : SKIP
       service_plan = hash.key?('servicePlan') ? hash['servicePlan'] : SKIP
       zip_code = hash.key?('zipCode') ? hash['zipCode'] : SKIP
+      smsr_oid = hash.key?('smsrOid') ? hash['smsrOid'] : SKIP
 
       # Create object from extracted values.
-      ChangeDeviceIdRequest.new(assign_non_geo_mdn,
+      ChangeDeviceIdRequest.new(device_ids,
+                                assign_non_geo_mdn,
                                 change4g_option,
-                                device_ids,
                                 device_ids_to,
                                 npa_nxx,
                                 service_plan,
-                                zip_code)
+                                zip_code,
+                                smsr_oid)
     end
   end
 end

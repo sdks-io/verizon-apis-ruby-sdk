@@ -12,9 +12,62 @@ sms_controller = client.sms
 
 ## Methods
 
-* [List Devices SMS Messages](../../doc/controllers/sms.md#list-devices-sms-messages)
 * [Send SMS to Device](../../doc/controllers/sms.md#send-sms-to-device)
+* [List Devices SMS Messages](../../doc/controllers/sms.md#list-devices-sms-messages)
 * [Start Queued SMS Delivery](../../doc/controllers/sms.md#start-queued-sms-delivery)
+
+
+# Send SMS to Device
+
+The messages are queued on the ThingSpace Platform and sent as soon as possible, but they may be delayed due to traffic and routing considerations.
+
+```ruby
+def send_sms_to_device(body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`SMSSendRequest`](../../doc/models/sms-send-request.md) | Body, Required | Request to send SMS. |
+
+## Server
+
+`Server::THINGSPACE`
+
+## Response Type
+
+This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
+
+## Example Usage
+
+```ruby
+body = SMSSendRequest.new(
+  'accountName0',
+  'The rain in Spain stays mainly in the plain.',
+  nil,
+  nil,
+  nil,
+  nil,
+  'T Plan 2'
+)
+
+result = sms_controller.send_sms_to_device(body)
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "requestId": "595f5c44-c31c-4552-8670-020a1545a84d"
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
 
 
 # List Devices SMS Messages
@@ -35,7 +88,7 @@ def list_devices_sms_messages(aname,
 
 ## Server
 
-`Server::M2M`
+`Server::THINGSPACE`
 
 ## Response Type
 
@@ -86,59 +139,6 @@ result = sms_controller.list_devices_sms_messages(aname)
 | 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
 
 
-# Send SMS to Device
-
-The messages are queued on the ThingSpace Platform and sent as soon as possible, but they may be delayed due to traffic and routing considerations.
-
-```ruby
-def send_sms_to_device(body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `body` | [`SMSSendRequest`](../../doc/models/sms-send-request.md) | Body, Required | Request to send SMS. |
-
-## Server
-
-`Server::M2M`
-
-## Response Type
-
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
-
-## Example Usage
-
-```ruby
-body = SMSSendRequest.new(
-  nil,
-  nil,
-  nil,
-  nil,
-  nil,
-  'T Plan 2',
-  'The rain in Spain stays mainly in the plain.'
-)
-
-result = sms_controller.send_sms_to_device(body)
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "requestId": "595f5c44-c31c-4552-8670-020a1545a84d"
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
-
-
 # Start Queued SMS Delivery
 
 Tells the ThingSpace Platform to start sending mobile-originated SMS messages through the EnhancedConnectivityService callback service. SMS messages from devices are queued until they are retrieved by your application, either by callback or synchronously with GET /sms/{accountName}/history.
@@ -155,7 +155,7 @@ def start_queued_sms_delivery(aname)
 
 ## Server
 
-`Server::M2M`
+`Server::THINGSPACE`
 
 ## Response Type
 

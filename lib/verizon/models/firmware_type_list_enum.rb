@@ -13,5 +13,11 @@ module Verizon
       # TODO: Write general description for REMOVE
       REMOVE = 'remove'.freeze
     ].freeze
+
+    def self.validate(value)
+      return false if value.nil?
+
+      FIRMWARE_TYPE_LIST_ENUM.include?(value)
+    end
   end
 end

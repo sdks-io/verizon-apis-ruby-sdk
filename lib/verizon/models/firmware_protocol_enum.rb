@@ -16,5 +16,11 @@ module Verizon
       # TODO: Write general description for ALL
       ALL = 'all'.freeze
     ].freeze
+
+    def self.validate(value)
+      return false if value.nil?
+
+      FIRMWARE_PROTOCOL_ENUM.include?(value)
+    end
   end
 end

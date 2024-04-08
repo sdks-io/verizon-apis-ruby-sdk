@@ -27,10 +27,7 @@ module Verizon
 
     # An array for optional fields
     def self.optionals
-      %w[
-        key
-        value
-      ]
+      []
     end
 
     # An array for nullable fields
@@ -38,10 +35,10 @@ module Verizon
       []
     end
 
-    def initialize(key = SKIP,
-                   value = SKIP)
-      @key = key unless key == SKIP
-      @value = value unless value == SKIP
+    def initialize(key = nil,
+                   value = nil)
+      @key = key
+      @value = value
     end
 
     # Creates an instance of the object from a hash.
@@ -49,8 +46,8 @@ module Verizon
       return nil unless hash
 
       # Extract variables from the hash.
-      key = hash.key?('key') ? hash['key'] : SKIP
-      value = hash.key?('value') ? hash['value'] : SKIP
+      key = hash.key?('key') ? hash['key'] : nil
+      value = hash.key?('value') ? hash['value'] : nil
 
       # Create object from extracted values.
       CustomFields.new(key,

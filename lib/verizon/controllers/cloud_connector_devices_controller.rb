@@ -6,6 +6,50 @@
 module Verizon
   # CloudConnectorDevicesController
   class CloudConnectorDevicesController < BaseController
+    # Change configuration values on a device, such as setting how often a
+    # device records and reports sensor readings.
+    # @param [ChangeConfigurationRequest] body Required parameter: The request
+    # body changes configuration values on a device.
+    # @return [ChangeConfigurationResponse] response from the API call
+    def update_devices_configuration_value(body)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/devices/configuration/actions/set',
+                                     Server::CLOUD_CONNECTOR)
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('oAuth2')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ChangeConfigurationResponse.method(:from_hash))
+                   .is_api_response(true))
+        .execute
+    end
+
+    # Find devices by property values. Returns an array of all matching device
+    # resources.
+    # @param [QuerySubscriptionRequest] body Required parameter: The request
+    # body specifies fields and values to match.
+    # @return [FindDeviceByPropertyResponseList] response from the API call
+    def find_device_by_property_values(body)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/devices/actions/query',
+                                     Server::CLOUD_CONNECTOR)
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('oAuth2')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(FindDeviceByPropertyResponseList.method(:from_hash))
+                   .is_api_response(true))
+        .execute
+    end
+
     # Search for devices by property values. Returns an array of all matching
     # device resources.
     # @param [QuerySubscriptionRequest] body Required parameter: The request
@@ -20,7 +64,7 @@ module Verizon
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(SearchDeviceByPropertyResponseList.method(:from_hash))
@@ -43,32 +87,10 @@ module Verizon
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(SearchDeviceEventHistoryResponseList.method(:from_hash))
-                   .is_api_response(true))
-        .execute
-    end
-
-    # Find devices by property values. Returns an array of all matching device
-    # resources.
-    # @param [QuerySubscriptionRequest] body Required parameter: The request
-    # body specifies fields and values to match.
-    # @return [FindDeviceByPropertyResponseList] response from the API call
-    def find_device_by_property_values(body)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/devices/actions/query',
-                                     Server::CLOUD_CONNECTOR)
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(FindDeviceByPropertyResponseList.method(:from_hash))
                    .is_api_response(true))
         .execute
     end
@@ -92,32 +114,10 @@ module Verizon
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(SearchSensorHistoryResponseList.method(:from_hash))
-                   .is_api_response(true))
-        .execute
-    end
-
-    # Change configuration values on a device, such as setting how often a
-    # device records and reports sensor readings.
-    # @param [ChangeConfigurationRequest] body Required parameter: The request
-    # body changes configuration values on a device.
-    # @return [ChangeConfigurationResponse] response from the API call
-    def update_devices_configuration_value(body)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/devices/configuration/actions/set',
-                                     Server::CLOUD_CONNECTOR)
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ChangeConfigurationResponse.method(:from_hash))
                    .is_api_response(true))
         .execute
     end
@@ -134,7 +134,7 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .body_param(new_parameter(body))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .is_response_void(true)
                    .is_api_response(true))

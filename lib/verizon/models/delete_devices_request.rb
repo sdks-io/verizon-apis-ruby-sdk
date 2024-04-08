@@ -9,21 +9,21 @@ module Verizon
     SKIP = Object.new
     private_constant :SKIP
 
-    # The Verizon billing account that the device group belongs to. An account
-    # name is usually numeric, and must include any leading zeros.
-    # @return [String]
-    attr_accessor :account_name
-
     # A list of up to 100 devices that you want to delete, specified by device
     # identifier. You only need to provide one identifier per device.
     # @return [Array[AccountDeviceList]]
     attr_accessor :devices_to_delete
 
+    # The Verizon billing account that the device group belongs to. An account
+    # name is usually numeric, and must include any leading zeros.
+    # @return [String]
+    attr_accessor :account_name
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
-      @_hash['account_name'] = 'accountName'
       @_hash['devices_to_delete'] = 'devicesToDelete'
+      @_hash['account_name'] = 'accountName'
       @_hash
     end
 
@@ -31,7 +31,6 @@ module Verizon
     def self.optionals
       %w[
         account_name
-        devices_to_delete
       ]
     end
 
@@ -40,10 +39,10 @@ module Verizon
       []
     end
 
-    def initialize(account_name = SKIP,
-                   devices_to_delete = SKIP)
+    def initialize(devices_to_delete = nil,
+                   account_name = SKIP)
+      @devices_to_delete = devices_to_delete
       @account_name = account_name unless account_name == SKIP
-      @devices_to_delete = devices_to_delete unless devices_to_delete == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -51,7 +50,6 @@ module Verizon
       return nil unless hash
 
       # Extract variables from the hash.
-      account_name = hash.key?('accountName') ? hash['accountName'] : SKIP
       # Parameter is an array, so we need to iterate through it
       devices_to_delete = nil
       unless hash['devicesToDelete'].nil?
@@ -61,11 +59,12 @@ module Verizon
         end
       end
 
-      devices_to_delete = SKIP unless hash.key?('devicesToDelete')
+      devices_to_delete = nil unless hash.key?('devicesToDelete')
+      account_name = hash.key?('accountName') ? hash['accountName'] : SKIP
 
       # Create object from extracted values.
-      DeleteDevicesRequest.new(account_name,
-                               devices_to_delete)
+      DeleteDevicesRequest.new(devices_to_delete,
+                               account_name)
     end
   end
 end

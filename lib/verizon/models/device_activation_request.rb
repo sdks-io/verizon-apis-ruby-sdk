@@ -28,10 +28,7 @@ module Verizon
 
     # An array for optional fields
     def self.optionals
-      %w[
-        account_name
-        devices
-      ]
+      []
     end
 
     # An array for nullable fields
@@ -39,10 +36,10 @@ module Verizon
       []
     end
 
-    def initialize(account_name = SKIP,
-                   devices = SKIP)
-      @account_name = account_name unless account_name == SKIP
-      @devices = devices unless devices == SKIP
+    def initialize(account_name = nil,
+                   devices = nil)
+      @account_name = account_name
+      @devices = devices
     end
 
     # Creates an instance of the object from a hash.
@@ -50,7 +47,7 @@ module Verizon
       return nil unless hash
 
       # Extract variables from the hash.
-      account_name = hash.key?('accountName') ? hash['accountName'] : SKIP
+      account_name = hash.key?('accountName') ? hash['accountName'] : nil
       # Parameter is an array, so we need to iterate through it
       devices = nil
       unless hash['devices'].nil?
@@ -60,7 +57,7 @@ module Verizon
         end
       end
 
-      devices = SKIP unless hash.key?('devices')
+      devices = nil unless hash.key?('devices')
 
       # Create object from extracted values.
       DeviceActivationRequest.new(account_name,

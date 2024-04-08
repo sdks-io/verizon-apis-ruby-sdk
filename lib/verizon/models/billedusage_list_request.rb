@@ -20,7 +20,7 @@ module Verizon
 
     # TODO: Write general description for this method
     # @return [Array[DeviceList]]
-    attr_accessor :devices
+    attr_accessor :device_ids
 
     # TODO: Write general description for this method
     # @return [BillingCycle]
@@ -31,17 +31,16 @@ module Verizon
       @_hash = {} if @_hash.nil?
       @_hash['account_name'] = 'accountName'
       @_hash['labels'] = 'labels'
-      @_hash['devices'] = 'devices'
-      @_hash['billing_cycle'] = 'BillingCycle'
+      @_hash['device_ids'] = 'deviceIds'
+      @_hash['billing_cycle'] = 'billingCycle'
       @_hash
     end
 
     # An array for optional fields
     def self.optionals
       %w[
-        account_name
         labels
-        devices
+        device_ids
         billing_cycle
       ]
     end
@@ -51,13 +50,13 @@ module Verizon
       []
     end
 
-    def initialize(account_name = SKIP,
+    def initialize(account_name = nil,
                    labels = SKIP,
-                   devices = SKIP,
+                   device_ids = SKIP,
                    billing_cycle = SKIP)
-      @account_name = account_name unless account_name == SKIP
+      @account_name = account_name
       @labels = labels unless labels == SKIP
-      @devices = devices unless devices == SKIP
+      @device_ids = device_ids unless device_ids == SKIP
       @billing_cycle = billing_cycle unless billing_cycle == SKIP
     end
 
@@ -66,24 +65,24 @@ module Verizon
       return nil unless hash
 
       # Extract variables from the hash.
-      account_name = hash.key?('accountName') ? hash['accountName'] : SKIP
+      account_name = hash.key?('accountName') ? hash['accountName'] : nil
       labels = LabelsList.from_hash(hash['labels']) if hash['labels']
       # Parameter is an array, so we need to iterate through it
-      devices = nil
-      unless hash['devices'].nil?
-        devices = []
-        hash['devices'].each do |structure|
-          devices << (DeviceList.from_hash(structure) if structure)
+      device_ids = nil
+      unless hash['deviceIds'].nil?
+        device_ids = []
+        hash['deviceIds'].each do |structure|
+          device_ids << (DeviceList.from_hash(structure) if structure)
         end
       end
 
-      devices = SKIP unless hash.key?('devices')
-      billing_cycle = BillingCycle.from_hash(hash['BillingCycle']) if hash['BillingCycle']
+      device_ids = SKIP unless hash.key?('deviceIds')
+      billing_cycle = BillingCycle.from_hash(hash['billingCycle']) if hash['billingCycle']
 
       # Create object from extracted values.
       BilledusageListRequest.new(account_name,
                                  labels,
-                                 devices,
+                                 device_ids,
                                  billing_cycle)
     end
   end

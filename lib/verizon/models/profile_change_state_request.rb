@@ -32,11 +32,7 @@ module Verizon
 
     # An array for optional fields
     def self.optionals
-      %w[
-        devices
-        account_name
-        smsr_oid
-      ]
+      []
     end
 
     # An array for nullable fields
@@ -44,12 +40,12 @@ module Verizon
       []
     end
 
-    def initialize(devices = SKIP,
-                   account_name = SKIP,
-                   smsr_oid = SKIP)
-      @devices = devices unless devices == SKIP
-      @account_name = account_name unless account_name == SKIP
-      @smsr_oid = smsr_oid unless smsr_oid == SKIP
+    def initialize(devices = nil,
+                   account_name = nil,
+                   smsr_oid = nil)
+      @devices = devices
+      @account_name = account_name
+      @smsr_oid = smsr_oid
     end
 
     # Creates an instance of the object from a hash.
@@ -66,9 +62,9 @@ module Verizon
         end
       end
 
-      devices = SKIP unless hash.key?('devices')
-      account_name = hash.key?('accountName') ? hash['accountName'] : SKIP
-      smsr_oid = hash.key?('smsrOid') ? hash['smsrOid'] : SKIP
+      devices = nil unless hash.key?('devices')
+      account_name = hash.key?('accountName') ? hash['accountName'] : nil
+      smsr_oid = hash.key?('smsrOid') ? hash['smsrOid'] : nil
 
       # Create object from extracted values.
       ProfileChangeStateRequest.new(devices,

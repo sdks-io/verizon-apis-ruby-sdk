@@ -25,7 +25,7 @@ def list_account_service_plans(aname)
 
 ## Server
 
-`Server::M2M`
+`Server::THINGSPACE`
 
 ## Response Type
 

@@ -84,7 +84,7 @@ module Verizon
                              time_completed)
     end
 
-    def to_time_completed
+    def to_custom_time_completed
       DateTimeHelper.to_rfc3339(time_completed)
     end
   end

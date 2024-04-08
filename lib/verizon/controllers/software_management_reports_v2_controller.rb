@@ -23,10 +23,69 @@ module Verizon
                                     .should_encode(true))
                    .query_param(new_parameter(distribution_type, key: 'distributionType'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(SoftwarePackage.method(:from_hash))
+                   .is_api_response(true)
+                   .is_response_array(true)
+                   .local_error('400',
+                                'Unexpected error.',
+                                FotaV2ResultException))
+        .execute
+    end
+
+    # The device endpoint gets devices information of an account.
+    # @param [String] account Required parameter: Account identifier.
+    # @param [String] last_seen_device_id Optional parameter: Last seen device
+    # identifier.
+    # @param [String] distribution_type Optional parameter: Filter
+    # distributionType to get specific type of devices. Values is LWM2M, OMD-DM
+    # or HTTP.
+    # @return [V2AccountDeviceList] response from the API call
+    def list_account_devices(account,
+                             last_seen_device_id: nil,
+                             distribution_type: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/devices/{account}',
+                                     Server::SOFTWARE_MANAGEMENT_V2)
+                   .template_param(new_parameter(account, key: 'account')
+                                    .should_encode(true))
+                   .query_param(new_parameter(last_seen_device_id, key: 'lastSeenDeviceId'))
+                   .query_param(new_parameter(distribution_type, key: 'distributionType'))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('oAuth2')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(V2AccountDeviceList.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Unexpected error.',
+                                FotaV2ResultException))
+        .execute
+    end
+
+    # The endpoint allows user to get software upgrade history of a device based
+    # on device IMEI.
+    # @param [String] account Required parameter: Account identifier.
+    # @param [String] device_id Required parameter: Device IMEI identifier.
+    # @return [Array[DeviceSoftwareUpgrade]] response from the API call
+    def get_device_firmware_upgrade_history(account,
+                                            device_id)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/reports/{account}/devices/{deviceId}',
+                                     Server::SOFTWARE_MANAGEMENT_V2)
+                   .template_param(new_parameter(account, key: 'account')
+                                    .should_encode(true))
+                   .template_param(new_parameter(device_id, key: 'deviceId')
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('oAuth2')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(DeviceSoftwareUpgrade.method(:from_hash))
                    .is_api_response(true)
                    .is_response_array(true)
                    .local_error('400',
@@ -55,70 +114,11 @@ module Verizon
                    .query_param(new_parameter(campaign_status, key: 'campaignStatus'))
                    .query_param(new_parameter(last_seen_campaign_id, key: 'lastSeenCampaignId'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(V2CampaignHistory.method(:from_hash))
                    .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV2ResultException))
-        .execute
-    end
-
-    # The device endpoint gets devices information of an account.
-    # @param [String] account Required parameter: Account identifier.
-    # @param [String] last_seen_device_id Optional parameter: Last seen device
-    # identifier.
-    # @param [String] distribution_type Optional parameter: Filter
-    # distributionType to get specific type of devices. Values is LWM2M, OMD-DM
-    # or HTTP.
-    # @return [V2AccountDeviceList] response from the API call
-    def list_account_devices(account,
-                             last_seen_device_id: nil,
-                             distribution_type: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/devices/{account}',
-                                     Server::SOFTWARE_MANAGEMENT_V2)
-                   .template_param(new_parameter(account, key: 'account')
-                                    .should_encode(true))
-                   .query_param(new_parameter(last_seen_device_id, key: 'lastSeenDeviceId'))
-                   .query_param(new_parameter(distribution_type, key: 'distributionType'))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(V2AccountDeviceList.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV2ResultException))
-        .execute
-    end
-
-    # The endpoint allows user to get software upgrade history of a device based
-    # on device IMEI.
-    # @param [String] account Required parameter: Account identifier.
-    # @param [String] device_id Required parameter: Device IMEI identifier.
-    # @return [Array[DeviceSoftwareUpgrade]] response from the API call
-    def get_device_firmware_upgrade_history(account,
-                                            device_id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/reports/{account}/devices/{deviceId}',
-                                     Server::SOFTWARE_MANAGEMENT_V2)
-                   .template_param(new_parameter(account, key: 'account')
-                                    .should_encode(true))
-                   .template_param(new_parameter(device_id, key: 'deviceId')
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceSoftwareUpgrade.method(:from_hash))
-                   .is_api_response(true)
-                   .is_response_array(true)
                    .local_error('400',
                                 'Unexpected error.',
                                 FotaV2ResultException))
@@ -145,7 +145,7 @@ module Verizon
                                     .should_encode(true))
                    .query_param(new_parameter(last_seen_device_id, key: 'lastSeenDeviceId'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(V2CampaignDevice.method(:from_hash))

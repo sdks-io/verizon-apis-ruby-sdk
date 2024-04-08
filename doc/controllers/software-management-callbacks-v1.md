@@ -95,9 +95,7 @@ account = '0242078689-00001'
 
 body = FotaV1CallbackRegistrationRequest.new(
   'Fota',
-  'https://10.120.102.183:50559/CallbackListener/FirmwareServiceMessages.asmx',
-  nil,
-  nil
+  'https://10.120.102.183:50559/CallbackListener/FirmwareServiceMessages.asmx'
 )
 
 result = software_management_callbacks_v1_controller.register_callback(

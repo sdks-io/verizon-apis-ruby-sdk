@@ -1,11 +1,11 @@
 Gem::Specification.new do |s|
   s.name = 'sdksio-verizon-apis-sdk'
-  s.version = '1.0.0'
-  s.summary = 'SDK for using Verizon APIs'
+  s.version = '1.3.0'
+  s.summary = 'Use the Verizon API for connectivity management, device diagnostics, device location, edge discovery service, edge performance, software management and much more.'
   s.description = 'Use the Verizon API for connectivity management, device diagnostics, device location, edge discovery service, edge performance, software management and much more.'
   s.authors = ['developer-sdksio']
   s.email = ['developer+sdksio@apimatic.io']
-  s.homepage = 'https://www.verizon.com'
+  s.homepage = 'https://www.verizon.com/'
   s.licenses = ['MIT']
   s.metadata  = {
 }

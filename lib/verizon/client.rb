@@ -6,11 +6,12 @@
 module Verizon
   #  verizon client class.
   class Client
+    include CoreLibrary
     attr_reader :config, :auth_managers
 
-    # Returns the configured authentication instance.
-    def auth
-      @auth_managers['global']
+    # Returns the configured authentication oAuth2 instance.
+    def oauth_2
+      @auth_managers['oAuth2']
     end
 
     # Access to m_5g_edge_platforms controller.
@@ -79,6 +80,12 @@ module Verizon
       @service_plans ||= ServicePlansController.new @global_configuration
     end
 
+    # Access to device_diagnostics controller.
+    # @return [DeviceDiagnosticsController] Returns the controller instance.
+    def device_diagnostics
+      @device_diagnostics ||= DeviceDiagnosticsController.new @global_configuration
+    end
+
     # Access to device_profile_management controller.
     # @return [DeviceProfileManagementController] Returns the controller instance.
     def device_profile_management
@@ -91,10 +98,10 @@ module Verizon
       @device_monitoring ||= DeviceMonitoringController.new @global_configuration
     end
 
-    # Access to uicc_device_profile_management controller.
-    # @return [UICCDeviceProfileManagementController] Returns the controller instance.
-    def uicc_device_profile_management
-      @uicc_device_profile_management ||= UICCDeviceProfileManagementController.new @global_configuration
+    # Access to e_uicc_device_profile_management controller.
+    # @return [EUICCDeviceProfileManagementController] Returns the controller instance.
+    def e_uicc_device_profile_management
+      @e_uicc_device_profile_management ||= EUICCDeviceProfileManagementController.new @global_configuration
     end
 
     # Access to devices_locations controller.
@@ -355,64 +362,82 @@ module Verizon
       @anomaly_triggers ||= AnomalyTriggersController.new @global_configuration
     end
 
-    # Access to mec_sites controller.
-    # @return [MECSitesController] Returns the controller instance.
-    def mec_sites
-      @mec_sites ||= MECSitesController.new @global_configuration
+    # Access to anomaly_triggers_v2 controller.
+    # @return [AnomalyTriggersV2Controller] Returns the controller instance.
+    def anomaly_triggers_v2
+      @anomaly_triggers_v2 ||= AnomalyTriggersV2Controller.new @global_configuration
     end
 
-    # Access to service_launch_profiles controller.
-    # @return [ServiceLaunchProfilesController] Returns the controller instance.
-    def service_launch_profiles
-      @service_launch_profiles ||= ServiceLaunchProfilesController.new @global_configuration
+    # Access to wireless_network_performance controller.
+    # @return [WirelessNetworkPerformanceController] Returns the controller instance.
+    def wireless_network_performance
+      @wireless_network_performance ||= WirelessNetworkPerformanceController.new @global_configuration
     end
 
-    # Access to service_launch_requests controller.
-    # @return [ServiceLaunchRequestsController] Returns the controller instance.
-    def service_launch_requests
-      @service_launch_requests ||= ServiceLaunchRequestsController.new @global_configuration
+    # Access to fixed_wireless_qualification controller.
+    # @return [FixedWirelessQualificationController] Returns the controller instance.
+    def fixed_wireless_qualification
+      @fixed_wireless_qualification ||= FixedWirelessQualificationController.new @global_configuration
     end
 
-    # Access to service_instances controller.
-    # @return [ServiceInstancesController] Returns the controller instance.
-    def service_instances
-      @service_instances ||= ServiceInstancesController.new @global_configuration
+    # Access to managing_e_sim_profiles controller.
+    # @return [ManagingESIMProfilesController] Returns the controller instance.
+    def managing_e_sim_profiles
+      @managing_e_sim_profiles ||= ManagingESIMProfilesController.new @global_configuration
     end
 
-    # Access to service_instance_operations controller.
-    # @return [ServiceInstanceOperationsController] Returns the controller instance.
-    def service_instance_operations
-      @service_instance_operations ||= ServiceInstanceOperationsController.new @global_configuration
+    # Access to device_sms_messaging controller.
+    # @return [DeviceSMSMessagingController] Returns the controller instance.
+    def device_sms_messaging
+      @device_sms_messaging ||= DeviceSMSMessagingController.new @global_configuration
     end
 
-    # Access to service_onboarding controller.
-    # @return [ServiceOnboardingController] Returns the controller instance.
-    def service_onboarding
-      @service_onboarding ||= ServiceOnboardingController.new @global_configuration
+    # Access to device_actions controller.
+    # @return [DeviceActionsController] Returns the controller instance.
+    def device_actions
+      @device_actions ||= DeviceActionsController.new @global_configuration
     end
 
-    # Access to service_metadata controller.
-    # @return [ServiceMetadataController] Returns the controller instance.
-    def service_metadata
-      @service_metadata ||= ServiceMetadataController.new @global_configuration
+    # Access to thing_space_quality_of_service_api_actions controller.
+    # @return [ThingSpaceQualityOfServiceAPIActionsController] Returns the controller instance.
+    def thing_space_quality_of_service_api_actions
+      @thing_space_quality_of_service_api_actions ||= ThingSpaceQualityOfServiceAPIActionsController.new @global_configuration
     end
 
-    # Access to repositories controller.
-    # @return [RepositoriesController] Returns the controller instance.
-    def repositories
-      @repositories ||= RepositoriesController.new @global_configuration
+    # Access to mec controller.
+    # @return [MECController] Returns the controller instance.
+    def mec
+      @mec ||= MECController.new @global_configuration
     end
 
-    # Access to csp_profiles controller.
-    # @return [CSPProfilesController] Returns the controller instance.
-    def csp_profiles
-      @csp_profiles ||= CSPProfilesController.new @global_configuration
+    # Access to promotion_period_information controller.
+    # @return [PromotionPeriodInformationController] Returns the controller instance.
+    def promotion_period_information
+      @promotion_period_information ||= PromotionPeriodInformationController.new @global_configuration
     end
 
-    # Access to service_claims controller.
-    # @return [ServiceClaimsController] Returns the controller instance.
-    def service_claims
-      @service_claims ||= ServiceClaimsController.new @global_configuration
+    # Access to retrieve_the_triggers controller.
+    # @return [RetrieveTheTriggersController] Returns the controller instance.
+    def retrieve_the_triggers
+      @retrieve_the_triggers ||= RetrieveTheTriggersController.new @global_configuration
+    end
+
+    # Access to update_triggers controller.
+    # @return [UpdateTriggersController] Returns the controller instance.
+    def update_triggers
+      @update_triggers ||= UpdateTriggersController.new @global_configuration
+    end
+
+    # Access to sim_actions controller.
+    # @return [SIMActionsController] Returns the controller instance.
+    def sim_actions
+      @sim_actions ||= SIMActionsController.new @global_configuration
+    end
+
+    # Access to global_reporting controller.
+    # @return [GlobalReportingController] Returns the controller instance.
+    def global_reporting
+      @global_reporting ||= GlobalReportingController.new @global_configuration
     end
 
     # Access to oauth_authorization controller.
@@ -421,29 +446,29 @@ module Verizon
       @oauth_authorization ||= OauthAuthorizationController.new @global_configuration
     end
 
-    def initialize(connection: nil, adapter: :net_http_persistent, timeout: 60,
-                   max_retries: 0, retry_interval: 1, backoff_factor: 2,
-                   retry_statuses: [408, 413, 429, 500, 502, 503, 504, 521, 522, 524],
-                   retry_methods: %i[get put], http_callback: nil,
-                   environment: Environment::PRODUCTION,
-                   oauth_client_id: 'TODO: Replace',
-                   oauth_client_secret: 'TODO: Replace', oauth_token: nil,
-                   oauth_scopes: nil, vz_m2m_token: 'TODO: Replace',
-                   config: nil)
+    def initialize(
+      connection: nil, adapter: :net_http_persistent, timeout: 60,
+      max_retries: 0, retry_interval: 1, backoff_factor: 2,
+      retry_statuses: [408, 413, 429, 500, 502, 503, 504, 521, 522, 524],
+      retry_methods: %i[get put], http_callback: nil,
+      environment: Environment::PRODUCTION, oauth_client_id: nil,
+      oauth_client_secret: nil, oauth_token: nil, oauth_scopes: nil,
+      client_credentials_auth_credentials: nil, vz_m2m_token: 'TODO: Replace',
+      config: nil
+    )
       @config = if config.nil?
-                  Configuration.new(connection: connection, adapter: adapter,
-                                    timeout: timeout, max_retries: max_retries,
-                                    retry_interval: retry_interval,
-                                    backoff_factor: backoff_factor,
-                                    retry_statuses: retry_statuses,
-                                    retry_methods: retry_methods,
-                                    http_callback: http_callback,
-                                    environment: environment,
-                                    oauth_client_id: oauth_client_id,
-                                    oauth_client_secret: oauth_client_secret,
-                                    oauth_token: oauth_token,
-                                    oauth_scopes: oauth_scopes,
-                                    vz_m2m_token: vz_m2m_token)
+                  Configuration.new(
+                    connection: connection, adapter: adapter, timeout: timeout,
+                    max_retries: max_retries, retry_interval: retry_interval,
+                    backoff_factor: backoff_factor,
+                    retry_statuses: retry_statuses,
+                    retry_methods: retry_methods, http_callback: http_callback,
+                    environment: environment, oauth_client_id: oauth_client_id,
+                    oauth_client_secret: oauth_client_secret,
+                    oauth_token: oauth_token, oauth_scopes: oauth_scopes,
+                    client_credentials_auth_credentials: client_credentials_auth_credentials,
+                    vz_m2m_token: vz_m2m_token
+                  )
                 else
                   config
                 end
@@ -463,11 +488,9 @@ module Verizon
     def initialize_auth_managers(global_config)
       @auth_managers = {}
       http_client_config = global_config.client_configuration
-      ['global'].each { |auth| @auth_managers[auth] = nil }
-      @auth_managers['global'] = Oauth2.new(http_client_config.oauth_client_id,
-                                            http_client_config.oauth_client_secret,
-                                            http_client_config.oauth_token, global_config,
-                                            http_client_config.oauth_scopes)
+      %w[oAuth2].each { |auth| @auth_managers[auth] = nil }
+      @auth_managers['oAuth2'] = Oauth2.new(http_client_config.client_credentials_auth_credentials,
+                                            global_config)
     end
   end
 end

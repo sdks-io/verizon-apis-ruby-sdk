@@ -6,30 +6,6 @@
 module Verizon
   # ClientLoggingController
   class ClientLoggingController < BaseController
-    # Disables logging for a specific device.
-    # @param [String] account Required parameter: Account identifier.
-    # @param [String] device_id Required parameter: Device IMEI identifier.
-    # @return [void] response from the API call
-    def disable_device_logging(account,
-                               device_id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::DELETE,
-                                     '/logging/{account}/devices/{deviceId}',
-                                     Server::SOFTWARE_MANAGEMENT_V2)
-                   .template_param(new_parameter(account, key: 'account')
-                                    .should_encode(true))
-                   .template_param(new_parameter(device_id, key: 'deviceId')
-                                    .should_encode(true))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .is_response_void(true)
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV2ResultException))
-        .execute
-    end
-
     # Returns an array of all devices in the specified account for which logging
     # is enabled.
     # @param [String] account Required parameter: Account identifier.
@@ -42,7 +18,7 @@ module Verizon
                    .template_param(new_parameter(account, key: 'account')
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(DeviceLoggingStatus.method(:from_hash))
@@ -71,37 +47,10 @@ module Verizon
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(DeviceLoggingStatus.method(:from_hash))
-                   .is_api_response(true)
-                   .is_response_array(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV2ResultException))
-        .execute
-    end
-
-    # Gets logs for a specific device.
-    # @param [String] account Required parameter: Account identifier.
-    # @param [String] device_id Required parameter: Device IMEI identifier.
-    # @return [Array[DeviceLog]] response from the API call
-    def list_device_logs(account,
-                         device_id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/logging/{account}/devices/{deviceId}/logs',
-                                     Server::SOFTWARE_MANAGEMENT_V2)
-                   .template_param(new_parameter(account, key: 'account')
-                                    .should_encode(true))
-                   .template_param(new_parameter(device_id, key: 'deviceId')
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceLog.method(:from_hash))
                    .is_api_response(true)
                    .is_response_array(true)
                    .local_error('400',
@@ -123,7 +72,7 @@ module Verizon
                    .template_param(new_parameter(account, key: 'account')
                                     .should_encode(true))
                    .query_param(new_parameter(device_ids, key: 'deviceIds'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .is_response_void(true)
                    .is_api_response(true)
@@ -148,11 +97,62 @@ module Verizon
                    .template_param(new_parameter(device_id, key: 'deviceId')
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(DeviceLoggingStatus.method(:from_hash))
                    .is_api_response(true)
+                   .local_error('400',
+                                'Unexpected error.',
+                                FotaV2ResultException))
+        .execute
+    end
+
+    # Disables logging for a specific device.
+    # @param [String] account Required parameter: Account identifier.
+    # @param [String] device_id Required parameter: Device IMEI identifier.
+    # @return [void] response from the API call
+    def disable_device_logging(account,
+                               device_id)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::DELETE,
+                                     '/logging/{account}/devices/{deviceId}',
+                                     Server::SOFTWARE_MANAGEMENT_V2)
+                   .template_param(new_parameter(account, key: 'account')
+                                    .should_encode(true))
+                   .template_param(new_parameter(device_id, key: 'deviceId')
+                                    .should_encode(true))
+                   .auth(Single.new('oAuth2')))
+        .response(new_response_handler
+                   .is_response_void(true)
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Unexpected error.',
+                                FotaV2ResultException))
+        .execute
+    end
+
+    # Gets logs for a specific device.
+    # @param [String] account Required parameter: Account identifier.
+    # @param [String] device_id Required parameter: Device IMEI identifier.
+    # @return [Array[DeviceLog]] response from the API call
+    def list_device_logs(account,
+                         device_id)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/logging/{account}/devices/{deviceId}/logs',
+                                     Server::SOFTWARE_MANAGEMENT_V2)
+                   .template_param(new_parameter(account, key: 'account')
+                                    .should_encode(true))
+                   .template_param(new_parameter(device_id, key: 'deviceId')
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('oAuth2')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(DeviceLog.method(:from_hash))
+                   .is_api_response(true)
+                   .is_response_array(true)
                    .local_error('400',
                                 'Unexpected error.',
                                 FotaV2ResultException))

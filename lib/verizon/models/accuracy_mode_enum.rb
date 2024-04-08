@@ -10,5 +10,11 @@ module Verizon
       # TODO: Write general description for ENUM_0
       ENUM_0 = '0'.freeze
     ].freeze
+
+    def self.validate(value)
+      return false if value.nil?
+
+      ACCURACY_MODE_ENUM.include?(value)
+    end
   end
 end

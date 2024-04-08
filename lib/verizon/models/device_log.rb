@@ -96,7 +96,7 @@ module Verizon
                     binary_log_filename)
     end
 
-    def to_log_time
+    def to_custom_log_time
       DateTimeHelper.to_rfc3339(log_time)
     end
   end

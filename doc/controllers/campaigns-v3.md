@@ -10,63 +10,11 @@ campaigns_v3_controller = client.campaigns_v3
 
 ## Methods
 
-* [Cancel Campaign](../../doc/controllers/campaigns-v3.md#cancel-campaign)
 * [Schedule Campaign Firmware Upgrade](../../doc/controllers/campaigns-v3.md#schedule-campaign-firmware-upgrade)
 * [Update Campaign Firmware Devices](../../doc/controllers/campaigns-v3.md#update-campaign-firmware-devices)
 * [Update Campaign Dates](../../doc/controllers/campaigns-v3.md#update-campaign-dates)
 * [Get Campaign Information](../../doc/controllers/campaigns-v3.md#get-campaign-information)
-
-
-# Cancel Campaign
-
-This endpoint allows user to cancel a firmware campaign. A firmware campaign already started can not be cancelled.
-
-```ruby
-def cancel_campaign(acc,
-                    campaign_id)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `acc` | `String` | Template, Required | Account identifier. |
-| `campaign_id` | `String` | Template, Required | Firmware upgrade information. |
-
-## Server
-
-`Server::SOFTWARE_MANAGEMENT_V3`
-
-## Response Type
-
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FotaV3SuccessResult`](../../doc/models/fota-v3-success-result.md).
-
-## Example Usage
-
-```ruby
-acc = '0000123456-00001'
-
-campaign_id = 'f858b8c4-2153-11ec-8c44-aeb16d1aa652'
-
-result = campaigns_v3_controller.cancel_campaign(
-  acc,
-  campaign_id
-)
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "success": true
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Unexpected error. | [`FotaV3ResultException`](../../doc/models/fota-v3-result-exception.md) |
+* [Cancel Campaign](../../doc/controllers/campaigns-v3.md#cancel-campaign)
 
 
 # Schedule Campaign Firmware Upgrade
@@ -367,6 +315,58 @@ result = campaigns_v3_controller.get_campaign_information(
       "endTime": 22
     }
   ]
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Unexpected error. | [`FotaV3ResultException`](../../doc/models/fota-v3-result-exception.md) |
+
+
+# Cancel Campaign
+
+This endpoint allows user to cancel a firmware campaign. A firmware campaign already started can not be cancelled.
+
+```ruby
+def cancel_campaign(acc,
+                    campaign_id)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `acc` | `String` | Template, Required | Account identifier. |
+| `campaign_id` | `String` | Template, Required | Firmware upgrade information. |
+
+## Server
+
+`Server::SOFTWARE_MANAGEMENT_V3`
+
+## Response Type
+
+This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FotaV3SuccessResult`](../../doc/models/fota-v3-success-result.md).
+
+## Example Usage
+
+```ruby
+acc = '0000123456-00001'
+
+campaign_id = 'f858b8c4-2153-11ec-8c44-aeb16d1aa652'
+
+result = campaigns_v3_controller.cancel_campaign(
+  acc,
+  campaign_id
+)
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "success": true
 }
 ```
 

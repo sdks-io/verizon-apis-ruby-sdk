@@ -19,5 +19,11 @@ module Verizon
       # TODO: Write general description for SUCCESS
       SUCCESS = 'SUCCESS'.freeze
     ].freeze
+
+    def self.validate(value)
+      return false if value.nil?
+
+      RESPONSE_CODE_ENUM.include?(value)
+    end
   end
 end

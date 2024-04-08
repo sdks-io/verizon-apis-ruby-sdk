@@ -33,8 +33,6 @@ module Verizon
     # An array for optional fields
     def self.optionals
       %w[
-        devices
-        account_name
         carrier_name
       ]
     end
@@ -44,11 +42,11 @@ module Verizon
       []
     end
 
-    def initialize(devices = SKIP,
-                   account_name = SKIP,
+    def initialize(devices = nil,
+                   account_name = nil,
                    carrier_name = SKIP)
-      @devices = devices unless devices == SKIP
-      @account_name = account_name unless account_name == SKIP
+      @devices = devices
+      @account_name = account_name
       @carrier_name = carrier_name unless carrier_name == SKIP
     end
 
@@ -66,8 +64,8 @@ module Verizon
         end
       end
 
-      devices = SKIP unless hash.key?('devices')
-      account_name = hash.key?('accountName') ? hash['accountName'] : SKIP
+      devices = nil unless hash.key?('devices')
+      account_name = hash.key?('accountName') ? hash['accountName'] : nil
       carrier_name = hash.key?('carrierName') ? hash['carrierName'] : SKIP
 
       # Create object from extracted values.

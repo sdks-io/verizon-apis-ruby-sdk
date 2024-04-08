@@ -6,6 +6,7 @@
 module Verizon
   # BaseController.
   class BaseController
+    include CoreLibrary
     attr_accessor :config, :http_call_back
 
     def self.user_agent

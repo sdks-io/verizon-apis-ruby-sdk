@@ -6,6 +6,34 @@
 module Verizon
   # ConfigurationFilesController
   class ConfigurationFilesController < BaseController
+    # You can retrieve a list of configuration or supplementary of files for an
+    # account.
+    # @param [String] acc Required parameter: Account identifier.
+    # @param [String] distribution_type Required parameter: Filter the
+    # distributionType to only retrieve files for a specific distribution
+    # type.
+    # @return [RetrievesAvailableFilesResponseList] response from the API call
+    def get_list_of_files(acc,
+                          distribution_type)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/files/{acc}',
+                                     Server::SOFTWARE_MANAGEMENT_V2)
+                   .template_param(new_parameter(acc, key: 'acc')
+                                    .should_encode(true))
+                   .query_param(new_parameter(distribution_type, key: 'distributionType'))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('oAuth2')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(RetrievesAvailableFilesResponseList.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'Unexpected error.',
+                                FotaV2ResultException))
+        .execute
+    end
+
     # Uploads a configuration/supplementary file for an account. ThingSpace
     # generates a fileName after the upload and is returned in the response.
     # @param [String] acc Required parameter: Account identifier.
@@ -38,38 +66,10 @@ module Verizon
                    .form_param(new_parameter(model, key: 'model'))
                    .form_param(new_parameter(local_target_path, key: 'localTargetPath'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(UploadConfigurationFilesResponse.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV2ResultException))
-        .execute
-    end
-
-    # You can retrieve a list of configuration or supplementary of files for an
-    # account.
-    # @param [String] acc Required parameter: Account identifier.
-    # @param [String] distribution_type Required parameter: Filter the
-    # distributionType to only retrieve files for a specific distribution
-    # type.
-    # @return [RetrievesAvailableFilesResponseList] response from the API call
-    def get_list_of_files(acc,
-                          distribution_type)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/files/{acc}',
-                                     Server::SOFTWARE_MANAGEMENT_V2)
-                   .template_param(new_parameter(acc, key: 'acc')
-                                    .should_encode(true))
-                   .query_param(new_parameter(distribution_type, key: 'distributionType'))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(RetrievesAvailableFilesResponseList.method(:from_hash))
                    .is_api_response(true)
                    .local_error('400',
                                 'Unexpected error.',

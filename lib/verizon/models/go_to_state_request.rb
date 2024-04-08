@@ -10,16 +10,6 @@ module Verizon
     SKIP = Object.new
     private_constant :SKIP
 
-    # Up to 10,000 devices that you want to push to a different state, specified
-    # by device identifier.
-    # @return [Array[AccountDeviceList]]
-    attr_accessor :devices
-
-    # Specify the kind of the device identifier, the type of match, and the
-    # string that you want to match.
-    # @return [DeviceFilter]
-    attr_accessor :filter
-
     # The name of a customer-defined service to push the devices to.
     # @return [String]
     attr_accessor :service_name
@@ -39,6 +29,16 @@ module Verizon
     # code from which the MDN will be derived.
     # @return [String]
     attr_accessor :mdn_zip_code
+
+    # Up to 10,000 devices that you want to push to a different state, specified
+    # by device identifier.
+    # @return [Array[AccountDeviceList]]
+    attr_accessor :devices
+
+    # Specify the kind of the device identifier, the type of match, and the
+    # string that you want to match.
+    # @return [DeviceFilter]
+    attr_accessor :filter
 
     # The pool from which your device IP addresses will be derived if the
     # service or state change requires new IP addresses.If you do not include
@@ -64,6 +64,15 @@ module Verizon
     # @return [Array[CustomFields]]
     attr_accessor :custom_fields
 
+    # This is an array that associates an IP address with a device identifier.
+    # This variable is only relevant for Business Internet/Fixed Wireless Access
+    # @return [Array[Object]]
+    attr_accessor :devices_with_service_address
+
+    # The IP address of the device.
+    # @return [String]
+    attr_accessor :ip_address
+
     # The name of a device group that the devices should be added to.
     # @return [String]
     attr_accessor :group_name
@@ -80,16 +89,18 @@ module Verizon
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
-      @_hash['devices'] = 'devices'
-      @_hash['filter'] = 'filter'
       @_hash['service_name'] = 'serviceName'
       @_hash['state_name'] = 'stateName'
       @_hash['service_plan'] = 'servicePlan'
       @_hash['mdn_zip_code'] = 'mdnZipCode'
+      @_hash['devices'] = 'devices'
+      @_hash['filter'] = 'filter'
       @_hash['carrier_ip_pool_name'] = 'carrierIpPoolName'
       @_hash['public_ip_restriction'] = 'publicIpRestriction'
       @_hash['sku_number'] = 'skuNumber'
       @_hash['custom_fields'] = 'customFields'
+      @_hash['devices_with_service_address'] = 'devicesWithServiceAddress'
+      @_hash['ip_address'] = 'ipAddress'
       @_hash['group_name'] = 'groupName'
       @_hash['primary_place_of_use'] = 'primaryPlaceOfUse'
       @_hash
@@ -100,14 +111,12 @@ module Verizon
       %w[
         devices
         filter
-        service_name
-        state_name
-        service_plan
-        mdn_zip_code
         carrier_ip_pool_name
         public_ip_restriction
         sku_number
         custom_fields
+        devices_with_service_address
+        ip_address
         group_name
         primary_place_of_use
       ]
@@ -118,28 +127,35 @@ module Verizon
       []
     end
 
-    def initialize(devices = SKIP,
+    def initialize(service_name = nil,
+                   state_name = nil,
+                   service_plan = nil,
+                   mdn_zip_code = nil,
+                   devices = SKIP,
                    filter = SKIP,
-                   service_name = SKIP,
-                   state_name = SKIP,
-                   service_plan = SKIP,
-                   mdn_zip_code = SKIP,
                    carrier_ip_pool_name = SKIP,
                    public_ip_restriction = SKIP,
                    sku_number = SKIP,
                    custom_fields = SKIP,
+                   devices_with_service_address = SKIP,
+                   ip_address = SKIP,
                    group_name = SKIP,
                    primary_place_of_use = SKIP)
+      @service_name = service_name
+      @state_name = state_name
+      @service_plan = service_plan
+      @mdn_zip_code = mdn_zip_code
       @devices = devices unless devices == SKIP
       @filter = filter unless filter == SKIP
-      @service_name = service_name unless service_name == SKIP
-      @state_name = state_name unless state_name == SKIP
-      @service_plan = service_plan unless service_plan == SKIP
-      @mdn_zip_code = mdn_zip_code unless mdn_zip_code == SKIP
       @carrier_ip_pool_name = carrier_ip_pool_name unless carrier_ip_pool_name == SKIP
       @public_ip_restriction = public_ip_restriction unless public_ip_restriction == SKIP
       @sku_number = sku_number unless sku_number == SKIP
       @custom_fields = custom_fields unless custom_fields == SKIP
+      unless devices_with_service_address == SKIP
+        @devices_with_service_address =
+          devices_with_service_address
+      end
+      @ip_address = ip_address unless ip_address == SKIP
       @group_name = group_name unless group_name == SKIP
       @primary_place_of_use = primary_place_of_use unless primary_place_of_use == SKIP
     end
@@ -149,6 +165,10 @@ module Verizon
       return nil unless hash
 
       # Extract variables from the hash.
+      service_name = hash.key?('serviceName') ? hash['serviceName'] : nil
+      state_name = hash.key?('stateName') ? hash['stateName'] : nil
+      service_plan = hash.key?('servicePlan') ? hash['servicePlan'] : nil
+      mdn_zip_code = hash.key?('mdnZipCode') ? hash['mdnZipCode'] : nil
       # Parameter is an array, so we need to iterate through it
       devices = nil
       unless hash['devices'].nil?
@@ -160,10 +180,6 @@ module Verizon
 
       devices = SKIP unless hash.key?('devices')
       filter = DeviceFilter.from_hash(hash['filter']) if hash['filter']
-      service_name = hash.key?('serviceName') ? hash['serviceName'] : SKIP
-      state_name = hash.key?('stateName') ? hash['stateName'] : SKIP
-      service_plan = hash.key?('servicePlan') ? hash['servicePlan'] : SKIP
-      mdn_zip_code = hash.key?('mdnZipCode') ? hash['mdnZipCode'] : SKIP
       carrier_ip_pool_name =
         hash.key?('carrierIpPoolName') ? hash['carrierIpPoolName'] : SKIP
       public_ip_restriction =
@@ -179,21 +195,26 @@ module Verizon
       end
 
       custom_fields = SKIP unless hash.key?('customFields')
+      devices_with_service_address =
+        hash.key?('devicesWithServiceAddress') ? hash['devicesWithServiceAddress'] : SKIP
+      ip_address = hash.key?('ipAddress') ? hash['ipAddress'] : SKIP
       group_name = hash.key?('groupName') ? hash['groupName'] : SKIP
       primary_place_of_use = PlaceOfUse.from_hash(hash['primaryPlaceOfUse']) if
         hash['primaryPlaceOfUse']
 
       # Create object from extracted values.
-      GoToStateRequest.new(devices,
-                           filter,
-                           service_name,
+      GoToStateRequest.new(service_name,
                            state_name,
                            service_plan,
                            mdn_zip_code,
+                           devices,
+                           filter,
                            carrier_ip_pool_name,
                            public_ip_restriction,
                            sku_number,
                            custom_fields,
+                           devices_with_service_address,
+                           ip_address,
                            group_name,
                            primary_place_of_use)
     end

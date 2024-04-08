@@ -108,15 +108,15 @@ module Verizon
                          next_attempt_time)
     end
 
-    def to_updated_time
+    def to_custom_updated_time
       DateTimeHelper.to_rfc3339(updated_time)
     end
 
-    def to_recent_attempt_time
+    def to_custom_recent_attempt_time
       DateTimeHelper.to_rfc3339(recent_attempt_time)
     end
 
-    def to_next_attempt_time
+    def to_custom_next_attempt_time
       DateTimeHelper.to_rfc3339(next_attempt_time)
     end
   end

@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `account_name` | `String` | Optional | Account identifier in "##########-#####". |
+| `account_name` | `String` | Required | Account identifier in "##########-#####". |
 | `all_device` | `TrueClass \| FalseClass` | Optional | Exclude all devices or not. |
 | `type` | `String` | Optional | The change to make: append or replace. |
 | `exclusion` | `Array<String>` | Optional | Device ID list. |

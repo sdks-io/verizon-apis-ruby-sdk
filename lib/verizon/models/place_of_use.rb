@@ -33,10 +33,7 @@ module Verizon
 
     # An array for optional fields
     def self.optionals
-      %w[
-        address
-        customer_name
-      ]
+      []
     end
 
     # An array for nullable fields
@@ -44,10 +41,10 @@ module Verizon
       []
     end
 
-    def initialize(address = SKIP,
-                   customer_name = SKIP)
-      @address = address unless address == SKIP
-      @customer_name = customer_name unless customer_name == SKIP
+    def initialize(address = nil,
+                   customer_name = nil)
+      @address = address
+      @customer_name = customer_name
     end
 
     # Creates an instance of the object from a hash.

@@ -111,7 +111,7 @@ module Verizon
                           protocol)
     end
 
-    def to_launch_date
+    def to_custom_launch_date
       DateTimeHelper.to_rfc3339(launch_date)
     end
   end

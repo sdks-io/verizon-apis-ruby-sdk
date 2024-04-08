@@ -6,62 +6,6 @@
 module Verizon
   # ServiceEndpointsController
   class ServiceEndpointsController < BaseController
-    # Returns a list of all registered service endpoints.
-    # @return [ListAllServiceEndpointsResult] response from the API call
-    def list_all_service_endpoints
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/serviceendpointsall',
-                                     Server::EDGE_DISCOVERY)
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ListAllServiceEndpointsResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'HTTP 400 Bad Request.',
-                                EdgeDiscoveryResultException)
-                   .local_error('401',
-                                'HTTP 401 Unauthorized.',
-                                EdgeDiscoveryResultException)
-                   .local_error('default',
-                                'HTTP 500 Internal Server Error.',
-                                EdgeDiscoveryResultException))
-        .execute
-    end
-
-    # Returns endpoint information for all Service Endpoints registered to a
-    # specified serviceEndpointId.
-    # @param [String] service_endpoints_id Required parameter: A system-defined
-    # string identifier representing one or more registered Service Endpoints.
-    # @return [Array[ResourcesEdgeHostedServiceWithProfileId]] response from the API call
-    def get_service_endpoint(service_endpoints_id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/serviceendpoints/{serviceEndpointsId}',
-                                     Server::EDGE_DISCOVERY)
-                   .template_param(new_parameter(service_endpoints_id, key: 'serviceEndpointsId')
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ResourcesEdgeHostedServiceWithProfileId.method(:from_hash))
-                   .is_api_response(true)
-                   .is_response_array(true)
-                   .local_error('400',
-                                'HTTP 400 Bad Request.',
-                                EdgeDiscoveryResultException)
-                   .local_error('401',
-                                'HTTP 401 Unauthorized.',
-                                EdgeDiscoveryResultException)
-                   .local_error('default',
-                                'HTTP 500 Internal Server Error.',
-                                EdgeDiscoveryResultException))
-        .execute
-    end
-
     # Returns a list of optimal Service Endpoints that client devices can
     # connect to. **Note:** If a query is sent with all of the parameters, it
     # will fail with a "400" error. You can search based on the following
@@ -96,11 +40,105 @@ module Verizon
                    .query_param(new_parameter(ue_identity, key: 'UEIdentity'))
                    .query_param(new_parameter(service_endpoints_ids, key: 'serviceEndpointsIds'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ListOptimalServiceEndpointsResult.method(:from_hash))
                    .is_api_response(true)
+                   .local_error('400',
+                                'HTTP 400 Bad Request.',
+                                EdgeDiscoveryResultException)
+                   .local_error('401',
+                                'HTTP 401 Unauthorized.',
+                                EdgeDiscoveryResultException)
+                   .local_error('default',
+                                'HTTP 500 Internal Server Error.',
+                                EdgeDiscoveryResultException))
+        .execute
+    end
+
+    # Register Service Endpoints of a deployed application to specified MEC
+    # Platforms.
+    # @param [Array[ResourcesEdgeHostedServiceWithProfileId]] body Required
+    # parameter: An array of Service Endpoint data for a deployed application.
+    # The request body passes all of the needed parameters to create a service
+    # endpoint. Parameters will be edited here rather than the **Parameters**
+    # section above. The `ern`,`applicationServerProviderId`, `applicationId`
+    # and `serviceProfileID` parameters are required. **Note:** Currently, the
+    # only valid value for `applicationServerProviderId`is **AWS**. Also, if you
+    # do not know one of the optional values (i.e. URI), you can erase the line
+    # from the query by back-spacing over it.
+    # @return [RegisterServiceEndpointResult] response from the API call
+    def register_service_endpoints(body)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/serviceendpoints',
+                                     Server::EDGE_DISCOVERY)
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('oAuth2')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(RegisterServiceEndpointResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'HTTP 400 Bad Request.',
+                                EdgeDiscoveryResultException)
+                   .local_error('401',
+                                'HTTP 401 Unauthorized.',
+                                EdgeDiscoveryResultException)
+                   .local_error('default',
+                                'HTTP 500 Internal Server Error.',
+                                EdgeDiscoveryResultException))
+        .execute
+    end
+
+    # Returns a list of all registered service endpoints.
+    # @return [ListAllServiceEndpointsResult] response from the API call
+    def list_all_service_endpoints
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/serviceendpointsall',
+                                     Server::EDGE_DISCOVERY)
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('oAuth2')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ListAllServiceEndpointsResult.method(:from_hash))
+                   .is_api_response(true)
+                   .local_error('400',
+                                'HTTP 400 Bad Request.',
+                                EdgeDiscoveryResultException)
+                   .local_error('401',
+                                'HTTP 401 Unauthorized.',
+                                EdgeDiscoveryResultException)
+                   .local_error('default',
+                                'HTTP 500 Internal Server Error.',
+                                EdgeDiscoveryResultException))
+        .execute
+    end
+
+    # Returns endpoint information for all Service Endpoints registered to a
+    # specified serviceEndpointId.
+    # @param [String] service_endpoints_id Required parameter: A system-defined
+    # string identifier representing one or more registered Service Endpoints.
+    # @return [Array[ResourcesEdgeHostedServiceWithProfileId]] response from the API call
+    def get_service_endpoint(service_endpoints_id)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/serviceendpoints/{serviceEndpointsId}',
+                                     Server::EDGE_DISCOVERY)
+                   .template_param(new_parameter(service_endpoints_id, key: 'serviceEndpointsId')
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(Single.new('oAuth2')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(ResourcesEdgeHostedServiceWithProfileId.method(:from_hash))
+                   .is_api_response(true)
+                   .is_response_array(true)
                    .local_error('400',
                                 'HTTP 400 Bad Request.',
                                 EdgeDiscoveryResultException)
@@ -136,7 +174,7 @@ module Verizon
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(UpdateServiceEndpointResult.method(:from_hash))
@@ -165,48 +203,10 @@ module Verizon
                    .template_param(new_parameter(service_endpoints_id, key: 'serviceEndpointsId')
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(DeregisterServiceEndpointResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'HTTP 400 Bad Request.',
-                                EdgeDiscoveryResultException)
-                   .local_error('401',
-                                'HTTP 401 Unauthorized.',
-                                EdgeDiscoveryResultException)
-                   .local_error('default',
-                                'HTTP 500 Internal Server Error.',
-                                EdgeDiscoveryResultException))
-        .execute
-    end
-
-    # Register Service Endpoints of a deployed application to specified MEC
-    # Platforms.
-    # @param [Array[ResourcesEdgeHostedServiceWithProfileId]] body Required
-    # parameter: An array of Service Endpoint data for a deployed application.
-    # The request body passes all of the needed parameters to create a service
-    # endpoint. Parameters will be edited here rather than the **Parameters**
-    # section above. The `ern`,`applicationServerProviderId`, `applicationId`
-    # and `serviceProfileID` parameters are required. **Note:** Currently, the
-    # only valid value for `applicationServerProviderId`is **AWS**. Also, if you
-    # do not know one of the optional values (i.e. URI), you can erase the line
-    # from the query by back-spacing over it.
-    # @return [RegisterServiceEndpointResult] response from the API call
-    def register_service_endpoints(body)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/serviceendpoints',
-                                     Server::EDGE_DISCOVERY)
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(RegisterServiceEndpointResult.method(:from_hash))
                    .is_api_response(true)
                    .local_error('400',
                                 'HTTP 400 Bad Request.',

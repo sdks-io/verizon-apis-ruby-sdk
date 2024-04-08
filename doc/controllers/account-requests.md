@@ -27,7 +27,7 @@ def get_current_asynchronous_request_status(aname,
 
 ## Server
 
-`Server::M2M`
+`Server::THINGSPACE`
 
 ## Response Type
 

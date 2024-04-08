@@ -38,9 +38,6 @@ module Verizon
     # An array for optional fields
     def self.optionals
       %w[
-        account_name
-        start_date
-        end_date
         usage_for_all_accounts
       ]
     end
@@ -50,13 +47,13 @@ module Verizon
       []
     end
 
-    def initialize(account_name = SKIP,
-                   start_date = SKIP,
-                   end_date = SKIP,
+    def initialize(account_name = nil,
+                   start_date = nil,
+                   end_date = nil,
                    usage_for_all_accounts = SKIP)
-      @account_name = account_name unless account_name == SKIP
-      @start_date = start_date unless start_date == SKIP
-      @end_date = end_date unless end_date == SKIP
+      @account_name = account_name
+      @start_date = start_date
+      @end_date = end_date
       @usage_for_all_accounts = usage_for_all_accounts unless usage_for_all_accounts == SKIP
     end
 
@@ -65,9 +62,9 @@ module Verizon
       return nil unless hash
 
       # Extract variables from the hash.
-      account_name = hash.key?('accountName') ? hash['accountName'] : SKIP
-      start_date = hash.key?('startDate') ? hash['startDate'] : SKIP
-      end_date = hash.key?('endDate') ? hash['endDate'] : SKIP
+      account_name = hash.key?('accountName') ? hash['accountName'] : nil
+      start_date = hash.key?('startDate') ? hash['startDate'] : nil
+      end_date = hash.key?('endDate') ? hash['endDate'] : nil
       usage_for_all_accounts =
         hash.key?('usageForAllAccounts') ? hash['usageForAllAccounts'] : SKIP
 

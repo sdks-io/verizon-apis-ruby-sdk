@@ -11,9 +11,9 @@ Request to list of network connection events for a device during a specified tim
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `device_id` | [`DeviceId`](../../doc/models/device-id.md) | Optional | An identifier for a single device. |
-| `earliest` | `String` | Optional | The earliest date and time for which you want connection events. |
-| `latest` | `String` | Optional | The last date and time for which you want connection events. |
+| `device_id` | [`DeviceId`](../../doc/models/device-id.md) | Required | An identifier for a single device. |
+| `earliest` | `String` | Required | The earliest date and time for which you want connection events. |
+| `latest` | `String` | Required | The last date and time for which you want connection events. |
 
 ## Example (as JSON)
 

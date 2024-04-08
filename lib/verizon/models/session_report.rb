@@ -25,20 +25,12 @@ module Verizon
     # @return [String]
     attr_accessor :txid
 
-    # A unique string that associates the request with the location report
-    # information that is sent in asynchronous callback message.ThingSpace will
-    # send a separate callback message for each device that was in the request.
-    # All of the callback messages will have the same txid.
-    # @return [Object]
-    attr_accessor :example
-
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
       @_hash['sessions'] = 'sessions'
       @_hash['id'] = 'id'
       @_hash['txid'] = 'txid'
-      @_hash['example'] = 'example'
       @_hash
     end
 
@@ -46,7 +38,6 @@ module Verizon
     def self.optionals
       %w[
         sessions
-        example
       ]
     end
 
@@ -59,12 +50,10 @@ module Verizon
 
     def initialize(id = nil,
                    txid = nil,
-                   sessions = SKIP,
-                   example = SKIP)
+                   sessions = SKIP)
       @sessions = sessions unless sessions == SKIP
       @id = id
       @txid = txid
-      @example = example unless example == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -84,13 +73,11 @@ module Verizon
       end
 
       sessions = SKIP unless hash.key?('sessions')
-      example = hash.key?('example') ? hash['example'] : SKIP
 
       # Create object from extracted values.
       SessionReport.new(id,
                         txid,
-                        sessions,
-                        example)
+                        sessions)
     end
   end
 end

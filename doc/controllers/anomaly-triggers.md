@@ -10,14 +10,51 @@ anomaly_triggers_controller = client.anomaly_triggers
 
 ## Methods
 
+* [List Anomaly Detection Triggers](../../doc/controllers/anomaly-triggers.md#list-anomaly-detection-triggers)
 * [Update Anomaly Detection Trigger](../../doc/controllers/anomaly-triggers.md#update-anomaly-detection-trigger)
-* [List Anomaly Detection Trigger Settings](../../doc/controllers/anomaly-triggers.md#list-anomaly-detection-trigger-settings)
 * [Create Anomaly Detection Trigger](../../doc/controllers/anomaly-triggers.md#create-anomaly-detection-trigger)
+* [List Anomaly Detection Trigger Settings](../../doc/controllers/anomaly-triggers.md#list-anomaly-detection-trigger-settings)
+* [Delete Anomaly Detection Trigger](../../doc/controllers/anomaly-triggers.md#delete-anomaly-detection-trigger)
+
+
+# List Anomaly Detection Triggers
+
+This corresponds to the M2M-MC SOAP interface, `GetTriggers`.
+
+```ruby
+def list_anomaly_detection_triggers
+```
+
+## Server
+
+`Server::THINGSPACE`
+
+## Response Type
+
+This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<GetTriggerResponseList>`](../../doc/models/get-trigger-response-list.md).
+
+## Example Usage
+
+```ruby
+result = anomaly_triggers_controller.list_anomaly_detection_triggers
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Bad request | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
+| 401 | Unauthorized | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
+| 403 | Forbidden | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
+| 404 | Not Found / Does not exist | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
+| 406 | Format / Request Unacceptable | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
+| 429 | Too many requests | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
+| Default | Error response | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
 
 
 # Update Anomaly Detection Trigger
 
-Updates an existing trigger using the account name.
+This corresponds to the M2M-MC SOAP interface, `UpdateTriggerRequest`.
 
 ```ruby
 def update_anomaly_detection_trigger(body)
@@ -27,152 +64,50 @@ def update_anomaly_detection_trigger(body)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`Array<UpdateTriggerRequestOptions>`](../../doc/models/update-trigger-request-options.md) | Body, Required | Request to update existing trigger. |
+| `body` | [`UpdateTriggerRequest`](../../doc/models/update-trigger-request.md) | Body, Required | Update Trigger Request |
 
 ## Server
 
-`Server::M2M`
+`Server::THINGSPACE`
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`IntelligenceSuccessResult`](../../doc/models/intelligence-success-result.md).
+This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`AnomalyDetectionTrigger`](../../doc/models/anomaly-detection-trigger.md).
 
 ## Example Usage
 
 ```ruby
-body = [
-  UpdateTriggerRequestOptions.new(
-    '595f5c44-c31c-4552-8670-020a1545a84d',
-    'Anomaly Daily Usage REST Test-Patch Update 4',
-    'UsageAnomaly',
+body = UpdateTriggerRequest.new(
+  nil,
+  nil,
+  AnomalyTriggerRequest.new(
     '0000123456-00001',
-    AnomalyTriggerRequest.new(
-      '0000123456-00001',
-      true,
-      true,
-      false,
-      true
-    ),
-    Notification.new(
-      'DailySummary',
-      true,
-      false,
-      'Anomaly Test API',
-      3,
-      'Hourly',
-      'placeholder@verizon.com',
-      true,
-      [
-        SMSNumber.new(
-          'US Cellular',
-          '9299280711'
-        )
-      ],
-      true,
-      'Critical'
-    ),
-    nil
+    true,
+    true,
+    true,
+    true
   )
-]
+)
 
 result = anomaly_triggers_controller.update_anomaly_detection_trigger(body)
 ```
 
-## Example Response *(as JSON)*
-
-```json
-{
-  "status": "Success"
-}
-```
-
 ## Errors
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| Default | An error occurred. | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
-
-
-# List Anomaly Detection Trigger Settings
-
-Retrieves the values for a specific trigger ID.
-
-```ruby
-def list_anomaly_detection_trigger_settings(trigger_id)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `trigger_id` | `String` | Template, Required | The trigger ID of a specific trigger. |
-
-## Server
-
-`Server::M2M`
-
-## Response Type
-
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`AnomalyTriggerResult`](../../doc/models/anomaly-trigger-result.md).
-
-## Example Usage
-
-```ruby
-trigger_id = 'be1b5958-3e11-41db-9abd-b1b7618c0035'
-
-result = anomaly_triggers_controller.list_anomaly_detection_trigger_settings(trigger_id)
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "triggers": [
-    {
-      "triggerId": "BE1B5958-3E11-41DB-9ABD-B1B7618C0035",
-      "triggerName": "Anomaly Daily Usage REST Test-1",
-      "organizationName": "AnamolyDetectionRTRTest",
-      "triggerCategory": "UsageAnomaly",
-      "triggerAttributes": [
-        {
-          "key": "DataPercentage50",
-          "value": false
-        }
-      ],
-      "createdAt": "2021-10-21T23:57:03.397.0000Z",
-      "modifiedAt": "2021-10-21T23:57:03.397.0000Z",
-      "notification": {
-        "notificationType": "DailySummary",
-        "callback": true,
-        "emailNotification": true,
-        "notificationGroupName": "Anomaly Test API",
-        "notificationFrequencyFactor": -2147483648,
-        "externalEmailRecipients": "placeholder@verizon.com",
-        "smsNotification": true,
-        "smsNumbers": [
-          {
-            "carrier": "US Cellular",
-            "number": "9299280711"
-          }
-        ],
-        "reminder": false,
-        "severity": "Critical"
-      }
-    }
-  ]
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| Default | An error occurred. | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
+| 400 | Bad request | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
+| 401 | Unauthorized | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
+| 403 | Forbidden | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
+| 404 | Not Found / Does not exist | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
+| 406 | Format / Request Unacceptable | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
+| 429 | Too many requests | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
+| Default | Error response | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
 
 
 # Create Anomaly Detection Trigger
 
-Creates the trigger to identify an anomaly.
+This corresponds to the M2M-MC SOAP interface, `CreateTrigger`.
 
 ```ruby
 def create_anomaly_detection_trigger(body)
@@ -182,11 +117,11 @@ def create_anomaly_detection_trigger(body)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`Array<CreateTriggerRequestOptions>`](../../doc/models/create-trigger-request-options.md) | Body, Required | Request to create an anomaly trigger. |
+| `body` | [`CreateTriggerRequest`](../../doc/models/create-trigger-request.md) | Body, Required | Create Trigger Request |
 
 ## Server
 
-`Server::M2M`
+`Server::THINGSPACE`
 
 ## Response Type
 
@@ -195,54 +130,109 @@ This method returns a `\ApiResponse` instance. The `data` property in this insta
 ## Example Usage
 
 ```ruby
-body = [
-  CreateTriggerRequestOptions.new(
-    'Anomaly Daily Usage REST Test-Patch 1',
-    'UsageAnomaly',
+body = CreateTriggerRequest.new(
+  nil,
+  AnomalyTriggerRequest.new(
     '0000123456-00001',
-    AnomalyTriggerRequest.new(
-      '0000123456-00001',
-      true,
-      true,
-      true,
-      true
-    ),
-    Notification.new(
-      'DailySummary',
-      true,
-      false,
-      'Anomaly Test API',
-      3,
-      'Hourly',
-      'placeholder@verizon.com',
-      true,
-      [
-        SMSNumber.new(
-          'US Cellular',
-          '9299280711'
-        )
-      ],
-      true,
-      'Critical'
-    ),
-    nil
+    true,
+    true,
+    true,
+    true
   )
-]
+)
 
 result = anomaly_triggers_controller.create_anomaly_detection_trigger(body)
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "triggerId": "595f5c44-c31c-4552-8670-020a1545a84d"
-}
 ```
 
 ## Errors
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| Default | An error occurred. | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
+| 400 | Bad request | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
+| 401 | Unauthorized | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
+| 403 | Forbidden | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
+| 404 | Not Found / Does not exist | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
+| 406 | Format / Request Unacceptable | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
+| 429 | Too many requests | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
+| Default | Error response | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
+
+
+# List Anomaly Detection Trigger Settings
+
+This corresponds to the M2M-MC SOAP interface, `GetTriggers`.
+
+```ruby
+def list_anomaly_detection_trigger_settings(trigger_id)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `trigger_id` | `String` | Template, Required | trigger ID |
+
+## Server
+
+`Server::THINGSPACE`
+
+## Response Type
+
+This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<GetTriggerResponseList>`](../../doc/models/get-trigger-response-list.md).
+
+## Example Usage
+
+```ruby
+trigger_id = 'be1b5958-3e11-41db-9abd-b1b7618c0035'
+
+result = anomaly_triggers_controller.list_anomaly_detection_trigger_settings(trigger_id)
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Bad request | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
+| 401 | Unauthorized | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
+| 403 | Forbidden | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
+| 404 | Not Found / Does not exist | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
+| 406 | Format / Request Unacceptable | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
+| 429 | Too many requests | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
+| Default | Error response | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
+
+
+# Delete Anomaly Detection Trigger
+
+Deletes a specific trigger ID
+
+```ruby
+def delete_anomaly_detection_trigger(trigger_id)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `trigger_id` | `String` | Template, Required | The trigger ID to be deleted |
+
+## Server
+
+`Server::THINGSPACE`
+
+## Response Type
+
+This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`AnomalyDetectionTrigger`](../../doc/models/anomaly-detection-trigger.md).
+
+## Example Usage
+
+```ruby
+trigger_id = 'be1b5958-3e11-41db-9abd-b1b7618c0035'
+
+result = anomaly_triggers_controller.delete_anomaly_detection_trigger(trigger_id)
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| Default | Error response | [`IntelligenceResultException`](../../doc/models/intelligence-result-exception.md) |
 

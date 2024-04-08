@@ -10,27 +10,25 @@ billing_controller = client.billing
 
 ## Methods
 
-* [List Managed Account](../../doc/controllers/billing.md#list-managed-account)
+* [Add Account](../../doc/controllers/billing.md#add-account)
 * [Managed Account Action](../../doc/controllers/billing.md#managed-account-action)
 * [Cancel Managed Account Action](../../doc/controllers/billing.md#cancel-managed-account-action)
-* [Add Account](../../doc/controllers/billing.md#add-account)
+* [List Managed Account](../../doc/controllers/billing.md#list-managed-account)
 
 
-# List Managed Account
+# Add Account
 
-This endpoint allows user to retrieve the list of all accounts managed by a primary account.
+This endpoint allows user to add managed accounts to a primary account.
 
 ```ruby
-def list_managed_account(account_name,
-                         service_name)
+def add_account(body)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `account_name` | `String` | Template, Required | Primary account identifier |
-| `service_name` | `String` | Template, Required | Service name |
+| `body` | [`ManagedAccountsAddRequest`](../../doc/models/managed-accounts-add-request.md) | Body, Required | Service name and list of accounts to add |
 
 ## Server
 
@@ -38,34 +36,45 @@ def list_managed_account(account_name,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ManagedAccountsGetAllResponse`](../../doc/models/managed-accounts-get-all-response.md).
+This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ManagedAccountsAddResponse`](../../doc/models/managed-accounts-add-response.md).
 
 ## Example Usage
 
 ```ruby
-account_name = '1223334444-00001'
-
-service_name = 'serviceName8'
-
-result = billing_controller.list_managed_account(
-  account_name,
-  service_name
+body = ManagedAccountsAddRequest.new(
+  '1234567890-00001',
+  ServiceNameEnum::LOCATION,
+  'TS-LOC-COARSE-CellID-Aggr',
+  [
+    '1223334444-00001',
+    '2334445555-00001',
+    '3445556666-00001'
+  ]
 )
+
+result = billing_controller.add_account(body)
 ```
 
 ## Example Response *(as JSON)*
 
 ```json
 {
-  "accountName": "2024009649-00001",
-  "ManagedAccAddedList": [
+  "txid": "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33",
+  "statusList": [
     {
       "id": "1223334444-00001",
-      "txid": "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33"
+      "status": "Success",
+      "reason": "Success"
     },
     {
       "id": "2334445555-00001",
-      "txid": "d4fbff33-ece4-9f02-42ef-2c90bd287e3b"
+      "status": "Success",
+      "reason": "Success"
+    },
+    {
+      "id": "3445556666-00001",
+      "status": "Success",
+      "reason": "Success"
     }
   ]
 }
@@ -190,19 +199,21 @@ result = billing_controller.cancel_managed_account_action(body)
 | 400 | Unexpected error | [`DeviceLocationResultException`](../../doc/models/device-location-result-exception.md) |
 
 
-# Add Account
+# List Managed Account
 
-This endpoint allows user to add managed accounts to a primary account.
+This endpoint allows user to retrieve the list of all accounts managed by a primary account.
 
 ```ruby
-def add_account(body)
+def list_managed_account(account_name,
+                         service_name)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`ManagedAccountsAddRequest`](../../doc/models/managed-accounts-add-request.md) | Body, Required | Service name and list of accounts to add |
+| `account_name` | `String` | Template, Required | Primary account identifier |
+| `service_name` | `String` | Template, Required | Service name |
 
 ## Server
 
@@ -210,45 +221,34 @@ def add_account(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ManagedAccountsAddResponse`](../../doc/models/managed-accounts-add-response.md).
+This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ManagedAccountsGetAllResponse`](../../doc/models/managed-accounts-get-all-response.md).
 
 ## Example Usage
 
 ```ruby
-body = ManagedAccountsAddRequest.new(
-  '1234567890-00001',
-  ServiceNameEnum::LOCATION,
-  'TS-LOC-COARSE-CellID-Aggr',
-  [
-    '1223334444-00001',
-    '2334445555-00001',
-    '3445556666-00001'
-  ]
-)
+account_name = '1223334444-00001'
 
-result = billing_controller.add_account(body)
+service_name = 'serviceName8'
+
+result = billing_controller.list_managed_account(
+  account_name,
+  service_name
+)
 ```
 
 ## Example Response *(as JSON)*
 
 ```json
 {
-  "txid": "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33",
-  "statusList": [
+  "accountName": "2024009649-00001",
+  "ManagedAccAddedList": [
     {
       "id": "1223334444-00001",
-      "status": "Success",
-      "reason": "Success"
+      "txid": "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33"
     },
     {
       "id": "2334445555-00001",
-      "status": "Success",
-      "reason": "Success"
-    },
-    {
-      "id": "3445556666-00001",
-      "status": "Success",
-      "reason": "Success"
+      "txid": "d4fbff33-ece4-9f02-42ef-2c90bd287e3b"
     }
   ]
 }

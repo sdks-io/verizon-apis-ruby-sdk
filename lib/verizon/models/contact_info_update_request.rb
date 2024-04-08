@@ -9,6 +9,15 @@ module Verizon
     SKIP = Object.new
     private_constant :SKIP
 
+    # The customer name and the address of the device's primary place of use.
+    # Leave these fields empty to use the account profile address as the primary
+    # place of use. These values will be applied to all devices in the
+    # request.If the account is enabled for non-geographic MDNs and the device
+    # supports it, the primaryPlaceOfUse address will also be used to derive the
+    # MDN for the device.
+    # @return [PlaceOfUse]
+    attr_accessor :primary_place_of_use
+
     # The name of the billing account that the devices belong to. An account
     # name is usually numeric, and must include any leading zeros.
     # @return [String]
@@ -21,20 +30,12 @@ module Verizon
     # @return [Array[AccountDeviceList]]
     attr_accessor :devices
 
-    # The customer name and the address of the device's primary place of use.
-    # These values are applied to all devices in the request.The Primary Place
-    # of Use location may affect taxation or have other legal implications. You
-    # may want to speak with legal and/or financial advisers before entering
-    # values for these fields.
-    # @return [Object]
-    attr_accessor :primary_place_of_use
-
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
+      @_hash['primary_place_of_use'] = 'primaryPlaceOfUse'
       @_hash['account_name'] = 'accountName'
       @_hash['devices'] = 'devices'
-      @_hash['primary_place_of_use'] = 'primaryPlaceOfUse'
       @_hash
     end
 
@@ -43,7 +44,6 @@ module Verizon
       %w[
         account_name
         devices
-        primary_place_of_use
       ]
     end
 
@@ -52,12 +52,12 @@ module Verizon
       []
     end
 
-    def initialize(account_name = SKIP,
-                   devices = SKIP,
-                   primary_place_of_use = SKIP)
+    def initialize(primary_place_of_use = nil,
+                   account_name = SKIP,
+                   devices = SKIP)
+      @primary_place_of_use = primary_place_of_use
       @account_name = account_name unless account_name == SKIP
       @devices = devices unless devices == SKIP
-      @primary_place_of_use = primary_place_of_use unless primary_place_of_use == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -65,6 +65,8 @@ module Verizon
       return nil unless hash
 
       # Extract variables from the hash.
+      primary_place_of_use = PlaceOfUse.from_hash(hash['primaryPlaceOfUse']) if
+        hash['primaryPlaceOfUse']
       account_name = hash.key?('accountName') ? hash['accountName'] : SKIP
       # Parameter is an array, so we need to iterate through it
       devices = nil
@@ -76,13 +78,11 @@ module Verizon
       end
 
       devices = SKIP unless hash.key?('devices')
-      primary_place_of_use =
-        hash.key?('primaryPlaceOfUse') ? hash['primaryPlaceOfUse'] : SKIP
 
       # Create object from extracted values.
-      ContactInfoUpdateRequest.new(account_name,
-                                   devices,
-                                   primary_place_of_use)
+      ContactInfoUpdateRequest.new(primary_place_of_use,
+                                   account_name,
+                                   devices)
     end
   end
 end

@@ -20,12 +20,54 @@ module Verizon
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(Target.method(:from_hash))
                    .is_api_response(true)
                    .is_response_array(true))
+        .execute
+    end
+
+    # Remove a target from a ThingSpace account.
+    # @param [DeleteTargetRequest] body Required parameter: The request body
+    # identifies the target to delete.
+    # @return [void] response from the API call
+    def delete_target(body)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/targets/actions/delete',
+                                     Server::CLOUD_CONNECTOR)
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('oAuth2')))
+        .response(new_response_handler
+                   .is_response_void(true)
+                   .is_api_response(true))
+        .execute
+    end
+
+    # Define a target to receive data streams, alerts, or callbacks. After
+    # creating the target resource, use its ID in a subscription to set up a
+    # data stream.
+    # @param [CreateTargetRequest] body Required parameter: The request body
+    # provides the details of the target that you want to create.
+    # @return [Target] response from the API call
+    def create_target(body)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/targets',
+                                     Server::CLOUD_CONNECTOR)
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('oAuth2')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:custom_type_deserializer))
+                   .deserialize_into(Target.method(:from_hash))
+                   .is_api_response(true))
         .execute
     end
 
@@ -69,52 +111,10 @@ module Verizon
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CreateIoTApplicationResponse.method(:from_hash))
-                   .is_api_response(true))
-        .execute
-    end
-
-    # Define a target to receive data streams, alerts, or callbacks. After
-    # creating the target resource, use its ID in a subscription to set up a
-    # data stream.
-    # @param [CreateTargetRequest] body Required parameter: The request body
-    # provides the details of the target that you want to create.
-    # @return [Target] response from the API call
-    def create_target(body)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/targets',
-                                     Server::CLOUD_CONNECTOR)
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Target.method(:from_hash))
-                   .is_api_response(true))
-        .execute
-    end
-
-    # Remove a target from a ThingSpace account.
-    # @param [DeleteTargetRequest] body Required parameter: The request body
-    # identifies the target to delete.
-    # @return [void] response from the API call
-    def delete_target(body)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/targets/actions/delete',
-                                     Server::CLOUD_CONNECTOR)
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .is_response_void(true)
                    .is_api_response(true))
         .execute
     end

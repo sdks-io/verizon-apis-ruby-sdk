@@ -10,13 +10,64 @@ device_monitoring_controller = client.device_monitoring
 
 ## Methods
 
-* [Stop Device Reachability](../../doc/controllers/device-monitoring.md#stop-device-reachability)
 * [Device Reachability](../../doc/controllers/device-monitoring.md#device-reachability)
+* [Stop Device Reachability](../../doc/controllers/device-monitoring.md#stop-device-reachability)
+
+
+# Device Reachability
+
+```ruby
+def device_reachability(body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`NotificationReportRequest`](../../doc/models/notification-report-request.md) | Body, Required | Create Reachability Report Request |
+
+## Server
+
+`Server::THINGSPACE`
+
+## Response Type
+
+This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`RequestResponse`](../../doc/models/request-response.md).
+
+## Example Usage
+
+```ruby
+body = NotificationReportRequest.new(
+  '0242072320-00001',
+  'REACHABLE_FOR_DATA',
+  [
+    DeviceList.new(
+      [
+        DeviceId.new(
+          '89148000004292933820',
+          'iccid'
+        ),
+        DeviceId.new(
+          '89148000003164287919',
+          'iccid'
+        )
+      ]
+    )
+  ],
+  '2019-12-02T15:00:00-08:00Z'
+)
+
+result = device_monitoring_controller.device_reachability(body)
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Error Response | [`RestErrorResponseException`](../../doc/models/rest-error-response-exception.md) |
 
 
 # Stop Device Reachability
-
-Stop Device Reachability monitors.
 
 ```ruby
 def stop_device_reachability(account_name,
@@ -32,7 +83,7 @@ def stop_device_reachability(account_name,
 
 ## Server
 
-`Server::M2M`
+`Server::THINGSPACE`
 
 ## Response Type
 
@@ -52,61 +103,6 @@ result = device_monitoring_controller.stop_device_reachability(
   account_name,
   monitor_ids
 )
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Error Response | [`RestErrorResponseException`](../../doc/models/rest-error-response-exception.md) |
-
-
-# Device Reachability
-
-Register for notification reports based on the request type.
-
-```ruby
-def device_reachability(body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `body` | [`NotificationReportRequest`](../../doc/models/notification-report-request.md) | Body, Required | Create Reachability Report Request |
-
-## Server
-
-`Server::M2M`
-
-## Response Type
-
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`RequestResponse`](../../doc/models/request-response.md).
-
-## Example Usage
-
-```ruby
-body = NotificationReportRequest.new(
-  '0242072320-00001',
-  'REACHABLE_FOR_DATA',
-  [
-    DeviceList.new(
-      [
-        DeviceId1.new(
-          '89148000004292933820',
-          KindEnum::ICCID
-        ),
-        DeviceId1.new(
-          '89148000003164287919',
-          KindEnum::ICCID
-        )
-      ]
-    )
-  ],
-  '2019-12-02T15:00:00-08:00Z'
-)
-
-result = device_monitoring_controller.device_reachability(body)
 ```
 
 ## Errors

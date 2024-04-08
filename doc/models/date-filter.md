@@ -11,8 +11,8 @@ Filter out the dates.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `earliest` | `String` | Optional | Only include devices that were added after this date and time. |
-| `latest` | `String` | Optional | Only include devices that were added before this date and time. |
+| `earliest` | `String` | Required | Only include devices that were added after this date and time. |
+| `latest` | `String` | Required | Only include devices that were added before this date and time. |
 
 ## Example (as JSON)
 

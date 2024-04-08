@@ -10,58 +10,9 @@ software_management_reports_v1_controller = client.software_management_reports_v
 
 ## Methods
 
-* [List Upgrades for Specified Status](../../doc/controllers/software-management-reports-v1.md#list-upgrades-for-specified-status)
 * [List Account Devices](../../doc/controllers/software-management-reports-v1.md#list-account-devices)
+* [List Upgrades for Specified Status](../../doc/controllers/software-management-reports-v1.md#list-upgrades-for-specified-status)
 * [Get Device Firmware Upgrade History](../../doc/controllers/software-management-reports-v1.md#get-device-firmware-upgrade-history)
-
-
-# List Upgrades for Specified Status
-
-Returns a list of all upgrades with a specified status.
-
-```ruby
-def list_upgrades_for_specified_status(account,
-                                       upgrade_status,
-                                       start_index)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `account` | `String` | Template, Required | Account identifier in "##########-#####". |
-| `upgrade_status` | [`UpgradeStatusEnum`](../../doc/models/upgrade-status-enum.md) | Template, Required | The status of the upgrades that you want to retrieve. |
-| `start_index` | `String` | Template, Required | The zero-based number of the first record to return. Set startIndex=0 for the first request. If `hasMoreFlag`=true in the response, use the `lastSeenUpgradeId` value from the response as the startIndex in the next request. |
-
-## Server
-
-`Server::SOFTWARE_MANAGEMENT_V1`
-
-## Response Type
-
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`UpgradeListQueryResult`](../../doc/models/upgrade-list-query-result.md).
-
-## Example Usage
-
-```ruby
-account = '0242078689-00001'
-
-upgrade_status = UpgradeStatusEnum::REQUESTPENDING
-
-start_index = 'startIndex4'
-
-result = software_management_reports_v1_controller.list_upgrades_for_specified_status(
-  account,
-  upgrade_status,
-  start_index
-)
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Unexpected error. | [`FotaV1ResultException`](../../doc/models/fota-v1-result-exception.md) |
 
 
 # List Account Devices
@@ -141,6 +92,55 @@ result = software_management_reports_v1_controller.list_account_devices(
     }
   ]
 }
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Unexpected error. | [`FotaV1ResultException`](../../doc/models/fota-v1-result-exception.md) |
+
+
+# List Upgrades for Specified Status
+
+Returns a list of all upgrades with a specified status.
+
+```ruby
+def list_upgrades_for_specified_status(account,
+                                       upgrade_status,
+                                       start_index)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `account` | `String` | Template, Required | Account identifier in "##########-#####". |
+| `upgrade_status` | [`UpgradeStatusEnum`](../../doc/models/upgrade-status-enum.md) | Template, Required | The status of the upgrades that you want to retrieve. |
+| `start_index` | `String` | Template, Required | The zero-based number of the first record to return. Set startIndex=0 for the first request. If `hasMoreFlag`=true in the response, use the `lastSeenUpgradeId` value from the response as the startIndex in the next request. |
+
+## Server
+
+`Server::SOFTWARE_MANAGEMENT_V1`
+
+## Response Type
+
+This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`UpgradeListQueryResult`](../../doc/models/upgrade-list-query-result.md).
+
+## Example Usage
+
+```ruby
+account = '0242078689-00001'
+
+upgrade_status = UpgradeStatusEnum::REQUESTPENDING
+
+start_index = 'startIndex4'
+
+result = software_management_reports_v1_controller.list_upgrades_for_specified_status(
+  account,
+  upgrade_status,
+  start_index
+)
 ```
 
 ## Errors

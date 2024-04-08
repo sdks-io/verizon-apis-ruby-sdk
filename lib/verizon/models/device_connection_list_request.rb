@@ -33,11 +33,7 @@ module Verizon
 
     # An array for optional fields
     def self.optionals
-      %w[
-        device_id
-        earliest
-        latest
-      ]
+      []
     end
 
     # An array for nullable fields
@@ -45,12 +41,12 @@ module Verizon
       []
     end
 
-    def initialize(device_id = SKIP,
-                   earliest = SKIP,
-                   latest = SKIP)
-      @device_id = device_id unless device_id == SKIP
-      @earliest = earliest unless earliest == SKIP
-      @latest = latest unless latest == SKIP
+    def initialize(device_id = nil,
+                   earliest = nil,
+                   latest = nil)
+      @device_id = device_id
+      @earliest = earliest
+      @latest = latest
     end
 
     # Creates an instance of the object from a hash.
@@ -59,8 +55,8 @@ module Verizon
 
       # Extract variables from the hash.
       device_id = DeviceId.from_hash(hash['deviceId']) if hash['deviceId']
-      earliest = hash.key?('earliest') ? hash['earliest'] : SKIP
-      latest = hash.key?('latest') ? hash['latest'] : SKIP
+      earliest = hash.key?('earliest') ? hash['earliest'] : nil
+      latest = hash.key?('latest') ? hash['latest'] : nil
 
       # Create object from extracted values.
       DeviceConnectionListRequest.new(device_id,

@@ -28,10 +28,7 @@ module Verizon
 
     # An array for optional fields
     def self.optionals
-      %w[
-        username
-        password
-      ]
+      []
     end
 
     # An array for nullable fields
@@ -39,10 +36,10 @@ module Verizon
       []
     end
 
-    def initialize(username = SKIP,
-                   password = SKIP)
-      @username = username unless username == SKIP
-      @password = password unless password == SKIP
+    def initialize(username = nil,
+                   password = nil)
+      @username = username
+      @password = password
     end
 
     # Creates an instance of the object from a hash.
@@ -50,8 +47,8 @@ module Verizon
       return nil unless hash
 
       # Extract variables from the hash.
-      username = hash.key?('username') ? hash['username'] : SKIP
-      password = hash.key?('password') ? hash['password'] : SKIP
+      username = hash.key?('username') ? hash['username'] : nil
+      password = hash.key?('password') ? hash['password'] : nil
 
       # Create object from extracted values.
       LogInRequest.new(username,

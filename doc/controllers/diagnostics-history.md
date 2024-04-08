@@ -44,10 +44,7 @@ body = HistorySearchRequest.new(
     HistorySearchFilterAttributes.new(
       AttributeIdentifierEnum::LINK_QUALITY
     )
-  ),
-  nil,
-  nil,
-  nil
+  )
 )
 
 result = diagnostics_history_controller.get_diagnostics_history(body)

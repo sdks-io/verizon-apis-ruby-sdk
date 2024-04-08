@@ -5,8 +5,8 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `vz_m2m_token` | `String` | M2M Session Token |
-| `environment` | Environment | The API environment. <br> **Default: `Environment.PRODUCTION`** |
+| `vz_m2m_token` | `String` | M2M Session Token ([How to generate an M2M session token?](page:getting-started/5g-edge-developer-creds-token#obtaining-a-vz-m2m-session-token-programmatically)) |
+| `environment` | `Environment` | The API environment. <br> **Default: `Environment.PRODUCTION`** |
 | `connection` | `Faraday::Connection` | The Faraday connection object passed by the SDK user for making requests |
 | `adapter` | `Faraday::Adapter` | The Faraday adapter object passed by the SDK user for performing http requests |
 | `timeout` | `Float` | The value to use for connection timeout. <br> **Default: 60** |
@@ -16,22 +16,21 @@ The following parameters are configurable for the API Client:
 | `retry_statuses` | `Array` | A list of HTTP statuses to retry. <br> **Default: [408, 413, 429, 500, 502, 503, 504, 521, 522, 524]** |
 | `retry_methods` | `Array` | A list of HTTP methods to retry. <br> **Default: %i[get put]** |
 | `http_callback` | `HttpCallBack` | The Http CallBack allows defining callables for pre and post API calls. |
-| `oauth_client_id` | `String` | OAuth 2 Client ID |
-| `oauth_client_secret` | `String` | OAuth 2 Client Secret |
-| `oauth_token` | `OauthToken` | Object for storing information about the OAuth token |
-| `oauth_scopes` | `OauthScopeEnum` |  |
+| `client_credentials_auth_credentials` | [`ClientCredentialsAuthCredentials`]($a/oauth-2-client-credentials-grant.md) | The credential object for OAuth 2 Client Credentials Grant |
 
 The API client can be initialized as follows:
 
 ```ruby
 client = Verizon::Client.new(
   vz_m2m_token: 'VZ-M2M-Token',
-  oauth_client_id: 'OAuthClientId',
-  oauth_client_secret: 'OAuthClientSecret',
-  oauth_scopes: [
-    OauthScopeEnum::DISCOVERYREAD,
-    OauthScopeEnum::SERVICEPROFILEREAD
-  ],
+  client_credentials_auth_credentials: ClientCredentialsAuthCredentials.new(
+    oauth_client_id: 'OAuthClientId',
+    oauth_client_secret: 'OAuthClientSecret',
+    oauth_scopes: [
+      OauthScopeEnum::DISCOVERYREAD,
+      OauthScopeEnum::SERVICEPROFILEREAD
+    ]
+  ),
   environment: Environment::PRODUCTION
 )
 ```
@@ -67,9 +66,10 @@ The gateway for the SDK. This class acts as a factory for the Controllers and al
 | connectivity_callbacks | Gets ConnectivityCallbacksController |
 | account_requests | Gets AccountRequestsController |
 | service_plans | Gets ServicePlansController |
+| device_diagnostics | Gets DeviceDiagnosticsController |
 | device_profile_management | Gets DeviceProfileManagementController |
 | device_monitoring | Gets DeviceMonitoringController |
-| uicc_device_profile_management | Gets UICCDeviceProfileManagementController |
+| e_uicc_device_profile_management | Gets EUICCDeviceProfileManagementController |
 | devices_locations | Gets DevicesLocationsController |
 | exclusions | Gets ExclusionsController |
 | devices_location_subscriptions | Gets DevicesLocationSubscriptionsController |
@@ -113,15 +113,18 @@ The gateway for the SDK. This class acts as a factory for the Controllers and al
 | hyper_precise_location_callbacks | Gets HyperPreciseLocationCallbacksController |
 | anomaly_settings | Gets AnomalySettingsController |
 | anomaly_triggers | Gets AnomalyTriggersController |
-| mec_sites | Gets MECSitesController |
-| service_launch_profiles | Gets ServiceLaunchProfilesController |
-| service_launch_requests | Gets ServiceLaunchRequestsController |
-| service_instances | Gets ServiceInstancesController |
-| service_instance_operations | Gets ServiceInstanceOperationsController |
-| service_onboarding | Gets ServiceOnboardingController |
-| service_metadata | Gets ServiceMetadataController |
-| repositories | Gets RepositoriesController |
-| csp_profiles | Gets CSPProfilesController |
-| service_claims | Gets ServiceClaimsController |
+| anomaly_triggers_v2 | Gets AnomalyTriggersV2Controller |
+| wireless_network_performance | Gets WirelessNetworkPerformanceController |
+| fixed_wireless_qualification | Gets FixedWirelessQualificationController |
+| managing_e_sim_profiles | Gets ManagingESIMProfilesController |
+| device_sms_messaging | Gets DeviceSMSMessagingController |
+| device_actions | Gets DeviceActionsController |
+| thing_space_quality_of_service_api_actions | Gets ThingSpaceQualityOfServiceAPIActionsController |
+| mec | Gets MECController |
+| promotion_period_information | Gets PromotionPeriodInformationController |
+| retrieve_the_triggers | Gets RetrieveTheTriggersController |
+| update_triggers | Gets UpdateTriggersController |
+| sim_actions | Gets SIMActionsController |
+| global_reporting | Gets GlobalReportingController |
 | oauth_authorization | Gets OauthAuthorizationController |
 

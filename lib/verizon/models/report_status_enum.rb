@@ -16,5 +16,11 @@ module Verizon
       # TODO: Write general description for COMPLETED
       COMPLETED = 'COMPLETED'.freeze
     ].freeze
+
+    def self.validate(value)
+      return false if value.nil?
+
+      REPORT_STATUS_ENUM.include?(value)
+    end
   end
 end

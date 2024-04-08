@@ -94,7 +94,7 @@ module Verizon
                                 firmware_version_update_time)
     end
 
-    def to_firmware_version_update_time
+    def to_custom_firmware_version_update_time
       DateTimeHelper.to_rfc3339(firmware_version_update_time)
     end
   end

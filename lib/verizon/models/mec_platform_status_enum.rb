@@ -16,5 +16,11 @@ module Verizon
       # TODO: Write general description for UNKNOWN
       UNKNOWN = 'unknown'.freeze
     ].freeze
+
+    def self.validate(value)
+      return false if value.nil?
+
+      MEC_PLATFORM_STATUS_ENUM.include?(value)
+    end
   end
 end

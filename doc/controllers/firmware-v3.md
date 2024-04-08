@@ -11,8 +11,8 @@ firmware_v3_controller = client.firmware_v3
 ## Methods
 
 * [List Available Firmware](../../doc/controllers/firmware-v3.md#list-available-firmware)
-* [Report Device Firmware](../../doc/controllers/firmware-v3.md#report-device-firmware)
 * [Synchronize Device Firmware](../../doc/controllers/firmware-v3.md#synchronize-device-firmware)
+* [Report Device Firmware](../../doc/controllers/firmware-v3.md#report-device-firmware)
 
 
 # List Available Firmware
@@ -76,50 +76,6 @@ result = firmware_v3_controller.list_available_firmware(
 | 400 | Unexpected error. | [`FotaV3ResultException`](../../doc/models/fota-v3-result-exception.md) |
 
 
-# Report Device Firmware
-
-Ask a device to report its firmware version asynchronously.
-
-```ruby
-def report_device_firmware(acc,
-                           device_id)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `acc` | `String` | Template, Required | Account identifier. |
-| `device_id` | `String` | Template, Required | Device identifier. |
-
-## Server
-
-`Server::SOFTWARE_MANAGEMENT_V3`
-
-## Response Type
-
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceFirmwareVersionUpdateResult`](../../doc/models/device-firmware-version-update-result.md).
-
-## Example Usage
-
-```ruby
-acc = '0000123456-00001'
-
-device_id = '15-digit IMEI'
-
-result = firmware_v3_controller.report_device_firmware(
-  acc,
-  device_id
-)
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Unexpected error. | [`FotaV3ResultException`](../../doc/models/fota-v3-result-exception.md) |
-
-
 # Synchronize Device Firmware
 
 Synchronize ThingSpace with the FOTA server for up to 100 devices.
@@ -174,6 +130,50 @@ result = firmware_v3_controller.synchronize_device_firmware(
     }
   ]
 }
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Unexpected error. | [`FotaV3ResultException`](../../doc/models/fota-v3-result-exception.md) |
+
+
+# Report Device Firmware
+
+Ask a device to report its firmware version asynchronously.
+
+```ruby
+def report_device_firmware(acc,
+                           device_id)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `acc` | `String` | Template, Required | Account identifier. |
+| `device_id` | `String` | Template, Required | Device identifier. |
+
+## Server
+
+`Server::SOFTWARE_MANAGEMENT_V3`
+
+## Response Type
+
+This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceFirmwareVersionUpdateResult`](../../doc/models/device-firmware-version-update-result.md).
+
+## Example Usage
+
+```ruby
+acc = '0000123456-00001'
+
+device_id = '15-digit IMEI'
+
+result = firmware_v3_controller.report_device_firmware(
+  acc,
+  device_id
+)
 ```
 
 ## Errors

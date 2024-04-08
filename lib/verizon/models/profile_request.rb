@@ -10,16 +10,16 @@ module Verizon
     private_constant :SKIP
 
     # TODO: Write general description for this method
+    # @return [String]
+    attr_accessor :account_name
+
+    # TODO: Write general description for this method
     # @return [Array[DeviceList]]
     attr_accessor :devices
 
     # TODO: Write general description for this method
     # @return [String]
     attr_accessor :carrier_name
-
-    # TODO: Write general description for this method
-    # @return [String]
-    attr_accessor :account_name
 
     # TODO: Write general description for this method
     # @return [String]
@@ -33,27 +33,37 @@ module Verizon
     # @return [Array[PrimaryPlaceOfUse]]
     attr_accessor :primary_place_of_use
 
+    # TODO: Write general description for this method
+    # @return [String]
+    attr_accessor :smsr_oid
+
+    # The name of the pool of IP addresses assigned to the profile.
+    # @return [String]
+    attr_accessor :carrier_ip_pool_name
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
+      @_hash['account_name'] = 'accountName'
       @_hash['devices'] = 'devices'
       @_hash['carrier_name'] = 'carrierName'
-      @_hash['account_name'] = 'accountName'
       @_hash['service_plan'] = 'servicePlan'
       @_hash['mdn_zip_code'] = 'mdnZipCode'
       @_hash['primary_place_of_use'] = 'primaryPlaceOfUse'
+      @_hash['smsr_oid'] = 'smsrOid'
+      @_hash['carrier_ip_pool_name'] = 'carrierIpPoolName'
       @_hash
     end
 
     # An array for optional fields
     def self.optionals
       %w[
-        devices
         carrier_name
-        account_name
         service_plan
         mdn_zip_code
         primary_place_of_use
+        smsr_oid
+        carrier_ip_pool_name
       ]
     end
 
@@ -62,18 +72,22 @@ module Verizon
       []
     end
 
-    def initialize(devices = SKIP,
+    def initialize(account_name = nil,
+                   devices = nil,
                    carrier_name = SKIP,
-                   account_name = SKIP,
                    service_plan = SKIP,
                    mdn_zip_code = SKIP,
-                   primary_place_of_use = SKIP)
-      @devices = devices unless devices == SKIP
+                   primary_place_of_use = SKIP,
+                   smsr_oid = SKIP,
+                   carrier_ip_pool_name = SKIP)
+      @account_name = account_name
+      @devices = devices
       @carrier_name = carrier_name unless carrier_name == SKIP
-      @account_name = account_name unless account_name == SKIP
       @service_plan = service_plan unless service_plan == SKIP
       @mdn_zip_code = mdn_zip_code unless mdn_zip_code == SKIP
       @primary_place_of_use = primary_place_of_use unless primary_place_of_use == SKIP
+      @smsr_oid = smsr_oid unless smsr_oid == SKIP
+      @carrier_ip_pool_name = carrier_ip_pool_name unless carrier_ip_pool_name == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -81,6 +95,7 @@ module Verizon
       return nil unless hash
 
       # Extract variables from the hash.
+      account_name = hash.key?('accountName') ? hash['accountName'] : nil
       # Parameter is an array, so we need to iterate through it
       devices = nil
       unless hash['devices'].nil?
@@ -90,9 +105,8 @@ module Verizon
         end
       end
 
-      devices = SKIP unless hash.key?('devices')
+      devices = nil unless hash.key?('devices')
       carrier_name = hash.key?('carrierName') ? hash['carrierName'] : SKIP
-      account_name = hash.key?('accountName') ? hash['accountName'] : SKIP
       service_plan = hash.key?('servicePlan') ? hash['servicePlan'] : SKIP
       mdn_zip_code = hash.key?('mdnZipCode') ? hash['mdnZipCode'] : SKIP
       # Parameter is an array, so we need to iterate through it
@@ -105,14 +119,19 @@ module Verizon
       end
 
       primary_place_of_use = SKIP unless hash.key?('primaryPlaceOfUse')
+      smsr_oid = hash.key?('smsrOid') ? hash['smsrOid'] : SKIP
+      carrier_ip_pool_name =
+        hash.key?('carrierIpPoolName') ? hash['carrierIpPoolName'] : SKIP
 
       # Create object from extracted values.
-      ProfileRequest.new(devices,
+      ProfileRequest.new(account_name,
+                         devices,
                          carrier_name,
-                         account_name,
                          service_plan,
                          mdn_zip_code,
-                         primary_place_of_use)
+                         primary_place_of_use,
+                         smsr_oid,
+                         carrier_ip_pool_name)
     end
   end
 end

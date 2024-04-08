@@ -11,8 +11,8 @@ Request to initiate a Connectivity Management session and returns a VZ-M2M sessi
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `username` | `String` | Optional | The username for authentication. |
-| `password` | `String` | Optional | The password for authentication. |
+| `username` | `String` | Required | The username for authentication. |
+| `password` | `String` | Required | The password for authentication. |
 
 ## Example (as JSON)
 

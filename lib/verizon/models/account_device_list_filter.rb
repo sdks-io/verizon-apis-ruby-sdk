@@ -23,9 +23,7 @@ module Verizon
 
     # An array for optional fields
     def self.optionals
-      %w[
-        device_identifier_filters
-      ]
+      []
     end
 
     # An array for nullable fields
@@ -33,11 +31,8 @@ module Verizon
       []
     end
 
-    def initialize(device_identifier_filters = SKIP)
-      unless device_identifier_filters == SKIP
-        @device_identifier_filters =
-          device_identifier_filters
-      end
+    def initialize(device_identifier_filters = nil)
+      @device_identifier_filters = device_identifier_filters
     end
 
     # Creates an instance of the object from a hash.
@@ -54,7 +49,7 @@ module Verizon
         end
       end
 
-      device_identifier_filters = SKIP unless hash.key?('deviceIdentifierFilters')
+      device_identifier_filters = nil unless hash.key?('deviceIdentifierFilters')
 
       # Create object from extracted values.
       AccountDeviceListFilter.new(device_identifier_filters)

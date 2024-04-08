@@ -10,7 +10,7 @@ module Verizon
     private_constant :SKIP
 
     # TODO: Write general description for this method
-    # @return [Array[DeviceId1]]
+    # @return [Array[DeviceId]]
     attr_accessor :device_ids
 
     # A mapping from model property names to API property names.
@@ -46,7 +46,7 @@ module Verizon
       unless hash['deviceIds'].nil?
         device_ids = []
         hash['deviceIds'].each do |structure|
-          device_ids << (DeviceId1.from_hash(structure) if structure)
+          device_ids << (DeviceId.from_hash(structure) if structure)
         end
       end
 

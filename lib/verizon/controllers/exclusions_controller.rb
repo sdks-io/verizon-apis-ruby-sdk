@@ -19,7 +19,7 @@ module Verizon
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(DeviceLocationSuccessResult.method(:from_hash))
@@ -46,7 +46,7 @@ module Verizon
                    .query_param(new_parameter(account_name, key: 'accountName'))
                    .query_param(new_parameter(device_list, key: 'deviceList'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(DeviceLocationSuccessResult.method(:from_hash))
@@ -74,7 +74,7 @@ module Verizon
                    .template_param(new_parameter(start_index, key: 'startIndex')
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(DevicesConsentResult.method(:from_hash))

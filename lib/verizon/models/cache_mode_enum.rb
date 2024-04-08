@@ -16,5 +16,11 @@ module Verizon
       # TODO: Write general description for ENUM_2
       ENUM_2 = '2'.freeze
     ].freeze
+
+    def self.validate(value)
+      return false if value.nil?
+
+      CACHE_MODE_ENUM.include?(value)
+    end
   end
 end

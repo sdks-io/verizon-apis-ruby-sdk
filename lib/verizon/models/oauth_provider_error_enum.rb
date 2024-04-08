@@ -35,5 +35,11 @@ module Verizon
       # granted by the resource owner.
       INVALID_SCOPE = 'invalid_scope'.freeze
     ].freeze
+
+    def self.validate(value)
+      return false if value.nil?
+
+      OAUTH_PROVIDER_ERROR_ENUM.include?(value)
+    end
   end
 end

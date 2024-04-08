@@ -14,17 +14,22 @@ module Verizon
     # @return [Array[DeviceId]]
     attr_accessor :device_ids
 
+    # All identifiers for the device.
+    # @return [String]
+    attr_accessor :ip_address
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
       @_hash['device_ids'] = 'deviceIds'
+      @_hash['ip_address'] = 'ipAddress'
       @_hash
     end
 
     # An array for optional fields
     def self.optionals
       %w[
-        device_ids
+        ip_address
       ]
     end
 
@@ -33,8 +38,10 @@ module Verizon
       []
     end
 
-    def initialize(device_ids = SKIP)
-      @device_ids = device_ids unless device_ids == SKIP
+    def initialize(device_ids = nil,
+                   ip_address = SKIP)
+      @device_ids = device_ids
+      @ip_address = ip_address unless ip_address == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -51,10 +58,12 @@ module Verizon
         end
       end
 
-      device_ids = SKIP unless hash.key?('deviceIds')
+      device_ids = nil unless hash.key?('deviceIds')
+      ip_address = hash.key?('ipAddress') ? hash['ipAddress'] : SKIP
 
       # Create object from extracted values.
-      AccountDeviceList.new(device_ids)
+      AccountDeviceList.new(device_ids,
+                            ip_address)
     end
   end
 end

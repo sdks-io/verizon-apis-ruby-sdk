@@ -11,12 +11,13 @@ Request to add the devices.
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
+| `state` | `String` | Required | The initial service state for the devices. The only valid state is “Preactive.” |
+| `devices_to_add` | [`Array<AccountDeviceList>`](../../doc/models/account-device-list.md) | Required | The devices that you want to add. |
 | `account_name` | `String` | Optional | The billing account to which the devices are added. |
 | `custom_fields` | [`Array<CustomFields>`](../../doc/models/custom-fields.md) | Optional | The names and values for any custom fields that you want set for the devices as they are added to the account. |
-| `devices_to_add` | [`Array<AccountDeviceList>`](../../doc/models/account-device-list.md) | Optional | The devices that you want to add. |
 | `group_name` | `String` | Optional | The name of a device group to add the devices to. They are added to the default device group if you don't include this parameter. |
 | `sku_number` | `String` | Optional | The Stock Keeping Unit (SKU) number of a 4G device type with an embedded SIM. |
-| `state` | `String` | Optional | The initial service state for the devices. The only valid state is “Preactive.” |
+| `smsr_oid` | `String` | Optional | **Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[A-Za-z0-9]{3,32}$` |
 
 ## Example (as JSON)
 
@@ -40,7 +41,8 @@ Request to add the devices.
           "kind": "iccid",
           "id": "89141390780800784259"
         }
-      ]
+      ],
+      "ipAddress": "ipAddress2"
     },
     {
       "deviceIds": [
@@ -52,12 +54,14 @@ Request to add the devices.
           "kind": "iccid",
           "id": "89141390780800735573"
         }
-      ]
+      ],
+      "ipAddress": "ipAddress2"
     }
   ],
   "groupName": "West Region",
   "state": "preactive",
-  "skuNumber": "skuNumber6"
+  "skuNumber": "skuNumber2",
+  "smsrOid": "smsrOid6"
 }
 ```
 

@@ -16,7 +16,7 @@ module Verizon
     # The type of the device identifier. Valid types of identifiers are:ESN
     # (decimal),EID,ICCID (up to 20 digits),IMEI (up to 16 digits),MDN,MEID
     # (hexadecimal),MSISDN.
-    # @return [KindEnum]
+    # @return [String]
     attr_accessor :kind
 
     # A mapping from model property names to API property names.

@@ -63,7 +63,7 @@ module Verizon
                                        assignment_time)
     end
 
-    def to_assignment_time
+    def to_custom_assignment_time
       DateTimeHelper.to_rfc3339(assignment_time)
     end
   end

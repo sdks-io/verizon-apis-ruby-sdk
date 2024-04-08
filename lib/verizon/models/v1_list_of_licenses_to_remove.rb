@@ -82,7 +82,7 @@ module Verizon
                                    device_list)
     end
 
-    def to_update_time
+    def to_custom_update_time
       DateTimeHelper.to_rfc3339(update_time)
     end
   end

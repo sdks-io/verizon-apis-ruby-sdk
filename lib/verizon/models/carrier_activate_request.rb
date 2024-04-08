@@ -9,6 +9,22 @@ module Verizon
     SKIP = Object.new
     private_constant :SKIP
 
+    # Up to 10,000 devices for which you want to activate service, specified by
+    # device identifier.
+    # @return [Array[AccountDeviceList]]
+    attr_accessor :devices
+
+    # The service plan code that you want to assign to all specified devices.
+    # @return [String]
+    attr_accessor :service_plan
+
+    # The Zip code of the location where the line of service will primarily be
+    # used, or a Zip code that you have been told to use with these devices. For
+    # accounts that are configured for geographic numbering, this is the ZIP
+    # code from which the MDN will be derived.
+    # @return [String]
+    attr_accessor :mdn_zip_code
+
     # The name of a billing account.
     # @return [String]
     attr_accessor :account_name
@@ -30,11 +46,6 @@ module Verizon
     # @return [Array[CustomFields]]
     attr_accessor :custom_fields
 
-    # Up to 10,000 devices for which you want to activate service, specified by
-    # device identifier.
-    # @return [Array[AccountDeviceList]]
-    attr_accessor :devices
-
     # If you specify devices by ID in the devices parameters, this is the name
     # of a device group that the devices should be added to.If you don't specify
     # individual devices with the devices parameter, you can provide the name of
@@ -46,13 +57,6 @@ module Verizon
     # with other values to determine MDN assignment, taxation, and compensation.
     # @return [String]
     attr_accessor :lead_id
-
-    # The Zip code of the location where the line of service will primarily be
-    # used, or a Zip code that you have been told to use with these devices. For
-    # accounts that are configured for geographic numbering, this is the ZIP
-    # code from which the MDN will be derived.
-    # @return [String]
-    attr_accessor :mdn_zip_code
 
     # The customer name and the address of the device's primary place of use.
     # Leave these fields empty to use the account profile address as the primary
@@ -68,10 +72,6 @@ module Verizon
     # @return [String]
     attr_accessor :public_ip_restriction
 
-    # The service plan code that you want to assign to all specified devices.
-    # @return [String]
-    attr_accessor :service_plan
-
     # The Stock Keeping Unit (SKU) of a 4G device type can be used with ICCID
     # device identifiers in lieu of an IMEI when activating 4G devices. The
     # SkuNumber will be used with all devices in the request, so all devices
@@ -82,18 +82,18 @@ module Verizon
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
+      @_hash['devices'] = 'devices'
+      @_hash['service_plan'] = 'servicePlan'
+      @_hash['mdn_zip_code'] = 'mdnZipCode'
       @_hash['account_name'] = 'accountName'
       @_hash['carrier_ip_pool_name'] = 'carrierIpPoolName'
       @_hash['carrier_name'] = 'carrierName'
       @_hash['cost_center_code'] = 'costCenterCode'
       @_hash['custom_fields'] = 'customFields'
-      @_hash['devices'] = 'devices'
       @_hash['group_name'] = 'groupName'
       @_hash['lead_id'] = 'leadId'
-      @_hash['mdn_zip_code'] = 'mdnZipCode'
       @_hash['primary_place_of_use'] = 'primaryPlaceOfUse'
       @_hash['public_ip_restriction'] = 'publicIpRestriction'
-      @_hash['service_plan'] = 'servicePlan'
       @_hash['sku_number'] = 'skuNumber'
       @_hash
     end
@@ -106,13 +106,10 @@ module Verizon
         carrier_name
         cost_center_code
         custom_fields
-        devices
         group_name
         lead_id
-        mdn_zip_code
         primary_place_of_use
         public_ip_restriction
-        service_plan
         sku_number
       ]
     end
@@ -122,31 +119,31 @@ module Verizon
       []
     end
 
-    def initialize(account_name = SKIP,
+    def initialize(devices = nil,
+                   service_plan = nil,
+                   mdn_zip_code = nil,
+                   account_name = SKIP,
                    carrier_ip_pool_name = SKIP,
                    carrier_name = SKIP,
                    cost_center_code = SKIP,
                    custom_fields = SKIP,
-                   devices = SKIP,
                    group_name = SKIP,
                    lead_id = SKIP,
-                   mdn_zip_code = SKIP,
                    primary_place_of_use = SKIP,
                    public_ip_restriction = SKIP,
-                   service_plan = SKIP,
                    sku_number = SKIP)
+      @devices = devices
+      @service_plan = service_plan
+      @mdn_zip_code = mdn_zip_code
       @account_name = account_name unless account_name == SKIP
       @carrier_ip_pool_name = carrier_ip_pool_name unless carrier_ip_pool_name == SKIP
       @carrier_name = carrier_name unless carrier_name == SKIP
       @cost_center_code = cost_center_code unless cost_center_code == SKIP
       @custom_fields = custom_fields unless custom_fields == SKIP
-      @devices = devices unless devices == SKIP
       @group_name = group_name unless group_name == SKIP
       @lead_id = lead_id unless lead_id == SKIP
-      @mdn_zip_code = mdn_zip_code unless mdn_zip_code == SKIP
       @primary_place_of_use = primary_place_of_use unless primary_place_of_use == SKIP
       @public_ip_restriction = public_ip_restriction unless public_ip_restriction == SKIP
-      @service_plan = service_plan unless service_plan == SKIP
       @sku_number = sku_number unless sku_number == SKIP
     end
 
@@ -155,6 +152,18 @@ module Verizon
       return nil unless hash
 
       # Extract variables from the hash.
+      # Parameter is an array, so we need to iterate through it
+      devices = nil
+      unless hash['devices'].nil?
+        devices = []
+        hash['devices'].each do |structure|
+          devices << (AccountDeviceList.from_hash(structure) if structure)
+        end
+      end
+
+      devices = nil unless hash.key?('devices')
+      service_plan = hash.key?('servicePlan') ? hash['servicePlan'] : nil
+      mdn_zip_code = hash.key?('mdnZipCode') ? hash['mdnZipCode'] : nil
       account_name = hash.key?('accountName') ? hash['accountName'] : SKIP
       carrier_ip_pool_name =
         hash.key?('carrierIpPoolName') ? hash['carrierIpPoolName'] : SKIP
@@ -171,39 +180,27 @@ module Verizon
       end
 
       custom_fields = SKIP unless hash.key?('customFields')
-      # Parameter is an array, so we need to iterate through it
-      devices = nil
-      unless hash['devices'].nil?
-        devices = []
-        hash['devices'].each do |structure|
-          devices << (AccountDeviceList.from_hash(structure) if structure)
-        end
-      end
-
-      devices = SKIP unless hash.key?('devices')
       group_name = hash.key?('groupName') ? hash['groupName'] : SKIP
       lead_id = hash.key?('leadId') ? hash['leadId'] : SKIP
-      mdn_zip_code = hash.key?('mdnZipCode') ? hash['mdnZipCode'] : SKIP
       primary_place_of_use = PlaceOfUse.from_hash(hash['primaryPlaceOfUse']) if
         hash['primaryPlaceOfUse']
       public_ip_restriction =
         hash.key?('publicIpRestriction') ? hash['publicIpRestriction'] : SKIP
-      service_plan = hash.key?('servicePlan') ? hash['servicePlan'] : SKIP
       sku_number = hash.key?('skuNumber') ? hash['skuNumber'] : SKIP
 
       # Create object from extracted values.
-      CarrierActivateRequest.new(account_name,
+      CarrierActivateRequest.new(devices,
+                                 service_plan,
+                                 mdn_zip_code,
+                                 account_name,
                                  carrier_ip_pool_name,
                                  carrier_name,
                                  cost_center_code,
                                  custom_fields,
-                                 devices,
                                  group_name,
                                  lead_id,
-                                 mdn_zip_code,
                                  primary_place_of_use,
                                  public_ip_restriction,
-                                 service_plan,
                                  sku_number)
     end
   end

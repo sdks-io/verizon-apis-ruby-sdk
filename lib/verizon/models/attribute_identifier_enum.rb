@@ -22,5 +22,11 @@ module Verizon
       # TODO: Write general description for MANUFACTURER
       MANUFACTURER = 'MANUFACTURER'.freeze
     ].freeze
+
+    def self.validate(value)
+      return false if value.nil?
+
+      ATTRIBUTE_IDENTIFIER_ENUM.include?(value)
+    end
   end
 end

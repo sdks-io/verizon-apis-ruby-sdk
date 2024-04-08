@@ -11,8 +11,8 @@ usage_trigger_management_controller = client.usage_trigger_management
 ## Methods
 
 * [Create New Trigger](../../doc/controllers/usage-trigger-management.md#create-new-trigger)
-* [Delete Trigger](../../doc/controllers/usage-trigger-management.md#delete-trigger)
 * [Update Trigger](../../doc/controllers/usage-trigger-management.md#update-trigger)
+* [Delete Trigger](../../doc/controllers/usage-trigger-management.md#delete-trigger)
 
 
 # Create New Trigger
@@ -53,6 +53,73 @@ body = UsageTriggerAddRequest.new(
 )
 
 result = usage_trigger_management_controller.create_new_trigger(body: body)
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "triggerId": "595f5c44-c31c-4552-8670-020a1545a84d",
+  "triggerName": "90 percent",
+  "accountName": "1000012345-00001",
+  "serviceName": "Location",
+  "thresholdValue": "90",
+  "allowExcess": true,
+  "sendSmsNotification": true,
+  "smsPhoneNumbers": "5558794321",
+  "sendEmailNotification": false,
+  "emailAddresses": "",
+  "createDate": "2018-08-11",
+  "updateDate": "2018-08-12"
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Unexpected error | [`DeviceLocationResultException`](../../doc/models/device-location-result-exception.md) |
+
+
+# Update Trigger
+
+Update an existing usage trigger
+
+```ruby
+def update_trigger(trigger_id,
+                   body: nil)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `trigger_id` | `String` | Template, Required | Usage trigger ID |
+| `body` | [`UsageTriggerUpdateRequest`](../../doc/models/usage-trigger-update-request.md) | Body, Optional | New trigger values |
+
+## Server
+
+`Server::SUBSCRIPTION_SERVER`
+
+## Response Type
+
+This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`UsageTriggerResponse`](../../doc/models/usage-trigger-response.md).
+
+## Example Usage
+
+```ruby
+trigger_id = '595f5c44-c31c-4552-8670-020a1545a84d'
+
+body = UsageTriggerUpdateRequest.new(
+  '1000012345-00001',
+  nil,
+  '95'
+)
+
+result = usage_trigger_management_controller.update_trigger(
+  trigger_id,
+  body: body
+)
 ```
 
 ## Example Response *(as JSON)*
@@ -123,75 +190,6 @@ result = usage_trigger_management_controller.delete_trigger(
 ```json
 {
   "success": true
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Unexpected error | [`DeviceLocationResultException`](../../doc/models/device-location-result-exception.md) |
-
-
-# Update Trigger
-
-Update an existing usage trigger
-
-```ruby
-def update_trigger(trigger_id,
-                   body: nil)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `trigger_id` | `String` | Template, Required | Usage trigger ID |
-| `body` | [`UsageTriggerUpdateRequest`](../../doc/models/usage-trigger-update-request.md) | Body, Optional | New trigger values |
-
-## Server
-
-`Server::SUBSCRIPTION_SERVER`
-
-## Response Type
-
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`UsageTriggerResponse`](../../doc/models/usage-trigger-response.md).
-
-## Example Usage
-
-```ruby
-trigger_id = '595f5c44-c31c-4552-8670-020a1545a84d'
-
-body = UsageTriggerUpdateRequest.new(
-  '1000012345-00001',
-  nil,
-  '95',
-  nil,
-  nil
-)
-
-result = usage_trigger_management_controller.update_trigger(
-  trigger_id,
-  body: body
-)
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "triggerId": "595f5c44-c31c-4552-8670-020a1545a84d",
-  "triggerName": "90 percent",
-  "accountName": "1000012345-00001",
-  "serviceName": "Location",
-  "thresholdValue": "90",
-  "allowExcess": true,
-  "sendSmsNotification": true,
-  "smsPhoneNumbers": "5558794321",
-  "sendEmailNotification": false,
-  "emailAddresses": "",
-  "createDate": "2018-08-11",
-  "updateDate": "2018-08-12"
 }
 ```
 

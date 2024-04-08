@@ -10,34 +10,30 @@ device_groups_controller = client.device_groups
 
 ## Methods
 
-* [Update Device Group](../../doc/controllers/device-groups.md#update-device-group)
-* [Get Device Group Information](../../doc/controllers/device-groups.md#get-device-group-information)
 * [Create Device Group](../../doc/controllers/device-groups.md#create-device-group)
 * [List Device Groups](../../doc/controllers/device-groups.md#list-device-groups)
+* [Get Device Group Information](../../doc/controllers/device-groups.md#get-device-group-information)
+* [Update Device Group](../../doc/controllers/device-groups.md#update-device-group)
 * [Delete Device Group](../../doc/controllers/device-groups.md#delete-device-group)
 
 
-# Update Device Group
+# Create Device Group
 
-Make changes to a device group, including changing the name and description, and adding or removing devices.
+Create a new device group and optionally add devices to the group. Device groups can make it easier to manage similar devices and to get reports on their usage.
 
 ```ruby
-def update_device_group(aname,
-                        gname,
-                        body)
+def create_device_group(body)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `aname` | `String` | Template, Required | Account name. |
-| `gname` | `String` | Template, Required | Group name. |
-| `body` | [`DeviceGroupUpdateRequest`](../../doc/models/device-group-update-request.md) | Body, Required | Request to update device group. |
+| `body` | [`CreateDeviceGroupRequest`](../../doc/models/create-device-group-request.md) | Body, Required | A request to create a new device group. |
 
 ## Server
 
-`Server::M2M`
+`Server::THINGSPACE`
 
 ## Response Type
 
@@ -46,27 +42,19 @@ This method returns a `\ApiResponse` instance. The `data` property in this insta
 ## Example Usage
 
 ```ruby
-aname = '0252012345-00001'
-
-gname = 'gname2'
-
-body = DeviceGroupUpdateRequest.new(
+body = CreateDeviceGroupRequest.new(
+  '0000123456-00001',
+  'descriptive string',
+  'group name',
   [
     DeviceId.new(
-      '990003420535537',
+      '15-digit IMEI',
       'imei'
     )
-  ],
-  nil,
-  'All western region tank level monitors.',
-  'Western region tanks'
+  ]
 )
 
-result = device_groups_controller.update_device_group(
-  aname,
-  gname,
-  body
-)
+result = device_groups_controller.create_device_group(body)
 ```
 
 ## Example Response *(as JSON)*
@@ -75,6 +63,62 @@ result = device_groups_controller.update_device_group(
 {
   "success": true
 }
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
+
+
+# List Device Groups
+
+Returns a list of all device groups in a specified account.
+
+```ruby
+def list_device_groups(aname)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `aname` | `String` | Template, Required | Account name. |
+
+## Server
+
+`Server::THINGSPACE`
+
+## Response Type
+
+This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<DeviceGroup>`](../../doc/models/device-group.md).
+
+## Example Usage
+
+```ruby
+aname = '0252012345-00001'
+
+result = device_groups_controller.list_device_groups(aname)
+```
+
+## Example Response *(as JSON)*
+
+```json
+[
+  {
+    "name": "Unassigned Devices",
+    "description": "All devices that are not in another device group.",
+    "isDefaultGroup": true,
+    "extendedAttributes": []
+  },
+  {
+    "name": "West Coast Devices",
+    "description": "",
+    "isDefaultGroup": false,
+    "extendedAttributes": []
+  }
+]
 ```
 
 ## Errors
@@ -104,7 +148,7 @@ def get_device_group_information(aname,
 
 ## Server
 
-`Server::M2M`
+`Server::THINGSPACE`
 
 ## Response Type
 
@@ -154,23 +198,27 @@ result = device_groups_controller.get_device_group_information(
 | 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
 
 
-# Create Device Group
+# Update Device Group
 
-Create a new device group and optionally add devices to the group. Device groups can make it easier to manage similar devices and to get reports on their usage.
+Make changes to a device group, including changing the name and description, and adding or removing devices.
 
 ```ruby
-def create_device_group(body)
+def update_device_group(aname,
+                        gname,
+                        body)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`CreateDeviceGroupRequest`](../../doc/models/create-device-group-request.md) | Body, Required | A request to create a new device group. |
+| `aname` | `String` | Template, Required | Account name. |
+| `gname` | `String` | Template, Required | Group name. |
+| `body` | [`DeviceGroupUpdateRequest`](../../doc/models/device-group-update-request.md) | Body, Required | Request to update device group. |
 
 ## Server
 
-`Server::M2M`
+`Server::THINGSPACE`
 
 ## Response Type
 
@@ -179,19 +227,27 @@ This method returns a `\ApiResponse` instance. The `data` property in this insta
 ## Example Usage
 
 ```ruby
-body = CreateDeviceGroupRequest.new(
-  '0000123456-00001',
+aname = '0252012345-00001'
+
+gname = 'gname2'
+
+body = DeviceGroupUpdateRequest.new(
   [
     DeviceId.new(
-      '15-digit IMEI',
+      '990003420535537',
       'imei'
     )
   ],
-  'descriptive string',
-  'group name'
+  nil,
+  'All western region tank level monitors.',
+  'Western region tanks'
 )
 
-result = device_groups_controller.create_device_group(body)
+result = device_groups_controller.update_device_group(
+  aname,
+  gname,
+  body
+)
 ```
 
 ## Example Response *(as JSON)*
@@ -200,62 +256,6 @@ result = device_groups_controller.create_device_group(body)
 {
   "success": true
 }
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Error response. | [`ConnectivityManagementResultException`](../../doc/models/connectivity-management-result-exception.md) |
-
-
-# List Device Groups
-
-Returns a list of all device groups in a specified account.
-
-```ruby
-def list_device_groups(aname)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `aname` | `String` | Template, Required | Account name. |
-
-## Server
-
-`Server::M2M`
-
-## Response Type
-
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<DeviceGroup>`](../../doc/models/device-group.md).
-
-## Example Usage
-
-```ruby
-aname = '0252012345-00001'
-
-result = device_groups_controller.list_device_groups(aname)
-```
-
-## Example Response *(as JSON)*
-
-```json
-[
-  {
-    "name": "Unassigned Devices",
-    "description": "All devices that are not in another device group.",
-    "isDefaultGroup": true,
-    "extendedAttributes": []
-  },
-  {
-    "name": "West Coast Devices",
-    "description": "",
-    "isDefaultGroup": false,
-    "extendedAttributes": []
-  }
-]
 ```
 
 ## Errors
@@ -283,7 +283,7 @@ def delete_device_group(aname,
 
 ## Server
 
-`Server::M2M`
+`Server::THINGSPACE`
 
 ## Response Type
 

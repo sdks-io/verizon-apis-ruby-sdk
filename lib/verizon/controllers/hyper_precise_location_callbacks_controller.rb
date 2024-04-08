@@ -17,7 +17,7 @@ module Verizon
                                      Server::HYPER_PRECISE_LOCATION)
                    .query_param(new_parameter(account_number, key: 'accountNumber'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CallbackCreated.method(:from_hash))
@@ -64,7 +64,7 @@ module Verizon
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(CallbackRegistered.method(:from_hash))
@@ -105,7 +105,7 @@ module Verizon
                                      Server::HYPER_PRECISE_LOCATION)
                    .query_param(new_parameter(account_number, key: 'accountNumber'))
                    .query_param(new_parameter(service, key: 'service'))
-                   .auth(Single.new('global')))
+                   .auth(Single.new('oAuth2')))
         .response(new_response_handler
                    .is_response_void(true)
                    .is_api_response(true)

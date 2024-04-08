@@ -10,133 +10,12 @@ software_management_licenses_v2_controller = client.software_management_licenses
 
 ## Methods
 
-* [Delete List of Licenses to Remove](../../doc/controllers/software-management-licenses-v2.md#delete-list-of-licenses-to-remove)
-* [Assign Licenses to Devices](../../doc/controllers/software-management-licenses-v2.md#assign-licenses-to-devices)
 * [Get Account License Status](../../doc/controllers/software-management-licenses-v2.md#get-account-license-status)
+* [Assign Licenses to Devices](../../doc/controllers/software-management-licenses-v2.md#assign-licenses-to-devices)
 * [Remove Licenses From Devices](../../doc/controllers/software-management-licenses-v2.md#remove-licenses-from-devices)
 * [List Licenses to Remove](../../doc/controllers/software-management-licenses-v2.md#list-licenses-to-remove)
 * [Create List of Licenses to Remove](../../doc/controllers/software-management-licenses-v2.md#create-list-of-licenses-to-remove)
-
-
-# Delete List of Licenses to Remove
-
-**This endpoint is deprecated.**
-
-This endpoint allows user to delete a created cancel candidate device list.
-
-```ruby
-def delete_list_of_licenses_to_remove(account)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `account` | `String` | Template, Required | Account identifier. |
-
-## Server
-
-`Server::SOFTWARE_MANAGEMENT_V2`
-
-## Response Type
-
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FotaV2SuccessResult`](../../doc/models/fota-v2-success-result.md).
-
-## Example Usage
-
-```ruby
-account = '0242078689-00001'
-
-result = software_management_licenses_v2_controller.delete_list_of_licenses_to_remove(account)
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "success": true
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Unexpected error. | [`FotaV2ResultException`](../../doc/models/fota-v2-result-exception.md) |
-
-
-# Assign Licenses to Devices
-
-**This endpoint is deprecated.**
-
-This endpoint allows user to assign licenses to a list of devices.
-
-```ruby
-def assign_licenses_to_devices(account,
-                               body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `account` | `String` | Template, Required | Account identifier. |
-| `body` | [`V2LicenseIMEI`](../../doc/models/v2-license-imei.md) | Body, Required | License assignment. |
-
-## Server
-
-`Server::SOFTWARE_MANAGEMENT_V2`
-
-## Response Type
-
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V2LicensesAssignedRemovedResult`](../../doc/models/v2-licenses-assigned-removed-result.md).
-
-## Example Usage
-
-```ruby
-account = '0242078689-00001'
-
-body = V2LicenseIMEI.new(
-  [
-    '990003425730524',
-    '990000473475967'
-  ],
-  nil
-)
-
-result = software_management_licenses_v2_controller.assign_licenses_to_devices(
-  account,
-  body
-)
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "accountName": "0242078689-00001",
-  "licTotalCount": 1000,
-  "licUsedCount": 502,
-  "deviceList": [
-    {
-      "deviceId": "990003425730524",
-      "status": "Success",
-      "resultReason": "Success"
-    },
-    {
-      "deviceId": "990000473475967",
-      "status": "Failure",
-      "resultReason": "Device does not exist."
-    }
-  ]
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Unexpected error. | [`FotaV2ResultException`](../../doc/models/fota-v2-result-exception.md) |
+* [Delete List of Licenses to Remove](../../doc/controllers/software-management-licenses-v2.md#delete-list-of-licenses-to-remove)
 
 
 # Get Account License Status
@@ -214,6 +93,79 @@ result = software_management_licenses_v2_controller.get_account_license_status(
 | 400 | Unexpected error. | [`FotaV2ResultException`](../../doc/models/fota-v2-result-exception.md) |
 
 
+# Assign Licenses to Devices
+
+**This endpoint is deprecated.**
+
+This endpoint allows user to assign licenses to a list of devices.
+
+```ruby
+def assign_licenses_to_devices(account,
+                               body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `account` | `String` | Template, Required | Account identifier. |
+| `body` | [`V2LicenseIMEI`](../../doc/models/v2-license-imei.md) | Body, Required | License assignment. |
+
+## Server
+
+`Server::SOFTWARE_MANAGEMENT_V2`
+
+## Response Type
+
+This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V2LicensesAssignedRemovedResult`](../../doc/models/v2-licenses-assigned-removed-result.md).
+
+## Example Usage
+
+```ruby
+account = '0242078689-00001'
+
+body = V2LicenseIMEI.new(
+  [
+    '990003425730524',
+    '990000473475967'
+  ]
+)
+
+result = software_management_licenses_v2_controller.assign_licenses_to_devices(
+  account,
+  body
+)
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "accountName": "0242078689-00001",
+  "licTotalCount": 1000,
+  "licUsedCount": 502,
+  "deviceList": [
+    {
+      "deviceId": "990003425730524",
+      "status": "Success",
+      "resultReason": "Success"
+    },
+    {
+      "deviceId": "990000473475967",
+      "status": "Failure",
+      "resultReason": "Device does not exist."
+    }
+  ]
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Unexpected error. | [`FotaV2ResultException`](../../doc/models/fota-v2-result-exception.md) |
+
+
 # Remove Licenses From Devices
 
 **This endpoint is deprecated.**
@@ -250,8 +202,7 @@ body = V2LicenseIMEI.new(
     '990003425730535',
     '990000473475989',
     '900000000000999'
-  ],
-  nil
+  ]
 )
 
 result = software_management_licenses_v2_controller.remove_licenses_from_devices(
@@ -408,6 +359,53 @@ result = software_management_licenses_v2_controller.create_list_of_licenses_to_r
     "990003425730535",
     "990000473475989"
   ]
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Unexpected error. | [`FotaV2ResultException`](../../doc/models/fota-v2-result-exception.md) |
+
+
+# Delete List of Licenses to Remove
+
+**This endpoint is deprecated.**
+
+This endpoint allows user to delete a created cancel candidate device list.
+
+```ruby
+def delete_list_of_licenses_to_remove(account)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `account` | `String` | Template, Required | Account identifier. |
+
+## Server
+
+`Server::SOFTWARE_MANAGEMENT_V2`
+
+## Response Type
+
+This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FotaV2SuccessResult`](../../doc/models/fota-v2-success-result.md).
+
+## Example Usage
+
+```ruby
+account = '0242078689-00001'
+
+result = software_management_licenses_v2_controller.delete_list_of_licenses_to_remove(account)
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "success": true
 }
 ```
 
