@@ -52,7 +52,8 @@ module Verizon
     end
 
     # The attribute readers for properties.
-    attr_reader :environment, :client_credentials_auth_credentials, :vz_m2m_token
+    attr_reader :environment, :client_credentials_auth_credentials,
+                :vz_m2m_token
 
     class << self
       attr_reader :environments
