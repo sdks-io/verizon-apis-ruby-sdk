@@ -14,7 +14,7 @@ module Verizon
     attr_accessor :anomalyattributes
 
     # The notification details of the trigger.
-    # @return [Notification]
+    # @return [TriggerNotification]
     attr_accessor :notification
 
     # A mapping from model property names to API property names.
@@ -51,7 +51,7 @@ module Verizon
       # Extract variables from the hash.
       anomalyattributes = UsageAnomalyAttributes.from_hash(hash['anomalyattributes']) if
         hash['anomalyattributes']
-      notification = Notification.from_hash(hash['notification']) if hash['notification']
+      notification = TriggerNotification.from_hash(hash['notification']) if hash['notification']
 
       # Create object from extracted values.
       TriggerType2.new(anomalyattributes,

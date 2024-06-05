@@ -23,7 +23,7 @@ module Verizon
                    .template_param(new_parameter(request_id, key: 'requestId')
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('oAuth2')))
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(AsynchronousRequestResult.method(:from_hash))

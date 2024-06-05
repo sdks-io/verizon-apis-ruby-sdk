@@ -17,7 +17,7 @@ module Verizon
                    .template_param(new_parameter(aname, key: 'aname')
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('oAuth2')))
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(Account.method(:from_hash))
@@ -40,7 +40,7 @@ module Verizon
                    .template_param(new_parameter(aname, key: 'aname')
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('oAuth2')))
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(AccountStatesAndServices.method(:from_hash))
@@ -68,7 +68,7 @@ module Verizon
                                     .should_encode(true))
                    .query_param(new_parameter(mnext, key: 'next'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('oAuth2')))
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(AccountLeadsResult.method(:from_hash))

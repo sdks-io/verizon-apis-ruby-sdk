@@ -40,7 +40,7 @@ module Verizon
                    .query_param(new_parameter(ue_identity, key: 'UEIdentity'))
                    .query_param(new_parameter(service_endpoints_ids, key: 'serviceEndpointsIds'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('oAuth2')))
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ListOptimalServiceEndpointsResult.method(:from_hash))
@@ -78,7 +78,7 @@ module Verizon
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('oAuth2')))
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(RegisterServiceEndpointResult.method(:from_hash))
@@ -103,7 +103,7 @@ module Verizon
                                      '/serviceendpointsall',
                                      Server::EDGE_DISCOVERY)
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('oAuth2')))
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ListAllServiceEndpointsResult.method(:from_hash))
@@ -133,7 +133,7 @@ module Verizon
                    .template_param(new_parameter(service_endpoints_id, key: 'serviceEndpointsId')
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('oAuth2')))
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ResourcesEdgeHostedServiceWithProfileId.method(:from_hash))
@@ -174,7 +174,7 @@ module Verizon
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('oAuth2')))
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(UpdateServiceEndpointResult.method(:from_hash))
@@ -203,7 +203,7 @@ module Verizon
                    .template_param(new_parameter(service_endpoints_id, key: 'serviceEndpointsId')
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('oAuth2')))
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(DeregisterServiceEndpointResult.method(:from_hash))

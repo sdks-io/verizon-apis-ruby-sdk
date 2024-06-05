@@ -19,7 +19,7 @@ module Verizon
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('oAuth2')))
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(RequestResponse.method(:from_hash))
@@ -31,21 +31,18 @@ module Verizon
     end
 
     # TODO: type endpoint description here
-    # @param [String] account_name Required parameter: The numeric name of the
-    # account.
-    # @param [Array[String]] monitor_ids Required parameter: The array contains
-    # the monitorIDs (UUID) for which the monitor is to be deleted.
+    # @param [StopMonitorRequest] body Optional parameter: Example:
     # @return [RequestResponse] response from the API call
-    def stop_device_reachability(account_name,
-                                 monitor_ids)
+    def stop_device_reachability(body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::DELETE,
                                      '/m2m/v1/diagnostics/basic/devicereachability',
                                      Server::THINGSPACE)
-                   .query_param(new_parameter(account_name, key: 'accountName'))
-                   .query_param(new_parameter(monitor_ids, key: 'monitorIds'))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('oAuth2')))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(RequestResponse.method(:from_hash))

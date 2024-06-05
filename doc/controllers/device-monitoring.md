@@ -70,16 +70,14 @@ result = device_monitoring_controller.device_reachability(body)
 # Stop Device Reachability
 
 ```ruby
-def stop_device_reachability(account_name,
-                             monitor_ids)
+def stop_device_reachability(body: nil)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `account_name` | `String` | Query, Required | The numeric name of the account. |
-| `monitor_ids` | `Array<String>` | Query, Required | The array contains the monitorIDs (UUID) for which the monitor is to be deleted. |
+| `body` | [`StopMonitorRequest`](../../doc/models/stop-monitor-request.md) | Body, Optional | - |
 
 ## Server
 
@@ -92,17 +90,14 @@ This method returns a `\ApiResponse` instance. The `data` property in this insta
 ## Example Usage
 
 ```ruby
-account_name = '0242123520-00001'
-
-monitor_ids = [
-  '35596ca6-bab4-4333-a914-42b4fc2da54c',
-  '35596ca6-bab4-4333-a914-42b4fc2da54b'
-]
-
-result = device_monitoring_controller.stop_device_reachability(
-  account_name,
-  monitor_ids
+body = StopMonitorRequest.new(
+  '0242123520-00001',
+  [
+    '35596ca6-bab4-4333-a914-42b4fc2da54c'
+  ]
 )
+
+result = device_monitoring_controller.stop_device_reachability(body: body)
 ```
 
 ## Errors

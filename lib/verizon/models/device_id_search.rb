@@ -40,7 +40,6 @@ module Verizon
     # An array for optional fields
     def self.optionals
       %w[
-        contains
         startswith
         endswith
       ]
@@ -51,11 +50,11 @@ module Verizon
       []
     end
 
-    def initialize(kind = nil,
-                   contains = SKIP,
+    def initialize(contains = nil,
+                   kind = nil,
                    startswith = SKIP,
                    endswith = SKIP)
-      @contains = contains unless contains == SKIP
+      @contains = contains
       @startswith = startswith unless startswith == SKIP
       @endswith = endswith unless endswith == SKIP
       @kind = kind
@@ -66,14 +65,14 @@ module Verizon
       return nil unless hash
 
       # Extract variables from the hash.
+      contains = hash.key?('contains') ? hash['contains'] : nil
       kind = hash.key?('kind') ? hash['kind'] : nil
-      contains = hash.key?('contains') ? hash['contains'] : SKIP
       startswith = hash.key?('startswith') ? hash['startswith'] : SKIP
       endswith = hash.key?('endswith') ? hash['endswith'] : SKIP
 
       # Create object from extracted values.
-      DeviceIdSearch.new(kind,
-                         contains,
+      DeviceIdSearch.new(contains,
+                         kind,
                          startswith,
                          endswith)
     end

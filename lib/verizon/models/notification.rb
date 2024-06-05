@@ -4,55 +4,52 @@
 # ( https://apimatic.io ).
 
 module Verizon
-  # The notification details of the trigger.
+  # Notification Model.
   class Notification < BaseModel
     SKIP = Object.new
     private_constant :SKIP
 
-    # The type of notification, i.e. 'DailySummary'.
+    # TODO: Write general description for this method
     # @return [String]
     attr_accessor :notification_type
 
-    # Whether or not the notification should be sent via callback.<br />true<br
-    # />false.
+    # TODO: Write general description for this method
     # @return [TrueClass | FalseClass]
     attr_accessor :callback
 
-    # Whether or not the notification should be sent via e-mail.<br />true<br
-    # />false.
+    # TODO: Write general description for this method
     # @return [TrueClass | FalseClass]
     attr_accessor :email_notification
 
-    # Name for the notification group.
+    # TODO: Write general description for this method
     # @return [String]
     attr_accessor :notification_group_name
 
-    # Frequency factor for notification.
+    # TODO: Write general description for this method
     # @return [Integer]
     attr_accessor :notification_frequency_factor
 
-    # Frequency interval for notification.
+    # TODO: Write general description for this method
     # @return [String]
     attr_accessor :notification_frequency_interval
 
-    # E-mail address(es) where the notification should be delivered.
+    # TODO: Write general description for this method
     # @return [String]
     attr_accessor :external_email_recipients
 
-    # SMS notification.
+    # TODO: Write general description for this method
     # @return [TrueClass | FalseClass]
     attr_accessor :sms_notification
 
-    # List of SMS numbers.
-    # @return [Array[SMSNumber]]
+    # TODO: Write general description for this method
+    # @return [Array[SmsNumbers]]
     attr_accessor :sms_numbers
 
-    # List of SMS numbers.
+    # TODO: Write general description for this method
     # @return [TrueClass | FalseClass]
     attr_accessor :reminder
 
-    # Severity level associated with the notification. Examples would be:<br
-    # />Major<br />Minor<br />Critical<br />NotApplicable.
+    # TODO: Write general description for this method
     # @return [String]
     attr_accessor :severity
 
@@ -154,7 +151,7 @@ module Verizon
       unless hash['smsNumbers'].nil?
         sms_numbers = []
         hash['smsNumbers'].each do |structure|
-          sms_numbers << (SMSNumber.from_hash(structure) if structure)
+          sms_numbers << (SmsNumbers.from_hash(structure) if structure)
         end
       end
 

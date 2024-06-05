@@ -23,7 +23,7 @@ module Verizon
                                     .should_encode(true))
                    .query_param(new_parameter(distribution_type, key: 'distributionType'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('oAuth2')))
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(RetrievesAvailableFilesResponseList.method(:from_hash))
@@ -66,7 +66,7 @@ module Verizon
                    .form_param(new_parameter(model, key: 'model'))
                    .form_param(new_parameter(local_target_path, key: 'localTargetPath'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('oAuth2')))
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(UploadConfigurationFilesResponse.method(:from_hash))

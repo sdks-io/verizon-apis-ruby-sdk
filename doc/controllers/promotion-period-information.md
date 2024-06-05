@@ -26,7 +26,7 @@ def get_promo_device_usage_history(body)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`RequestBodyForUsage`](../../doc/models/request-body-for-usage.md) | Body, Required | Retrieve Aggregate Usage |
+| `body` | [`RequestBodyForUsage1`](../../doc/models/request-body-for-usage-1.md) | Body, Required | Retrieve Aggregate Usage |
 
 ## Server
 
@@ -39,7 +39,7 @@ This method returns a `\ApiResponse` instance. The `data` property in this insta
 ## Example Usage
 
 ```ruby
-body = RequestBodyForUsage.new(
+body = RequestBodyForUsage1.new(
   nil,
   DateTimeHelper.from_rfc3339('08/15/2021 00:00:00'),
   DateTimeHelper.from_rfc3339('08/16/2021 00:00:00')
@@ -90,7 +90,7 @@ def get_promo_device_aggregate_usage_history(body)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`UsageRequestBody`](../../doc/models/usage-request-body.md) | Body, Required | Retrieve Aggregate Usage |
+| `body` | [`RequestBodyForUsage`](../../doc/models/request-body-for-usage.md) | Body, Required | Retrieve Aggregate Usage |
 
 ## Server
 
@@ -103,7 +103,7 @@ This method returns a `\ApiResponse` instance. The `data` property in this insta
 ## Example Usage
 
 ```ruby
-body = UsageRequestBody.new(
+body = RequestBodyForUsage.new(
   '0000123456-000001',
   nil,
   DateTimeHelper.from_rfc3339('08/15/2021 00:00:00'),

@@ -32,7 +32,7 @@ module Verizon
     attr_accessor :anomaly_trigger_request
 
     # The notification details of the trigger.
-    # @return [Notification]
+    # @return [TriggerNotification]
     attr_accessor :notification
 
     # Indicates anomaly detection is active<br />True - Anomaly detection is
@@ -99,7 +99,7 @@ module Verizon
       account_name = hash.key?('accountName') ? hash['accountName'] : SKIP
       anomaly_trigger_request = AnomalyTriggerRequest.from_hash(hash['anomalyTriggerRequest']) if
         hash['anomalyTriggerRequest']
-      notification = Notification.from_hash(hash['notification']) if hash['notification']
+      notification = TriggerNotification.from_hash(hash['notification']) if hash['notification']
       active = hash.key?('active') ? hash['active'] : SKIP
 
       # Create object from extracted values.

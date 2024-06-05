@@ -14,9 +14,9 @@ module Verizon
     # @param [Hash] _field_parameters Additional optional form parameters are
     # supported by this endpoint.
     # @return [OauthToken] response from the API call
-    def request_token(authorization,
-                      scope: nil,
-                      _field_parameters: nil)
+    def request_token_thingspace_oauth(authorization,
+                                       scope: nil,
+                                       _field_parameters: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
                                      '/oauth2/token',

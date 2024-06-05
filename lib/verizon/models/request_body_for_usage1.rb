@@ -5,14 +5,10 @@
 
 require 'date'
 module Verizon
-  # UsageRequestBody Model.
-  class UsageRequestBody < BaseModel
+  # RequestBodyForUsage1 Model.
+  class RequestBodyForUsage1 < BaseModel
     SKIP = Object.new
     private_constant :SKIP
-
-    # TODO: Write general description for this method
-    # @return [String]
-    attr_accessor :account_id
 
     # TODO: Write general description for this method
     # @return [Array[ReadySimDeviceId]]
@@ -29,7 +25,6 @@ module Verizon
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
-      @_hash['account_id'] = 'accountId'
       @_hash['device_id'] = 'deviceId'
       @_hash['start_time'] = 'startTime'
       @_hash['end_time'] = 'endTime'
@@ -39,7 +34,6 @@ module Verizon
     # An array for optional fields
     def self.optionals
       %w[
-        account_id
         device_id
         start_time
         end_time
@@ -51,11 +45,9 @@ module Verizon
       []
     end
 
-    def initialize(account_id = SKIP,
-                   device_id = SKIP,
+    def initialize(device_id = SKIP,
                    start_time = SKIP,
                    end_time = SKIP)
-      @account_id = account_id unless account_id == SKIP
       @device_id = device_id unless device_id == SKIP
       @start_time = start_time unless start_time == SKIP
       @end_time = end_time unless end_time == SKIP
@@ -66,7 +58,6 @@ module Verizon
       return nil unless hash
 
       # Extract variables from the hash.
-      account_id = hash.key?('accountId') ? hash['accountId'] : SKIP
       # Parameter is an array, so we need to iterate through it
       device_id = nil
       unless hash['deviceId'].nil?
@@ -89,10 +80,9 @@ module Verizon
                  end
 
       # Create object from extracted values.
-      UsageRequestBody.new(account_id,
-                           device_id,
-                           start_time,
-                           end_time)
+      RequestBodyForUsage1.new(device_id,
+                               start_time,
+                               end_time)
     end
 
     def to_custom_start_time

@@ -5,7 +5,6 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `vz_m2m_token` | `String` | M2M Session Token ([How to generate an M2M session token?](page:getting-started/5g-edge-developer-creds-token#obtaining-a-vz-m2m-session-token-programmatically)) |
 | `environment` | `Environment` | The API environment. <br> **Default: `Environment.PRODUCTION`** |
 | `connection` | `Faraday::Connection` | The Faraday connection object passed by the SDK user for making requests |
 | `adapter` | `Faraday::Adapter` | The Faraday adapter object passed by the SDK user for performing http requests |
@@ -16,21 +15,22 @@ The following parameters are configurable for the API Client:
 | `retry_statuses` | `Array` | A list of HTTP statuses to retry. <br> **Default: [408, 413, 429, 500, 502, 503, 504, 521, 522, 524]** |
 | `retry_methods` | `Array` | A list of HTTP methods to retry. <br> **Default: %i[get put]** |
 | `http_callback` | `HttpCallBack` | The Http CallBack allows defining callables for pre and post API calls. |
-| `client_credentials_auth_credentials` | [`ClientCredentialsAuthCredentials`]($a/oauth-2-client-credentials-grant.md) | The credential object for OAuth 2 Client Credentials Grant |
+| `thingspace_oauth_credentials` | [`ThingspaceOauthCredentials`]($a/oauth-2-client-credentials-grant.md) | The credential object for OAuth 2 Client Credentials Grant |
+| `vz_m2m_token_credentials` | [`VZM2mTokenCredentials`]($a/custom-header-signature.md) | The credential object for Custom Header Signature |
 
 The API client can be initialized as follows:
 
 ```ruby
 client = Verizon::Client.new(
-  vz_m2m_token: 'VZ-M2M-Token',
-  client_credentials_auth_credentials: ClientCredentialsAuthCredentials.new(
+  thingspace_oauth_credentials: ThingspaceOauthCredentials.new(
     oauth_client_id: 'OAuthClientId',
     oauth_client_secret: 'OAuthClientSecret',
     oauth_scopes: [
-      OauthScopeEnum::DISCOVERYREAD,
-      OauthScopeEnum::SERVICEPROFILEREAD
+      OauthScopeThingspaceOauthEnum::DISCOVERYREAD,
+      OauthScopeThingspaceOauthEnum::SERVICEPROFILEREAD
     ]
   ),
+  vz_m2m_token_credentials: VZM2mTokenCredentials.new(),
   environment: Environment::PRODUCTION
 )
 ```
@@ -126,5 +126,6 @@ The gateway for the SDK. This class acts as a factory for the Controllers and al
 | update_triggers | Gets UpdateTriggersController |
 | sim_actions | Gets SIMActionsController |
 | global_reporting | Gets GlobalReportingController |
+| m_v2_triggers | Gets MV2TriggersController |
 | oauth_authorization | Gets OauthAuthorizationController |
 

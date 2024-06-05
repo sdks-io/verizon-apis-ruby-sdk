@@ -3,7 +3,7 @@
 
 
 
-Documentation for accessing and setting credentials for oAuth2.
+Documentation for accessing and setting credentials for thingspace_oauth.
 
 ## Auth Credentials
 
@@ -12,11 +12,11 @@ Documentation for accessing and setting credentials for oAuth2.
 | OAuthClientId | `String` | OAuth 2 Client ID | `oauth_client_id` |
 | OAuthClientSecret | `String` | OAuth 2 Client Secret | `oauth_client_secret` |
 | OAuthToken | `OauthToken` | Object for storing information about the OAuth token | `oauth_token` |
-| OAuthScopes | `Array[OauthScopeEnum]` | List of scopes that apply to the OAuth token | `oauth_scopes` |
+| OAuthScopes | `Array[OauthScopeThingspaceOauthEnum]` | List of scopes that apply to the OAuth token | `oauth_scopes` |
 
 
 
-**Note:** Auth credentials can be set using named parameter for any of the above credentials (e.g. `oauth_client_id`) in the client initialization.
+**Note:** Auth credentials can be set using `ThingspaceOauthCredentials` object, passed in as named parameter `thingspace_oauth_credentials` in the client initialization.
 
 ## Usage Example
 
@@ -26,12 +26,12 @@ You must initialize the client with *OAuth 2.0 Client Credentials Grant* credent
 
 ```ruby
 client = Verizon::Client.new(
-  client_credentials_auth_credentials: ClientCredentialsAuthCredentials.new(
+  thingspace_oauth_credentials: ThingspaceOauthCredentials.new(
     oauth_client_id: 'OAuthClientId',
     oauth_client_secret: 'OAuthClientSecret',
     oauth_scopes: [
-      OauthScopeEnum::DISCOVERYREAD,
-      OauthScopeEnum::SERVICEPROFILEREAD
+      OauthScopeThingspaceOauthEnum::DISCOVERYREAD,
+      OauthScopeThingspaceOauthEnum::SERVICEPROFILEREAD
     ]
   )
 )
@@ -47,10 +47,10 @@ You must have initialized the client with scopes for which you need permission t
 
 ```ruby
 begin
-  token = client.oauth_2.fetch_token
+  token = client.thingspace_oauth.fetch_token
   # update the cloned configuration with the token
-  client_credentials_auth_credentials = client.config.client_credentials_auth_credentials.clone_with(oauth_token: token)
-  config = client.config.clone_with(client_credentials_auth_credentials: client_credentials_auth_credentials)
+  thingspace_oauth_credentials = client.config.thingspace_oauth_credentials.clone_with(oauth_token: token)
+  config = client.config.clone_with(thingspace_oauth_credentials: thingspace_oauth_credentials)
   # re-instantiate the client with updated configuration
   client = Verizon::Client.new(config: config)
 rescue OauthProviderException => ex
@@ -64,7 +64,7 @@ The client can now make authorized endpoint calls.
 
 ### Scopes
 
-Scopes enable your application to only request access to the resources it needs while enabling users to control the amount of access they grant to your application. Available scopes are defined in the [`OauthScopeEnum`](../../doc/models/oauth-scope-enum.md) enumeration.
+Scopes enable your application to only request access to the resources it needs while enabling users to control the amount of access they grant to your application. Available scopes are defined in the [`OauthScopeThingspaceOauthEnum`](../../doc/models/oauth-scope-thingspace-oauth-enum.md) enumeration.
 
 | Scope Name | Description |
 |  --- | --- |
@@ -76,6 +76,11 @@ Scopes enable your application to only request access to the resources it needs 
 | `TS_MEC_FULLACCESS` | Full access for /serviceprofiles and /serviceendpoints. |
 | `TS_MEC_LIMITACCESS` | Limited access. Will not allow use of /serviceprofiles and /serviceendpoints but will allow discovery. |
 | `TS_APPLICATION_RO` |  |
+| `EDGEDISCOVERYREAD` |  |
+| `EDGESERVICEPROFILEREAD` |  |
+| `EDGESERVICEPROFILEWRITE` |  |
+| `EDGESERVICEREGISTRYREAD` |  |
+| `EDGESERVICEREGISTRYWRITE` |  |
 | `READ` | read access |
 | `WRITE` | read/write access |
 
@@ -85,7 +90,7 @@ It is recommended that you store the access token for reuse.
 
 ```ruby
 # store token
-save_token_to_database(client.config.client_credentials_auth_credentials.oauth_token)
+save_token_to_database(client.config.thingspace_oauth_credentials.oauth_token)
 ```
 
 ### Creating a client from a stored token
@@ -97,8 +102,8 @@ To authorize a client from a stored access token, just set the access token in C
 token = load_token_from_database
 
 # Update the cloned configuration with the token
-  client_credentials_auth_credentials = client.config.client_credentials_auth_credentials.clone_with(oauth_token: token)
-config = client.config.clone_with(client_credentials_auth_credentials: client_credentials_auth_credentials)
+  thingspace_oauth_credentials = client.config.thingspace_oauth_credentials.clone_with(oauth_token: token)
+config = client.config.clone_with(thingspace_oauth_credentials: thingspace_oauth_credentials)
 # Re-instantiate the client with updated configuration
 client = Client.new(config: config)
 ```
@@ -124,12 +129,12 @@ end
 
 # create a new client
 client = Verizon::Client.new(
-  client_credentials_auth_credentials: ClientCredentialsAuthCredentials.new(
+  thingspace_oauth_credentials: ThingspaceOauthCredentials.new(
     oauth_client_id: 'OAuthClientId',
     oauth_client_secret: 'OAuthClientSecret',
     oauth_scopes: [
-      OauthScopeEnum::DISCOVERYREAD,
-      OauthScopeEnum::SERVICEPROFILEREAD
+      OauthScopeThingspaceOauthEnum::DISCOVERYREAD,
+      OauthScopeThingspaceOauthEnum::SERVICEPROFILEREAD
     ]
   )
 )
@@ -138,8 +143,8 @@ client = Verizon::Client.new(
 previous_token = load_token_from_database
 if previous_token
   # update the cloned configuration with the restored token
-  client_credentials_auth_credentials = client.config.client_credentials_auth_credentials.clone_with(oauth_token: previous_token)
-  config = client.config.clone_with(client_credentials_auth_credentials: client_credentials_auth_credentials)
+  thingspace_oauth_credentials = client.config.thingspace_oauth_credentials.clone_with(oauth_token: previous_token)
+  config = client.config.clone_with(thingspace_oauth_credentials: thingspace_oauth_credentials)
   # re-instantiate the client with updated configuration
   client = Verizon::Client.new(config: config)
 else
@@ -148,8 +153,8 @@ else
     token = client.auth.fetch_token
     save_token_to_database(token)
     # update the cloned configuration with the token
-    client_credentials_auth_credentials = client.config.client_credentials_auth_credentials.clone_with(oauth_token: token)
-    config = client.config.clone_with(client_credentials_auth_credentials: client_credentials_auth_credentials)
+    thingspace_oauth_credentials = client.config.thingspace_oauth_credentials.clone_with(oauth_token: token)
+    config = client.config.clone_with(thingspace_oauth_credentials: thingspace_oauth_credentials)
     # re-instantiate the client with updated configuration
     client = Verizon::Client.new(config: config)
   rescue APIException => ex

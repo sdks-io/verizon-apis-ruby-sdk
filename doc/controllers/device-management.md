@@ -78,7 +78,8 @@ body = CarrierActivateRequest.new(
           '89141390780800784259',
           'iccid'
         )
-      ]
+      ],
+      '1.2.3.456'
     ),
     AccountDeviceList.new(
       [
@@ -90,10 +91,11 @@ body = CarrierActivateRequest.new(
           '89141390780800735573',
           'iccid'
         )
-      ]
+      ],
+      '1.2.3.456'
     )
   ],
-  'm2m_4G',
+  'the service plan name',
   '98801',
   '0868924207-00001',
   nil,
@@ -415,17 +417,12 @@ body = CarrierDeactivateRequest.new(
           'iccid'
         )
       ]
-    ),
-    AccountDeviceList.new(
-      [
-        DeviceId.new(
-          '20-digit ICCID',
-          'iccid'
-        )
-      ]
     )
   ],
   'FF',
+  nil,
+  true,
+  nil,
   nil,
   true
 )
@@ -891,7 +888,7 @@ This method returns a `\ApiResponse` instance. The `data` property in this insta
 
 ```ruby
 body = ServicePlanUpdateRequest.new(
-  'new_service_plan_code',
+  'Tablet5GB',
   nil,
   nil,
   nil,
@@ -904,7 +901,9 @@ body = ServicePlanUpdateRequest.new(
         )
       ]
     )
-  ]
+  ],
+  nil,
+  'IPPool'
 )
 
 result = device_management_controller.change_devices_service_plan(body)
@@ -951,26 +950,18 @@ This method returns a `\ApiResponse` instance. The `data` property in this insta
 
 ```ruby
 body = CarrierActionsRequest.new(
-  '0000123456-00001',
-  [
-    CustomFields.new(
-      'customField1',
-      'key value'
-    )
-  ],
+  nil,
+  nil,
   [
     AccountDeviceList.new(
       [
         DeviceId.new(
-          '20-digit ICCID',
+          '89148000000800139708',
           'iccid'
         )
       ]
     )
-  ],
-  true,
-  'name of the group',
-  'service plan name'
+  ]
 )
 
 result = device_management_controller.suspend_service_for_devices(body)
@@ -1017,26 +1008,18 @@ This method returns a `\ApiResponse` instance. The `data` property in this insta
 
 ```ruby
 body = CarrierActionsRequest.new(
-  '0000123456-00001',
-  [
-    CustomFields.new(
-      'customField1',
-      'key value'
-    )
-  ],
+  nil,
+  nil,
   [
     AccountDeviceList.new(
       [
         DeviceId.new(
-          '20-digit ICCID',
+          '89148000000800139708',
           'iccid'
         )
       ]
     )
-  ],
-  nil,
-  'name of the group',
-  'service plan name'
+  ]
 )
 
 result = device_management_controller.restore_service_for_suspended_devices(body)
@@ -1414,11 +1397,16 @@ This method returns a `\ApiResponse` instance. The `data` property in this insta
 
 ```ruby
 body = DevicePrlListRequest.new(
-  nil,
-  '101234-0001',
-  nil,
-  'West Region',
-  '3G 2MB'
+  [
+    DeviceId.new(
+      'A10085E5003861',
+      'meid'
+    ),
+    DeviceId.new(
+      'A10085E5003186',
+      'meid'
+    )
+  ]
 )
 
 result = device_management_controller.list_current_devices_prl_version(body)
@@ -1465,11 +1453,16 @@ This method returns a `\ApiResponse` instance. The `data` property in this insta
 
 ```ruby
 body = DeviceSuspensionStatusRequest.new(
-  nil,
-  DeviceFilterWithoutAccount.new(
-    'suspended devices'
-  ),
-  '1223334444-00001'
+  [
+    DeviceId.new(
+      'A10085E5003861',
+      'meid'
+    ),
+    DeviceId.new(
+      'A10085E5003186',
+      'meid'
+    )
+  ]
 )
 
 result = device_management_controller.get_device_service_suspension_status(body)
@@ -1517,7 +1510,11 @@ This method returns a `\ApiResponse` instance. The `data` property in this insta
 ```ruby
 body = DeviceUsageListRequest.new(
   '2018-03-20T00:00:01Z',
-  '2020-12-31T00:00:01Z'
+  '2020-12-31T00:00:01Z',
+  DeviceId.new(
+    '50684915885088839315521399821675',
+    'eid'
+  )
 )
 
 result = device_management_controller.list_devices_usage_history(body)
@@ -1709,7 +1706,7 @@ body = DeviceUploadRequest.new(
       [
         DeviceId.new(
           '15-digit IMEI',
-          'imei'
+          'IMEI'
         )
       ]
     ),
@@ -1717,7 +1714,15 @@ body = DeviceUploadRequest.new(
       [
         DeviceId.new(
           '15-digit IMEI',
-          'imei'
+          'IMEI'
+        )
+      ]
+    ),
+    DeviceList.new(
+      [
+        DeviceId.new(
+          '15-digit IMEI',
+          'IMEI'
         )
       ]
     )

@@ -9,9 +9,9 @@ module Verizon
     include CoreLibrary
     attr_reader :config, :auth_managers
 
-    # Returns the configured authentication oAuth2 instance.
-    def oauth_2
-      @auth_managers['oAuth2']
+    # Returns the configured authentication thingspace_oauth instance.
+    def thingspace_oauth
+      @auth_managers['thingspace_oauth']
     end
 
     # Access to m_5g_edge_platforms controller.
@@ -440,6 +440,12 @@ module Verizon
       @global_reporting ||= GlobalReportingController.new @global_configuration
     end
 
+    # Access to m_v2_triggers controller.
+    # @return [MV2TriggersController] Returns the controller instance.
+    def m_v2_triggers
+      @m_v2_triggers ||= MV2TriggersController.new @global_configuration
+    end
+
     # Access to oauth_authorization controller.
     # @return [OauthAuthorizationController] Returns the controller instance.
     def oauth_authorization
@@ -451,10 +457,8 @@ module Verizon
       max_retries: 0, retry_interval: 1, backoff_factor: 2,
       retry_statuses: [408, 413, 429, 500, 502, 503, 504, 521, 522, 524],
       retry_methods: %i[get put], http_callback: nil,
-      environment: Environment::PRODUCTION, oauth_client_id: nil,
-      oauth_client_secret: nil, oauth_token: nil, oauth_scopes: nil,
-      client_credentials_auth_credentials: nil, vz_m2m_token: 'TODO: Replace',
-      config: nil
+      environment: Environment::PRODUCTION, thingspace_oauth_credentials: nil,
+      vz_m2m_token_credentials: nil, config: nil
     )
       @config = if config.nil?
                   Configuration.new(
@@ -463,11 +467,9 @@ module Verizon
                     backoff_factor: backoff_factor,
                     retry_statuses: retry_statuses,
                     retry_methods: retry_methods, http_callback: http_callback,
-                    environment: environment, oauth_client_id: oauth_client_id,
-                    oauth_client_secret: oauth_client_secret,
-                    oauth_token: oauth_token, oauth_scopes: oauth_scopes,
-                    client_credentials_auth_credentials: client_credentials_auth_credentials,
-                    vz_m2m_token: vz_m2m_token
+                    environment: environment,
+                    thingspace_oauth_credentials: thingspace_oauth_credentials,
+                    vz_m2m_token_credentials: vz_m2m_token_credentials
                   )
                 else
                   config
@@ -477,7 +479,6 @@ module Verizon
                                                  .base_uri_executor(@config.method(:get_base_uri))
                                                  .global_errors(BaseController::GLOBAL_ERRORS)
                                                  .user_agent(BaseController.user_agent)
-                                                 .global_header('VZ-M2M-Token', @config.vz_m2m_token)
 
       initialize_auth_managers(@global_configuration)
       @global_configuration = @global_configuration.auth_managers(@auth_managers)
@@ -488,9 +489,11 @@ module Verizon
     def initialize_auth_managers(global_config)
       @auth_managers = {}
       http_client_config = global_config.client_configuration
-      %w[oAuth2].each { |auth| @auth_managers[auth] = nil }
-      @auth_managers['oAuth2'] = Oauth2.new(http_client_config.client_credentials_auth_credentials,
-                                            global_config)
+      %w[thingspace_oauth VZ-M2M-Token].each { |auth| @auth_managers[auth] = nil }
+      @auth_managers['thingspace_oauth'] = ThingspaceOauth.new(
+        http_client_config.thingspace_oauth_credentials, global_config
+      )
+      @auth_managers['VZ-M2M-Token'] = VZM2mToken.new(http_client_config.vz_m2m_token_credentials)
     end
   end
 end

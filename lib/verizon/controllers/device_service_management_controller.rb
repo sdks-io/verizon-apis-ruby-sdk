@@ -21,7 +21,7 @@ module Verizon
                    .query_param(new_parameter(imei, key: 'imei'))
                    .query_param(new_parameter(account_number, key: 'accountNumber'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('oAuth2')))
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(BullseyeServiceResult.method(:from_hash))
@@ -60,7 +60,7 @@ module Verizon
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('oAuth2')))
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(BullseyeServiceResult.method(:from_hash))

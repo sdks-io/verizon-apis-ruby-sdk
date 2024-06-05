@@ -14,7 +14,7 @@ module Verizon
                                      '/m2m/v2/triggers',
                                      Server::THINGSPACE)
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('oAuth2')))
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(TriggerValueResponse.method(:from_hash))
@@ -36,7 +36,7 @@ module Verizon
                    .template_param(new_parameter(account_name, key: 'accountName')
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('oAuth2')))
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(TriggerValueResponse.method(:from_hash))
@@ -56,7 +56,7 @@ module Verizon
                                      '/m2m/v2/triggers/categories/PromoAlerts',
                                      Server::THINGSPACE)
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('oAuth2')))
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(TriggerValueResponse2.method(:from_hash))
@@ -79,7 +79,7 @@ module Verizon
                    .template_param(new_parameter(trigger_id, key: 'triggerId')
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('oAuth2')))
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(TriggerValueResponse2.method(:from_hash))

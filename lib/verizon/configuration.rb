@@ -7,7 +7,8 @@ module Verizon
   # An enum for SDK environments.
   class Environment
     ENVIRONMENT = [
-      PRODUCTION = 'Production'.freeze
+      PRODUCTION = 'Production'.freeze,
+      MOCK_SERVER_FOR_LIMITED_AVAILABILITY_SEE_QUICK_START = 'Mock server for limited availability, see quick start'.freeze
     ].freeze
   end
 
@@ -35,25 +36,9 @@ module Verizon
   # All configuration including auth info and base URI for the API access
   # are configured in this class.
   class Configuration < CoreLibrary::HttpClientConfiguration
-    def oauth_client_id
-      @client_credentials_auth_credentials.oauth_client_id
-    end
-
-    def oauth_client_secret
-      @client_credentials_auth_credentials.oauth_client_secret
-    end
-
-    def oauth_token
-      @client_credentials_auth_credentials.oauth_token
-    end
-
-    def oauth_scopes
-      @client_credentials_auth_credentials.oauth_scopes
-    end
-
     # The attribute readers for properties.
-    attr_reader :environment, :client_credentials_auth_credentials,
-                :vz_m2m_token
+    attr_reader :environment, :thingspace_oauth_credentials,
+                :vz_m2m_token_credentials
 
     class << self
       attr_reader :environments
@@ -64,9 +49,8 @@ module Verizon
       max_retries: 0, retry_interval: 1, backoff_factor: 2,
       retry_statuses: [408, 413, 429, 500, 502, 503, 504, 521, 522, 524],
       retry_methods: %i[get put], http_callback: nil,
-      environment: Environment::PRODUCTION, oauth_client_id: nil,
-      oauth_client_secret: nil, oauth_token: nil, oauth_scopes: nil,
-      client_credentials_auth_credentials: nil, vz_m2m_token: 'TODO: Replace'
+      environment: Environment::PRODUCTION, thingspace_oauth_credentials: nil,
+      vz_m2m_token_credentials: nil
     )
 
       super connection: connection, adapter: adapter, timeout: timeout,
@@ -77,30 +61,11 @@ module Verizon
       # Current API environment
       @environment = String(environment)
 
-      # OAuth 2 Client ID
-      @oauth_client_id = oauth_client_id
+      # The object holding OAuth 2 Client Credentials Grant credentials
+      @thingspace_oauth_credentials = thingspace_oauth_credentials
 
-      # OAuth 2 Client Secret
-      @oauth_client_secret = oauth_client_secret
-
-      # Object for storing information about the OAuth token
-      @oauth_token = if oauth_token.is_a? OauthToken
-                       OauthToken.from_hash oauth_token.to_hash
-                     else
-                       oauth_token
-                     end
-
-      # List of scopes that apply to the OAuth token
-      @oauth_scopes = oauth_scopes
-
-      # M2M Session Token ([How to generate an M2M session token?](page:getting-started/5g-edge-developer-creds-token#obtaining-a-vz-m2m-session-token-programmatically))
-      @vz_m2m_token = vz_m2m_token
-
-      # Initializing OAuth 2 Client Credentials Grant credentials with the provided auth parameters
-      @client_credentials_auth_credentials = create_auth_credentials_object(
-        oauth_client_id, oauth_client_secret, oauth_token, oauth_scopes,
-        client_credentials_auth_credentials
-      )
+      # The object holding Custom Header Signature credentials
+      @vz_m2m_token_credentials = vz_m2m_token_credentials
 
       # The Http Client to use for making requests.
       set_http_client CoreLibrary::FaradayClient.new(self)
@@ -109,10 +74,8 @@ module Verizon
     def clone_with(connection: nil, adapter: nil, timeout: nil,
                    max_retries: nil, retry_interval: nil, backoff_factor: nil,
                    retry_statuses: nil, retry_methods: nil, http_callback: nil,
-                   environment: nil, oauth_client_id: nil,
-                   oauth_client_secret: nil, oauth_token: nil,
-                   oauth_scopes: nil, client_credentials_auth_credentials: nil,
-                   vz_m2m_token: nil)
+                   environment: nil, thingspace_oauth_credentials: nil,
+                   vz_m2m_token_credentials: nil)
       connection ||= self.connection
       adapter ||= self.adapter
       timeout ||= self.timeout
@@ -123,49 +86,20 @@ module Verizon
       retry_methods ||= self.retry_methods
       http_callback ||= self.http_callback
       environment ||= self.environment
-      vz_m2m_token ||= self.vz_m2m_token
-      client_credentials_auth_credentials = create_auth_credentials_object(
-        oauth_client_id, oauth_client_secret, oauth_token, oauth_scopes,
-        client_credentials_auth_credentials || self.client_credentials_auth_credentials
-      )
+      thingspace_oauth_credentials ||= self.thingspace_oauth_credentials
+      vz_m2m_token_credentials ||= self.vz_m2m_token_credentials
 
       Configuration.new(
         connection: connection, adapter: adapter, timeout: timeout,
         max_retries: max_retries, retry_interval: retry_interval,
         backoff_factor: backoff_factor, retry_statuses: retry_statuses,
         retry_methods: retry_methods, http_callback: http_callback,
-        environment: environment, vz_m2m_token: vz_m2m_token,
-        client_credentials_auth_credentials: client_credentials_auth_credentials
+        environment: environment,
+        thingspace_oauth_credentials: thingspace_oauth_credentials,
+        vz_m2m_token_credentials: vz_m2m_token_credentials
       )
     end
 
-    def create_auth_credentials_object(oauth_client_id, oauth_client_secret,
-                                       oauth_token, oauth_scopes,
-                                       client_credentials_auth_credentials)
-      return client_credentials_auth_credentials if oauth_client_id.nil? &&
-                                                    oauth_client_secret.nil? &&
-                                                    oauth_token.nil? &&
-                                                    oauth_scopes.nil?
-
-      warn('The \'oauth_client_id\', \'oauth_client_secret\', \'oauth_token\','\
-           ' \'oauth_scopes\' params are deprecated. Use \'client_credentials_'\
-           'auth_credentials\' param instead.')
-
-      unless client_credentials_auth_credentials.nil?
-        return client_credentials_auth_credentials.clone_with(
-          oauth_client_id: oauth_client_id,
-          oauth_client_secret: oauth_client_secret,
-          oauth_token: oauth_token,
-          oauth_scopes: oauth_scopes
-        )
-      end
-
-      ClientCredentialsAuthCredentials.new(
-        oauth_client_id: oauth_client_id,
-        oauth_client_secret: oauth_client_secret, oauth_token: oauth_token,
-        oauth_scopes: oauth_scopes
-      )
-    end
 
     # All the environments the SDK can run in.
     ENVIRONMENTS = {
@@ -185,6 +119,23 @@ module Verizon
         Server::HYPER_PRECISE_LOCATION => 'https://thingspace.verizon.com/api/hyper-precise/v1',
         Server::SERVICES => 'https://5gedge.verizon.com/api/mec/services',
         Server::QUALITY_OF_SERVICE => 'https://thingspace.verizon.com/api/m2m/v1/devices'
+      },
+      Environment::MOCK_SERVER_FOR_LIMITED_AVAILABILITY_SEE_QUICK_START => {
+        Server::EDGE_DISCOVERY => 'https://mock.thingspace.verizon.com/api/mec/eds',
+        Server::THINGSPACE => 'https://mock.thingspace.verizon.com/api',
+        Server::OAUTH_SERVER => 'https://mock.thingspace.verizon.com/api/ts/v1',
+        Server::M2M => 'https://mock.thingspace.verizon.com/api/m2m',
+        Server::DEVICE_LOCATION => 'https://mock.thingspace.verizon.com/api/loc/v1',
+        Server::SUBSCRIPTION_SERVER => 'https://mock.thingspace.verizon.com/api/subsc/v1',
+        Server::SOFTWARE_MANAGEMENT_V1 => 'https://mock.thingspace.verizon.com/api/fota/v1',
+        Server::SOFTWARE_MANAGEMENT_V2 => 'https://mock.thingspace.verizon.com/api/fota/v2',
+        Server::SOFTWARE_MANAGEMENT_V3 => 'https://mock.thingspace.verizon.com/api/fota/v3',
+        Server::PERFORMANCE => 'https://mock.thingspace.verizon.com/api/mec',
+        Server::DEVICE_DIAGNOSTICS => 'https://mock.thingspace.verizon.com/api/diagnostics/v1',
+        Server::CLOUD_CONNECTOR => 'https://mock.thingspace.verizon.com/api/cc/v1',
+        Server::HYPER_PRECISE_LOCATION => 'https://mock.thingspace.verizon.com/api/hyper-precise/v1',
+        Server::SERVICES => 'https://mock.thingspace.verizon.com/api/mec/services',
+        Server::QUALITY_OF_SERVICE => 'https://mock.thingspace.verizon.com/api/m2m/v1/devices'
       }
     }.freeze
 

@@ -40,7 +40,7 @@ module Verizon
                    .query_param(new_parameter(ue_identity_type, key: 'UEIdentityType'))
                    .query_param(new_parameter(ue_identity, key: 'UEIdentity'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('oAuth2')))
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ListMECPlatformsResult.method(:from_hash))
@@ -67,7 +67,7 @@ module Verizon
                                      '/regions',
                                      Server::EDGE_DISCOVERY)
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('oAuth2')))
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ListRegionsResult.method(:from_hash))

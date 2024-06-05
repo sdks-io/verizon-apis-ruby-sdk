@@ -43,13 +43,16 @@ This method returns a `\ApiResponse` instance. The `data` property in this insta
 
 ```ruby
 body = SMSSendRequest.new(
-  'accountName0',
-  'The rain in Spain stays mainly in the plain.',
+  '0000123456-00001',
+  'Can you hear me now?',
   nil,
   nil,
-  nil,
-  nil,
-  'T Plan 2'
+  [
+    DeviceId.new(
+      '89148000000800139708',
+      'iccid'
+    )
+  ]
 )
 
 result = sms_controller.send_sms_to_device(body)

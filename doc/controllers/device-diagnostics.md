@@ -92,34 +92,17 @@ This method returns a `\ApiResponse` instance. The `data` property in this insta
 
 ```ruby
 body = RetrieveMonitorsRequest.new(
-  '0868924207-00001',
+  '0242123520-00001',
   [
     AccountDeviceList.new(
       [
         DeviceId.new(
-          '990013907835573',
-          'imei'
-        ),
-        DeviceId.new(
-          '89141390780800784259',
-          'iccid'
-        )
-      ]
-    ),
-    AccountDeviceList.new(
-      [
-        DeviceId.new(
-          '990013907884259',
-          'imei'
-        ),
-        DeviceId.new(
-          '89141390780800735573',
-          'iccid'
+          '12016560696',
+          'msisdn'
         )
       ]
     )
-  ],
-  'monitorType'
+  ]
 )
 
 result = device_diagnostics_controller.retrieve_active_monitors_using_post(body)

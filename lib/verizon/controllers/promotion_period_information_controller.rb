@@ -7,7 +7,7 @@ module Verizon
   # PromotionPeriodInformationController
   class PromotionPeriodInformationController < BaseController
     # Retrieves the usage history of a device during the promotion period.
-    # @param [RequestBodyForUsage] body Required parameter: Retrieve Aggregate
+    # @param [RequestBodyForUsage1] body Required parameter: Retrieve Aggregate
     # Usage
     # @return [ResponseToUsageQuery] response from the API call
     def get_promo_device_usage_history(body)
@@ -19,7 +19,7 @@ module Verizon
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('oAuth2')))
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ResponseToUsageQuery.method(:from_hash))
@@ -32,7 +32,7 @@ module Verizon
 
     # Retrieves the aggregate usage for an account using pseudo-MDN during the
     # promotional period using a callback.
-    # @param [UsageRequestBody] body Required parameter: Retrieve Aggregate
+    # @param [RequestBodyForUsage] body Required parameter: Retrieve Aggregate
     # Usage
     # @return [UsageRequestResponse] response from the API call
     def get_promo_device_aggregate_usage_history(body)
@@ -44,7 +44,7 @@ module Verizon
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('oAuth2')))
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(UsageRequestResponse.method(:from_hash))

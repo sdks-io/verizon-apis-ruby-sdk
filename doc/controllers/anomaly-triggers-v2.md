@@ -52,7 +52,7 @@ body = [
       true,
       true
     ),
-    Notification.new(
+    TriggerNotification.new(
       'DailySummary',
       true,
       false,
@@ -129,7 +129,7 @@ body = [
       false,
       true
     ),
-    Notification.new(
+    TriggerNotification.new(
       'DailySummary',
       true,
       false,

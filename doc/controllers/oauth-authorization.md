@@ -9,16 +9,16 @@ oauth_authorization_controller = client.oauth_authorization
 `OauthAuthorizationController`
 
 
-# Request Token
+# Request Token Thingspace Oauth
 
 Create a new OAuth 2 token.
 
 :information_source: **Note** This endpoint does not require authentication.
 
 ```ruby
-def request_token(authorization,
-                  scope: nil,
-                  _field_parameters: nil)
+def request_token_thingspace_oauth(authorization,
+                                   scope: nil,
+                                   _field_parameters: nil)
 ```
 
 ## Parameters
@@ -46,7 +46,7 @@ _field_parameters = {
   'key0': 'additionalFieldParams9'
 }
 
-result = oauth_authorization_controller.request_token(
+result = oauth_authorization_controller.request_token_thingspace_oauth(
   authorization,
   _field_parameters: _field_parameters
 )

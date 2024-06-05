@@ -23,7 +23,7 @@ module Verizon
                                     .should_encode(true))
                    .query_param(new_parameter(distribution_type, key: 'distributionType'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('oAuth2')))
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(SoftwarePackage.method(:from_hash))
@@ -55,7 +55,7 @@ module Verizon
                    .query_param(new_parameter(last_seen_device_id, key: 'lastSeenDeviceId'))
                    .query_param(new_parameter(distribution_type, key: 'distributionType'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('oAuth2')))
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(V2AccountDeviceList.method(:from_hash))
@@ -82,7 +82,7 @@ module Verizon
                    .template_param(new_parameter(device_id, key: 'deviceId')
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('oAuth2')))
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(DeviceSoftwareUpgrade.method(:from_hash))
@@ -114,7 +114,7 @@ module Verizon
                    .query_param(new_parameter(campaign_status, key: 'campaignStatus'))
                    .query_param(new_parameter(last_seen_campaign_id, key: 'lastSeenCampaignId'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('oAuth2')))
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(V2CampaignHistory.method(:from_hash))
@@ -145,7 +145,7 @@ module Verizon
                                     .should_encode(true))
                    .query_param(new_parameter(last_seen_device_id, key: 'lastSeenDeviceId'))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Single.new('oAuth2')))
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(V2CampaignDevice.method(:from_hash))
