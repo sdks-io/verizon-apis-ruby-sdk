@@ -37,7 +37,7 @@ def near_real_time_network_conditions(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`WNPRequestResponse`](../../doc/models/wnp-request-response.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`WNPRequestResponse`](../../doc/models/wnp-request-response.md).
 
 ## Example Usage
 
@@ -71,7 +71,7 @@ result = wireless_network_performance_controller.near_real_time_network_conditio
 
 # Domestic 4 G and 5G Nationwide Network Coverage
 
-Run a report to determine network types available and available coverage. Network types covered include: CAT-M, NB-IOT, LTE, LTE-AWS and 5GNW.
+Run a report to determine network types available and available coverage. Network types covered include: CAT-M, NB-IOT, LTE, LTE-AWS, 5GNW and C-BAND.
 
 ```ruby
 def domestic4g_and_5g_nationwide_network_coverage(body)
@@ -89,7 +89,7 @@ def domestic4g_and_5g_nationwide_network_coverage(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`WNPRequestResponse`](../../doc/models/wnp-request-response.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`WNPRequestResponse`](../../doc/models/wnp-request-response.md).
 
 ## Example Usage
 
@@ -151,7 +151,7 @@ def site_proximity(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`WNPRequestResponse`](../../doc/models/wnp-request-response.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`WNPRequestResponse`](../../doc/models/wnp-request-response.md).
 
 ## Example Usage
 
@@ -203,7 +203,7 @@ def device_experience30days_history(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`WNPRequestResponse`](../../doc/models/wnp-request-response.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`WNPRequestResponse`](../../doc/models/wnp-request-response.md).
 
 ## Example Usage
 
@@ -255,7 +255,7 @@ def device_experience_bulk_latest(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`WNPRequestResponse`](../../doc/models/wnp-request-response.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`WNPRequestResponse`](../../doc/models/wnp-request-response.md).
 
 ## Example Usage
 

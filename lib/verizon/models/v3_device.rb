@@ -135,24 +135,12 @@ module Verizon
       []
     end
 
-    def initialize(device_id = nil,
-                   request_status = SKIP,
-                   result_reason = SKIP,
-                   mdn = SKIP,
-                   model = SKIP,
-                   make = SKIP,
-                   firmware = SKIP,
-                   fota_eligible = SKIP,
-                   status = SKIP,
-                   license_assigned = SKIP,
-                   protocol = SKIP,
-                   software_list = SKIP,
-                   file_list = SKIP,
-                   create_time = SKIP,
-                   status_time = SKIP,
-                   update_time = SKIP,
-                   refresh_time = SKIP,
-                   last_connection_time = SKIP)
+    def initialize(device_id = nil, request_status = SKIP, result_reason = SKIP,
+                   mdn = SKIP, model = SKIP, make = SKIP, firmware = SKIP,
+                   fota_eligible = SKIP, status = SKIP, license_assigned = SKIP,
+                   protocol = SKIP, software_list = SKIP, file_list = SKIP,
+                   create_time = SKIP, status_time = SKIP, update_time = SKIP,
+                   refresh_time = SKIP, last_connection_time = SKIP)
       @device_id = device_id
       @request_status = request_status unless request_status == SKIP
       @result_reason = result_reason unless result_reason == SKIP

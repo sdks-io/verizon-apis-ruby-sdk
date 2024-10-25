@@ -10,7 +10,7 @@ module Verizon
     # threshold values.
     # @param [AnomalyDetectionRequest] body Required parameter: Request to
     # activate anomaly detection.
-    # @return [IntelligenceSuccessResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def activate_anomaly_detection(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -22,19 +22,19 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(IntelligenceSuccessResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'An error occurred.',
-                                IntelligenceResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(IntelligenceSuccessResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'An error occurred.',
+                                 IntelligenceResultException))
         .execute
     end
 
     # Retrieves the current anomaly detection settings for an account.
     # @param [String] account_name Required parameter: The name of the
     # subscribed account.
-    # @return [AnomalyDetectionSettings] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_anomaly_detection_settings(account_name)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -45,19 +45,19 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(AnomalyDetectionSettings.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'An error occurred.',
-                                IntelligenceResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(AnomalyDetectionSettings.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'An error occurred.',
+                                 IntelligenceResultException))
         .execute
     end
 
     # Resets the thresholds to zero.
     # @param [String] account_name Required parameter: The name of the
     # subscribed account.
-    # @return [IntelligenceSuccessResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def reset_anomaly_detection_parameters(account_name)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
@@ -68,12 +68,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(IntelligenceSuccessResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'An error occurred.',
-                                IntelligenceResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(IntelligenceSuccessResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'An error occurred.',
+                                 IntelligenceResultException))
         .execute
     end
   end

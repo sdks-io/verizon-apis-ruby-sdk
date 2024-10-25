@@ -89,14 +89,9 @@ module Verizon
       []
     end
 
-    def initialize(device_ids = nil,
-                   assign_non_geo_mdn = SKIP,
-                   change4g_option = SKIP,
-                   device_ids_to = SKIP,
-                   npa_nxx = SKIP,
-                   service_plan = SKIP,
-                   zip_code = SKIP,
-                   smsr_oid = SKIP)
+    def initialize(device_ids = nil, assign_non_geo_mdn = SKIP,
+                   change4g_option = SKIP, device_ids_to = SKIP, npa_nxx = SKIP,
+                   service_plan = SKIP, zip_code = SKIP, smsr_oid = SKIP)
       @assign_non_geo_mdn = assign_non_geo_mdn unless assign_non_geo_mdn == SKIP
       @change4g_option = change4g_option unless change4g_option == SKIP
       @device_ids = device_ids

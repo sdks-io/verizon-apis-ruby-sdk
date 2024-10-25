@@ -44,8 +44,7 @@ module Verizon
       []
     end
 
-    def initialize(account_name = SKIP,
-                   managed_acc_added_list = SKIP,
+    def initialize(account_name = SKIP, managed_acc_added_list = SKIP,
                    managed_acc_provisioned_list = SKIP)
       @account_name = account_name unless account_name == SKIP
       @managed_acc_added_list = managed_acc_added_list unless managed_acc_added_list == SKIP

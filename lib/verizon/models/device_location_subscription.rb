@@ -50,9 +50,7 @@ module Verizon
       []
     end
 
-    def initialize(account_name = SKIP,
-                   loc_type = SKIP,
-                   max_allowance = SKIP,
+    def initialize(account_name = SKIP, loc_type = SKIP, max_allowance = SKIP,
                    purchase_time = SKIP)
       @account_name = account_name unless account_name == SKIP
       @loc_type = loc_type unless loc_type == SKIP

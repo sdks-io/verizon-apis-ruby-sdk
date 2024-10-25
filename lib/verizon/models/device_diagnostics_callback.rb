@@ -55,11 +55,8 @@ module Verizon
       []
     end
 
-    def initialize(account_name = nil,
-                   service_name = nil,
-                   endpoint = nil,
-                   created_on = nil,
-                   http_headers = SKIP)
+    def initialize(account_name = nil, service_name = nil, endpoint = nil,
+                   created_on = nil, http_headers = SKIP)
       @account_name = account_name
       @service_name = service_name
       @endpoint = endpoint

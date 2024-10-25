@@ -41,8 +41,7 @@ module Verizon
       []
     end
 
-    def initialize(has_more_data = SKIP,
-                   messages = SKIP)
+    def initialize(has_more_data = SKIP, messages = SKIP)
       @has_more_data = has_more_data unless has_more_data == SKIP
       @messages = messages unless messages == SKIP
     end

@@ -51,9 +51,7 @@ module Verizon
       []
     end
 
-    def initialize(description = SKIP,
-                   devices = SKIP,
-                   has_more_data = SKIP,
+    def initialize(description = SKIP, devices = SKIP, has_more_data = SKIP,
                    name = SKIP)
       @description = description unless description == SKIP
       @devices = devices unless devices == SKIP

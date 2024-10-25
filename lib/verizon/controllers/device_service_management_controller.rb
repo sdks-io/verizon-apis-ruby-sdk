@@ -11,7 +11,7 @@ module Verizon
     # device.
     # @param [String] account_number Required parameter: A unique identifier for
     # an account.
-    # @return [BullseyeServiceResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def get_device_hyper_precise_status(imei,
                                         account_number)
       new_api_call_builder
@@ -23,34 +23,34 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(BullseyeServiceResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Bad request.',
-                                HyperPreciseLocationResultException)
-                   .local_error('401',
-                                'Unauthorized request. Access token is missing or invalid.',
-                                HyperPreciseLocationResultException)
-                   .local_error('403',
-                                'Forbidden request.',
-                                HyperPreciseLocationResultException)
-                   .local_error('404',
-                                'Bad request. Not found.',
-                                HyperPreciseLocationResultException)
-                   .local_error('409',
-                                'Bad request. Conflict state.',
-                                HyperPreciseLocationResultException)
-                   .local_error('500',
-                                'Internal Server Error.',
-                                HyperPreciseLocationResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(BullseyeServiceResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Bad request.',
+                                 HyperPreciseLocationResultException)
+                    .local_error('401',
+                                 'Unauthorized request. Access token is missing or invalid.',
+                                 HyperPreciseLocationResultException)
+                    .local_error('403',
+                                 'Forbidden request.',
+                                 HyperPreciseLocationResultException)
+                    .local_error('404',
+                                 'Bad request. Not found.',
+                                 HyperPreciseLocationResultException)
+                    .local_error('409',
+                                 'Bad request. Conflict state.',
+                                 HyperPreciseLocationResultException)
+                    .local_error('500',
+                                 'Internal Server Error.',
+                                 HyperPreciseLocationResultException))
         .execute
     end
 
     # Enable/disable hyper-precise service for a device.
     # @param [BullseyeServiceRequest] body Required parameter: List of devices
     # and hyper-precise required statuses.
-    # @return [BullseyeServiceResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def update_device_hyper_precise_status(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
@@ -62,27 +62,27 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(BullseyeServiceResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Bad request.',
-                                HyperPreciseLocationResultException)
-                   .local_error('401',
-                                'Unauthorized request. Access token is missing or invalid.',
-                                HyperPreciseLocationResultException)
-                   .local_error('403',
-                                'Forbidden request.',
-                                HyperPreciseLocationResultException)
-                   .local_error('404',
-                                'Bad request. Not found.',
-                                HyperPreciseLocationResultException)
-                   .local_error('409',
-                                'Bad request. Conflict state.',
-                                HyperPreciseLocationResultException)
-                   .local_error('500',
-                                'Internal Server Error.',
-                                HyperPreciseLocationResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(BullseyeServiceResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Bad request.',
+                                 HyperPreciseLocationResultException)
+                    .local_error('401',
+                                 'Unauthorized request. Access token is missing or invalid.',
+                                 HyperPreciseLocationResultException)
+                    .local_error('403',
+                                 'Forbidden request.',
+                                 HyperPreciseLocationResultException)
+                    .local_error('404',
+                                 'Bad request. Not found.',
+                                 HyperPreciseLocationResultException)
+                    .local_error('409',
+                                 'Bad request. Conflict state.',
+                                 HyperPreciseLocationResultException)
+                    .local_error('500',
+                                 'Internal Server Error.',
+                                 HyperPreciseLocationResultException))
         .execute
     end
   end

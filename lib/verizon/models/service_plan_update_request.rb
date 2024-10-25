@@ -80,14 +80,10 @@ module Verizon
       []
     end
 
-    def initialize(service_plan = nil,
-                   account_name = SKIP,
-                   current_service_plan = SKIP,
-                   custom_fields = SKIP,
-                   devices = SKIP,
-                   group_name = SKIP,
-                   carrier_ip_pool_name = SKIP,
-                   take_effect = SKIP)
+    def initialize(service_plan = nil, account_name = SKIP,
+                   current_service_plan = SKIP, custom_fields = SKIP,
+                   devices = SKIP, group_name = SKIP,
+                   carrier_ip_pool_name = SKIP, take_effect = SKIP)
       @service_plan = service_plan
       @account_name = account_name unless account_name == SKIP
       @current_service_plan = current_service_plan unless current_service_plan == SKIP

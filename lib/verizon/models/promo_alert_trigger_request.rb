@@ -68,12 +68,9 @@ module Verizon
       []
     end
 
-    def initialize(data_percentage50 = SKIP,
-                   data_percentage75 = SKIP,
-                   data_percentage90 = SKIP,
-                   no_of_days_b4_promo_exp = SKIP,
-                   sms_percentage50 = SKIP,
-                   sms_percentage75 = SKIP,
+    def initialize(data_percentage50 = SKIP, data_percentage75 = SKIP,
+                   data_percentage90 = SKIP, no_of_days_b4_promo_exp = SKIP,
+                   sms_percentage50 = SKIP, sms_percentage75 = SKIP,
                    sms_percentage90 = SKIP)
       @data_percentage50 = data_percentage50 unless data_percentage50 == SKIP
       @data_percentage75 = data_percentage75 unless data_percentage75 == SKIP

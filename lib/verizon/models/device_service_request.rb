@@ -35,8 +35,7 @@ module Verizon
       []
     end
 
-    def initialize(imei = nil,
-                   bullseye_enable = nil)
+    def initialize(imei = nil, bullseye_enable = nil)
       @imei = imei
       @bullseye_enable = bullseye_enable
     end

@@ -29,7 +29,7 @@ def update_all_available_triggers(body: nil)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Success`](../../doc/models/success.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Success`](../../doc/models/success.md).
 
 ## Example Usage
 

@@ -10,7 +10,7 @@ module Verizon
     # not necessarily with logging enabled.
     # @param [String] account Required parameter: Account identifier.
     # @param [String] device_id Required parameter: Device IMEI identifier.
-    # @return [Array[CheckInHistoryItem]] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def get_device_check_in_history(account,
                                     device_id)
       new_api_call_builder
@@ -24,13 +24,13 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CheckInHistoryItem.method(:from_hash))
-                   .is_api_response(true)
-                   .is_response_array(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV2ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CheckInHistoryItem.method(:from_hash))
+                    .is_api_response(true)
+                    .is_response_array(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV2ResultException))
         .execute
     end
   end

@@ -47,8 +47,7 @@ module Verizon
       ]
     end
 
-    def initialize(has_more_flag = SKIP,
-                   last_seen_upgrade_id = SKIP,
+    def initialize(has_more_flag = SKIP, last_seen_upgrade_id = SKIP,
                    report_list = SKIP)
       @has_more_flag = has_more_flag unless has_more_flag == SKIP
       @last_seen_upgrade_id = last_seen_upgrade_id unless last_seen_upgrade_id == SKIP

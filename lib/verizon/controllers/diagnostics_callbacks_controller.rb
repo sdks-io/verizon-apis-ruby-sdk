@@ -9,7 +9,7 @@ module Verizon
     # This endpoint allows user to get the registered callback information of an
     # existing diagnostics subscription.
     # @param [String] account_name Required parameter: Account identifier.
-    # @return [Array[DeviceDiagnosticsCallback]] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def get_diagnostics_subscription_callback_info(account_name)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -19,13 +19,13 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceDiagnosticsCallback.method(:from_hash))
-                   .is_api_response(true)
-                   .is_response_array(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                DeviceDiagnosticsResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceDiagnosticsCallback.method(:from_hash))
+                    .is_api_response(true)
+                    .is_response_array(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 DeviceDiagnosticsResultException))
         .execute
     end
 
@@ -33,7 +33,7 @@ module Verizon
     # diagnostics subscription.
     # @param [CallbackRegistrationRequest] body Required parameter: Callback URL
     # registration request.
-    # @return [DeviceDiagnosticsCallback] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def register_diagnostics_callback_url(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -45,12 +45,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceDiagnosticsCallback.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                DeviceDiagnosticsResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceDiagnosticsCallback.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 DeviceDiagnosticsResultException))
         .execute
     end
 
@@ -59,7 +59,7 @@ module Verizon
     # @param [String] account_name Required parameter: Account identifier.
     # @param [String] service_name Required parameter: Service name for callback
     # notification.
-    # @return [DeviceDiagnosticsCallback] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def unregister_diagnostics_callback(account_name,
                                         service_name)
       new_api_call_builder
@@ -71,12 +71,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceDiagnosticsCallback.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                DeviceDiagnosticsResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceDiagnosticsCallback.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 DeviceDiagnosticsResultException))
         .execute
     end
   end

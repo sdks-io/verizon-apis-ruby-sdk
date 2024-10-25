@@ -64,12 +64,9 @@ module Verizon
       []
     end
 
-    def initialize(extended_attributes = SKIP,
-                   license_assigned = SKIP,
-                   license_available = SKIP,
-                   license_purchased = SKIP,
-                   license_type = SKIP,
-                   sku_number = SKIP)
+    def initialize(extended_attributes = SKIP, license_assigned = SKIP,
+                   license_available = SKIP, license_purchased = SKIP,
+                   license_type = SKIP, sku_number = SKIP)
       @extended_attributes = extended_attributes unless extended_attributes == SKIP
       @license_assigned = license_assigned unless license_assigned == SKIP
       @license_available = license_available unless license_available == SKIP

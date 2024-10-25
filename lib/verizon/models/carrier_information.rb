@@ -46,9 +46,7 @@ module Verizon
       []
     end
 
-    def initialize(carrier_name = SKIP,
-                   service_plan = SKIP,
-                   state = SKIP)
+    def initialize(carrier_name = SKIP, service_plan = SKIP, state = SKIP)
       @carrier_name = carrier_name unless carrier_name == SKIP
       @service_plan = service_plan unless service_plan == SKIP
       @state = state unless state == SKIP

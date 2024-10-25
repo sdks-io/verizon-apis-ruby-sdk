@@ -71,10 +71,8 @@ module Verizon
       []
     end
 
-    def initialize(account_names = SKIP,
-                   device_group = SKIP,
-                   include_abnormal = SKIP,
-                   include_very_abnormal = SKIP,
+    def initialize(account_names = SKIP, device_group = SKIP,
+                   include_abnormal = SKIP, include_very_abnormal = SKIP,
                    include_under_expected_usage = SKIP,
                    include_over_expected_usage = SKIP)
       @account_names = account_names unless account_names == SKIP

@@ -58,10 +58,7 @@ module Verizon
       []
     end
 
-    def initialize(aname = SKIP,
-                   name = SKIP,
-                   url = SKIP,
-                   username = SKIP,
+    def initialize(aname = SKIP, name = SKIP, url = SKIP, username = SKIP,
                    password = SKIP)
       @aname = aname unless aname == SKIP
       @name = name unless name == SKIP

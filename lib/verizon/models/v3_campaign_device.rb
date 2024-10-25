@@ -53,11 +53,8 @@ module Verizon
       []
     end
 
-    def initialize(has_more_data = nil,
-                   max_page_size = nil,
-                   device_list = nil,
-                   total_device = SKIP,
-                   last_seen_device_id = SKIP)
+    def initialize(has_more_data = nil, max_page_size = nil, device_list = nil,
+                   total_device = SKIP, last_seen_device_id = SKIP)
       @total_device = total_device unless total_device == SKIP
       @has_more_data = has_more_data
       @last_seen_device_id = last_seen_device_id unless last_seen_device_id == SKIP

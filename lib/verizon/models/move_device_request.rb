@@ -76,13 +76,9 @@ module Verizon
       []
     end
 
-    def initialize(account_name = nil,
-                   filter = SKIP,
-                   custom_fields = SKIP,
-                   devices = SKIP,
-                   group_name = SKIP,
-                   carrier_ip_pool_name = SKIP,
-                   service_plan = SKIP)
+    def initialize(account_name = nil, filter = SKIP, custom_fields = SKIP,
+                   devices = SKIP, group_name = SKIP,
+                   carrier_ip_pool_name = SKIP, service_plan = SKIP)
       @account_name = account_name
       @filter = filter unless filter == SKIP
       @custom_fields = custom_fields unless custom_fields == SKIP

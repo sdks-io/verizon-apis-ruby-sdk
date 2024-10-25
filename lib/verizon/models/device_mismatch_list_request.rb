@@ -53,9 +53,7 @@ module Verizon
       []
     end
 
-    def initialize(filter = nil,
-                   devices = SKIP,
-                   account_name = SKIP,
+    def initialize(filter = nil, devices = SKIP, account_name = SKIP,
                    group_name = SKIP)
       @filter = filter
       @devices = devices unless devices == SKIP

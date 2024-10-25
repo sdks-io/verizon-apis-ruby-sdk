@@ -38,7 +38,7 @@ def list_devices_with_logging_enabled(account)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<DeviceLoggingStatus>`](../../doc/models/device-logging-status.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<DeviceLoggingStatus>`](../../doc/models/device-logging-status.md).
 
 ## Example Usage
 
@@ -104,7 +104,7 @@ def enable_logging_for_devices(account,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<DeviceLoggingStatus>`](../../doc/models/device-logging-status.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<DeviceLoggingStatus>`](../../doc/models/device-logging-status.md).
 
 ## Example Usage
 
@@ -183,7 +183,7 @@ def disable_logging_for_devices(account,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance.
+This method returns a `ApiResponse` instance.
 
 ## Example Usage
 
@@ -227,7 +227,7 @@ def enable_device_logging(account,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceLoggingStatus`](../../doc/models/device-logging-status.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceLoggingStatus`](../../doc/models/device-logging-status.md).
 
 ## Example Usage
 
@@ -280,7 +280,7 @@ def disable_device_logging(account,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance.
+This method returns a `ApiResponse` instance.
 
 ## Example Usage
 
@@ -324,7 +324,7 @@ def list_device_logs(account,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<DeviceLog>`](../../doc/models/device-log.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<DeviceLog>`](../../doc/models/device-log.md).
 
 ## Example Usage
 

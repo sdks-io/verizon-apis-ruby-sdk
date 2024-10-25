@@ -7,7 +7,7 @@ module Verizon
   # AnomalyTriggersController
   class AnomalyTriggersController < BaseController
     # This corresponds to the M2M-MC SOAP interface, ```GetTriggers```.
-    # @return [Array[GetTriggerResponseList]] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_anomaly_detection_triggers
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -16,38 +16,38 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(GetTriggerResponseList.method(:from_hash))
-                   .is_api_response(true)
-                   .is_response_array(true)
-                   .local_error('400',
-                                'Bad request',
-                                IntelligenceResultException)
-                   .local_error('401',
-                                'Unauthorized',
-                                IntelligenceResultException)
-                   .local_error('403',
-                                'Forbidden',
-                                IntelligenceResultException)
-                   .local_error('404',
-                                'Not Found / Does not exist',
-                                IntelligenceResultException)
-                   .local_error('406',
-                                'Format / Request Unacceptable',
-                                IntelligenceResultException)
-                   .local_error('429',
-                                'Too many requests',
-                                IntelligenceResultException)
-                   .local_error('default',
-                                'Error response',
-                                IntelligenceResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(GetTriggerResponseList.method(:from_hash))
+                    .is_api_response(true)
+                    .is_response_array(true)
+                    .local_error('400',
+                                 'Bad request',
+                                 IntelligenceResultException)
+                    .local_error('401',
+                                 'Unauthorized',
+                                 IntelligenceResultException)
+                    .local_error('403',
+                                 'Forbidden',
+                                 IntelligenceResultException)
+                    .local_error('404',
+                                 'Not Found / Does not exist',
+                                 IntelligenceResultException)
+                    .local_error('406',
+                                 'Format / Request Unacceptable',
+                                 IntelligenceResultException)
+                    .local_error('429',
+                                 'Too many requests',
+                                 IntelligenceResultException)
+                    .local_error('default',
+                                 'Error response',
+                                 IntelligenceResultException))
         .execute
     end
 
     # This corresponds to the M2M-MC SOAP interface, ```UpdateTriggerRequest```.
     # @param [UpdateTriggerRequest] body Required parameter: Update Trigger
     # Request
-    # @return [AnomalyDetectionTrigger] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def update_anomaly_detection_trigger(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
@@ -59,37 +59,37 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(AnomalyDetectionTrigger.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Bad request',
-                                IntelligenceResultException)
-                   .local_error('401',
-                                'Unauthorized',
-                                IntelligenceResultException)
-                   .local_error('403',
-                                'Forbidden',
-                                IntelligenceResultException)
-                   .local_error('404',
-                                'Not Found / Does not exist',
-                                IntelligenceResultException)
-                   .local_error('406',
-                                'Format / Request Unacceptable',
-                                IntelligenceResultException)
-                   .local_error('429',
-                                'Too many requests',
-                                IntelligenceResultException)
-                   .local_error('default',
-                                'Error response',
-                                IntelligenceResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(AnomalyDetectionTrigger.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Bad request',
+                                 IntelligenceResultException)
+                    .local_error('401',
+                                 'Unauthorized',
+                                 IntelligenceResultException)
+                    .local_error('403',
+                                 'Forbidden',
+                                 IntelligenceResultException)
+                    .local_error('404',
+                                 'Not Found / Does not exist',
+                                 IntelligenceResultException)
+                    .local_error('406',
+                                 'Format / Request Unacceptable',
+                                 IntelligenceResultException)
+                    .local_error('429',
+                                 'Too many requests',
+                                 IntelligenceResultException)
+                    .local_error('default',
+                                 'Error response',
+                                 IntelligenceResultException))
         .execute
     end
 
     # This corresponds to the M2M-MC SOAP interface, ```CreateTrigger```.
     # @param [CreateTriggerRequest] body Required parameter: Create Trigger
     # Request
-    # @return [AnomalyDetectionTrigger] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def create_anomaly_detection_trigger(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -101,36 +101,36 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(AnomalyDetectionTrigger.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Bad request',
-                                IntelligenceResultException)
-                   .local_error('401',
-                                'Unauthorized',
-                                IntelligenceResultException)
-                   .local_error('403',
-                                'Forbidden',
-                                IntelligenceResultException)
-                   .local_error('404',
-                                'Not Found / Does not exist',
-                                IntelligenceResultException)
-                   .local_error('406',
-                                'Format / Request Unacceptable',
-                                IntelligenceResultException)
-                   .local_error('429',
-                                'Too many requests',
-                                IntelligenceResultException)
-                   .local_error('default',
-                                'Error response',
-                                IntelligenceResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(AnomalyDetectionTrigger.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Bad request',
+                                 IntelligenceResultException)
+                    .local_error('401',
+                                 'Unauthorized',
+                                 IntelligenceResultException)
+                    .local_error('403',
+                                 'Forbidden',
+                                 IntelligenceResultException)
+                    .local_error('404',
+                                 'Not Found / Does not exist',
+                                 IntelligenceResultException)
+                    .local_error('406',
+                                 'Format / Request Unacceptable',
+                                 IntelligenceResultException)
+                    .local_error('429',
+                                 'Too many requests',
+                                 IntelligenceResultException)
+                    .local_error('default',
+                                 'Error response',
+                                 IntelligenceResultException))
         .execute
     end
 
     # This corresponds to the M2M-MC SOAP interface, ```GetTriggers```.
     # @param [String] trigger_id Required parameter: trigger ID
-    # @return [Array[GetTriggerResponseList]] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_anomaly_detection_trigger_settings(trigger_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -141,38 +141,38 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(GetTriggerResponseList.method(:from_hash))
-                   .is_api_response(true)
-                   .is_response_array(true)
-                   .local_error('400',
-                                'Bad request',
-                                IntelligenceResultException)
-                   .local_error('401',
-                                'Unauthorized',
-                                IntelligenceResultException)
-                   .local_error('403',
-                                'Forbidden',
-                                IntelligenceResultException)
-                   .local_error('404',
-                                'Not Found / Does not exist',
-                                IntelligenceResultException)
-                   .local_error('406',
-                                'Format / Request Unacceptable',
-                                IntelligenceResultException)
-                   .local_error('429',
-                                'Too many requests',
-                                IntelligenceResultException)
-                   .local_error('default',
-                                'Error response',
-                                IntelligenceResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(GetTriggerResponseList.method(:from_hash))
+                    .is_api_response(true)
+                    .is_response_array(true)
+                    .local_error('400',
+                                 'Bad request',
+                                 IntelligenceResultException)
+                    .local_error('401',
+                                 'Unauthorized',
+                                 IntelligenceResultException)
+                    .local_error('403',
+                                 'Forbidden',
+                                 IntelligenceResultException)
+                    .local_error('404',
+                                 'Not Found / Does not exist',
+                                 IntelligenceResultException)
+                    .local_error('406',
+                                 'Format / Request Unacceptable',
+                                 IntelligenceResultException)
+                    .local_error('429',
+                                 'Too many requests',
+                                 IntelligenceResultException)
+                    .local_error('default',
+                                 'Error response',
+                                 IntelligenceResultException))
         .execute
     end
 
     # Deletes a specific trigger ID
     # @param [String] trigger_id Required parameter: The trigger ID to be
     # deleted
-    # @return [AnomalyDetectionTrigger] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def delete_anomaly_detection_trigger(trigger_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::DELETE,
@@ -183,12 +183,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(AnomalyDetectionTrigger.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'Error response',
-                                IntelligenceResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(AnomalyDetectionTrigger.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'Error response',
+                                 IntelligenceResultException))
         .execute
     end
   end

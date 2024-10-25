@@ -56,10 +56,8 @@ module Verizon
       []
     end
 
-    def initialize(flow_server = SKIP,
-                   flow_device = SKIP,
-                   flow_direction = SKIP,
-                   flow_protocol = SKIP,
+    def initialize(flow_server = SKIP, flow_device = SKIP,
+                   flow_direction = SKIP, flow_protocol = SKIP,
                    qci_option = SKIP)
       @flow_server = flow_server unless flow_server == SKIP
       @flow_device = flow_device unless flow_device == SKIP

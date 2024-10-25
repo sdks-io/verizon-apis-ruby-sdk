@@ -44,9 +44,7 @@ module Verizon
       []
     end
 
-    def initialize(comparator = SKIP,
-                   threshold = SKIP,
-                   threshold_unit = SKIP)
+    def initialize(comparator = SKIP, threshold = SKIP, threshold_unit = SKIP)
       @comparator = comparator unless comparator == SKIP
       @threshold = threshold unless threshold == SKIP
       @threshold_unit = threshold_unit unless threshold_unit == SKIP

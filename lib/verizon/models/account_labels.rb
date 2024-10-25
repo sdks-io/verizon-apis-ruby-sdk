@@ -37,8 +37,7 @@ module Verizon
       []
     end
 
-    def initialize(devices = nil,
-                   label = SKIP)
+    def initialize(devices = nil, label = SKIP)
       @devices = devices
       @label = label unless label == SKIP
     end

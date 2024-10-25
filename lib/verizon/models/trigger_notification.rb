@@ -96,17 +96,12 @@ module Verizon
       []
     end
 
-    def initialize(notification_type = SKIP,
-                   callback = SKIP,
-                   email_notification = SKIP,
-                   notification_group_name = SKIP,
+    def initialize(notification_type = SKIP, callback = SKIP,
+                   email_notification = SKIP, notification_group_name = SKIP,
                    notification_frequency_factor = SKIP,
                    notification_frequency_interval = SKIP,
-                   external_email_recipients = SKIP,
-                   sms_notification = SKIP,
-                   sms_numbers = SKIP,
-                   reminder = SKIP,
-                   severity = SKIP)
+                   external_email_recipients = SKIP, sms_notification = SKIP,
+                   sms_numbers = SKIP, reminder = SKIP, severity = SKIP)
       @notification_type = notification_type unless notification_type == SKIP
       @callback = callback unless callback == SKIP
       @email_notification = email_notification unless email_notification == SKIP

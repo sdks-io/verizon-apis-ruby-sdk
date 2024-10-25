@@ -45,9 +45,7 @@ module Verizon
       []
     end
 
-    def initialize(imei = SKIP,
-                   error_message = SKIP,
-                   error_response = SKIP)
+    def initialize(imei = SKIP, error_message = SKIP, error_response = SKIP)
       @imei = imei unless imei == SKIP
       @error_message = error_message unless error_message == SKIP
       @error_response = error_response unless error_response == SKIP

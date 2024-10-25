@@ -50,10 +50,8 @@ module Verizon
       []
     end
 
-    def initialize(min_core_clock_m_hz = SKIP,
-                   min_memory_clock_m_hz = SKIP,
-                   min_bandwidth_g_bs = SKIP,
-                   min_tflops = SKIP)
+    def initialize(min_core_clock_m_hz = SKIP, min_memory_clock_m_hz = SKIP,
+                   min_bandwidth_g_bs = SKIP, min_tflops = SKIP)
       @min_core_clock_m_hz = min_core_clock_m_hz unless min_core_clock_m_hz == SKIP
       @min_memory_clock_m_hz = min_memory_clock_m_hz unless min_memory_clock_m_hz == SKIP
       @min_bandwidth_g_bs = min_bandwidth_g_bs unless min_bandwidth_g_bs == SKIP

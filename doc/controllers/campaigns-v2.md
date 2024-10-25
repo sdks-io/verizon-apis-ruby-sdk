@@ -41,7 +41,7 @@ def schedule_campaign_firmware_upgrade(account,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`CampaignSoftware`](../../doc/models/campaign-software.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`CampaignSoftware`](../../doc/models/campaign-software.md).
 
 ## Example Usage
 
@@ -144,7 +144,7 @@ def get_campaign_information(account,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`CampaignSoftware`](../../doc/models/campaign-software.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`CampaignSoftware`](../../doc/models/campaign-software.md).
 
 ## Example Usage
 
@@ -223,7 +223,7 @@ def update_campaign_firmware_devices(account,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V2AddOrRemoveDeviceResult`](../../doc/models/v2-add-or-remove-device-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V2AddOrRemoveDeviceResult`](../../doc/models/v2-add-or-remove-device-result.md).
 
 ## Example Usage
 
@@ -277,7 +277,7 @@ def cancel_campaign(account,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FotaV2SuccessResult`](../../doc/models/fota-v2-success-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FotaV2SuccessResult`](../../doc/models/fota-v2-success-result.md).
 
 ## Example Usage
 
@@ -331,7 +331,7 @@ def update_campaign_dates(account,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`CampaignSoftware`](../../doc/models/campaign-software.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`CampaignSoftware`](../../doc/models/campaign-software.md).
 
 ## Example Usage
 
@@ -436,7 +436,7 @@ def schedule_file_upgrade(acc,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`UploadAndScheduleFileResponse`](../../doc/models/upload-and-schedule-file-response.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`UploadAndScheduleFileResponse`](../../doc/models/upload-and-schedule-file-response.md).
 
 ## Example Usage
 
@@ -488,7 +488,7 @@ def schedule_sw_upgrade_http_devices(acc,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`UploadAndScheduleFileResponse`](../../doc/models/upload-and-schedule-file-response.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`UploadAndScheduleFileResponse`](../../doc/models/upload-and-schedule-file-response.md).
 
 ## Example Usage
 

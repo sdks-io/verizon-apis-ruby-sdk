@@ -35,7 +35,7 @@ def list_optimal_service_endpoints(region: nil,
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `region` | `String` | Query, Optional | MEC region name. Current valid values are US_WEST_2 and US_EAST_1. |
-| `subscriber_density` | `Integer` | Query, Optional | Minimum number of 4G/5G subscribers per square kilometer. |
+| `subscriber_density` | `Integer` | Query, Optional | Minimum number of 4G/5G subscribers per square kilometer.<br>**Constraints**: `>= 1`, `<= 100` |
 | `ue_identity_type` | [`UserEquipmentIdentityTypeEnum`](../../doc/models/user-equipment-identity-type-enum.md) | Query, Optional | Type of User Equipment identifier used in `UEIdentity`. |
 | `ue_identity` | `String` | Query, Optional | The identifier value for User Equipment. The type of identifier is defined by the 'UEIdentityType' parameter. The`IPAddress`format can be IPv4 or IPv6. |
 | `service_endpoints_ids` | `String` | Query, Optional | A system-defined string identifier representing one or more registered Service Endpoints. |
@@ -48,7 +48,7 @@ def list_optimal_service_endpoints(region: nil,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ListOptimalServiceEndpointsResult`](../../doc/models/list-optimal-service-endpoints-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ListOptimalServiceEndpointsResult`](../../doc/models/list-optimal-service-endpoints-result.md).
 
 ## Example Usage
 
@@ -112,7 +112,7 @@ def register_service_endpoints(body)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`Array<ResourcesEdgeHostedServiceWithProfileId>`](../../doc/models/resources-edge-hosted-service-with-profile-id.md) | Body, Required | An array of Service Endpoint data for a deployed application. The request body passes all of the needed parameters to create a service endpoint. Parameters will be edited here rather than the **Parameters** section above. The `ern`,`applicationServerProviderId`, `applicationId` and `serviceProfileID` parameters are required. **Note:** Currently, the only valid value for `applicationServerProviderId`is **AWS**. Also, if you do not know one of the optional values (i.e. URI), you can erase the line from the query by back-spacing over it. |
+| `body` | [`Array<ResourcesEdgeHostedServiceWithProfileId>`](../../doc/models/resources-edge-hosted-service-with-profile-id.md) | Body, Required | An array of Service Endpoint data for a deployed application. The request body passes all of the needed parameters to create a service endpoint. Parameters will be edited here rather than the **Parameters** section above. The `ern`,`applicationServerProviderId`, `applicationId` and `serviceProfileID` parameters are required. **Note:** Currently, the only valid value for `applicationServerProviderId`is **AWS**. Also, if you do not know one of the optional values (i.e. URI), you can erase the line from the query by back-spacing over it.<br>**Constraints**: *Maximum Items*: `100` |
 
 ## Requires scope
 
@@ -122,7 +122,7 @@ def register_service_endpoints(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`RegisterServiceEndpointResult`](../../doc/models/register-service-endpoint-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`RegisterServiceEndpointResult`](../../doc/models/register-service-endpoint-result.md).
 
 ## Example Usage
 
@@ -172,7 +172,7 @@ def list_all_service_endpoints
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ListAllServiceEndpointsResult`](../../doc/models/list-all-service-endpoints-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ListAllServiceEndpointsResult`](../../doc/models/list-all-service-endpoints-result.md).
 
 ## Example Usage
 
@@ -222,7 +222,7 @@ def get_service_endpoint(service_endpoints_id)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<ResourcesEdgeHostedServiceWithProfileId>`](../../doc/models/resources-edge-hosted-service-with-profile-id.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<ResourcesEdgeHostedServiceWithProfileId>`](../../doc/models/resources-edge-hosted-service-with-profile-id.md).
 
 ## Example Usage
 
@@ -276,7 +276,7 @@ def update_service_endpoint(service_endpoints_id,
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `service_endpoints_id` | `String` | Template, Required | A system-defined string identifier representing one or more registered Service Endpoints. |
-| `body` | [`Array<ResourcesEdgeHostedServiceWithProfileId>`](../../doc/models/resources-edge-hosted-service-with-profile-id.md) | Body, Required | Data needed for Service Endpoint information. The request body passes the rest of the needed parameters to create a service endpoint. Parameters other than `serviceEndpointsId` will be edited here rather than the **Parameters** section above. The `ern`,`applicationServerProviderId` and `applicationId` parameters are required. **Note:** Currently, the only valid value for `applicationServerProviderId`is **AWS**. |
+| `body` | [`Array<ResourcesEdgeHostedServiceWithProfileId>`](../../doc/models/resources-edge-hosted-service-with-profile-id.md) | Body, Required | Data needed for Service Endpoint information. The request body passes the rest of the needed parameters to create a service endpoint. Parameters other than `serviceEndpointsId` will be edited here rather than the **Parameters** section above. The `ern`,`applicationServerProviderId` and `applicationId` parameters are required. **Note:** Currently, the only valid value for `applicationServerProviderId`is **AWS**.<br>**Constraints**: *Maximum Items*: `100` |
 
 ## Requires scope
 
@@ -286,7 +286,7 @@ def update_service_endpoint(service_endpoints_id,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`UpdateServiceEndpointResult`](../../doc/models/update-service-endpoint-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`UpdateServiceEndpointResult`](../../doc/models/update-service-endpoint-result.md).
 
 ## Example Usage
 
@@ -356,7 +356,7 @@ def deregister_service_endpoint(service_endpoints_id)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeregisterServiceEndpointResult`](../../doc/models/deregister-service-endpoint-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeregisterServiceEndpointResult`](../../doc/models/deregister-service-endpoint-result.md).
 
 ## Example Usage
 

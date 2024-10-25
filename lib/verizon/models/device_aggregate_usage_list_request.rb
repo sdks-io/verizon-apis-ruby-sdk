@@ -65,12 +65,8 @@ module Verizon
       []
     end
 
-    def initialize(start_time = nil,
-                   end_time = nil,
-                   device_ids = SKIP,
-                   account_name = SKIP,
-                   group_name = SKIP,
-                   label = SKIP)
+    def initialize(start_time = nil, end_time = nil, device_ids = SKIP,
+                   account_name = SKIP, group_name = SKIP, label = SKIP)
       @start_time = start_time
       @end_time = end_time
       @device_ids = device_ids unless device_ids == SKIP

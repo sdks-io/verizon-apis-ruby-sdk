@@ -48,9 +48,7 @@ module Verizon
       []
     end
 
-    def initialize(app_name = SKIP,
-                   shared_secret = SKIP,
-                   url = SKIP)
+    def initialize(app_name = SKIP, shared_secret = SKIP, url = SKIP)
       @app_name = app_name unless app_name == SKIP
       @shared_secret = shared_secret unless shared_secret == SKIP
       @url = url unless url == SKIP

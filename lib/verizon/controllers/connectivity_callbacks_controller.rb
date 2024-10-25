@@ -9,7 +9,7 @@ module Verizon
     # Returns the name and endpoint URL of the callback listening services
     # registered for a given account.
     # @param [String] aname Required parameter: Account name.
-    # @return [Array[ConnectivityManagementCallback]] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_registered_callbacks(aname)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -20,13 +20,13 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ConnectivityManagementCallback.method(:from_hash))
-                   .is_api_response(true)
-                   .is_response_array(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ConnectivityManagementCallback.method(:from_hash))
+                    .is_api_response(true)
+                    .is_response_array(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
@@ -35,7 +35,7 @@ module Verizon
     # @param [String] aname Required parameter: Account name.
     # @param [RegisterCallbackRequest] body Required parameter: Request to
     # register a callback.
-    # @return [CallbackActionResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def register_callback(aname,
                           body)
       new_api_call_builder
@@ -50,12 +50,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CallbackActionResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CallbackActionResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
@@ -63,7 +63,7 @@ module Verizon
     # and service.
     # @param [String] aname Required parameter: Account name.
     # @param [String] sname Required parameter: Service name.
-    # @return [CallbackActionResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def deregister_callback(aname,
                             sname)
       new_api_call_builder
@@ -77,12 +77,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CallbackActionResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CallbackActionResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
   end

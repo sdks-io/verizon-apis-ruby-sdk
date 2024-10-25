@@ -142,25 +142,14 @@ module Verizon
       []
     end
 
-    def initialize(id = SKIP,
-                   account_name = SKIP,
-                   campaign_name = SKIP,
-                   software_name = SKIP,
-                   software_from = SKIP,
-                   software_to = SKIP,
-                   file_name = SKIP,
-                   file_version = SKIP,
-                   distribution_type = SKIP,
-                   make = SKIP,
-                   model = SKIP,
-                   start_date = SKIP,
-                   end_date = SKIP,
-                   download_after_date = SKIP,
-                   download_time_window_list = SKIP,
-                   install_after_date = SKIP,
-                   install_time_window_list = SKIP,
-                   device_list = SKIP,
-                   status = SKIP)
+    def initialize(id = SKIP, account_name = SKIP, campaign_name = SKIP,
+                   software_name = SKIP, software_from = SKIP,
+                   software_to = SKIP, file_name = SKIP, file_version = SKIP,
+                   distribution_type = SKIP, make = SKIP, model = SKIP,
+                   start_date = SKIP, end_date = SKIP,
+                   download_after_date = SKIP, download_time_window_list = SKIP,
+                   install_after_date = SKIP, install_time_window_list = SKIP,
+                   device_list = SKIP, status = SKIP)
       @id = id unless id == SKIP
       @account_name = account_name unless account_name == SKIP
       @campaign_name = campaign_name unless campaign_name == SKIP

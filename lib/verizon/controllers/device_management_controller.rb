@@ -10,7 +10,7 @@ module Verizon
     # them before activation.
     # @param [CarrierActivateRequest] body Required parameter: Request for
     # activating a service on devices.
-    # @return [DeviceManagementResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def activate_service_for_devices(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -22,19 +22,19 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceManagementResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceManagementResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
     # Use this API if you want to manage some device settings before you are
     # ready to activate service for the devices.
     # @param [AddDevicesRequest] body Required parameter: Devices to add.
-    # @return [Array[AddDevicesResult]] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def add_devices(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -46,13 +46,13 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(AddDevicesResult.method(:from_hash))
-                   .is_api_response(true)
-                   .is_response_array(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(AddDevicesResult.method(:from_hash))
+                    .is_api_response(true)
+                    .is_response_array(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
@@ -61,11 +61,11 @@ module Verizon
     # and the change could not be completed.
     # @param [ContactInfoUpdateRequest] body Required parameter: Request to
     # update contact information for devices.
-    # @return [DeviceManagementResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def update_devices_contact_information(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/m2m/v1/devices/actions/contactinfo',
+                                     '/m2m/v1/devices/actions/contactInfo',
                                      Server::THINGSPACE)
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .body_param(new_parameter(body))
@@ -73,12 +73,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceManagementResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceManagementResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
@@ -87,7 +87,7 @@ module Verizon
     # the change could not be completed.
     # @param [CustomFieldsUpdateRequest] body Required parameter: Request to
     # update custom field of devices.
-    # @return [DeviceManagementResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def update_devices_custom_fields(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
@@ -99,12 +99,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceManagementResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceManagementResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
@@ -114,7 +114,7 @@ module Verizon
     # one for a particular deactivation, set the etfWaiver value to True.
     # @param [CarrierDeactivateRequest] body Required parameter: Request to
     # deactivate service for one or more devices.
-    # @return [DeviceManagementResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def deactivate_service_for_devices(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -126,19 +126,19 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceManagementResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceManagementResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
     # Use this API to remove unneeded devices from an account.
     # @param [DeleteDevicesRequest] body Required parameter: Devices to
     # delete.
-    # @return [Array[DeleteDevicesResult]] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def delete_deactivated_devices(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -150,13 +150,13 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeleteDevicesResult.method(:from_hash))
-                   .is_api_response(true)
-                   .is_response_array(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeleteDevicesResult.method(:from_hash))
+                    .is_api_response(true)
+                    .is_response_array(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
@@ -165,7 +165,7 @@ module Verizon
     # provisioning state, service plan, MDN, MIN, and IP address.
     # @param [AccountDeviceListRequest] body Required parameter: Device
     # information query.
-    # @return [AccountDeviceListResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_devices_information(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -177,12 +177,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(AccountDeviceListResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(AccountDeviceListResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
@@ -190,7 +190,7 @@ module Verizon
     # activated with the expected IMEI (hardware) during a specified time frame.
     # @param [DeviceMismatchListRequest] body Required parameter: Request to
     # list devices with mismatched IMEIs and ICCIDs.
-    # @return [DeviceMismatchListResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_devices_with_imei_iccid_mismatch(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -202,12 +202,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceMismatchListResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceMismatchListResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
@@ -215,7 +215,7 @@ module Verizon
     # profile.
     # @param [MoveDeviceRequest] body Required parameter: Request to move
     # devices between accounts.
-    # @return [DeviceManagementResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def move_devices_within_accounts_of_profile(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
@@ -227,12 +227,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceManagementResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceManagementResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
@@ -240,7 +240,7 @@ module Verizon
     # customer-defined service and state.
     # @param [GoToStateRequest] body Required parameter: Request to change
     # device state to one defined by the user.
-    # @return [DeviceManagementResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def update_devices_state(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
@@ -252,19 +252,19 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceManagementResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceManagementResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
     # Changes the service plan for one or more devices.
     # @param [ServicePlanUpdateRequest] body Required parameter: Request to
     # change device service plan.
-    # @return [DeviceManagementResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def change_devices_service_plan(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
@@ -276,19 +276,19 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceManagementResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceManagementResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
     # Suspends service for one or more devices.
     # @param [CarrierActionsRequest] body Required parameter: Request to suspend
     # service for one or more devices.
-    # @return [DeviceManagementResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def suspend_service_for_devices(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -300,19 +300,19 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceManagementResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceManagementResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
     # Restores service to one or more suspended devices.
     # @param [CarrierActionsRequest] body Required parameter: Request to restore
     # services of one or more suspended devices.
-    # @return [DeviceManagementResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def restore_service_for_suspended_devices(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -324,12 +324,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceManagementResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceManagementResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
@@ -337,7 +337,7 @@ module Verizon
     # the Verizon network and are available to be activated.
     # @param [DeviceActivationRequest] body Required parameter: Request to check
     # if devices can be activated or not.
-    # @return [DeviceManagementResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def check_devices_availability_for_activation(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -349,12 +349,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceManagementResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceManagementResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
@@ -363,7 +363,7 @@ module Verizon
     # time to start where the previous request finished.
     # @param [DeviceConnectionListRequest] body Required parameter: Query to
     # retrieve device connection history.
-    # @return [ConnectionHistoryResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def retrieve_device_connection_history(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -375,12 +375,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ConnectionHistoryResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ConnectionHistoryResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
@@ -388,7 +388,7 @@ module Verizon
     # (Primary Place of Use) for one or more devices.
     # @param [DeviceCostCenterRequest] body Required parameter: Request to
     # update cost center code value for one or more devices.
-    # @return [DeviceManagementResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def update_devices_cost_center_code(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
@@ -400,12 +400,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceManagementResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceManagementResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
@@ -413,7 +413,7 @@ module Verizon
     # including connectivity, provisioning, billing and location status.
     # @param [DeviceExtendedDiagnosticsRequest] body Required parameter: Request
     # to query extended diagnostics information for a device.
-    # @return [DeviceExtendedDiagnosticsResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def get_device_extended_diagnostic_information(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -425,12 +425,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceExtendedDiagnosticsResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceExtendedDiagnosticsResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
@@ -438,7 +438,7 @@ module Verizon
     # time period.
     # @param [DeviceProvisioningHistoryListRequest] body Required parameter:
     # Query to obtain device provisioning history.
-    # @return [Array[DeviceProvisioningHistoryListResult]] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_devices_provisioning_history(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -450,20 +450,20 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceProvisioningHistoryListResult.method(:from_hash))
-                   .is_api_response(true)
-                   .is_response_array(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceProvisioningHistoryListResult.method(:from_hash))
+                    .is_api_response(true)
+                    .is_response_array(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
     # 4G and GSM devices do not have a PRL.
     # @param [DevicePrlListRequest] body Required parameter: Request to query
     # device PRL.
-    # @return [DeviceManagementResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_current_devices_prl_version(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -475,12 +475,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceManagementResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceManagementResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
@@ -489,7 +489,7 @@ module Verizon
     # and can continue to be suspended.
     # @param [DeviceSuspensionStatusRequest] body Required parameter: Request to
     # obtain service suspenstion status for a device.
-    # @return [DeviceManagementResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def get_device_service_suspension_status(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -501,12 +501,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceManagementResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceManagementResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
@@ -514,7 +514,7 @@ module Verizon
     # period.
     # @param [DeviceUsageListRequest] body Required parameter: Request to obtain
     # usage history for a specific device.
-    # @return [DeviceUsageListResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_devices_usage_history(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -526,12 +526,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceUsageListResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceUsageListResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
@@ -539,7 +539,7 @@ module Verizon
     # URL for DeviceUsage callback messages using the POST /callbacks API.
     # @param [DeviceAggregateUsageListRequest] body Required parameter: A
     # request to retrieve aggregated device usage history information.
-    # @return [DeviceManagementResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def retrieve_aggregate_device_usage_history(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -551,12 +551,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceManagementResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceManagementResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
@@ -566,7 +566,7 @@ module Verizon
     # @param [String] service_type Required parameter: Identifier type.
     # @param [ChangeDeviceIdRequest] body Required parameter: Request to update
     # device id.
-    # @return [DeviceManagementResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def update_device_id(service_type,
                          body)
       new_api_call_builder
@@ -581,19 +581,19 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceManagementResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceManagementResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
     # This corresponds to the M2M-MC SOAP interface, ```DeviceUploadService```.
     # @param [DeviceUploadRequest] body Required parameter: Device Upload
     # Query
-    # @return [RequestResponse] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def device_upload(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -605,12 +605,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(RequestResponse.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error Response',
-                                RestErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(RequestResponse.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error Response',
+                                 RestErrorResponseException))
         .execute
     end
 
@@ -618,7 +618,7 @@ module Verizon
     # account.
     # @param [BilledusageListRequest] body Required parameter: Request to list
     # devices with mismatched IMEIs and ICCIDs.
-    # @return [DeviceManagementResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def billed_usage_info(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -630,19 +630,19 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceManagementResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceManagementResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
     # Allows you to associate your own usage segmentation label with a device.
     # @param [AssociateLabelRequest] body Required parameter: Request to
     # associate a label to a device.
-    # @return [DeviceManagementResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def usage_segmentation_label_association(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -654,12 +654,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceManagementResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceManagementResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
@@ -668,7 +668,7 @@ module Verizon
     # account.
     # @param [LabelsList] label_list Required parameter: A list of the Label IDs
     # to remove from the exclusion list.
-    # @return [DeviceManagementResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def usage_segmentation_label_deletion(account_name,
                                           label_list)
       new_api_call_builder
@@ -680,12 +680,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceManagementResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceManagementResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
@@ -693,7 +693,7 @@ module Verizon
     # OEMs to Verizon.
     # @param [UploadsActivatesDeviceRequest] body Required parameter: Request to
     # Uploads and activates device.
-    # @return [DeviceManagementResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def activation_order_status(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -705,12 +705,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceManagementResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceManagementResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
@@ -719,7 +719,7 @@ module Verizon
     # @param [CheckOrderStatusRequest] body Required parameter: The request body
     # identifies the device and reporting period that you want included in the
     # report.
-    # @return [DeviceManagementResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def upload_device_identifier(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -731,12 +731,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceManagementResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceManagementResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
   end

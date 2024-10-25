@@ -44,9 +44,7 @@ module Verizon
       []
     end
 
-    def initialize(comparator = SKIP,
-                   sms_type = SKIP,
-                   threshold = SKIP)
+    def initialize(comparator = SKIP, sms_type = SKIP, threshold = SKIP)
       @comparator = comparator unless comparator == SKIP
       @sms_type = sms_type unless sms_type == SKIP
       @threshold = threshold unless threshold == SKIP

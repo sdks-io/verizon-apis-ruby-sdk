@@ -8,17 +8,17 @@ module Verizon
   class CampaignsV3Controller < BaseController
     # This endpoint allows a user to schedule a firmware upgrade for a list of
     # devices.
-    # @param [String] acc Required parameter: Account identifier.
+    # @param [String] account_name Required parameter: Account identifier.
     # @param [CampaignFirmwareUpgrade] body Required parameter: Firmware upgrade
     # information.
-    # @return [FirmwareCampaign] response from the API call
-    def schedule_campaign_firmware_upgrade(acc,
+    # @return [ApiResponse]  the complete http response with raw body and status code.
+    def schedule_campaign_firmware_upgrade(account_name,
                                            body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/campaigns/firmware/{acc}',
+                                     '/campaigns/firmware/{accountName}',
                                      Server::SOFTWARE_MANAGEMENT_V3)
-                   .template_param(new_parameter(acc, key: 'acc')
+                   .template_param(new_parameter(account_name, key: 'accountName')
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .body_param(new_parameter(body))
@@ -26,12 +26,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(FirmwareCampaign.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV3ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(FirmwareCampaign.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV3ResultException))
         .execute
     end
 
@@ -42,7 +42,7 @@ module Verizon
     # campaign.
     # @param [V3AddOrRemoveDeviceRequest] body Required parameter: Add or remove
     # device to existing upgrade information.
-    # @return [V3AddOrRemoveDeviceResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def update_campaign_firmware_devices(acc,
                                          campaign_id,
                                          body)
@@ -60,12 +60,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(V3AddOrRemoveDeviceResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV3ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(V3AddOrRemoveDeviceResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV3ResultException))
         .execute
     end
 
@@ -76,7 +76,7 @@ module Verizon
     # information.
     # @param [V3ChangeCampaignDatesRequest] body Required parameter: New dates
     # and time windows.
-    # @return [FirmwareCampaign] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def update_campaign_dates(acc,
                               campaign_id,
                               body)
@@ -94,68 +94,68 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(FirmwareCampaign.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV3ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(FirmwareCampaign.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV3ResultException))
         .execute
     end
 
     # This endpoint allows the user to retrieve campaign level information for a
     # specified campaign.
-    # @param [String] acc Required parameter: Account identifier.
+    # @param [String] account_name Required parameter: Account identifier.
     # @param [String] campaign_id Required parameter: Firmware upgrade
     # identifier.
-    # @return [Campaign] response from the API call
-    def get_campaign_information(acc,
+    # @return [ApiResponse]  the complete http response with raw body and status code.
+    def get_campaign_information(account_name,
                                  campaign_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/campaigns/{acc}/{campaignId}',
+                                     '/campaigns/{accountName}/{campaignId}',
                                      Server::SOFTWARE_MANAGEMENT_V3)
-                   .template_param(new_parameter(acc, key: 'acc')
+                   .template_param(new_parameter(account_name, key: 'accountName')
                                     .should_encode(true))
                    .template_param(new_parameter(campaign_id, key: 'campaignId')
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Campaign.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV3ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(Campaign.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV3ResultException))
         .execute
     end
 
     # This endpoint allows user to cancel a firmware campaign. A firmware
     # campaign already started can not be cancelled.
-    # @param [String] acc Required parameter: Account identifier.
+    # @param [String] account_name Required parameter: Account identifier.
     # @param [String] campaign_id Required parameter: Firmware upgrade
     # information.
-    # @return [FotaV3SuccessResult] response from the API call
-    def cancel_campaign(acc,
+    # @return [ApiResponse]  the complete http response with raw body and status code.
+    def cancel_campaign(account_name,
                         campaign_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::DELETE,
-                                     '/campaigns/{acc}/{campaignId}',
+                                     '/campaigns/{accountName}/{campaignId}',
                                      Server::SOFTWARE_MANAGEMENT_V3)
-                   .template_param(new_parameter(acc, key: 'acc')
+                   .template_param(new_parameter(account_name, key: 'accountName')
                                     .should_encode(true))
                    .template_param(new_parameter(campaign_id, key: 'campaignId')
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(FotaV3SuccessResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV3ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(FotaV3SuccessResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV3ResultException))
         .execute
     end
   end

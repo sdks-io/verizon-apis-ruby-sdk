@@ -47,9 +47,7 @@ module Verizon
       []
     end
 
-    def initialize(device_ids = SKIP,
-                   status = SKIP,
-                   message = SKIP)
+    def initialize(device_ids = SKIP, status = SKIP, message = SKIP)
       @device_ids = device_ids unless device_ids == SKIP
       @status = status unless status == SKIP
       @message = message unless message == SKIP

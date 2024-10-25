@@ -29,7 +29,7 @@ def get_diagnostics_subscription(account_name)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DiagnosticsSubscription`](../../doc/models/diagnostics-subscription.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DiagnosticsSubscription`](../../doc/models/diagnostics-subscription.md).
 
 ## Example Usage
 

@@ -52,11 +52,8 @@ module Verizon
       []
     end
 
-    def initialize(account_name = nil,
-                   has_more_data = nil,
-                   max_page_size = nil,
-                   device_list = nil,
-                   last_seen_device_id = SKIP)
+    def initialize(account_name = nil, has_more_data = nil, max_page_size = nil,
+                   device_list = nil, last_seen_device_id = SKIP)
       @account_name = account_name
       @has_more_data = has_more_data
       @last_seen_device_id = last_seen_device_id unless last_seen_device_id == SKIP

@@ -35,8 +35,7 @@ module Verizon
       []
     end
 
-    def initialize(txid = nil,
-                   status = nil)
+    def initialize(txid = nil, status = nil)
       @txid = txid
       @status = status
     end

@@ -35,7 +35,7 @@ def start_connectivity_management_session(body: nil)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`LogInResult`](../../doc/models/log-in-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`LogInResult`](../../doc/models/log-in-result.md).
 
 ## Example Usage
 
@@ -77,7 +77,7 @@ def end_connectivity_management_session
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`LogOutRequest`](../../doc/models/log-out-request.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`LogOutRequest`](../../doc/models/log-out-request.md).
 
 ## Example Usage
 
@@ -120,7 +120,7 @@ def reset_connectivity_management_password(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`SessionResetPasswordResult`](../../doc/models/session-reset-password-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`SessionResetPasswordResult`](../../doc/models/session-reset-password-result.md).
 
 ## Example Usage
 

@@ -37,7 +37,7 @@ def get_account_information(aname)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Account`](../../doc/models/account.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Account`](../../doc/models/account.md).
 
 ## Example Usage
 
@@ -121,7 +121,7 @@ def list_account_states_and_services(aname)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`AccountStatesAndServices`](../../doc/models/account-states-and-services.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`AccountStatesAndServices`](../../doc/models/account-states-and-services.md).
 
 ## Example Usage
 
@@ -239,7 +239,7 @@ def list_account_leads(aname,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`AccountLeadsResult`](../../doc/models/account-leads-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`AccountLeadsResult`](../../doc/models/account-leads-result.md).
 
 ## Example Usage
 

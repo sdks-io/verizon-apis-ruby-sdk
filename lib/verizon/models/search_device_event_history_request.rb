@@ -60,11 +60,8 @@ module Verizon
       []
     end
 
-    def initialize(accountidentifier = nil,
-                   resourceidentifier = nil,
-                   selection = SKIP,
-                   limitnumber = SKIP,
-                   page = SKIP)
+    def initialize(accountidentifier = nil, resourceidentifier = nil,
+                   selection = SKIP, limitnumber = SKIP, page = SKIP)
       @accountidentifier = accountidentifier
       @selection = selection unless selection == SKIP
       @resourceidentifier = resourceidentifier

@@ -24,7 +24,7 @@ module Verizon
     # parameter. The`IPAddress`format can be IPv4 or IPv6.
     # @param [String] service_endpoints_ids Optional parameter: A system-defined
     # string identifier representing one or more registered Service Endpoints.
-    # @return [ListOptimalServiceEndpointsResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_optimal_service_endpoints(region: nil,
                                        subscriber_density: nil,
                                        ue_identity_type: nil,
@@ -42,18 +42,18 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ListOptimalServiceEndpointsResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'HTTP 400 Bad Request.',
-                                EdgeDiscoveryResultException)
-                   .local_error('401',
-                                'HTTP 401 Unauthorized.',
-                                EdgeDiscoveryResultException)
-                   .local_error('default',
-                                'HTTP 500 Internal Server Error.',
-                                EdgeDiscoveryResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ListOptimalServiceEndpointsResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'HTTP 400 Bad Request.',
+                                 EdgeDiscoveryResultException)
+                    .local_error('401',
+                                 'HTTP 401 Unauthorized.',
+                                 EdgeDiscoveryResultException)
+                    .local_error('default',
+                                 'HTTP 500 Internal Server Error.',
+                                 EdgeDiscoveryResultException))
         .execute
     end
 
@@ -68,7 +68,7 @@ module Verizon
     # only valid value for `applicationServerProviderId`is **AWS**. Also, if you
     # do not know one of the optional values (i.e. URI), you can erase the line
     # from the query by back-spacing over it.
-    # @return [RegisterServiceEndpointResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def register_service_endpoints(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -80,23 +80,23 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(RegisterServiceEndpointResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'HTTP 400 Bad Request.',
-                                EdgeDiscoveryResultException)
-                   .local_error('401',
-                                'HTTP 401 Unauthorized.',
-                                EdgeDiscoveryResultException)
-                   .local_error('default',
-                                'HTTP 500 Internal Server Error.',
-                                EdgeDiscoveryResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(RegisterServiceEndpointResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'HTTP 400 Bad Request.',
+                                 EdgeDiscoveryResultException)
+                    .local_error('401',
+                                 'HTTP 401 Unauthorized.',
+                                 EdgeDiscoveryResultException)
+                    .local_error('default',
+                                 'HTTP 500 Internal Server Error.',
+                                 EdgeDiscoveryResultException))
         .execute
     end
 
     # Returns a list of all registered service endpoints.
-    # @return [ListAllServiceEndpointsResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_all_service_endpoints
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -105,18 +105,18 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ListAllServiceEndpointsResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'HTTP 400 Bad Request.',
-                                EdgeDiscoveryResultException)
-                   .local_error('401',
-                                'HTTP 401 Unauthorized.',
-                                EdgeDiscoveryResultException)
-                   .local_error('default',
-                                'HTTP 500 Internal Server Error.',
-                                EdgeDiscoveryResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ListAllServiceEndpointsResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'HTTP 400 Bad Request.',
+                                 EdgeDiscoveryResultException)
+                    .local_error('401',
+                                 'HTTP 401 Unauthorized.',
+                                 EdgeDiscoveryResultException)
+                    .local_error('default',
+                                 'HTTP 500 Internal Server Error.',
+                                 EdgeDiscoveryResultException))
         .execute
     end
 
@@ -124,7 +124,7 @@ module Verizon
     # specified serviceEndpointId.
     # @param [String] service_endpoints_id Required parameter: A system-defined
     # string identifier representing one or more registered Service Endpoints.
-    # @return [Array[ResourcesEdgeHostedServiceWithProfileId]] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def get_service_endpoint(service_endpoints_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -135,19 +135,19 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ResourcesEdgeHostedServiceWithProfileId.method(:from_hash))
-                   .is_api_response(true)
-                   .is_response_array(true)
-                   .local_error('400',
-                                'HTTP 400 Bad Request.',
-                                EdgeDiscoveryResultException)
-                   .local_error('401',
-                                'HTTP 401 Unauthorized.',
-                                EdgeDiscoveryResultException)
-                   .local_error('default',
-                                'HTTP 500 Internal Server Error.',
-                                EdgeDiscoveryResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ResourcesEdgeHostedServiceWithProfileId.method(:from_hash))
+                    .is_api_response(true)
+                    .is_response_array(true)
+                    .local_error('400',
+                                 'HTTP 400 Bad Request.',
+                                 EdgeDiscoveryResultException)
+                    .local_error('401',
+                                 'HTTP 401 Unauthorized.',
+                                 EdgeDiscoveryResultException)
+                    .local_error('default',
+                                 'HTTP 500 Internal Server Error.',
+                                 EdgeDiscoveryResultException))
         .execute
     end
 
@@ -161,7 +161,7 @@ module Verizon
     # the **Parameters** section above. The `ern`,`applicationServerProviderId`
     # and `applicationId` parameters are required. **Note:** Currently, the only
     # valid value for `applicationServerProviderId`is **AWS**.
-    # @return [UpdateServiceEndpointResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def update_service_endpoint(service_endpoints_id,
                                 body)
       new_api_call_builder
@@ -176,25 +176,25 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(UpdateServiceEndpointResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'HTTP 400 Bad Request.',
-                                EdgeDiscoveryResultException)
-                   .local_error('401',
-                                'HTTP 401 Unauthorized.',
-                                EdgeDiscoveryResultException)
-                   .local_error('default',
-                                'HTTP 500 Internal Server Error.',
-                                EdgeDiscoveryResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(UpdateServiceEndpointResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'HTTP 400 Bad Request.',
+                                 EdgeDiscoveryResultException)
+                    .local_error('401',
+                                 'HTTP 401 Unauthorized.',
+                                 EdgeDiscoveryResultException)
+                    .local_error('default',
+                                 'HTTP 500 Internal Server Error.',
+                                 EdgeDiscoveryResultException))
         .execute
     end
 
     # Deregister an application's Service Endpoint from the MEC Platform(s).
     # @param [String] service_endpoints_id Required parameter: A system-defined
     # string identifier representing one or more registered Service Endpoints.
-    # @return [DeregisterServiceEndpointResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def deregister_service_endpoint(service_endpoints_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::DELETE,
@@ -205,18 +205,18 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeregisterServiceEndpointResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'HTTP 400 Bad Request.',
-                                EdgeDiscoveryResultException)
-                   .local_error('401',
-                                'HTTP 401 Unauthorized.',
-                                EdgeDiscoveryResultException)
-                   .local_error('default',
-                                'HTTP 500 Internal Server Error.',
-                                EdgeDiscoveryResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeregisterServiceEndpointResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'HTTP 400 Bad Request.',
+                                 EdgeDiscoveryResultException)
+                    .local_error('401',
+                                 'HTTP 401 Unauthorized.',
+                                 EdgeDiscoveryResultException)
+                    .local_error('default',
+                                 'HTTP 500 Internal Server Error.',
+                                 EdgeDiscoveryResultException))
         .execute
     end
   end

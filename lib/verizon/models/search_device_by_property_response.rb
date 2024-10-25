@@ -116,21 +116,11 @@ module Verizon
       []
     end
 
-    def initialize(billingaccountid = SKIP,
-                   createdon = SKIP,
-                   eventretention = SKIP,
-                   fields = SKIP,
-                   iccid = SKIP,
-                   id = SKIP,
-                   imei = SKIP,
-                   kind = SKIP,
-                   lastupdated = SKIP,
-                   providerid = SKIP,
-                   refid = SKIP,
-                   refidtype = SKIP,
-                   state = SKIP,
-                   version = SKIP,
-                   versionid = SKIP)
+    def initialize(billingaccountid = SKIP, createdon = SKIP,
+                   eventretention = SKIP, fields = SKIP, iccid = SKIP,
+                   id = SKIP, imei = SKIP, kind = SKIP, lastupdated = SKIP,
+                   providerid = SKIP, refid = SKIP, refidtype = SKIP,
+                   state = SKIP, version = SKIP, versionid = SKIP)
       @billingaccountid = billingaccountid unless billingaccountid == SKIP
       @createdon = createdon unless createdon == SKIP
       @eventretention = eventretention unless eventretention == SKIP

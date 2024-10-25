@@ -83,16 +83,9 @@ module Verizon
       []
     end
 
-    def initialize(address_line1 = nil,
-                   city = nil,
-                   state = nil,
-                   zip = nil,
-                   country = nil,
-                   address_line2 = SKIP,
-                   zip4 = SKIP,
-                   phone = SKIP,
-                   phone_type = SKIP,
-                   email_address = SKIP)
+    def initialize(address_line1 = nil, city = nil, state = nil, zip = nil,
+                   country = nil, address_line2 = SKIP, zip4 = SKIP,
+                   phone = SKIP, phone_type = SKIP, email_address = SKIP)
       @address_line1 = address_line1
       @address_line2 = address_line2 unless address_line2 == SKIP
       @city = city

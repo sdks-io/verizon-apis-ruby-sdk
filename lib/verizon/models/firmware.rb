@@ -75,14 +75,9 @@ module Verizon
       []
     end
 
-    def initialize(firmware_name = SKIP,
-                   participant_name = SKIP,
-                   launch_date = SKIP,
-                   release_note = SKIP,
-                   model = SKIP,
-                   make = SKIP,
-                   from_version = SKIP,
-                   to_version = SKIP)
+    def initialize(firmware_name = SKIP, participant_name = SKIP,
+                   launch_date = SKIP, release_note = SKIP, model = SKIP,
+                   make = SKIP, from_version = SKIP, to_version = SKIP)
       @firmware_name = firmware_name unless firmware_name == SKIP
       @participant_name = participant_name unless participant_name == SKIP
       @launch_date = launch_date unless launch_date == SKIP

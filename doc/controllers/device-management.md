@@ -61,7 +61,7 @@ def activate_service_for_devices(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -163,7 +163,7 @@ def add_devices(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<AddDevicesResult>`](../../doc/models/add-devices-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<AddDevicesResult>`](../../doc/models/add-devices-result.md).
 
 ## Example Usage
 
@@ -252,7 +252,7 @@ def update_devices_contact_information(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -279,7 +279,7 @@ body = ContactInfoUpdateRequest.new(
       'I'
     )
   ),
-  '0212345678-00001',
+  '0000123456-00001',
   [
     AccountDeviceList.new(
       [
@@ -334,7 +334,7 @@ def update_devices_custom_fields(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -402,7 +402,7 @@ def deactivate_service_for_devices(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -465,7 +465,7 @@ def delete_deactivated_devices(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<DeleteDevicesResult>`](../../doc/models/delete-devices-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<DeleteDevicesResult>`](../../doc/models/delete-devices-result.md).
 
 ## Example Usage
 
@@ -564,7 +564,7 @@ def list_devices_information(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`AccountDeviceListResult`](../../doc/models/account-device-list-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`AccountDeviceListResult`](../../doc/models/account-device-list-result.md).
 
 ## Example Usage
 
@@ -647,7 +647,7 @@ def list_devices_with_imei_iccid_mismatch(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceMismatchListResult`](../../doc/models/device-mismatch-list-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceMismatchListResult`](../../doc/models/device-mismatch-list-result.md).
 
 ## Example Usage
 
@@ -722,7 +722,7 @@ def move_devices_within_accounts_of_profile(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -784,7 +784,7 @@ def update_devices_state(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -882,7 +882,7 @@ def change_devices_service_plan(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -944,7 +944,7 @@ def suspend_service_for_devices(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -1002,7 +1002,7 @@ def restore_service_for_suspended_devices(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -1060,7 +1060,7 @@ def check_devices_availability_for_activation(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -1117,7 +1117,7 @@ def retrieve_device_connection_history(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ConnectionHistoryResult`](../../doc/models/connection-history-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ConnectionHistoryResult`](../../doc/models/connection-history-result.md).
 
 ## Example Usage
 
@@ -1203,7 +1203,7 @@ def update_devices_cost_center_code(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -1262,7 +1262,7 @@ def get_device_extended_diagnostic_information(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceExtendedDiagnosticsResult`](../../doc/models/device-extended-diagnostics-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceExtendedDiagnosticsResult`](../../doc/models/device-extended-diagnostics-result.md).
 
 ## Example Usage
 
@@ -1325,7 +1325,7 @@ def list_devices_provisioning_history(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<DeviceProvisioningHistoryListResult>`](../../doc/models/device-provisioning-history-list-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<DeviceProvisioningHistoryListResult>`](../../doc/models/device-provisioning-history-list-result.md).
 
 ## Example Usage
 
@@ -1391,7 +1391,7 @@ def list_current_devices_prl_version(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -1447,7 +1447,7 @@ def get_device_service_suspension_status(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -1503,7 +1503,7 @@ def list_devices_usage_history(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceUsageListResult`](../../doc/models/device-usage-list-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceUsageListResult`](../../doc/models/device-usage-list-result.md).
 
 ## Example Usage
 
@@ -1569,7 +1569,7 @@ def retrieve_aggregate_device_usage_history(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -1626,7 +1626,7 @@ def update_device_id(service_type,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -1694,7 +1694,7 @@ def device_upload(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`RequestResponse`](../../doc/models/request-response.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`RequestResponse`](../../doc/models/request-response.md).
 
 ## Example Usage
 
@@ -1762,7 +1762,7 @@ def billed_usage_info(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -1809,7 +1809,7 @@ def usage_segmentation_label_association(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -1863,7 +1863,7 @@ def usage_segmentation_label_deletion(account_name,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -1913,7 +1913,7 @@ def activation_order_status(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
 
 ## Example Usage
 
@@ -1980,7 +1980,7 @@ def upload_device_identifier(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceManagementResult`](../../doc/models/device-management-result.md).
 
 ## Example Usage
 

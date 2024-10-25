@@ -44,9 +44,7 @@ module Verizon
       []
     end
 
-    def initialize(account_name = nil,
-                   devices = nil,
-                   order_request_id = SKIP)
+    def initialize(account_name = nil, devices = nil, order_request_id = SKIP)
       @account_name = account_name
       @order_request_id = order_request_id unless order_request_id == SKIP
       @devices = devices

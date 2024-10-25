@@ -38,8 +38,7 @@ module Verizon
       []
     end
 
-    def initialize(account_name = SKIP,
-                   transactions_count = SKIP)
+    def initialize(account_name = SKIP, transactions_count = SKIP)
       @account_name = account_name unless account_name == SKIP
       @transactions_count = transactions_count unless transactions_count == SKIP
     end

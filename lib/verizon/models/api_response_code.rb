@@ -35,8 +35,7 @@ module Verizon
       []
     end
 
-    def initialize(response_code = nil,
-                   message = nil)
+    def initialize(response_code = nil, message = nil)
       @response_code = response_code
       @message = message
     end

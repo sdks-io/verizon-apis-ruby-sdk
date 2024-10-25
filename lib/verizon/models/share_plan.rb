@@ -44,8 +44,7 @@ module Verizon
       []
     end
 
-    def initialize(from_carrier_code = SKIP,
-                   to_carrier_code = SKIP,
+    def initialize(from_carrier_code = SKIP, to_carrier_code = SKIP,
                    criteria_percentage = SKIP)
       @from_carrier_code = from_carrier_code unless from_carrier_code == SKIP
       @to_carrier_code = to_carrier_code unless to_carrier_code == SKIP

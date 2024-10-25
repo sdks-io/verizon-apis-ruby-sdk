@@ -44,9 +44,7 @@ module Verizon
       []
     end
 
-    def initialize(pool_name = SKIP,
-                   pool_type = SKIP,
-                   is_default_pool = SKIP)
+    def initialize(pool_name = SKIP, pool_type = SKIP, is_default_pool = SKIP)
       @pool_name = pool_name unless pool_name == SKIP
       @pool_type = pool_type unless pool_type == SKIP
       @is_default_pool = is_default_pool unless is_default_pool == SKIP

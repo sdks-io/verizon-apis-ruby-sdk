@@ -9,7 +9,7 @@ module Verizon
     # Returns an array of all devices in the specified account for which logging
     # is enabled.
     # @param [String] account Required parameter: Account identifier.
-    # @return [Array[DeviceLoggingStatus]] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_devices_with_logging_enabled(account)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -20,13 +20,13 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceLoggingStatus.method(:from_hash))
-                   .is_api_response(true)
-                   .is_response_array(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV2ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceLoggingStatus.method(:from_hash))
+                    .is_api_response(true)
+                    .is_response_array(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV2ResultException))
         .execute
     end
 
@@ -34,7 +34,7 @@ module Verizon
     # @param [String] account Required parameter: Account identifier.
     # @param [DeviceLoggingRequest] body Required parameter: Device logging
     # information.
-    # @return [Array[DeviceLoggingStatus]] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def enable_logging_for_devices(account,
                                    body)
       new_api_call_builder
@@ -49,20 +49,20 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceLoggingStatus.method(:from_hash))
-                   .is_api_response(true)
-                   .is_response_array(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV2ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceLoggingStatus.method(:from_hash))
+                    .is_api_response(true)
+                    .is_response_array(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV2ResultException))
         .execute
     end
 
     # Turn logging off for a list of devices.
     # @param [String] account Required parameter: Account identifier.
     # @param [String] device_ids Required parameter: The list of device IDs.
-    # @return [void] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def disable_logging_for_devices(account,
                                     device_ids)
       new_api_call_builder
@@ -74,18 +74,18 @@ module Verizon
                    .query_param(new_parameter(device_ids, key: 'deviceIds'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .is_response_void(true)
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV2ResultException))
+                    .is_response_void(true)
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV2ResultException))
         .execute
     end
 
     # Enables logging for a specific device.
     # @param [String] account Required parameter: Account identifier.
     # @param [String] device_id Required parameter: Device IMEI identifier.
-    # @return [DeviceLoggingStatus] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def enable_device_logging(account,
                               device_id)
       new_api_call_builder
@@ -99,19 +99,19 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceLoggingStatus.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV2ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceLoggingStatus.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV2ResultException))
         .execute
     end
 
     # Disables logging for a specific device.
     # @param [String] account Required parameter: Account identifier.
     # @param [String] device_id Required parameter: Device IMEI identifier.
-    # @return [void] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def disable_device_logging(account,
                                device_id)
       new_api_call_builder
@@ -124,18 +124,18 @@ module Verizon
                                     .should_encode(true))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .is_response_void(true)
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV2ResultException))
+                    .is_response_void(true)
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV2ResultException))
         .execute
     end
 
     # Gets logs for a specific device.
     # @param [String] account Required parameter: Account identifier.
     # @param [String] device_id Required parameter: Device IMEI identifier.
-    # @return [Array[DeviceLog]] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_device_logs(account,
                          device_id)
       new_api_call_builder
@@ -149,13 +149,13 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceLog.method(:from_hash))
-                   .is_api_response(true)
-                   .is_response_array(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV2ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceLog.method(:from_hash))
+                    .is_api_response(true)
+                    .is_response_array(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV2ResultException))
         .execute
     end
   end

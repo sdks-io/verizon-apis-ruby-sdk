@@ -54,11 +54,8 @@ module Verizon
       []
     end
 
-    def initialize(first_name = nil,
-                   last_name = nil,
-                   title = SKIP,
-                   middle_name = SKIP,
-                   suffix = SKIP)
+    def initialize(first_name = nil, last_name = nil, title = SKIP,
+                   middle_name = SKIP, suffix = SKIP)
       @title = title unless title == SKIP
       @first_name = first_name
       @middle_name = middle_name unless middle_name == SKIP

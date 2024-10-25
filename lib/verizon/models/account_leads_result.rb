@@ -38,8 +38,7 @@ module Verizon
       []
     end
 
-    def initialize(has_more_data = SKIP,
-                   leads = SKIP)
+    def initialize(has_more_data = SKIP, leads = SKIP)
       @has_more_data = has_more_data unless has_more_data == SKIP
       @leads = leads unless leads == SKIP
     end

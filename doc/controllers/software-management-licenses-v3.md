@@ -37,7 +37,7 @@ def get_account_licenses_status(acc,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V3LicenseSummary`](../../doc/models/v3-license-summary.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V3LicenseSummary`](../../doc/models/v3-license-summary.md).
 
 ## Example Usage
 
@@ -103,7 +103,7 @@ def assign_licenses_to_devices(acc,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V3LicenseAssignedRemovedResult`](../../doc/models/v3-license-assigned-removed-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V3LicenseAssignedRemovedResult`](../../doc/models/v3-license-assigned-removed-result.md).
 
 ## Example Usage
 
@@ -172,7 +172,7 @@ def remove_licenses_from_devices(acc,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V3LicenseAssignedRemovedResult`](../../doc/models/v3-license-assigned-removed-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V3LicenseAssignedRemovedResult`](../../doc/models/v3-license-assigned-removed-result.md).
 
 ## Example Usage
 

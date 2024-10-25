@@ -44,9 +44,7 @@ module Verizon
       []
     end
 
-    def initialize(name = SKIP,
-                   description = SKIP,
-                   states = SKIP)
+    def initialize(name = SKIP, description = SKIP, states = SKIP)
       @name = name unless name == SKIP
       @description = description unless description == SKIP
       @states = states unless states == SKIP

@@ -35,7 +35,7 @@ def list_registered_callbacks(account)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<RegisteredCallbacks>`](../../doc/models/registered-callbacks.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<RegisteredCallbacks>`](../../doc/models/registered-callbacks.md).
 
 ## Example Usage
 
@@ -86,7 +86,7 @@ def register_callback(account,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FotaV1CallbackRegistrationResult`](../../doc/models/fota-v1-callback-registration-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FotaV1CallbackRegistrationResult`](../../doc/models/fota-v1-callback-registration-result.md).
 
 ## Example Usage
 
@@ -142,7 +142,7 @@ def deregister_callback(account,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FotaV1SuccessResult`](../../doc/models/fota-v1-success-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FotaV1SuccessResult`](../../doc/models/fota-v1-success-result.md).
 
 ## Example Usage
 

@@ -65,11 +65,8 @@ module Verizon
       []
     end
 
-    def initialize(name = SKIP,
-                   trigger_category = SKIP,
-                   account_name = SKIP,
-                   anomaly_trigger_request = SKIP,
-                   notification = SKIP,
+    def initialize(name = SKIP, trigger_category = SKIP, account_name = SKIP,
+                   anomaly_trigger_request = SKIP, notification = SKIP,
                    active = SKIP)
       @name = name unless name == SKIP
       @trigger_category = trigger_category unless trigger_category == SKIP

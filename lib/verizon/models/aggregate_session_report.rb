@@ -48,9 +48,7 @@ module Verizon
       ]
     end
 
-    def initialize(txid = nil,
-                   usage = SKIP,
-                   errors = SKIP)
+    def initialize(txid = nil, usage = SKIP, errors = SKIP)
       @txid = txid
       @usage = usage unless usage == SKIP
       @errors = errors unless errors == SKIP

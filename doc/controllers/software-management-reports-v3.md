@@ -39,7 +39,7 @@ def get_campaign_history_by_status(acc,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V3CampaignHistory`](../../doc/models/v3-campaign-history.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V3CampaignHistory`](../../doc/models/v3-campaign-history.md).
 
 ## Example Usage
 
@@ -116,7 +116,7 @@ def get_device_firmware_upgrade_history(acc,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<DeviceFirmwareUpgrade>`](../../doc/models/device-firmware-upgrade.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<DeviceFirmwareUpgrade>`](../../doc/models/device-firmware-upgrade.md).
 
 ## Example Usage
 
@@ -193,7 +193,7 @@ def get_campaign_device_status(acc,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V3CampaignDevice`](../../doc/models/v3-campaign-device.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V3CampaignDevice`](../../doc/models/v3-campaign-device.md).
 
 ## Example Usage
 

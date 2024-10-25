@@ -15,8 +15,8 @@ The following parameters are configurable for the API Client:
 | `retry_statuses` | `Array` | A list of HTTP statuses to retry. <br> **Default: [408, 413, 429, 500, 502, 503, 504, 521, 522, 524]** |
 | `retry_methods` | `Array` | A list of HTTP methods to retry. <br> **Default: %i[get put]** |
 | `http_callback` | `HttpCallBack` | The Http CallBack allows defining callables for pre and post API calls. |
-| `thingspace_oauth_credentials` | [`ThingspaceOauthCredentials`]($a/oauth-2-client-credentials-grant.md) | The credential object for OAuth 2 Client Credentials Grant |
-| `vz_m2m_token_credentials` | [`VZM2mTokenCredentials`]($a/custom-header-signature.md) | The credential object for Custom Header Signature |
+| `thingspace_oauth_credentials` | [`ThingspaceOauthCredentials`](auth/oauth-2-client-credentials-grant.md) | The credential object for OAuth 2 Client Credentials Grant |
+| `vz_m2m_token_credentials` | [`VZM2mTokenCredentials`](auth/custom-header-signature.md) | The credential object for Custom Header Signature |
 
 The API client can be initialized as follows:
 
@@ -30,7 +30,9 @@ client = Verizon::Client.new(
       OauthScopeThingspaceOauthEnum::SERVICEPROFILEREAD
     ]
   ),
-  vz_m2m_token_credentials: VZM2mTokenCredentials.new(),
+  vz_m2m_token_credentials: VZM2mTokenCredentials.new(
+    vz_m2m_token: 'VZ-M2M-Token'
+  ),
   environment: Environment::PRODUCTION
 )
 ```
@@ -120,12 +122,13 @@ The gateway for the SDK. This class acts as a factory for the Controllers and al
 | device_sms_messaging | Gets DeviceSMSMessagingController |
 | device_actions | Gets DeviceActionsController |
 | thing_space_quality_of_service_api_actions | Gets ThingSpaceQualityOfServiceAPIActionsController |
-| mec | Gets MECController |
+| pwn | Gets PWNController |
 | promotion_period_information | Gets PromotionPeriodInformationController |
 | retrieve_the_triggers | Gets RetrieveTheTriggersController |
 | update_triggers | Gets UpdateTriggersController |
 | sim_actions | Gets SIMActionsController |
 | global_reporting | Gets GlobalReportingController |
 | m_v2_triggers | Gets MV2TriggersController |
+| m_5g_bi_device_actions | Gets M5gBIDeviceActionsController |
 | oauth_authorization | Gets OauthAuthorizationController |
 

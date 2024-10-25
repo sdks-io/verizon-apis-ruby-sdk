@@ -44,9 +44,7 @@ module Verizon
       []
     end
 
-    def initialize(txid = SKIP,
-                   status = SKIP,
-                   estimated_duration = SKIP)
+    def initialize(txid = SKIP, status = SKIP, estimated_duration = SKIP)
       @txid = txid unless txid == SKIP
       @status = status unless status == SKIP
       @estimated_duration = estimated_duration unless estimated_duration == SKIP

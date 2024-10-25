@@ -41,8 +41,7 @@ module Verizon
       []
     end
 
-    def initialize(has_more_data = SKIP,
-                   provisioning_history = SKIP)
+    def initialize(has_more_data = SKIP, provisioning_history = SKIP)
       @has_more_data = has_more_data unless has_more_data == SKIP
       @provisioning_history = provisioning_history unless provisioning_history == SKIP
     end

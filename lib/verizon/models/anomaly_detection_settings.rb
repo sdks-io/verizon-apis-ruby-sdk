@@ -48,8 +48,7 @@ module Verizon
       []
     end
 
-    def initialize(account_name = SKIP,
-                   sensitivity_parameter = SKIP,
+    def initialize(account_name = SKIP, sensitivity_parameter = SKIP,
                    status = SKIP)
       @account_name = account_name unless account_name == SKIP
       @sensitivity_parameter = sensitivity_parameter unless sensitivity_parameter == SKIP

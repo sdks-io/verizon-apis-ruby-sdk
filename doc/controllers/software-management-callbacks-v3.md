@@ -36,7 +36,7 @@ def list_registered_callbacks(acc)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FotaV3CallbackSummary`](../../doc/models/fota-v3-callback-summary.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FotaV3CallbackSummary`](../../doc/models/fota-v3-callback-summary.md).
 
 ## Example Usage
 
@@ -83,7 +83,7 @@ def update_callback(acc,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FotaV3CallbackRegistrationResult`](../../doc/models/fota-v3-callback-registration-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FotaV3CallbackRegistrationResult`](../../doc/models/fota-v3-callback-registration-result.md).
 
 ## Example Usage
 
@@ -137,7 +137,7 @@ def register_callback(acc,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FotaV3CallbackRegistrationResult`](../../doc/models/fota-v3-callback-registration-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FotaV3CallbackRegistrationResult`](../../doc/models/fota-v3-callback-registration-result.md).
 
 ## Example Usage
 
@@ -189,7 +189,7 @@ def deregister_callback(acc)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FotaV3SuccessResult`](../../doc/models/fota-v3-success-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FotaV3SuccessResult`](../../doc/models/fota-v3-success-result.md).
 
 ## Example Usage
 

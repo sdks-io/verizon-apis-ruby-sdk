@@ -11,7 +11,7 @@ module Verizon
     # @param [String] aname Required parameter: Account name.
     # @param [String] request_id Required parameter: UUID from synchronous
     # response.
-    # @return [AsynchronousRequestResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def get_current_asynchronous_request_status(aname,
                                                 request_id)
       new_api_call_builder
@@ -25,12 +25,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(AsynchronousRequestResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(AsynchronousRequestResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
   end

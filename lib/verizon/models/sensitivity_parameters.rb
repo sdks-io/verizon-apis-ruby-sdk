@@ -52,10 +52,8 @@ module Verizon
       []
     end
 
-    def initialize(abnormal_max_value = SKIP,
-                   enable_abnormal = SKIP,
-                   enable_very_abnormal = SKIP,
-                   very_abnormal_max_value = SKIP)
+    def initialize(abnormal_max_value = SKIP, enable_abnormal = SKIP,
+                   enable_very_abnormal = SKIP, very_abnormal_max_value = SKIP)
       @abnormal_max_value = abnormal_max_value unless abnormal_max_value == SKIP
       @enable_abnormal = enable_abnormal unless enable_abnormal == SKIP
       @enable_very_abnormal = enable_very_abnormal unless enable_very_abnormal == SKIP

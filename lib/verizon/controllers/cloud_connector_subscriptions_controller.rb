@@ -10,7 +10,7 @@ module Verizon
     # devices in the account to an endpoint defined in a target resource.
     # @param [CreateSubscriptionRequest] body Required parameter: The request
     # body provides the details of the subscription that you want to create.
-    # @return [Subscription] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def create_subscription(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -22,9 +22,9 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Subscription.method(:from_hash))
-                   .is_api_response(true))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(Subscription.method(:from_hash))
+                    .is_api_response(true))
         .execute
     end
 
@@ -32,7 +32,7 @@ module Verizon
     # matching subscription resources.
     # @param [QuerySubscriptionRequest] body Required parameter: The request
     # body specifies fields and values to match.
-    # @return [Array[Subscription]] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def query_subscription(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -44,17 +44,17 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Subscription.method(:from_hash))
-                   .is_api_response(true)
-                   .is_response_array(true))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(Subscription.method(:from_hash))
+                    .is_api_response(true)
+                    .is_response_array(true))
         .execute
     end
 
     # Remove a subscription from a ThingSpace account.
     # @param [DeleteSubscriptionRequest] body Required parameter: The request
     # body identifies the subscription to delete.
-    # @return [void] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def delete_subscription(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -65,8 +65,8 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .is_response_void(true)
-                   .is_api_response(true))
+                    .is_response_void(true)
+                    .is_api_response(true))
         .execute
     end
   end

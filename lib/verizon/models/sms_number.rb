@@ -38,8 +38,7 @@ module Verizon
       []
     end
 
-    def initialize(carrier = SKIP,
-                   number = SKIP)
+    def initialize(carrier = SKIP, number = SKIP)
       @carrier = carrier unless carrier == SKIP
       @number = number unless number == SKIP
     end

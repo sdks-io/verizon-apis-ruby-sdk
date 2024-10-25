@@ -57,10 +57,8 @@ module Verizon
       []
     end
 
-    def initialize(max_latency_ms = nil,
-                   min_bandwidth_kbits = SKIP,
-                   service_continuity_support = SKIP,
-                   max_request_rate = SKIP,
+    def initialize(max_latency_ms = nil, min_bandwidth_kbits = SKIP,
+                   service_continuity_support = SKIP, max_request_rate = SKIP,
                    min_availability = SKIP)
       @min_bandwidth_kbits = min_bandwidth_kbits unless min_bandwidth_kbits == SKIP
       unless service_continuity_support == SKIP

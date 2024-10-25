@@ -22,7 +22,7 @@ campaigns_v3_controller = client.campaigns_v3
 This endpoint allows a user to schedule a firmware upgrade for a list of devices.
 
 ```ruby
-def schedule_campaign_firmware_upgrade(acc,
+def schedule_campaign_firmware_upgrade(account_name,
                                        body)
 ```
 
@@ -30,7 +30,7 @@ def schedule_campaign_firmware_upgrade(acc,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `acc` | `String` | Template, Required | Account identifier. |
+| `account_name` | `String` | Template, Required | Account identifier. |
 | `body` | [`CampaignFirmwareUpgrade`](../../doc/models/campaign-firmware-upgrade.md) | Body, Required | Firmware upgrade information. |
 
 ## Server
@@ -39,12 +39,12 @@ def schedule_campaign_firmware_upgrade(acc,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FirmwareCampaign`](../../doc/models/firmware-campaign.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FirmwareCampaign`](../../doc/models/firmware-campaign.md).
 
 ## Example Usage
 
 ```ruby
-acc = '0000123456-00001'
+account_name = '0000123456-00001'
 
 body = CampaignFirmwareUpgrade.new(
   'SEQUANSCommunications_GM01Q_SR1.2.0.0-10512_SR1.2.0.0-10657',
@@ -56,6 +56,8 @@ body = CampaignFirmwareUpgrade.new(
   [
     '15-digit IMEI'
   ],
+  false,
+  false,
   'Smart FOTA - test 4',
   [
     V3TimeWindow.new(
@@ -66,7 +68,7 @@ body = CampaignFirmwareUpgrade.new(
 )
 
 result = campaigns_v3_controller.schedule_campaign_firmware_upgrade(
-  acc,
+  account_name,
   body
 )
 ```
@@ -127,7 +129,7 @@ def update_campaign_firmware_devices(acc,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V3AddOrRemoveDeviceResult`](../../doc/models/v3-add-or-remove-device-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V3AddOrRemoveDeviceResult`](../../doc/models/v3-add-or-remove-device-result.md).
 
 ## Example Usage
 
@@ -197,7 +199,7 @@ def update_campaign_dates(acc,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FirmwareCampaign`](../../doc/models/firmware-campaign.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FirmwareCampaign`](../../doc/models/firmware-campaign.md).
 
 ## Example Usage
 
@@ -261,7 +263,7 @@ result = campaigns_v3_controller.update_campaign_dates(
 This endpoint allows the user to retrieve campaign level information for a specified campaign.
 
 ```ruby
-def get_campaign_information(acc,
+def get_campaign_information(account_name,
                              campaign_id)
 ```
 
@@ -269,7 +271,7 @@ def get_campaign_information(acc,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `acc` | `String` | Template, Required | Account identifier. |
+| `account_name` | `String` | Template, Required | Account identifier. |
 | `campaign_id` | `String` | Template, Required | Firmware upgrade identifier. |
 
 ## Server
@@ -278,17 +280,17 @@ def get_campaign_information(acc,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Campaign`](../../doc/models/campaign.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Campaign`](../../doc/models/campaign.md).
 
 ## Example Usage
 
 ```ruby
-acc = '0000123456-00001'
+account_name = '0000123456-00001'
 
 campaign_id = 'f858b8c4-2153-11ec-8c44-aeb16d1aa652'
 
 result = campaigns_v3_controller.get_campaign_information(
-  acc,
+  account_name,
   campaign_id
 )
 ```
@@ -314,7 +316,9 @@ result = campaigns_v3_controller.get_campaign_information(
       "startTime": 18,
       "endTime": 22
     }
-  ]
+  ],
+  "autoAssignLicenseFlag": false,
+  "autoAddDevicesFlag": false
 }
 ```
 
@@ -330,7 +334,7 @@ result = campaigns_v3_controller.get_campaign_information(
 This endpoint allows user to cancel a firmware campaign. A firmware campaign already started can not be cancelled.
 
 ```ruby
-def cancel_campaign(acc,
+def cancel_campaign(account_name,
                     campaign_id)
 ```
 
@@ -338,7 +342,7 @@ def cancel_campaign(acc,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `acc` | `String` | Template, Required | Account identifier. |
+| `account_name` | `String` | Template, Required | Account identifier. |
 | `campaign_id` | `String` | Template, Required | Firmware upgrade information. |
 
 ## Server
@@ -347,17 +351,17 @@ def cancel_campaign(acc,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FotaV3SuccessResult`](../../doc/models/fota-v3-success-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FotaV3SuccessResult`](../../doc/models/fota-v3-success-result.md).
 
 ## Example Usage
 
 ```ruby
-acc = '0000123456-00001'
+account_name = '0000123456-00001'
 
 campaign_id = 'f858b8c4-2153-11ec-8c44-aeb16d1aa652'
 
 result = campaigns_v3_controller.cancel_campaign(
-  acc,
+  account_name,
   campaign_id
 )
 ```

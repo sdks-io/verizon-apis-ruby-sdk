@@ -49,10 +49,7 @@ module Verizon
       []
     end
 
-    def initialize(earliest = nil,
-                   latest = nil,
-                   device_id = SKIP,
-                   label = SKIP)
+    def initialize(earliest = nil, latest = nil, device_id = SKIP, label = SKIP)
       @earliest = earliest
       @latest = latest
       @device_id = device_id unless device_id == SKIP

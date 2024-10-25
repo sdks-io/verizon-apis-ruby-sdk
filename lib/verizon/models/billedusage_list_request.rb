@@ -50,9 +50,7 @@ module Verizon
       []
     end
 
-    def initialize(account_name = nil,
-                   labels = SKIP,
-                   device_ids = SKIP,
+    def initialize(account_name = nil, labels = SKIP, device_ids = SKIP,
                    billing_cycle = SKIP)
       @account_name = account_name
       @labels = labels unless labels == SKIP

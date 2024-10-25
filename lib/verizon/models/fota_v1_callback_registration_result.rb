@@ -40,8 +40,7 @@ module Verizon
       []
     end
 
-    def initialize(account_name = SKIP,
-                   service_name = SKIP)
+    def initialize(account_name = SKIP, service_name = SKIP)
       @account_name = account_name unless account_name == SKIP
       @service_name = service_name unless service_name == SKIP
     end

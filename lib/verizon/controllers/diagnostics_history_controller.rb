@@ -9,7 +9,7 @@ module Verizon
     # This endpoint allows the user to get the history data.
     # @param [HistorySearchRequest] body Required parameter: History data
     # information.
-    # @return [Array[History]] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def get_diagnostics_history(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -21,13 +21,13 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(History.method(:from_hash))
-                   .is_api_response(true)
-                   .is_response_array(true)
-                   .local_error('default',
-                                'Error response.',
-                                DeviceDiagnosticsResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(History.method(:from_hash))
+                    .is_api_response(true)
+                    .is_response_array(true)
+                    .local_error('default',
+                                 'Error response.',
+                                 DeviceDiagnosticsResultException))
         .execute
     end
   end

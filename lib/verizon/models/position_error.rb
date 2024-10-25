@@ -50,10 +50,7 @@ module Verizon
       []
     end
 
-    def initialize(time = SKIP,
-                   utcoffset = SKIP,
-                   type = SKIP,
-                   info = SKIP)
+    def initialize(time = SKIP, utcoffset = SKIP, type = SKIP, info = SKIP)
       @time = time unless time == SKIP
       @utcoffset = utcoffset unless utcoffset == SKIP
       @type = type unless type == SKIP

@@ -13,7 +13,7 @@ module Verizon
     # identifier.
     # @param [DevicesProtocolEnum] protocol Optional parameter: Filter to
     # retrieve a specific protocol type used.
-    # @return [V3AccountDeviceList] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def get_account_device_information(acc,
                                        last_seen_device_id: nil,
                                        protocol: DevicesProtocolEnum::LW_M2M)
@@ -28,12 +28,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(V3AccountDeviceList.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV3ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(V3AccountDeviceList.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV3ResultException))
         .execute
     end
 
@@ -41,7 +41,7 @@ module Verizon
     # @param [String] acc Required parameter: Account identifier.
     # @param [DeviceIMEI] body Required parameter: Request device list
     # information.
-    # @return [DeviceListResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_account_devices_information(acc,
                                          body)
       new_api_call_builder
@@ -56,12 +56,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceListResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV3ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceListResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV3ResultException))
         .execute
     end
   end

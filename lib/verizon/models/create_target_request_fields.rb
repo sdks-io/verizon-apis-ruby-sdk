@@ -38,8 +38,7 @@ module Verizon
       []
     end
 
-    def initialize(httpheaders = SKIP,
-                   devicetypes = SKIP)
+    def initialize(httpheaders = SKIP, devicetypes = SKIP)
       @httpheaders = httpheaders unless httpheaders == SKIP
       @devicetypes = devicetypes unless devicetypes == SKIP
     end

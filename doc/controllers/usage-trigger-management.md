@@ -35,7 +35,7 @@ def create_new_trigger(body: nil)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`UsageTriggerResponse`](../../doc/models/usage-trigger-response.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`UsageTriggerResponse`](../../doc/models/usage-trigger-response.md).
 
 ## Example Usage
 
@@ -103,7 +103,7 @@ def update_trigger(trigger_id,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`UsageTriggerResponse`](../../doc/models/usage-trigger-response.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`UsageTriggerResponse`](../../doc/models/usage-trigger-response.md).
 
 ## Example Usage
 
@@ -170,7 +170,7 @@ def delete_trigger(account_name,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceLocationSuccessResult`](../../doc/models/device-location-success-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceLocationSuccessResult`](../../doc/models/device-location-success-result.md).
 
 ## Example Usage
 

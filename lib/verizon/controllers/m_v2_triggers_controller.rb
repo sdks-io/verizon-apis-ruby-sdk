@@ -8,7 +8,7 @@ module Verizon
   class MV2TriggersController < BaseController
     # This creates an individual change plan for account group share.
     # @param [CreateTriggerV2Request] body Required parameter: Example:
-    # @return [TriggerV2Response] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def create_trigger(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -20,12 +20,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(TriggerV2Response.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error Response',
-                                RulesEngineRestErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(TriggerV2Response.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error Response',
+                                 RulesEngineRestErrorResponseException))
         .execute
     end
 
@@ -33,7 +33,7 @@ module Verizon
     # @param [String] vz_m2m_token Required parameter: M2M-MC Session Token
     # @param [UpdateTriggerV2Request] body Required parameter: Example:
     # @param [String] x_request_id Optional parameter: Transaction Id
-    # @return [TriggerV2Response] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def update_trigger(vz_m2m_token,
                        body,
                        x_request_id: nil)
@@ -49,12 +49,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(TriggerV2Response.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error Response',
-                                RulesEngineRestErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(TriggerV2Response.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error Response',
+                                 RulesEngineRestErrorResponseException))
         .execute
     end
   end

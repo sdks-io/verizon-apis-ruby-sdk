@@ -38,8 +38,7 @@ module Verizon
       []
     end
 
-    def initialize(value = SKIP,
-                   unit = SKIP)
+    def initialize(value = SKIP, unit = SKIP)
       @value = value unless value == SKIP
       @unit = unit unless unit == SKIP
     end

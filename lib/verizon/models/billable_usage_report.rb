@@ -70,12 +70,9 @@ module Verizon
       []
     end
 
-    def initialize(account_name = SKIP,
-                   usage_for_all_accounts = SKIP,
-                   sku_name = SKIP,
-                   transactions_allowed = SKIP,
-                   total_transaction_count = SKIP,
-                   primary_account = SKIP,
+    def initialize(account_name = SKIP, usage_for_all_accounts = SKIP,
+                   sku_name = SKIP, transactions_allowed = SKIP,
+                   total_transaction_count = SKIP, primary_account = SKIP,
                    managed_accounts = SKIP)
       @account_name = account_name unless account_name == SKIP
       @usage_for_all_accounts = usage_for_all_accounts unless usage_for_all_accounts == SKIP

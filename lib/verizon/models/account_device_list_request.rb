@@ -95,17 +95,10 @@ module Verizon
       []
     end
 
-    def initialize(account_name = SKIP,
-                   device_id = SKIP,
-                   filter = SKIP,
-                   current_state = SKIP,
-                   custom_fields = SKIP,
-                   earliest = SKIP,
-                   group_name = SKIP,
-                   latest = SKIP,
-                   service_plan = SKIP,
-                   max_number_of_devices = SKIP,
-                   largest_device_id_seen = SKIP)
+    def initialize(account_name = SKIP, device_id = SKIP, filter = SKIP,
+                   current_state = SKIP, custom_fields = SKIP, earliest = SKIP,
+                   group_name = SKIP, latest = SKIP, service_plan = SKIP,
+                   max_number_of_devices = SKIP, largest_device_id_seen = SKIP)
       @account_name = account_name unless account_name == SKIP
       @device_id = device_id unless device_id == SKIP
       @filter = filter unless filter == SKIP

@@ -36,8 +36,7 @@ module Verizon
       []
     end
 
-    def initialize(username = nil,
-                   password = nil)
+    def initialize(username = nil, password = nil)
       @username = username
       @password = password
     end

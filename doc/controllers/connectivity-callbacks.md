@@ -35,7 +35,7 @@ def list_registered_callbacks(aname)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<ConnectivityManagementCallback>`](../../doc/models/connectivity-management-callback.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<ConnectivityManagementCallback>`](../../doc/models/connectivity-management-callback.md).
 
 ## Example Usage
 
@@ -93,7 +93,7 @@ def register_callback(aname,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`CallbackActionResult`](../../doc/models/callback-action-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`CallbackActionResult`](../../doc/models/callback-action-result.md).
 
 ## Example Usage
 
@@ -149,7 +149,7 @@ def deregister_callback(aname,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`CallbackActionResult`](../../doc/models/callback-action-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`CallbackActionResult`](../../doc/models/callback-action-result.md).
 
 ## Example Usage
 

@@ -107,21 +107,11 @@ module Verizon
       []
     end
 
-    def initialize(device_id = nil,
-                   mdn = nil,
-                   model = nil,
-                   make = nil,
-                   firmware = nil,
-                   fota_eligible = nil,
-                   status = nil,
-                   license_assigned = nil,
-                   protocol = nil,
-                   software_list = nil,
-                   file_list = SKIP,
-                   create_time = SKIP,
-                   upgrade_time = SKIP,
-                   update_time = SKIP,
-                   refresh_time = SKIP)
+    def initialize(device_id = nil, mdn = nil, model = nil, make = nil,
+                   firmware = nil, fota_eligible = nil, status = nil,
+                   license_assigned = nil, protocol = nil, software_list = nil,
+                   file_list = SKIP, create_time = SKIP, upgrade_time = SKIP,
+                   update_time = SKIP, refresh_time = SKIP)
       @device_id = device_id
       @mdn = mdn
       @model = model

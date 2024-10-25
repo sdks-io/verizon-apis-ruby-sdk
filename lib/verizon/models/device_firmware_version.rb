@@ -55,11 +55,8 @@ module Verizon
       []
     end
 
-    def initialize(device_id = nil,
-                   firmware_version = nil,
-                   status = SKIP,
-                   reason = SKIP,
-                   firmware_version_update_time = SKIP)
+    def initialize(device_id = nil, firmware_version = nil, status = SKIP,
+                   reason = SKIP, firmware_version_update_time = SKIP)
       @status = status unless status == SKIP
       @reason = reason unless reason == SKIP
       @device_id = device_id

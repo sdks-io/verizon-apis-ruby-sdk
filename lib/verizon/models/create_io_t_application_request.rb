@@ -82,15 +82,10 @@ module Verizon
       []
     end
 
-    def initialize(app_name = SKIP,
-                   billing_account_id = SKIP,
-                   client_id = SKIP,
-                   client_secret = SKIP,
-                   email_i_ds = SKIP,
-                   resourcegroup = SKIP,
-                   sample_io_tc_app = SKIP,
-                   subscription_id = SKIP,
-                   tenant_id = SKIP)
+    def initialize(app_name = SKIP, billing_account_id = SKIP, client_id = SKIP,
+                   client_secret = SKIP, email_i_ds = SKIP,
+                   resourcegroup = SKIP, sample_io_tc_app = SKIP,
+                   subscription_id = SKIP, tenant_id = SKIP)
       @app_name = app_name unless app_name == SKIP
       @billing_account_id = billing_account_id unless billing_account_id == SKIP
       @client_id = client_id unless client_id == SKIP

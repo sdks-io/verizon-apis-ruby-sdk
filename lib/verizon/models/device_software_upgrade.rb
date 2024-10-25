@@ -62,12 +62,8 @@ module Verizon
       []
     end
 
-    def initialize(device_id = nil,
-                   id = nil,
-                   account_name = nil,
-                   start_date = nil,
-                   status = nil,
-                   reason = nil,
+    def initialize(device_id = nil, id = nil, account_name = nil,
+                   start_date = nil, status = nil, reason = nil,
                    software_name = SKIP)
       @device_id = device_id
       @id = id

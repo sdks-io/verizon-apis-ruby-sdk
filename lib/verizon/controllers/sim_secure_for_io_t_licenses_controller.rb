@@ -10,7 +10,7 @@ module Verizon
     # @param [AssignLicenseRequest] body Required parameter: Request to assign
     # license to devices.
     # @param [String] x_request_id Optional parameter: Transaction Id.
-    # @return [SecuritySuccessResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def assign_license_to_devices(body,
                                   x_request_id: nil)
       new_api_call_builder
@@ -24,37 +24,37 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SecuritySuccessResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Bad request.',
-                                SecurityResultException)
-                   .local_error('401',
-                                'Unauthorized request.',
-                                SecurityResultException)
-                   .local_error('403',
-                                'Request Forbidden.',
-                                SecurityResultException)
-                   .local_error('404',
-                                'Not Found / Does not exist.',
-                                SecurityResultException)
-                   .local_error('406',
-                                'Format / Request Unacceptable.',
-                                SecurityResultException)
-                   .local_error('429',
-                                'Too many requests.',
-                                SecurityResultException)
-                   .local_error('default',
-                                'Error response.',
-                                SecurityResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(SecuritySuccessResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Bad request.',
+                                 SecurityResultException)
+                    .local_error('401',
+                                 'Unauthorized request.',
+                                 SecurityResultException)
+                    .local_error('403',
+                                 'Request Forbidden.',
+                                 SecurityResultException)
+                    .local_error('404',
+                                 'Not Found / Does not exist.',
+                                 SecurityResultException)
+                    .local_error('406',
+                                 'Format / Request Unacceptable.',
+                                 SecurityResultException)
+                    .local_error('429',
+                                 'Too many requests.',
+                                 SecurityResultException)
+                    .local_error('default',
+                                 'Error response.',
+                                 SecurityResultException))
         .execute
     end
 
     # Unassigns SIM-Secure for IoT Flexible and Flexible Bundle license from
     # SIMs.
     # @param [String] x_request_id Required parameter: Transaction Id.
-    # @return [SecuritySuccessResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def unassign_license_to_devices(x_request_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::DELETE,
@@ -64,30 +64,30 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SecuritySuccessResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Bad request.',
-                                SecurityResultException)
-                   .local_error('401',
-                                'Unauthorized request.',
-                                SecurityResultException)
-                   .local_error('403',
-                                'Request forbidden.',
-                                SecurityResultException)
-                   .local_error('404',
-                                'Not Found / Does not exist.',
-                                SecurityResultException)
-                   .local_error('406',
-                                'Format / Request Unacceptable.',
-                                SecurityResultException)
-                   .local_error('429',
-                                'Too many requests.',
-                                SecurityResultException)
-                   .local_error('default',
-                                'Error response.',
-                                SecurityResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(SecuritySuccessResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Bad request.',
+                                 SecurityResultException)
+                    .local_error('401',
+                                 'Unauthorized request.',
+                                 SecurityResultException)
+                    .local_error('403',
+                                 'Request forbidden.',
+                                 SecurityResultException)
+                    .local_error('404',
+                                 'Not Found / Does not exist.',
+                                 SecurityResultException)
+                    .local_error('406',
+                                 'Format / Request Unacceptable.',
+                                 SecurityResultException)
+                    .local_error('429',
+                                 'Too many requests.',
+                                 SecurityResultException)
+                    .local_error('default',
+                                 'Error response.',
+                                 SecurityResultException))
         .execute
     end
   end

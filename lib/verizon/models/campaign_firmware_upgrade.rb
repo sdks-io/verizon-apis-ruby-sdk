@@ -45,6 +45,16 @@ module Verizon
     # @return [Array[String]]
     attr_accessor :device_list
 
+    # This flag, when set to true, will assign a FOTA license automatically if
+    # the device does not have one already.
+    # @return [TrueClass | FalseClass]
+    attr_accessor :auto_assign_license_flag
+
+    # this flag, when set to true, will automatically add a device of the same
+    # make and model to a campaign.
+    # @return [TrueClass | FalseClass]
+    attr_accessor :auto_add_devices_flag
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -57,6 +67,8 @@ module Verizon
       @_hash['end_date'] = 'endDate'
       @_hash['campaign_time_window_list'] = 'campaignTimeWindowList'
       @_hash['device_list'] = 'deviceList'
+      @_hash['auto_assign_license_flag'] = 'autoAssignLicenseFlag'
+      @_hash['auto_add_devices_flag'] = 'autoAddDevicesFlag'
       @_hash
     end
 
@@ -73,14 +85,10 @@ module Verizon
       []
     end
 
-    def initialize(firmware_name = nil,
-                   firmware_from = nil,
-                   firmware_to = nil,
-                   protocol = 'LWM2M',
-                   start_date = nil,
-                   end_date = nil,
-                   device_list = nil,
-                   campaign_name = SKIP,
+    def initialize(firmware_name = nil, firmware_from = nil, firmware_to = nil,
+                   protocol = 'LWM2M', start_date = nil, end_date = nil,
+                   device_list = nil, auto_assign_license_flag = nil,
+                   auto_add_devices_flag = nil, campaign_name = SKIP,
                    campaign_time_window_list = SKIP)
       @campaign_name = campaign_name unless campaign_name == SKIP
       @firmware_name = firmware_name
@@ -94,6 +102,8 @@ module Verizon
           campaign_time_window_list
       end
       @device_list = device_list
+      @auto_assign_license_flag = auto_assign_license_flag
+      @auto_add_devices_flag = auto_add_devices_flag
     end
 
     # Creates an instance of the object from a hash.
@@ -108,6 +118,10 @@ module Verizon
       start_date = hash.key?('startDate') ? hash['startDate'] : nil
       end_date = hash.key?('endDate') ? hash['endDate'] : nil
       device_list = hash.key?('deviceList') ? hash['deviceList'] : nil
+      auto_assign_license_flag =
+        hash.key?('autoAssignLicenseFlag') ? hash['autoAssignLicenseFlag'] : nil
+      auto_add_devices_flag =
+        hash.key?('autoAddDevicesFlag') ? hash['autoAddDevicesFlag'] : nil
       campaign_name = hash.key?('campaignName') ? hash['campaignName'] : SKIP
       # Parameter is an array, so we need to iterate through it
       campaign_time_window_list = nil
@@ -128,6 +142,8 @@ module Verizon
                                   start_date,
                                   end_date,
                                   device_list,
+                                  auto_assign_license_flag,
+                                  auto_add_devices_flag,
                                   campaign_name,
                                   campaign_time_window_list)
     end

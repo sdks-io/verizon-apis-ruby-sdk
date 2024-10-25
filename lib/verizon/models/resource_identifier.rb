@@ -39,8 +39,7 @@ module Verizon
       []
     end
 
-    def initialize(id = SKIP,
-                   imei = SKIP)
+    def initialize(id = SKIP, imei = SKIP)
       @id = id unless id == SKIP
       @imei = imei unless imei == SKIP
     end

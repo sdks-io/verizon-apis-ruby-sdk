@@ -37,8 +37,7 @@ module Verizon
       []
     end
 
-    def initialize(account_name = nil,
-                   device_firmwar_version_list = SKIP)
+    def initialize(account_name = nil, device_firmwar_version_list = SKIP)
       @account_name = account_name
       unless device_firmwar_version_list == SKIP
         @device_firmwar_version_list =

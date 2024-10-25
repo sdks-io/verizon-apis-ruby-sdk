@@ -23,18 +23,12 @@ module Verizon
     # @return [Integer]
     attr_accessor :bytes_transferred
 
-    # The amount of data transferred by the device reporting usage, measured in
-    # Bytes.
-    # @return [Object]
-    attr_accessor :example
-
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
       @_hash['imei'] = 'imei'
       @_hash['number_of_sessions'] = 'numberOfSessions'
       @_hash['bytes_transferred'] = 'bytesTransferred'
-      @_hash['example'] = 'example'
       @_hash
     end
 
@@ -44,7 +38,6 @@ module Verizon
         imei
         number_of_sessions
         bytes_transferred
-        example
       ]
     end
 
@@ -53,14 +46,11 @@ module Verizon
       []
     end
 
-    def initialize(imei = SKIP,
-                   number_of_sessions = SKIP,
-                   bytes_transferred = SKIP,
-                   example = SKIP)
+    def initialize(imei = SKIP, number_of_sessions = SKIP,
+                   bytes_transferred = SKIP)
       @imei = imei unless imei == SKIP
       @number_of_sessions = number_of_sessions unless number_of_sessions == SKIP
       @bytes_transferred = bytes_transferred unless bytes_transferred == SKIP
-      @example = example unless example == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -73,13 +63,11 @@ module Verizon
         hash.key?('numberOfSessions') ? hash['numberOfSessions'] : SKIP
       bytes_transferred =
         hash.key?('bytesTransferred') ? hash['bytesTransferred'] : SKIP
-      example = hash.key?('example') ? hash['example'] : SKIP
 
       # Create object from extracted values.
       AggregateUsageItem.new(imei,
                              number_of_sessions,
-                             bytes_transferred,
-                             example)
+                             bytes_transferred)
     end
   end
 end

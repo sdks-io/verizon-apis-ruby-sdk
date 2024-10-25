@@ -15,13 +15,13 @@ module Verizon
 
     # For 4G devices, IMEI (decimal, up to 15 digits).
     # @return [String]
-    attr_accessor :ip_address
+    attr_accessor :ipaddress
 
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
       @_hash['device_ids'] = 'deviceIds'
-      @_hash['ip_address'] = 'ipAddress'
+      @_hash['ipaddress'] = 'ipAddress'
       @_hash
     end
 
@@ -29,7 +29,7 @@ module Verizon
     def self.optionals
       %w[
         device_ids
-        ip_address
+        ipaddress
       ]
     end
 
@@ -38,10 +38,9 @@ module Verizon
       []
     end
 
-    def initialize(device_ids = SKIP,
-                   ip_address = SKIP)
+    def initialize(device_ids = SKIP, ipaddress = SKIP)
       @device_ids = device_ids unless device_ids == SKIP
-      @ip_address = ip_address unless ip_address == SKIP
+      @ipaddress = ipaddress unless ipaddress == SKIP
     end
 
     # Creates an instance of the object from a hash.
@@ -59,11 +58,11 @@ module Verizon
       end
 
       device_ids = SKIP unless hash.key?('deviceIds')
-      ip_address = hash.key?('ipAddress') ? hash['ipAddress'] : SKIP
+      ipaddress = hash.key?('ipAddress') ? hash['ipAddress'] : SKIP
 
       # Create object from extracted values.
       LicenseDeviceList.new(device_ids,
-                            ip_address)
+                            ipaddress)
     end
   end
 end

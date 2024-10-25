@@ -9,7 +9,7 @@ module Verizon
     # Creates a QoS elevation subscription ID and activates the subscription.
     # @param [SubscribeRequest] body Required parameter: The request details to
     # create a ThingSpace Quality of Service API subscription.
-    # @return [M201success] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def create_a_thing_space_quality_of_service_api_subscription(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -21,12 +21,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(M201success.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'Error Response',
-                                DefaultResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(M201success.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'Error Response',
+                                 DefaultResponseException))
         .execute
     end
 
@@ -34,7 +34,7 @@ module Verizon
     # account name and the subscription ID.
     # @param [String] account_name Required parameter: Example:
     # @param [String] qos_subscription_id Required parameter: Example:
-    # @return [M201success] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def stop_a_thing_space_quality_of_service_api_subscription(account_name,
                                                                qos_subscription_id)
       new_api_call_builder
@@ -46,12 +46,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(M201success.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'Error Response',
-                                DefaultResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(M201success.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'Error Response',
+                                 DefaultResponseException))
         .execute
     end
   end

@@ -7,7 +7,7 @@ module Verizon
   # RetrieveTheTriggersController
   class RetrieveTheTriggersController < BaseController
     # Retrieves all of the available triggers for pseudo-MDN.
-    # @return [TriggerValueResponse] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def get_all_available_triggers
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -16,18 +16,18 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(TriggerValueResponse.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'Error response',
-                                ReadySimRestErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(TriggerValueResponse.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'Error response',
+                                 ReadySimRestErrorResponseException))
         .execute
     end
 
     # Retrieve the triggers associated with an account name.
     # @param [String] account_name Required parameter: The account name
-    # @return [TriggerValueResponse] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def get_all_triggers_by_account_name(account_name)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -38,18 +38,18 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(TriggerValueResponse.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'Error response',
-                                ReadySimRestErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(TriggerValueResponse.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'Error response',
+                                 ReadySimRestErrorResponseException))
         .execute
     end
 
     # Retrieves all of the triggers for the specified account associated with
     # the PromoAlert category
-    # @return [TriggerValueResponse2] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def get_all_triggers_by_trigger_category
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -58,19 +58,19 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(TriggerValueResponse2.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'Error response',
-                                ReadySimRestErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(TriggerValueResponse2.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'Error response',
+                                 ReadySimRestErrorResponseException))
         .execute
     end
 
     # Retrives a specific trigger by its ID.
     # @param [String] trigger_id Required parameter: The ID of a specific
     # trigger
-    # @return [TriggerValueResponse2] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def get_triggers_by_id(trigger_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -81,12 +81,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(TriggerValueResponse2.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'Error response',
-                                ReadySimRestErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(TriggerValueResponse2.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'Error response',
+                                 ReadySimRestErrorResponseException))
         .execute
     end
   end

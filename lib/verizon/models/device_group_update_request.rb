@@ -56,10 +56,8 @@ module Verizon
       []
     end
 
-    def initialize(devices_to_add = SKIP,
-                   devices_to_remove = SKIP,
-                   new_group_description = SKIP,
-                   new_group_name = SKIP)
+    def initialize(devices_to_add = SKIP, devices_to_remove = SKIP,
+                   new_group_description = SKIP, new_group_name = SKIP)
       @devices_to_add = devices_to_add unless devices_to_add == SKIP
       @devices_to_remove = devices_to_remove unless devices_to_remove == SKIP
       @new_group_description = new_group_description unless new_group_description == SKIP

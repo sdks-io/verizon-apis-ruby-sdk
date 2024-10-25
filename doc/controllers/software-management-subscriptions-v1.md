@@ -34,7 +34,7 @@ def get_account_subscription_status(account)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V1AccountSubscription`](../../doc/models/v1-account-subscription.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V1AccountSubscription`](../../doc/models/v1-account-subscription.md).
 
 ## Example Usage
 
@@ -85,7 +85,7 @@ def get_account_license_status(account,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`AccountLicenseInfo`](../../doc/models/account-license-info.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`AccountLicenseInfo`](../../doc/models/account-license-info.md).
 
 ## Example Usage
 

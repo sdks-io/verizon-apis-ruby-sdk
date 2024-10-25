@@ -6,41 +6,67 @@
 module Verizon
   # DeviceLocationCallbacksController
   class DeviceLocationCallbacksController < BaseController
-    # Returns a list of all registered callback URLs for the account.
-    # @param [String] account Required parameter: Account number.
-    # @return [Array[DeviceLocationCallback]] response from the API call
-    def list_registered_callbacks(account)
+    # Cancel an asynchronous report request.
+    # @param [String] account_name Required parameter: Account identifier in
+    # "##########-#####".
+    # @param [String] txid Required parameter: The `transactionId` value.
+    # @return [ApiResponse]  the complete http response with raw body and status code.
+    def cancel_async_report(account_name,
+                            txid)
       new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/callbacks/{account}',
+        .request(new_request_builder(HttpMethodEnum::DELETE,
+                                     '/devicelocations/{txid}',
                                      Server::DEVICE_LOCATION)
-                   .template_param(new_parameter(account, key: 'account')
+                   .query_param(new_parameter(account_name, key: 'accountName'))
+                   .template_param(new_parameter(txid, key: 'txid')
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceLocationCallback.method(:from_hash))
-                   .is_api_response(true)
-                   .is_response_array(true)
-                   .local_error('400',
-                                'Error response.',
-                                DeviceLocationResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(TransactionID.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'Unexpected error.',
+                                 DeviceLocationResultException))
+        .execute
+    end
+
+    # Returns a list of all registered callback URLs for the account.
+    # @param [String] account_name Required parameter: Account number.
+    # @return [ApiResponse]  the complete http response with raw body and status code.
+    def list_registered_callbacks(account_name)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/callbacks/{accountName}',
+                                     Server::DEVICE_LOCATION)
+                   .template_param(new_parameter(account_name, key: 'accountName')
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
+        .response(new_response_handler
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceLocationCallback.method(:from_hash))
+                    .is_api_response(true)
+                    .is_response_array(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 DeviceLocationResultException))
         .execute
     end
 
     # Provide a URL to receive messages from a ThingSpace callback service.
-    # @param [String] account Required parameter: Account number.
+    # @param [String] account_name Required parameter: Account number.
     # @param [DeviceLocationCallback] body Required parameter: Request to
     # register a callback.
-    # @return [CallbackRegistrationResult] response from the API call
-    def register_callback(account,
+    # @return [ApiResponse]  the complete http response with raw body and status code.
+    def register_callback(account_name,
                           body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/callbacks/{account}',
+                                     '/callbacks/{accountName}',
                                      Server::DEVICE_LOCATION)
-                   .template_param(new_parameter(account, key: 'account')
+                   .template_param(new_parameter(account_name, key: 'accountName')
                                     .should_encode(true))
                    .header_param(new_parameter('*/*', key: 'Content-Type'))
                    .body_param(new_parameter(body))
@@ -48,39 +74,39 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CallbackRegistrationResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                DeviceLocationResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CallbackRegistrationResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 DeviceLocationResultException))
         .execute
     end
 
     # Deregister a URL to stop receiving callback messages.
-    # @param [String] account Required parameter: Account number.
+    # @param [String] account_name Required parameter: Account number.
     # @param [CallbackServiceNameEnum] service Required parameter: Callback
     # service name.
-    # @return [DeviceLocationSuccessResult] response from the API call
-    def deregister_callback(account,
+    # @return [ApiResponse]  the complete http response with raw body and status code.
+    def deregister_callback(account_name,
                             service)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::DELETE,
-                                     '/callbacks/{account}/name/{service}',
+                                     '/callbacks/{accountName}/name/{service}',
                                      Server::DEVICE_LOCATION)
-                   .template_param(new_parameter(account, key: 'account')
+                   .template_param(new_parameter(account_name, key: 'accountName')
                                     .should_encode(true))
                    .template_param(new_parameter(service, key: 'service')
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceLocationSuccessResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                DeviceLocationResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceLocationSuccessResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 DeviceLocationResultException))
         .execute
     end
   end

@@ -62,11 +62,8 @@ module Verizon
       []
     end
 
-    def initialize(devices = SKIP,
-                   account_name = SKIP,
-                   carrier_name = SKIP,
-                   reason_code = SKIP,
-                   etf_waiver = true,
+    def initialize(devices = SKIP, account_name = SKIP, carrier_name = SKIP,
+                   reason_code = SKIP, etf_waiver = true,
                    check_fallback_profile = false)
       @devices = devices unless devices == SKIP
       @account_name = account_name unless account_name == SKIP

@@ -37,7 +37,7 @@ def list_available_firmware(account)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<Firmware>`](../../doc/models/firmware.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<Firmware>`](../../doc/models/firmware.md).
 
 ## Example Usage
 
@@ -91,7 +91,7 @@ def schedule_firmware_upgrade(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FirmwareUpgrade`](../../doc/models/firmware-upgrade.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FirmwareUpgrade`](../../doc/models/firmware-upgrade.md).
 
 ## Example Usage
 
@@ -100,7 +100,8 @@ body = FirmwareUpgradeRequest.new(
   '0402196254-00001',
   'FOTA_Verizon_Model-A_01To02_HF',
   'VerizonFirmwareVersion-02',
-  DateTimeHelper.from_rfc3339('2018-04-01T16:03:00.000Z'),
+  Date.iso8601('2018-04-01'),
+  Date.iso8601('2018-04-05'),
   [
     '990003425730535',
     '990000473475989'
@@ -145,7 +146,7 @@ result = firmware_v1_controller.schedule_firmware_upgrade(body)
 Returns information about a specified upgrade, include the target date of the upgrade, the list of devices in the upgrade, and the status of the upgrade for each device.
 
 ```ruby
-def list_firmware_upgrade_details(account,
+def list_firmware_upgrade_details(account_name,
                                   upgrade_id)
 ```
 
@@ -153,7 +154,7 @@ def list_firmware_upgrade_details(account,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `account` | `String` | Template, Required | Account identifier in "##########-#####". |
+| `account_name` | `String` | Template, Required | Account identifier in "##########-#####". |
 | `upgrade_id` | `String` | Template, Required | The UUID of the upgrade, returned by POST /upgrades when the upgrade was scheduled. |
 
 ## Server
@@ -162,17 +163,17 @@ def list_firmware_upgrade_details(account,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FirmwareUpgrade`](../../doc/models/firmware-upgrade.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FirmwareUpgrade`](../../doc/models/firmware-upgrade.md).
 
 ## Example Usage
 
 ```ruby
-account = '0242078689-00001'
+account_name = '0242078689-00001'
 
 upgrade_id = 'e3a8d88a-04c6-4ef3-b039-89b62f91e962'
 
 result = firmware_v1_controller.list_firmware_upgrade_details(
-  account,
+  account_name,
   upgrade_id
 )
 ```
@@ -198,7 +199,8 @@ result = firmware_v1_controller.list_firmware_upgrade_details(
       "status": "Device Accepted",
       "resultReason": "success"
     }
-  ]
+  ],
+  "endDate": "2018-04-05"
 }
 ```
 
@@ -214,7 +216,7 @@ result = firmware_v1_controller.list_firmware_upgrade_details(
 Add or remove devices from a scheduled upgrade.
 
 ```ruby
-def update_firmware_upgrade_devices(account,
+def update_firmware_upgrade_devices(account_name,
                                     upgrade_id,
                                     body)
 ```
@@ -223,7 +225,7 @@ def update_firmware_upgrade_devices(account,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `account` | `String` | Template, Required | Account identifier in "##########-#####". |
+| `account_name` | `String` | Template, Required | Account identifier in "##########-#####". |
 | `upgrade_id` | `String` | Template, Required | The UUID of the upgrade, returned by POST /upgrades when the upgrade was scheduled. |
 | `body` | [`FirmwareUpgradeChangeRequest`](../../doc/models/firmware-upgrade-change-request.md) | Body, Required | List of devices to add or remove. |
 
@@ -233,12 +235,12 @@ def update_firmware_upgrade_devices(account,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FirmwareUpgradeChangeResult`](../../doc/models/firmware-upgrade-change-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FirmwareUpgradeChangeResult`](../../doc/models/firmware-upgrade-change-result.md).
 
 ## Example Usage
 
 ```ruby
-account = '0242078689-00001'
+account_name = '0242078689-00001'
 
 upgrade_id = 'e3a8d88a-04c6-4ef3-b039-89b62f91e962'
 
@@ -251,7 +253,7 @@ body = FirmwareUpgradeChangeRequest.new(
 )
 
 result = firmware_v1_controller.update_firmware_upgrade_devices(
-  account,
+  account_name,
   upgrade_id,
   body
 )
@@ -290,7 +292,7 @@ result = firmware_v1_controller.update_firmware_upgrade_devices(
 Cancel a scheduled firmware upgrade.
 
 ```ruby
-def cancel_scheduled_firmware_upgrade(account,
+def cancel_scheduled_firmware_upgrade(account_name,
                                       upgrade_id)
 ```
 
@@ -298,7 +300,7 @@ def cancel_scheduled_firmware_upgrade(account,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `account` | `String` | Template, Required | Account identifier in "##########-#####". |
+| `account_name` | `String` | Template, Required | Account identifier in "##########-#####". |
 | `upgrade_id` | `String` | Template, Required | The UUID of the scheduled upgrade that you want to cancel. |
 
 ## Server
@@ -307,17 +309,17 @@ def cancel_scheduled_firmware_upgrade(account,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FotaV1SuccessResult`](../../doc/models/fota-v1-success-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FotaV1SuccessResult`](../../doc/models/fota-v1-success-result.md).
 
 ## Example Usage
 
 ```ruby
-account = '0242078689-00001'
+account_name = '0242078689-00001'
 
 upgrade_id = 'e3a8d88a-04c6-4ef3-b039-89b62f91e962'
 
 result = firmware_v1_controller.cancel_scheduled_firmware_upgrade(
-  account,
+  account_name,
   upgrade_id
 )
 ```

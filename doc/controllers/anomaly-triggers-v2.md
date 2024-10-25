@@ -35,7 +35,7 @@ def create_anomaly_detection_trigger_v2(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`AnomalyDetectionTrigger`](../../doc/models/anomaly-detection-trigger.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`AnomalyDetectionTrigger`](../../doc/models/anomaly-detection-trigger.md).
 
 ## Example Usage
 
@@ -111,7 +111,7 @@ def update_anomaly_detection_trigger_v2(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`IntelligenceSuccessResult`](../../doc/models/intelligence-success-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`IntelligenceSuccessResult`](../../doc/models/intelligence-success-result.md).
 
 ## Example Usage
 
@@ -188,7 +188,7 @@ def list_anomaly_detection_trigger_settings_v2(trigger_id)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`AnomalyTriggerResult`](../../doc/models/anomaly-trigger-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`AnomalyTriggerResult`](../../doc/models/anomaly-trigger-result.md).
 
 ## Example Usage
 

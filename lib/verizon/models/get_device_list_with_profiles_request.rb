@@ -55,10 +55,8 @@ module Verizon
       []
     end
 
-    def initialize(account_name = nil,
-                   provisioning_status_filter = SKIP,
-                   profile_status_filter = SKIP,
-                   carrier_name_filter = SKIP,
+    def initialize(account_name = nil, provisioning_status_filter = SKIP,
+                   profile_status_filter = SKIP, carrier_name_filter = SKIP,
                    device_filter = SKIP)
       @account_name = account_name
       unless provisioning_status_filter == SKIP

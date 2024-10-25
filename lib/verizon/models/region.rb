@@ -66,11 +66,8 @@ module Verizon
       ]
     end
 
-    def initialize(region_id = SKIP,
-                   name = SKIP,
-                   country_code = SKIP,
-                   metro = SKIP,
-                   area = SKIP)
+    def initialize(region_id = SKIP, name = SKIP, country_code = SKIP,
+                   metro = SKIP, area = SKIP)
       @region_id = region_id unless region_id == SKIP
       @name = name unless name == SKIP
       @country_code = country_code unless country_code == SKIP

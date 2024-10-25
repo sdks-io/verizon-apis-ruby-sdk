@@ -11,7 +11,7 @@ module Verizon
     # monthly subscription amount.
     # @param [UsageTriggerAddRequest] body Optional parameter: License
     # assignment.
-    # @return [UsageTriggerResponse] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def create_new_trigger(body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -23,12 +23,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(UsageTriggerResponse.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error',
-                                DeviceLocationResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(UsageTriggerResponse.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error',
+                                 DeviceLocationResultException))
         .execute
     end
 
@@ -36,7 +36,7 @@ module Verizon
     # @param [String] trigger_id Required parameter: Usage trigger ID
     # @param [UsageTriggerUpdateRequest] body Optional parameter: New trigger
     # values
-    # @return [UsageTriggerResponse] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def update_trigger(trigger_id,
                        body: nil)
       new_api_call_builder
@@ -51,19 +51,19 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(UsageTriggerResponse.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error',
-                                DeviceLocationResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(UsageTriggerResponse.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error',
+                                 DeviceLocationResultException))
         .execute
     end
 
     # eletes the specified usage trigger from the given account
     # @param [String] account_name Required parameter: Account name
     # @param [String] trigger_id Required parameter: Usage trigger ID
-    # @return [DeviceLocationSuccessResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def delete_trigger(account_name,
                        trigger_id)
       new_api_call_builder
@@ -77,12 +77,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceLocationSuccessResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error',
-                                DeviceLocationResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceLocationSuccessResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error',
+                                 DeviceLocationResultException))
         .execute
     end
   end

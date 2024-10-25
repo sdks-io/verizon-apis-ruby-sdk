@@ -42,9 +42,7 @@ module Verizon
       []
     end
 
-    def initialize(kind = nil,
-                   id = nil,
-                   mdn = SKIP)
+    def initialize(kind = nil, id = nil, mdn = SKIP)
       @kind = kind
       @id = id
       @mdn = mdn unless mdn == SKIP

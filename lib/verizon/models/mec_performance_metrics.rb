@@ -51,9 +51,7 @@ module Verizon
       []
     end
 
-    def initialize(query_status = SKIP,
-                   start = SKIP,
-                   mend = SKIP,
+    def initialize(query_status = SKIP, start = SKIP, mend = SKIP,
                    query_result = SKIP)
       @query_status = query_status unless query_status == SKIP
       @start = start unless start == SKIP

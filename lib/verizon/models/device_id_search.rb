@@ -50,9 +50,7 @@ module Verizon
       []
     end
 
-    def initialize(contains = nil,
-                   kind = nil,
-                   startswith = SKIP,
+    def initialize(contains = nil, kind = nil, startswith = SKIP,
                    endswith = SKIP)
       @contains = contains
       @startswith = startswith unless startswith == SKIP

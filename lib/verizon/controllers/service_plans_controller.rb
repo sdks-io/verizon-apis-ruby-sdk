@@ -11,7 +11,7 @@ module Verizon
     # /devices/actions/activate to activate a line of service you must specify
     # the code for one of the service plans associated with your account.
     # @param [String] aname Required parameter: Account name.
-    # @return [Array[ServicePlan]] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_account_service_plans(aname)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -22,13 +22,13 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ServicePlan.method(:from_hash))
-                   .is_api_response(true)
-                   .is_response_array(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ServicePlan.method(:from_hash))
+                    .is_api_response(true)
+                    .is_response_array(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
   end

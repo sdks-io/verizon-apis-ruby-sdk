@@ -61,11 +61,8 @@ module Verizon
       []
     end
 
-    def initialize(account_name = SKIP,
-                   password = SKIP,
-                   service_name = SKIP,
-                   url = SKIP,
-                   username = SKIP)
+    def initialize(account_name = SKIP, password = SKIP, service_name = SKIP,
+                   url = SKIP, username = SKIP)
       @account_name = account_name unless account_name == SKIP
       @password = password unless password == SKIP
       @service_name = service_name unless service_name == SKIP

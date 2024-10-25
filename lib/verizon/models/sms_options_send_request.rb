@@ -38,8 +38,7 @@ module Verizon
       []
     end
 
-    def initialize(service_plan = SKIP,
-                   sms_message = SKIP)
+    def initialize(service_plan = SKIP, sms_message = SKIP)
       @service_plan = service_plan unless service_plan == SKIP
       @sms_message = sms_message unless sms_message == SKIP
     end

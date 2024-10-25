@@ -50,10 +50,8 @@ module Verizon
       []
     end
 
-    def initialize(account_name = nil,
-                   paccount_name = nil,
-                   service_name = ServiceNameEnum::LOCATION,
-                   type = nil,
+    def initialize(account_name = nil, paccount_name = nil,
+                   service_name = ServiceNameEnum::LOCATION, type = nil,
                    txid = nil)
       @account_name = account_name
       @paccount_name = paccount_name

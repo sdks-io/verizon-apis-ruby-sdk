@@ -7,9 +7,9 @@ module Verizon
   # PromotionPeriodInformationController
   class PromotionPeriodInformationController < BaseController
     # Retrieves the usage history of a device during the promotion period.
-    # @param [RequestBodyForUsage1] body Required parameter: Retrieve Aggregate
+    # @param [ARequestBodyForUsage] body Required parameter: Retrieve Aggregate
     # Usage
-    # @return [ResponseToUsageQuery] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def get_promo_device_usage_history(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -21,12 +21,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ResponseToUsageQuery.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'All error responses will be in this format',
-                                ReadySimRestErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ResponseToUsageQuery.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'All error responses will be in this format',
+                                 ReadySimRestErrorResponseException))
         .execute
     end
 
@@ -34,7 +34,7 @@ module Verizon
     # promotional period using a callback.
     # @param [RequestBodyForUsage] body Required parameter: Retrieve Aggregate
     # Usage
-    # @return [UsageRequestResponse] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def get_promo_device_aggregate_usage_history(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -46,12 +46,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(UsageRequestResponse.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'Error response',
-                                ReadySimRestErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(UsageRequestResponse.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'Error response',
+                                 ReadySimRestErrorResponseException))
         .execute
     end
   end

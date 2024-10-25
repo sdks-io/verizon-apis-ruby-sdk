@@ -10,7 +10,7 @@ module Verizon
     # token that is required in subsequent API requests.
     # @param [LogInRequest] body Optional parameter: Request to initiate a
     # session.
-    # @return [LogInResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def start_connectivity_management_session(body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -22,17 +22,17 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(LogInResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(LogInResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
     # Ends a Connectivity Management session.
-    # @return [LogOutRequest] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def end_connectivity_management_session
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -41,12 +41,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(LogOutRequest.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(LogOutRequest.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
@@ -54,7 +54,7 @@ module Verizon
     # Verizon recommends changing your password every 90 days.
     # @param [SessionResetPasswordRequest] body Required parameter: Request with
     # current password that needs to be reset.
-    # @return [SessionResetPasswordResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def reset_connectivity_management_password(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
@@ -66,12 +66,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SessionResetPasswordResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(SessionResetPasswordResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
   end

@@ -64,11 +64,8 @@ module Verizon
       []
     end
 
-    def initialize(start_date = nil,
-                   end_date = nil,
-                   download_after_date = SKIP,
-                   download_time_window_list = SKIP,
-                   install_after_date = SKIP,
+    def initialize(start_date = nil, end_date = nil, download_after_date = SKIP,
+                   download_time_window_list = SKIP, install_after_date = SKIP,
                    install_time_window_list = SKIP)
       @start_date = start_date
       @end_date = end_date

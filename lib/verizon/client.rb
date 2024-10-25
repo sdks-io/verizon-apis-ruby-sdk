@@ -404,10 +404,10 @@ module Verizon
       @thing_space_quality_of_service_api_actions ||= ThingSpaceQualityOfServiceAPIActionsController.new @global_configuration
     end
 
-    # Access to mec controller.
-    # @return [MECController] Returns the controller instance.
-    def mec
-      @mec ||= MECController.new @global_configuration
+    # Access to pwn controller.
+    # @return [PWNController] Returns the controller instance.
+    def pwn
+      @pwn ||= PWNController.new @global_configuration
     end
 
     # Access to promotion_period_information controller.
@@ -444,6 +444,12 @@ module Verizon
     # @return [MV2TriggersController] Returns the controller instance.
     def m_v2_triggers
       @m_v2_triggers ||= MV2TriggersController.new @global_configuration
+    end
+
+    # Access to m_5g_bi_device_actions controller.
+    # @return [M5gBIDeviceActionsController] Returns the controller instance.
+    def m_5g_bi_device_actions
+      @m_5g_bi_device_actions ||= M5gBIDeviceActionsController.new @global_configuration
     end
 
     # Access to oauth_authorization controller.

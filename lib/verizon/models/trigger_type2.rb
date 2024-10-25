@@ -38,8 +38,7 @@ module Verizon
       []
     end
 
-    def initialize(anomalyattributes = SKIP,
-                   notification = SKIP)
+    def initialize(anomalyattributes = SKIP, notification = SKIP)
       @anomalyattributes = anomalyattributes unless anomalyattributes == SKIP
       @notification = notification unless notification == SKIP
     end

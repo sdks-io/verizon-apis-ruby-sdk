@@ -106,18 +106,10 @@ module Verizon
       []
     end
 
-    def initialize(accountidentifier = SKIP,
-                   billingaccountid = SKIP,
-                   kind = SKIP,
-                   address = SKIP,
-                   addressscheme = SKIP,
-                   fields = SKIP,
-                   description = SKIP,
-                   externalid = SKIP,
-                   name = SKIP,
-                   region = SKIP,
-                   key1 = SKIP,
-                   oauth = SKIP)
+    def initialize(accountidentifier = SKIP, billingaccountid = SKIP,
+                   kind = SKIP, address = SKIP, addressscheme = SKIP,
+                   fields = SKIP, description = SKIP, externalid = SKIP,
+                   name = SKIP, region = SKIP, key1 = SKIP, oauth = SKIP)
       @accountidentifier = accountidentifier unless accountidentifier == SKIP
       @billingaccountid = billingaccountid unless billingaccountid == SKIP
       @kind = kind unless kind == SKIP

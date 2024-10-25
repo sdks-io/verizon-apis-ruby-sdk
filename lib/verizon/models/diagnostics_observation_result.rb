@@ -41,9 +41,7 @@ module Verizon
       []
     end
 
-    def initialize(transaction_id = nil,
-                   status = nil,
-                   created_on = nil)
+    def initialize(transaction_id = nil, status = nil, created_on = nil)
       @transaction_id = transaction_id
       @status = status
       @created_on = created_on

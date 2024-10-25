@@ -35,8 +35,7 @@ module Verizon
       []
     end
 
-    def initialize(count = nil,
-                   device_list = nil)
+    def initialize(count = nil, device_list = nil)
       @count = count
       @device_list = device_list
     end

@@ -50,10 +50,8 @@ module Verizon
       []
     end
 
-    def initialize(description = SKIP,
-                   extended_attributes = SKIP,
-                   is_default_group = SKIP,
-                   name = SKIP)
+    def initialize(description = SKIP, extended_attributes = SKIP,
+                   is_default_group = SKIP, name = SKIP)
       @description = description unless description == SKIP
       @extended_attributes = extended_attributes unless extended_attributes == SKIP
       @is_default_group = is_default_group unless is_default_group == SKIP

@@ -119,18 +119,11 @@ module Verizon
       []
     end
 
-    def initialize(devices = nil,
-                   service_plan = nil,
-                   mdn_zip_code = nil,
-                   account_name = SKIP,
-                   carrier_ip_pool_name = SKIP,
-                   carrier_name = SKIP,
-                   cost_center_code = SKIP,
-                   custom_fields = SKIP,
-                   group_name = SKIP,
-                   lead_id = SKIP,
-                   primary_place_of_use = SKIP,
-                   public_ip_restriction = SKIP,
+    def initialize(devices = nil, service_plan = nil, mdn_zip_code = nil,
+                   account_name = SKIP, carrier_ip_pool_name = SKIP,
+                   carrier_name = SKIP, cost_center_code = SKIP,
+                   custom_fields = SKIP, group_name = SKIP, lead_id = SKIP,
+                   primary_place_of_use = SKIP, public_ip_restriction = SKIP,
                    sku_number = SKIP)
       @devices = devices
       @service_plan = service_plan

@@ -8,7 +8,7 @@ module Verizon
   class SoftwareManagementSubscriptionsV3Controller < BaseController
     # This endpoint retrieves a FOTA subscription by account.
     # @param [String] acc Required parameter: Account identifier.
-    # @return [FotaV3Subscription] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def get_account_subscription_status(acc)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -19,12 +19,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(FotaV3Subscription.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV3ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(FotaV3Subscription.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV3ResultException))
         .execute
     end
   end

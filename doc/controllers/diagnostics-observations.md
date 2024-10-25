@@ -34,7 +34,7 @@ def start_diagnostics_observation(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DiagnosticsObservationResult`](../../doc/models/diagnostics-observation-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DiagnosticsObservationResult`](../../doc/models/diagnostics-observation-result.md).
 
 ## Example Usage
 
@@ -113,7 +113,7 @@ def stop_diagnostics_observation(transaction_id,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DiagnosticsObservationResult`](../../doc/models/diagnostics-observation-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DiagnosticsObservationResult`](../../doc/models/diagnostics-observation-result.md).
 
 ## Example Usage
 

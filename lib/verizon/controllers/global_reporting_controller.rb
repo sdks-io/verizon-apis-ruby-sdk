@@ -6,10 +6,10 @@
 module Verizon
   # GlobalReportingController
   class GlobalReportingController < BaseController
-    # Retreive the provisioning history of a specific device or devices.
+    # Retrieve the provisioning history of a specific device or devices.
     # @param [ESIMProvhistoryRequest] body Required parameter: Device
     # Provisioning History
-    # @return [ESIMRequestResponse] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def deviceprovhistory_using_post(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -21,74 +21,71 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ESIMRequestResponse.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Bad request',
-                                ESIMRestErrorResponseException)
-                   .local_error('401',
-                                'Unauthorized',
-                                ESIMRestErrorResponseException)
-                   .local_error('403',
-                                'Forbidden',
-                                ESIMRestErrorResponseException)
-                   .local_error('404',
-                                'Not Found / Does not exist',
-                                ESIMRestErrorResponseException)
-                   .local_error('406',
-                                'Format / Request Unacceptable',
-                                ESIMRestErrorResponseException)
-                   .local_error('429',
-                                'Too many requests',
-                                ESIMRestErrorResponseException)
-                   .local_error('default',
-                                'Error response',
-                                ESIMRestErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ESIMRequestResponse.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Bad request',
+                                 ESIMRestErrorResponseException)
+                    .local_error('401',
+                                 'Unauthorized',
+                                 ESIMRestErrorResponseException)
+                    .local_error('403',
+                                 'Forbidden',
+                                 ESIMRestErrorResponseException)
+                    .local_error('404',
+                                 'Not Found / Does not exist',
+                                 ESIMRestErrorResponseException)
+                    .local_error('406',
+                                 'Format / Request Unacceptable',
+                                 ESIMRestErrorResponseException)
+                    .local_error('429',
+                                 'Too many requests',
+                                 ESIMRestErrorResponseException)
+                    .local_error('default',
+                                 'Error response',
+                                 ESIMRestErrorResponseException))
         .execute
     end
 
-    # Get the status of a request made with the Device Actions.
-    # @param [String] accountname Required parameter: Example:
-    # @param [String] request_id Required parameter: Example:
-    # @return [ESIMStatusResponse] response from the API call
-    def requeststatususing_get(accountname,
-                               request_id)
+    # Retrieve a list of all devices associated with an account.
+    # @param [ESIMGlobalDeviceList] body Required parameter: Device List
+    # @return [ApiResponse]  the complete http response with raw body and status code.
+    def retrieve_global_list(body)
       new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/m2m/v2/accounts/{accountname}/requests/{requestID}/status',
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/m2m/v2/devices/actions/list',
                                      Server::THINGSPACE)
-                   .template_param(new_parameter(accountname, key: 'accountname')
-                                    .should_encode(true))
-                   .template_param(new_parameter(request_id, key: 'requestID')
-                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ESIMStatusResponse.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Bad request',
-                                ESIMRestErrorResponseException)
-                   .local_error('401',
-                                'Unauthorized',
-                                ESIMRestErrorResponseException)
-                   .local_error('403',
-                                'Forbidden',
-                                ESIMRestErrorResponseException)
-                   .local_error('404',
-                                'Not Found / Does not exist',
-                                ESIMRestErrorResponseException)
-                   .local_error('406',
-                                'Format / Request Unacceptable',
-                                ESIMRestErrorResponseException)
-                   .local_error('429',
-                                'Too many requests',
-                                ESIMRestErrorResponseException)
-                   .local_error('default',
-                                'Error response',
-                                ESIMRestErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ESIMRequestResponse.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Bad request',
+                                 ESIMRestErrorResponseException)
+                    .local_error('401',
+                                 'Unauthorized',
+                                 ESIMRestErrorResponseException)
+                    .local_error('403',
+                                 'Forbidden',
+                                 ESIMRestErrorResponseException)
+                    .local_error('404',
+                                 'Not Found / Does not exist',
+                                 ESIMRestErrorResponseException)
+                    .local_error('406',
+                                 'Format / Request Unacceptable',
+                                 ESIMRestErrorResponseException)
+                    .local_error('429',
+                                 'Too many requests',
+                                 ESIMRestErrorResponseException)
+                    .local_error('default',
+                                 'Error response',
+                                 ESIMRestErrorResponseException))
         .execute
     end
   end

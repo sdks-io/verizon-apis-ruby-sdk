@@ -43,9 +43,7 @@ module Verizon
       []
     end
 
-    def initialize(imei = nil,
-                   bullseye_enable = nil,
-                   response_type = SKIP)
+    def initialize(imei = nil, bullseye_enable = nil, response_type = SKIP)
       @response_type = response_type unless response_type == SKIP
       @imei = imei
       @bullseye_enable = bullseye_enable

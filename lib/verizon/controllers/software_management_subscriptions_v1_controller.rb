@@ -10,7 +10,7 @@ module Verizon
     # Management Service subscription status.
     # @param [String] account Required parameter: Account identifier in
     # "##########-#####".
-    # @return [V1AccountSubscription] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def get_account_subscription_status(account)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -21,12 +21,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(V1AccountSubscription.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV1ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(V1AccountSubscription.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV1ResultException))
         .execute
     end
 
@@ -38,7 +38,7 @@ module Verizon
     # the first record to return. Set startIndex=0 for the first request. If
     # there are more than 1,000 devices in the response, set startIndex=1000 for
     # the second request, 2000 for the third request, etc.
-    # @return [AccountLicenseInfo] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def get_account_license_status(account,
                                    start_index)
       new_api_call_builder
@@ -52,12 +52,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(AccountLicenseInfo.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV1ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(AccountLicenseInfo.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV1ResultException))
         .execute
     end
   end

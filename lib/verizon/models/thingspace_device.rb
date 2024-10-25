@@ -50,7 +50,7 @@ module Verizon
 
     # The IP address of the device.
     # @return [String]
-    attr_accessor :ip_address
+    attr_accessor :ipaddress
 
     # The user who last activated the device.
     # @return [String]
@@ -76,7 +76,7 @@ module Verizon
       @_hash['device_ids'] = 'deviceIds'
       @_hash['extended_attributes'] = 'extendedAttributes'
       @_hash['group_names'] = 'groupNames'
-      @_hash['ip_address'] = 'ipAddress'
+      @_hash['ipaddress'] = 'ipAddress'
       @_hash['last_activation_by'] = 'lastActivationBy'
       @_hash['last_activation_date'] = 'lastActivationDate'
       @_hash['last_connection_date'] = 'lastConnectionDate'
@@ -95,7 +95,7 @@ module Verizon
         device_ids
         extended_attributes
         group_names
-        ip_address
+        ipaddress
         last_activation_by
         last_activation_date
         last_connection_date
@@ -107,19 +107,12 @@ module Verizon
       []
     end
 
-    def initialize(account_name = SKIP,
-                   billing_cycle_end_date = SKIP,
-                   carrier_informations = SKIP,
-                   connected = SKIP,
-                   created_at = SKIP,
-                   custom_fields = SKIP,
-                   device_ids = SKIP,
-                   extended_attributes = SKIP,
-                   group_names = SKIP,
-                   ip_address = SKIP,
-                   last_activation_by = SKIP,
-                   last_activation_date = SKIP,
-                   last_connection_date = SKIP)
+    def initialize(account_name = SKIP, billing_cycle_end_date = SKIP,
+                   carrier_informations = SKIP, connected = SKIP,
+                   created_at = SKIP, custom_fields = SKIP, device_ids = SKIP,
+                   extended_attributes = SKIP, group_names = SKIP,
+                   ipaddress = SKIP, last_activation_by = SKIP,
+                   last_activation_date = SKIP, last_connection_date = SKIP)
       @account_name = account_name unless account_name == SKIP
       @billing_cycle_end_date = billing_cycle_end_date unless billing_cycle_end_date == SKIP
       @carrier_informations = carrier_informations unless carrier_informations == SKIP
@@ -129,7 +122,7 @@ module Verizon
       @device_ids = device_ids unless device_ids == SKIP
       @extended_attributes = extended_attributes unless extended_attributes == SKIP
       @group_names = group_names unless group_names == SKIP
-      @ip_address = ip_address unless ip_address == SKIP
+      @ipaddress = ipaddress unless ipaddress == SKIP
       @last_activation_by = last_activation_by unless last_activation_by == SKIP
       @last_activation_date = last_activation_date unless last_activation_date == SKIP
       @last_connection_date = last_connection_date unless last_connection_date == SKIP
@@ -186,7 +179,7 @@ module Verizon
 
       extended_attributes = SKIP unless hash.key?('extendedAttributes')
       group_names = hash.key?('groupNames') ? hash['groupNames'] : SKIP
-      ip_address = hash.key?('ipAddress') ? hash['ipAddress'] : SKIP
+      ipaddress = hash.key?('ipAddress') ? hash['ipAddress'] : SKIP
       last_activation_by =
         hash.key?('lastActivationBy') ? hash['lastActivationBy'] : SKIP
       last_activation_date =
@@ -204,7 +197,7 @@ module Verizon
                            device_ids,
                            extended_attributes,
                            group_names,
-                           ip_address,
+                           ipaddress,
                            last_activation_by,
                            last_activation_date,
                            last_connection_date)

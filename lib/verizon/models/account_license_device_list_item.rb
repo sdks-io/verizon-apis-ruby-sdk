@@ -40,8 +40,7 @@ module Verizon
       []
     end
 
-    def initialize(device_id = SKIP,
-                   assignment_time = SKIP)
+    def initialize(device_id = SKIP, assignment_time = SKIP)
       @device_id = device_id unless device_id == SKIP
       @assignment_time = assignment_time unless assignment_time == SKIP
     end

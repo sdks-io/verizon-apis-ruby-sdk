@@ -8,7 +8,7 @@ module Verizon
   class DiagnosticsSubscriptionsController < BaseController
     # This endpoint retrieves a diagnostics subscription by account.
     # @param [String] account_name Required parameter: Account identifier.
-    # @return [DiagnosticsSubscription] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def get_diagnostics_subscription(account_name)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -18,12 +18,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DiagnosticsSubscription.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'Error response.',
-                                DeviceDiagnosticsResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DiagnosticsSubscription.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'Error response.',
+                                 DeviceDiagnosticsResultException))
         .execute
     end
   end

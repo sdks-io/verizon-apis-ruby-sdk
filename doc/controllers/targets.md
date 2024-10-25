@@ -37,7 +37,7 @@ def query_target(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<Target>`](../../doc/models/target.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<Target>`](../../doc/models/target.md).
 
 ## Example Usage
 
@@ -107,7 +107,7 @@ def delete_target(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance.
+This method returns a `ApiResponse` instance.
 
 ## Example Usage
 
@@ -145,7 +145,7 @@ def create_target(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Target`](../../doc/models/target.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Target`](../../doc/models/target.md).
 
 ## Example Usage
 
@@ -198,8 +198,6 @@ result = targets_controller.create_target(body)
 
 Create a unique string that ThingSpace will pass to AWS for increased security.
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ruby
 def generate_target_external_id(body)
 ```
@@ -216,7 +214,7 @@ def generate_target_external_id(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`GenerateExternalIDResult`](../../doc/models/generate-external-id-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`GenerateExternalIDResult`](../../doc/models/generate-external-id-result.md).
 
 ## Example Usage
 
@@ -261,7 +259,7 @@ def create_azure_central_io_t_application(billingaccount_id,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`CreateIoTApplicationResponse`](../../doc/models/create-io-t-application-response.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`CreateIoTApplicationResponse`](../../doc/models/create-io-t-application-response.md).
 
 ## Example Usage
 

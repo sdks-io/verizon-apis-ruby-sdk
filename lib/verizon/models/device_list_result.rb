@@ -40,9 +40,7 @@ module Verizon
       []
     end
 
-    def initialize(account_name = nil,
-                   device_count = nil,
-                   device_list = nil)
+    def initialize(account_name = nil, device_count = nil, device_list = nil)
       @account_name = account_name
       @device_count = device_count
       @device_list = device_list

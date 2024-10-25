@@ -38,8 +38,7 @@ module Verizon
       []
     end
 
-    def initialize(kind = SKIP,
-                   id = SKIP)
+    def initialize(kind = SKIP, id = SKIP)
       @kind = kind unless kind == SKIP
       @id = id unless id == SKIP
     end

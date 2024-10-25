@@ -29,7 +29,7 @@ def domestic4g_and_5g_fixed_wireless_qualification(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`WNPRequestResponse`](../../doc/models/wnp-request-response.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`WNPRequestResponse`](../../doc/models/wnp-request-response.md).
 
 ## Example Usage
 

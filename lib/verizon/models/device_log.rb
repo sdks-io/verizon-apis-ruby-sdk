@@ -57,11 +57,8 @@ module Verizon
       []
     end
 
-    def initialize(device_id = nil,
-                   log_time = nil,
-                   log_type = nil,
-                   event_log = nil,
-                   binary_log_file_base64 = nil,
+    def initialize(device_id = nil, log_time = nil, log_type = nil,
+                   event_log = nil, binary_log_file_base64 = nil,
                    binary_log_filename = nil)
       @device_id = device_id
       @log_time = log_time

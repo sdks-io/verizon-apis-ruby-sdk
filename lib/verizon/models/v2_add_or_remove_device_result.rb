@@ -40,9 +40,7 @@ module Verizon
       []
     end
 
-    def initialize(account_name = nil,
-                   campaign_id = nil,
-                   request_id = nil)
+    def initialize(account_name = nil, campaign_id = nil, request_id = nil)
       @account_name = account_name
       @campaign_id = campaign_id
       @request_id = request_id

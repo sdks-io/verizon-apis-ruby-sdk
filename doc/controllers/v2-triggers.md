@@ -36,7 +36,7 @@ def create_trigger(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`TriggerV2Response`](../../doc/models/trigger-v2-response.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`TriggerV2Response`](../../doc/models/trigger-v2-response.md).
 
 ## Example Usage
 
@@ -77,7 +77,7 @@ def update_trigger(vz_m2m_token,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`TriggerV2Response`](../../doc/models/trigger-v2-response.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`TriggerV2Response`](../../doc/models/trigger-v2-response.md).
 
 ## Example Usage
 

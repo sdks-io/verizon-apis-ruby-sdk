@@ -9,7 +9,7 @@ module Verizon
     # WNP Query for current network condition.
     # @param [GetNetworkConditionsRequest] body Required parameter: Request for
     # current network health.
-    # @return [WNPRequestResponse] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def near_real_time_network_conditions(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -21,20 +21,21 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(WNPRequestResponse.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'Error response',
-                                WNPRestErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(WNPRequestResponse.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'Error response',
+                                 WNPRestErrorResponseException))
         .execute
     end
 
     # Run a report to determine network types available and available coverage.
-    # Network types covered include: CAT-M, NB-IOT, LTE, LTE-AWS and 5GNW.
+    # Network types covered include: CAT-M, NB-IOT, LTE, LTE-AWS, 5GNW and
+    # C-BAND.
     # @param [GetWirelessCoverageRequest] body Required parameter: Request for
     # network coverage details.
-    # @return [WNPRequestResponse] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def domestic4g_and_5g_nationwide_network_coverage(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -46,12 +47,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(WNPRequestResponse.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'Error response',
-                                WNPRestErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(WNPRequestResponse.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'Error response',
+                                 WNPRestErrorResponseException))
         .execute
     end
 
@@ -59,7 +60,7 @@ module Verizon
     # technology supported by the equipment.
     # @param [GetNetworkConditionsRequest] body Required parameter: Request for
     # cell site proximity.
-    # @return [WNPRequestResponse] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def site_proximity(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -71,19 +72,19 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(WNPRequestResponse.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'Error response',
-                                WNPRestErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(WNPRequestResponse.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'Error response',
+                                 WNPRestErrorResponseException))
         .execute
     end
 
     # A report of a specific device's service scores over a 30 day period.
     # @param [GetDeviceExperienceScoreHistoryRequest] body Required parameter:
     # Request for a device's 30 day experience.
-    # @return [WNPRequestResponse] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def device_experience30days_history(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -95,12 +96,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(WNPRequestResponse.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'Error response',
-                                WNPRestErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(WNPRequestResponse.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'Error response',
+                                 WNPRestErrorResponseException))
         .execute
     end
 
@@ -108,7 +109,7 @@ module Verizon
     # devices.
     # @param [GetDeviceExperienceScoreBulkRequest] body Required parameter:
     # Request for bulk latest history details.
-    # @return [WNPRequestResponse] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def device_experience_bulk_latest(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -120,12 +121,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(WNPRequestResponse.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'Error response',
-                                WNPRestErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(WNPRequestResponse.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'Error response',
+                                 WNPRestErrorResponseException))
         .execute
     end
   end

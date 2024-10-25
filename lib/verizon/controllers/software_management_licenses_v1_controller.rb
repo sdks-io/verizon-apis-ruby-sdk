@@ -12,7 +12,7 @@ module Verizon
     # "##########-#####".
     # @param [V1LicensesAssignedRemovedRequest] body Required parameter: IMEIs
     # of the devices to assign licenses to.
-    # @return [V1LicensesAssignedRemovedResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def assign_licenses_to_devices(account,
                                    body)
       warn 'Endpoint assign_licenses_to_devices in SoftwareManagementLicensesV'\
@@ -29,12 +29,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(V1LicensesAssignedRemovedResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV1ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(V1LicensesAssignedRemovedResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV1ResultException))
         .execute
     end
 
@@ -43,7 +43,7 @@ module Verizon
     # "##########-#####".
     # @param [V1LicensesAssignedRemovedRequest] body Required parameter: IMEIs
     # of the devices to remove licenses from.
-    # @return [V1LicensesAssignedRemovedResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def remove_licenses_from_devices(account,
                                      body)
       warn 'Endpoint remove_licenses_from_devices in SoftwareManagementLicense'\
@@ -60,12 +60,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(V1LicensesAssignedRemovedResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV1ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(V1LicensesAssignedRemovedResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV1ResultException))
         .execute
     end
 
@@ -75,7 +75,7 @@ module Verizon
     # "##########-#####".
     # @param [V1ListOfLicensesToRemoveRequest] body Required parameter:
     # Cancellation candidate device list.
-    # @return [V1ListOfLicensesToRemoveResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def create_list_of_licenses_to_remove(account,
                                           body)
       warn 'Endpoint create_list_of_licenses_to_remove in SoftwareManagementLi'\
@@ -92,19 +92,19 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(V1ListOfLicensesToRemoveResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV1ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(V1ListOfLicensesToRemoveResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV1ResultException))
         .execute
     end
 
     # Deletes the entire list of cancellation candidate devices.
     # @param [String] account Required parameter: Account identifier in
     # "##########-#####".
-    # @return [FotaV1SuccessResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def delete_list_of_licenses_to_remove(account)
       warn 'Endpoint delete_list_of_licenses_to_remove in SoftwareManagementLi'\
            'censesV1Controller is deprecated'
@@ -117,12 +117,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(FotaV1SuccessResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV1ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(FotaV1SuccessResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV1ResultException))
         .execute
     end
 
@@ -134,7 +134,7 @@ module Verizon
     # the first record to return. Set startIndex=0 for the first request. If
     # there are more than 1,000 devices in the response, set startIndex=1000 for
     # the second request, 2000 for the third request, etc.
-    # @return [V1ListOfLicensesToRemove] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_licenses_to_remove(account,
                                 start_index)
       warn 'Endpoint list_licenses_to_remove in SoftwareManagementLicensesV1Co'\
@@ -150,12 +150,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(V1ListOfLicensesToRemove.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV1ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(V1ListOfLicensesToRemove.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV1ResultException))
         .execute
     end
   end

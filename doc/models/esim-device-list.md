@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `device_ids` | [`Array<ESIMDeviceId>`](../../doc/models/esim-device-id.md) | Optional | **Constraints**: *Maximum Items*: `100` |
+| `device_ids` | [`Array<DeviceId2>`](../../doc/models/device-id-2.md) | Optional | **Constraints**: *Maximum Items*: `100` |
 
 ## Example (as JSON)
 

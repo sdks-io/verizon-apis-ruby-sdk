@@ -10,7 +10,7 @@ module Verizon
     # @param [String] acc Required parameter: Account identifier.
     # @param [String] last_seen_device_id Optional parameter: Last seen device
     # identifier.
-    # @return [V3LicenseSummary] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def get_account_licenses_status(acc,
                                     last_seen_device_id: nil)
       new_api_call_builder
@@ -23,19 +23,19 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(V3LicenseSummary.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV3ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(V3LicenseSummary.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV3ResultException))
         .execute
     end
 
     # This endpoint allows user to assign licenses to a list of devices.
     # @param [String] acc Required parameter: Account identifier.
     # @param [V3LicenseIMEI] body Required parameter: License assignment.
-    # @return [V3LicenseAssignedRemovedResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def assign_licenses_to_devices(acc,
                                    body)
       new_api_call_builder
@@ -50,19 +50,19 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(V3LicenseAssignedRemovedResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV3ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(V3LicenseAssignedRemovedResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV3ResultException))
         .execute
     end
 
     # This endpoint allows user to remove licenses from a list of devices.
     # @param [String] acc Required parameter: Account identifier.
     # @param [V3LicenseIMEI] body Required parameter: License removal.
-    # @return [V3LicenseAssignedRemovedResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def remove_licenses_from_devices(acc,
                                      body)
       new_api_call_builder
@@ -77,12 +77,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(V3LicenseAssignedRemovedResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV3ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(V3LicenseAssignedRemovedResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV3ResultException))
         .execute
     end
   end

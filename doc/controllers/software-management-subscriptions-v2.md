@@ -29,7 +29,7 @@ def get_account_subscription_status(account)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FotaV2Subscription`](../../doc/models/fota-v2-subscription.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FotaV2Subscription`](../../doc/models/fota-v2-subscription.md).
 
 ## Example Usage
 

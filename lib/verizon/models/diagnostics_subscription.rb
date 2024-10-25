@@ -57,12 +57,8 @@ module Verizon
       []
     end
 
-    def initialize(account_name = nil,
-                   created_on = nil,
-                   last_updated = nil,
-                   total_allowed = nil,
-                   total_used = nil,
-                   sku_name = nil)
+    def initialize(account_name = nil, created_on = nil, last_updated = nil,
+                   total_allowed = nil, total_used = nil, sku_name = nil)
       @account_name = account_name
       @created_on = created_on
       @last_updated = last_updated

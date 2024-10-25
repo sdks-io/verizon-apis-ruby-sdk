@@ -35,8 +35,7 @@ module Verizon
       []
     end
 
-    def initialize(imei = nil,
-                   msisdn = nil)
+    def initialize(imei = nil, msisdn = nil)
       @imei = imei
       @msisdn = msisdn
     end

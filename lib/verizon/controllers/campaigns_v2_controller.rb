@@ -10,7 +10,7 @@ module Verizon
     # @param [String] account Required parameter: Account identifier.
     # @param [CampaignSoftwareUpgrade] body Required parameter: Software upgrade
     # information.
-    # @return [CampaignSoftware] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def schedule_campaign_firmware_upgrade(account,
                                            body)
       new_api_call_builder
@@ -25,12 +25,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CampaignSoftware.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV2ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CampaignSoftware.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV2ResultException))
         .execute
     end
 
@@ -38,7 +38,7 @@ module Verizon
     # @param [String] account Required parameter: Account identifier.
     # @param [String] campaign_id Required parameter: Software upgrade
     # identifier.
-    # @return [CampaignSoftware] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def get_campaign_information(account,
                                  campaign_id)
       new_api_call_builder
@@ -52,12 +52,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CampaignSoftware.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV2ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CampaignSoftware.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV2ResultException))
         .execute
     end
 
@@ -68,7 +68,7 @@ module Verizon
     # information.
     # @param [V2AddOrRemoveDeviceRequest] body Required parameter: Request to
     # add or remove device to existing software upgrade information.
-    # @return [V2AddOrRemoveDeviceResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def update_campaign_firmware_devices(account,
                                          campaign_id,
                                          body)
@@ -86,12 +86,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(V2AddOrRemoveDeviceResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV2ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(V2AddOrRemoveDeviceResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV2ResultException))
         .execute
     end
 
@@ -100,7 +100,7 @@ module Verizon
     # @param [String] account Required parameter: Account identifier.
     # @param [String] campaign_id Required parameter: Unique identifier of
     # campaign.
-    # @return [FotaV2SuccessResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def cancel_campaign(account,
                         campaign_id)
       new_api_call_builder
@@ -114,12 +114,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(FotaV2SuccessResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV2ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(FotaV2SuccessResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV2ResultException))
         .execute
     end
 
@@ -130,7 +130,7 @@ module Verizon
     # information.
     # @param [V2ChangeCampaignDatesRequest] body Required parameter: New dates
     # and time windows.
-    # @return [CampaignSoftware] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def update_campaign_dates(account,
                               campaign_id,
                               body)
@@ -148,12 +148,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CampaignSoftware.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV2ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CampaignSoftware.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV2ResultException))
         .execute
     end
 
@@ -162,7 +162,7 @@ module Verizon
     # @param [String] acc Required parameter: Account identifier.
     # @param [UploadAndScheduleFileRequest] body Required parameter: Device
     # logging information.
-    # @return [UploadAndScheduleFileResponse] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def schedule_file_upgrade(acc,
                               body)
       new_api_call_builder
@@ -177,12 +177,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(UploadAndScheduleFileResponse.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV2ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(UploadAndScheduleFileResponse.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV2ResultException))
         .execute
     end
 
@@ -191,7 +191,7 @@ module Verizon
     # @param [String] acc Required parameter: Account identifier.
     # @param [SchedulesSoftwareUpgradeRequest] body Required parameter: Device
     # logging information.
-    # @return [UploadAndScheduleFileResponse] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def schedule_sw_upgrade_http_devices(acc,
                                          body)
       new_api_call_builder
@@ -206,12 +206,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(UploadAndScheduleFileResponse.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV2ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(UploadAndScheduleFileResponse.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV2ResultException))
         .execute
     end
   end

@@ -38,8 +38,7 @@ module Verizon
       []
     end
 
-    def initialize(tx_id = SKIP,
-                   status_list = SKIP)
+    def initialize(tx_id = SKIP, status_list = SKIP)
       @tx_id = tx_id unless tx_id == SKIP
       @status_list = status_list unless status_list == SKIP
     end

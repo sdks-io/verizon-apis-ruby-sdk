@@ -104,18 +104,10 @@ module Verizon
       []
     end
 
-    def initialize(address = SKIP,
-                   addressscheme = SKIP,
-                   billingaccountid = SKIP,
-                   createdon = SKIP,
-                   externalid = SKIP,
-                   id = SKIP,
-                   kind = SKIP,
-                   lastupdated = SKIP,
-                   name = SKIP,
-                   region = SKIP,
-                   version = SKIP,
-                   versionid = SKIP,
+    def initialize(address = SKIP, addressscheme = SKIP,
+                   billingaccountid = SKIP, createdon = SKIP, externalid = SKIP,
+                   id = SKIP, kind = SKIP, lastupdated = SKIP, name = SKIP,
+                   region = SKIP, version = SKIP, versionid = SKIP,
                    description = SKIP)
       @address = address unless address == SKIP
       @addressscheme = addressscheme unless addressscheme == SKIP

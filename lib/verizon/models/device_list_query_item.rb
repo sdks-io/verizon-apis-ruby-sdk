@@ -76,14 +76,9 @@ module Verizon
       []
     end
 
-    def initialize(device_id = SKIP,
-                   mdn = SKIP,
-                   model = SKIP,
-                   make = SKIP,
-                   firmware = SKIP,
-                   fota_eligible = SKIP,
-                   license_assigned = SKIP,
-                   upgrade_time = SKIP)
+    def initialize(device_id = SKIP, mdn = SKIP, model = SKIP, make = SKIP,
+                   firmware = SKIP, fota_eligible = SKIP,
+                   license_assigned = SKIP, upgrade_time = SKIP)
       @device_id = device_id unless device_id == SKIP
       @mdn = mdn unless mdn == SKIP
       @model = model unless model == SKIP

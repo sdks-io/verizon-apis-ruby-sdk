@@ -35,7 +35,7 @@ def create_subscription(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Subscription`](../../doc/models/subscription.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Subscription`](../../doc/models/subscription.md).
 
 ## Example Usage
 
@@ -100,7 +100,7 @@ def query_subscription(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<Subscription>`](../../doc/models/subscription.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<Subscription>`](../../doc/models/subscription.md).
 
 ## Example Usage
 
@@ -165,7 +165,7 @@ def delete_subscription(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance.
+This method returns a `ApiResponse` instance.
 
 ## Example Usage
 

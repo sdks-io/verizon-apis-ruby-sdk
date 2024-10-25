@@ -39,7 +39,7 @@ def create_service_profile(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`CreateServiceProfileResult`](../../doc/models/create-service-profile-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`CreateServiceProfileResult`](../../doc/models/create-service-profile-result.md).
 
 ## Example Usage
 
@@ -96,7 +96,7 @@ def list_service_profiles
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ListServiceProfilesResult`](../../doc/models/list-service-profiles-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ListServiceProfilesResult`](../../doc/models/list-service-profiles-result.md).
 
 ## Example Usage
 
@@ -136,7 +136,7 @@ def get_service_profile(service_profile_id)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `service_profile_id` | `String` | Template, Required | - |
+| `service_profile_id` | `String` | Template, Required | **Constraints**: *Maximum Length*: `36`, *Pattern*: ``^[a-zA-Z0-9!@#$&()\-`.+,/"]{3,36}$`` |
 
 ## Requires scope
 
@@ -146,7 +146,7 @@ def get_service_profile(service_profile_id)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ResourcesServiceProfileWithId`](../../doc/models/resources-service-profile-with-id.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ResourcesServiceProfileWithId`](../../doc/models/resources-service-profile-with-id.md).
 
 ## Example Usage
 
@@ -207,7 +207,7 @@ def update_service_profile(service_profile_id,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `service_profile_id` | `String` | Template, Required | - |
+| `service_profile_id` | `String` | Template, Required | **Constraints**: *Maximum Length*: `36`, *Pattern*: ``^[a-zA-Z0-9!@#$&()\-`.+,/"]{3,36}$`` |
 | `body` | [`ResourcesServiceProfile`](../../doc/models/resources-service-profile.md) | Body, Required | The request body passes the rest of the needed parameters to create a service profile. The `maxLatencyMs` and `clientType` parameters are both required in the request body. **Note:** The `maxLatencyMs` value must be submitted in multiples of 5. Additionally, "GPU" is future functionality and the values are not captured. Default values to use are shown. |
 
 ## Requires scope
@@ -218,7 +218,7 @@ def update_service_profile(service_profile_id,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`UpdateServiceProfileResult`](../../doc/models/update-service-profile-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`UpdateServiceProfileResult`](../../doc/models/update-service-profile-result.md).
 
 ## Example Usage
 
@@ -282,7 +282,7 @@ def delete_service_profile(service_profile_id)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `service_profile_id` | `String` | Template, Required | - |
+| `service_profile_id` | `String` | Template, Required | **Constraints**: *Maximum Length*: `36`, *Pattern*: ``^[a-zA-Z0-9!@#$&()\-`.+,/"]{3,36}$`` |
 
 ## Requires scope
 
@@ -292,7 +292,7 @@ def delete_service_profile(service_profile_id)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeleteServiceProfileResult`](../../doc/models/delete-service-profile-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeleteServiceProfileResult`](../../doc/models/delete-service-profile-result.md).
 
 ## Example Usage
 

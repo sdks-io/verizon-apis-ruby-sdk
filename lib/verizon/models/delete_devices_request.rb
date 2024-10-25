@@ -39,8 +39,7 @@ module Verizon
       []
     end
 
-    def initialize(devices_to_delete = nil,
-                   account_name = SKIP)
+    def initialize(devices_to_delete = nil, account_name = SKIP)
       @devices_to_delete = devices_to_delete
       @account_name = account_name unless account_name == SKIP
     end

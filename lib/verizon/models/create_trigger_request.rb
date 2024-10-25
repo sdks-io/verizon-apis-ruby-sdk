@@ -80,15 +80,10 @@ module Verizon
       []
     end
 
-    def initialize(account_name = SKIP,
-                   anomaly_trigger_request = SKIP,
-                   data_trigger_request = SKIP,
-                   group_name = SKIP,
-                   name = SKIP,
-                   session_trigger_request = SKIP,
-                   sms_trigger_request = SKIP,
-                   trigger_category = SKIP,
-                   trigger_cycle = SKIP)
+    def initialize(account_name = SKIP, anomaly_trigger_request = SKIP,
+                   data_trigger_request = SKIP, group_name = SKIP, name = SKIP,
+                   session_trigger_request = SKIP, sms_trigger_request = SKIP,
+                   trigger_category = SKIP, trigger_cycle = SKIP)
       @account_name = account_name unless account_name == SKIP
       @anomaly_trigger_request = anomaly_trigger_request unless anomaly_trigger_request == SKIP
       @data_trigger_request = data_trigger_request unless data_trigger_request == SKIP

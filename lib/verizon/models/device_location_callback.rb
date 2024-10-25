@@ -35,8 +35,7 @@ module Verizon
       []
     end
 
-    def initialize(name = nil,
-                   url = nil)
+    def initialize(name = nil, url = nil)
       @name = name
       @url = url
     end

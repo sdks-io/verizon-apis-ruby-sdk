@@ -51,9 +51,7 @@ module Verizon
       []
     end
 
-    def initialize(count = SKIP,
-                   has_more_data = SKIP,
-                   update_time = SKIP,
+    def initialize(count = SKIP, has_more_data = SKIP, update_time = SKIP,
                    device_list = SKIP)
       @count = count unless count == SKIP
       @has_more_data = has_more_data unless has_more_data == SKIP

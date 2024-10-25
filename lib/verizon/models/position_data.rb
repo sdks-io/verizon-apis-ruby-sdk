@@ -62,12 +62,8 @@ module Verizon
       []
     end
 
-    def initialize(time = SKIP,
-                   utcoffset = SKIP,
-                   x = SKIP,
-                   y = SKIP,
-                   radius = SKIP,
-                   qos = SKIP)
+    def initialize(time = SKIP, utcoffset = SKIP, x = SKIP, y = SKIP,
+                   radius = SKIP, qos = SKIP)
       @time = time unless time == SKIP
       @utcoffset = utcoffset unless utcoffset == SKIP
       @x = x unless x == SKIP

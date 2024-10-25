@@ -75,14 +75,9 @@ module Verizon
       []
     end
 
-    def initialize(occurred_at = SKIP,
-                   status = SKIP,
-                   event_by = SKIP,
-                   event_type = SKIP,
-                   mdn = SKIP,
-                   msisdn = SKIP,
-                   service_plan = SKIP,
-                   extended_attributes = SKIP)
+    def initialize(occurred_at = SKIP, status = SKIP, event_by = SKIP,
+                   event_type = SKIP, mdn = SKIP, msisdn = SKIP,
+                   service_plan = SKIP, extended_attributes = SKIP)
       @occurred_at = occurred_at unless occurred_at == SKIP
       @status = status unless status == SKIP
       @event_by = event_by unless event_by == SKIP

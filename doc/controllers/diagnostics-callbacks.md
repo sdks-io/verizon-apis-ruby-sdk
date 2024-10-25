@@ -35,7 +35,7 @@ def get_diagnostics_subscription_callback_info(account_name)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<DeviceDiagnosticsCallback>`](../../doc/models/device-diagnostics-callback.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<DeviceDiagnosticsCallback>`](../../doc/models/device-diagnostics-callback.md).
 
 ## Example Usage
 
@@ -86,7 +86,7 @@ def register_diagnostics_callback_url(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceDiagnosticsCallback`](../../doc/models/device-diagnostics-callback.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceDiagnosticsCallback`](../../doc/models/device-diagnostics-callback.md).
 
 ## Example Usage
 
@@ -142,7 +142,7 @@ def unregister_diagnostics_callback(account_name,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceDiagnosticsCallback`](../../doc/models/device-diagnostics-callback.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceDiagnosticsCallback`](../../doc/models/device-diagnostics-callback.md).
 
 ## Example Usage
 

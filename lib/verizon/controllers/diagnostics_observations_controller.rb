@@ -9,7 +9,7 @@ module Verizon
     # This endpoint allows the user to start or change observe diagnostics.
     # @param [ObservationRequest] body Required parameter: Request for device
     # observation information.
-    # @return [DiagnosticsObservationResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def start_diagnostics_observation(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -21,12 +21,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DiagnosticsObservationResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'Error response.',
-                                DeviceDiagnosticsResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DiagnosticsObservationResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'Error response.',
+                                 DeviceDiagnosticsResultException))
         .execute
     end
 
@@ -35,7 +35,7 @@ module Verizon
     # with the transaction.
     # @param [String] account_name Required parameter: The numeric account
     # name.
-    # @return [DiagnosticsObservationResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def stop_diagnostics_observation(transaction_id,
                                      account_name)
       new_api_call_builder
@@ -47,12 +47,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DiagnosticsObservationResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'Error response.',
-                                DeviceDiagnosticsResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DiagnosticsObservationResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'Error response.',
+                                 DeviceDiagnosticsResultException))
         .execute
     end
   end

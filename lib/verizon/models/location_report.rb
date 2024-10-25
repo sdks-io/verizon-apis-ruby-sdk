@@ -59,11 +59,8 @@ module Verizon
       []
     end
 
-    def initialize(dev_location_list = SKIP,
-                   has_more_data = SKIP,
-                   start_index = SKIP,
-                   total_count = SKIP,
-                   txid = SKIP)
+    def initialize(dev_location_list = SKIP, has_more_data = SKIP,
+                   start_index = SKIP, total_count = SKIP, txid = SKIP)
       @dev_location_list = dev_location_list unless dev_location_list == SKIP
       @has_more_data = has_more_data unless has_more_data == SKIP
       @start_index = start_index unless start_index == SKIP

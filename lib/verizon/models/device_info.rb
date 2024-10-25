@@ -41,9 +41,7 @@ module Verizon
       []
     end
 
-    def initialize(id = nil,
-                   kind = nil,
-                   mdn = nil)
+    def initialize(id = nil, kind = nil, mdn = nil)
       @id = id
       @kind = kind
       @mdn = mdn

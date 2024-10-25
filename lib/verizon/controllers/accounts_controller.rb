@@ -8,7 +8,7 @@ module Verizon
   class AccountsController < BaseController
     # Returns information about a specified account.
     # @param [String] aname Required parameter: Account name.
-    # @return [Account] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def get_account_information(aname)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -19,19 +19,19 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Account.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(Account.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
     # Returns a list and details of all custom services and states defined for a
     # specified account.
     # @param [String] aname Required parameter: Account name.
-    # @return [AccountStatesAndServices] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_account_states_and_services(aname)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -42,12 +42,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(AccountStatesAndServices.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(AccountStatesAndServices.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
@@ -57,7 +57,7 @@ module Verizon
     # @param [String] aname Required parameter: Account name.
     # @param [Integer] mnext Optional parameter: Continue the previous query
     # from the pageUrl in Location Header.
-    # @return [AccountLeadsResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_account_leads(aname,
                            mnext: nil)
       new_api_call_builder
@@ -70,12 +70,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(AccountLeadsResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(AccountLeadsResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
   end

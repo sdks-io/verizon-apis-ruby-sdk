@@ -15,7 +15,7 @@ module Verizon
     # IMEIs larger than this value. Use 0 for the first request. If
     # `hasMoreData`=true in the response, use the `lastSeenDeviceId` value from
     # the response as the startIndex in the next request.
-    # @return [DeviceListQueryResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_account_devices(account,
                              start_index)
       new_api_call_builder
@@ -29,12 +29,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceListQueryResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV1ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceListQueryResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV1ResultException))
         .execute
     end
 
@@ -47,7 +47,7 @@ module Verizon
     # the first record to return. Set startIndex=0 for the first request. If
     # `hasMoreFlag`=true in the response, use the `lastSeenUpgradeId` value from
     # the response as the startIndex in the next request.
-    # @return [UpgradeListQueryResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_upgrades_for_specified_status(account,
                                            upgrade_status,
                                            start_index)
@@ -64,12 +64,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(UpgradeListQueryResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV1ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(UpgradeListQueryResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV1ResultException))
         .execute
     end
 
@@ -78,7 +78,7 @@ module Verizon
     # @param [String] account Required parameter: Account identifier in
     # "##########-#####".
     # @param [String] device_id Required parameter: The IMEI of the device.
-    # @return [Array[DeviceUpgradeHistory]] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def get_device_firmware_upgrade_history(account,
                                             device_id)
       new_api_call_builder
@@ -92,13 +92,13 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceUpgradeHistory.method(:from_hash))
-                   .is_api_response(true)
-                   .is_response_array(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV1ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceUpgradeHistory.method(:from_hash))
+                    .is_api_response(true)
+                    .is_response_array(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV1ResultException))
         .execute
     end
   end

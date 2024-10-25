@@ -97,17 +97,10 @@ module Verizon
       []
     end
 
-    def initialize(account_name = nil,
-                   id = nil,
-                   make = nil,
-                   model = nil,
-                   start_date = nil,
-                   end_date = nil,
-                   status = nil,
-                   campaign_name = SKIP,
-                   firmware_name = SKIP,
-                   firmware_from = SKIP,
-                   firmware_to = SKIP,
+    def initialize(account_name = nil, id = nil, make = nil, model = nil,
+                   start_date = nil, end_date = nil, status = nil,
+                   campaign_name = SKIP, firmware_name = SKIP,
+                   firmware_from = SKIP, firmware_to = SKIP,
                    protocol = CampaignMetaInfoProtocolEnum::LW_M2M,
                    campaign_time_window_list = SKIP)
       @account_name = account_name

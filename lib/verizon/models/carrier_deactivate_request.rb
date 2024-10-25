@@ -79,14 +79,9 @@ module Verizon
       []
     end
 
-    def initialize(account_name = nil,
-                   devices = nil,
-                   reason_code = nil,
-                   custom_fields = SKIP,
-                   etf_waiver = SKIP,
-                   group_name = SKIP,
-                   service_plan = SKIP,
-                   delete_after_deactivation = SKIP)
+    def initialize(account_name = nil, devices = nil, reason_code = nil,
+                   custom_fields = SKIP, etf_waiver = SKIP, group_name = SKIP,
+                   service_plan = SKIP, delete_after_deactivation = SKIP)
       @account_name = account_name
       @devices = devices
       @reason_code = reason_code

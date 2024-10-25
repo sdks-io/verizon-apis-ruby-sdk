@@ -32,19 +32,19 @@ module Verizon
       # TODO: Write general description for TS_APPLICATION_RO
       TS_APPLICATION_RO = 'ts.application.ro'.freeze,
 
-      # TODO: Write general description for EDGEDISCOVERYREAD
+      # Read access to the discovery service
       EDGEDISCOVERYREAD = 'edge:discovery:read'.freeze,
 
-      # TODO: Write general description for EDGESERVICEPROFILEREAD
+      # Read access to the service profile service
       EDGESERVICEPROFILEREAD = 'edge:serviceprofile:read'.freeze,
 
-      # TODO: Write general description for EDGESERVICEPROFILEWRITE
+      # Write access to the service profile service
       EDGESERVICEPROFILEWRITE = 'edge:serviceprofile:write'.freeze,
 
-      # TODO: Write general description for EDGESERVICEREGISTRYREAD
+      # Read access to the service registry service
       EDGESERVICEREGISTRYREAD = 'edge:serviceregistry:read'.freeze,
 
-      # TODO: Write general description for EDGESERVICEREGISTRYWRITE
+      # Write access to the service registry service
       EDGESERVICEREGISTRYWRITE = 'edge:serviceregistry:write'.freeze,
 
       # read access

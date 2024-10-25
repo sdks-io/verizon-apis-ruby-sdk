@@ -80,14 +80,10 @@ module Verizon
       []
     end
 
-    def initialize(account_name = nil,
-                   service_name = ServiceNameEnum::LOCATION,
-                   threshold_value = nil,
-                   trigger_name = SKIP,
-                   allow_excess = SKIP,
-                   send_sms_notification = SKIP,
-                   sms_phone_numbers = SKIP,
-                   send_email_notification = SKIP,
+    def initialize(account_name = nil, service_name = ServiceNameEnum::LOCATION,
+                   threshold_value = nil, trigger_name = SKIP,
+                   allow_excess = SKIP, send_sms_notification = SKIP,
+                   sms_phone_numbers = SKIP, send_email_notification = SKIP,
                    email_addresses = SKIP)
       @trigger_name = trigger_name unless trigger_name == SKIP
       @account_name = account_name

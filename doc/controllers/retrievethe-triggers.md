@@ -30,7 +30,7 @@ def get_all_available_triggers
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`TriggerValueResponse`](../../doc/models/trigger-value-response.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`TriggerValueResponse`](../../doc/models/trigger-value-response.md).
 
 ## Example Usage
 
@@ -65,7 +65,7 @@ def get_all_triggers_by_account_name(account_name)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`TriggerValueResponse`](../../doc/models/trigger-value-response.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`TriggerValueResponse`](../../doc/models/trigger-value-response.md).
 
 ## Example Usage
 
@@ -96,7 +96,7 @@ def get_all_triggers_by_trigger_category
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`TriggerValueResponse2`](../../doc/models/trigger-value-response-2.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`TriggerValueResponse2`](../../doc/models/trigger-value-response-2.md).
 
 ## Example Usage
 
@@ -131,7 +131,7 @@ def get_triggers_by_id(trigger_id)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`TriggerValueResponse2`](../../doc/models/trigger-value-response-2.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`TriggerValueResponse2`](../../doc/models/trigger-value-response-2.md).
 
 ## Example Usage
 

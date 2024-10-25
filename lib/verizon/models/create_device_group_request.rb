@@ -51,10 +51,8 @@ module Verizon
       []
     end
 
-    def initialize(account_name = nil,
-                   group_description = nil,
-                   group_name = nil,
-                   devices_to_add = SKIP)
+    def initialize(account_name = nil, group_description = nil,
+                   group_name = nil, devices_to_add = SKIP)
       @account_name = account_name
       @group_description = group_description
       @group_name = group_name

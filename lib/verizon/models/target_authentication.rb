@@ -38,8 +38,7 @@ module Verizon
       []
     end
 
-    def initialize(body = SKIP,
-                   version = SKIP)
+    def initialize(body = SKIP, version = SKIP)
       @body = body unless body == SKIP
       @version = version unless version == SKIP
     end

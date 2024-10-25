@@ -13,7 +13,7 @@ module Verizon
     # status.
     # @param [String] last_seen_campaign_id Optional parameter: Last seen
     # campaign Id.
-    # @return [V3CampaignHistory] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def get_campaign_history_by_status(acc,
                                        campaign_status,
                                        last_seen_campaign_id: nil)
@@ -28,19 +28,19 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(V3CampaignHistory.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV3ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(V3CampaignHistory.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV3ResultException))
         .execute
     end
 
     # Retrieve campaign history for a specific device.
     # @param [String] acc Required parameter: Account identifier.
     # @param [String] device_id Required parameter: Device IMEI identifier.
-    # @return [Array[DeviceFirmwareUpgrade]] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def get_device_firmware_upgrade_history(acc,
                                             device_id)
       new_api_call_builder
@@ -54,13 +54,13 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceFirmwareUpgrade.method(:from_hash))
-                   .is_api_response(true)
-                   .is_response_array(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV3ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceFirmwareUpgrade.method(:from_hash))
+                    .is_api_response(true)
+                    .is_response_array(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV3ResultException))
         .execute
     end
 
@@ -70,7 +70,7 @@ module Verizon
     # @param [String] campaign_id Required parameter: Campaign identifier.
     # @param [String] last_seen_device_id Optional parameter: Last seen device
     # identifier.
-    # @return [V3CampaignDevice] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def get_campaign_device_status(acc,
                                    campaign_id,
                                    last_seen_device_id: nil)
@@ -86,12 +86,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(V3CampaignDevice.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV3ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(V3CampaignDevice.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV3ResultException))
         .execute
     end
   end

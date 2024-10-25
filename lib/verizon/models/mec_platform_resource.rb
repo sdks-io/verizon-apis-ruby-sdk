@@ -61,11 +61,8 @@ module Verizon
       ]
     end
 
-    def initialize(ern = SKIP,
-                   zone = SKIP,
-                   region = SKIP,
-                   status = MECPlatformStatusEnum::UNKNOWN,
-                   properties = SKIP)
+    def initialize(ern = SKIP, zone = SKIP, region = SKIP,
+                   status = MECPlatformStatusEnum::UNKNOWN, properties = SKIP)
       @ern = ern unless ern == SKIP
       @zone = zone unless zone == SKIP
       @region = region unless region == SKIP

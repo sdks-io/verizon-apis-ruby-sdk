@@ -50,9 +50,7 @@ module Verizon
       []
     end
 
-    def initialize(account_name = SKIP,
-                   lic_count = SKIP,
-                   lic_used_count = SKIP,
+    def initialize(account_name = SKIP, lic_count = SKIP, lic_used_count = SKIP,
                    device_list = SKIP)
       @account_name = account_name unless account_name == SKIP
       @lic_count = lic_count unless lic_count == SKIP

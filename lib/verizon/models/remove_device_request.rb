@@ -37,8 +37,7 @@ module Verizon
       []
     end
 
-    def initialize(accountidentifier = nil,
-                   resourceidentifier = nil)
+    def initialize(accountidentifier = nil, resourceidentifier = nil)
       @accountidentifier = accountidentifier
       @resourceidentifier = resourceidentifier
     end

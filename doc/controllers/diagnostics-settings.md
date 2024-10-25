@@ -31,7 +31,7 @@ def list_diagnostics_settings(account_name,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<DiagnosticObservationSetting>`](../../doc/models/diagnostic-observation-setting.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<DiagnosticObservationSetting>`](../../doc/models/diagnostic-observation-setting.md).
 
 ## Example Usage
 

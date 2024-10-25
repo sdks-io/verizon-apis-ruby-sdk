@@ -36,7 +36,7 @@ def send_an_sms_message(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`GIORequestResponse`](../../doc/models/gio-request-response.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`GIORequestResponse`](../../doc/models/gio-request-response.md).
 
 ## Example Usage
 
@@ -74,8 +74,8 @@ def get_sms_messages(account_name,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `account_name` | `String` | Template, Required | Numeric account name |
-| `mnext` | `String` | Query, Optional | Continue the previous query from the pageUrl in Location Header |
+| `account_name` | `String` | Template, Required | Numeric account name<br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[A-Za-z0-9\-]{3,32}$` |
+| `mnext` | `String` | Query, Optional | Continue the previous query from the pageUrl in Location Header<br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `64`, *Pattern*: `^[A-Za-z0-9]{3,32}$` |
 
 ## Server
 
@@ -83,7 +83,7 @@ def get_sms_messages(account_name,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`SmsMessagesResponse`](../../doc/models/sms-messages-response.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`SmsMessagesResponse`](../../doc/models/sms-messages-response.md).
 
 ## Example Usage
 
@@ -117,7 +117,7 @@ def start_sms_message_delivery(account_name)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `account_name` | `String` | Template, Required | Numeric account name |
+| `account_name` | `String` | Template, Required | Numeric account name<br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[A-Za-z0-9\-]{3,32}$` |
 
 ## Server
 
@@ -125,7 +125,7 @@ def start_sms_message_delivery(account_name)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`SuccessResponse`](../../doc/models/success-response.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`SuccessResponse`](../../doc/models/success-response.md).
 
 ## Example Usage
 
@@ -162,7 +162,7 @@ def list_sms_message_history(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`GIORequestResponse`](../../doc/models/gio-request-response.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`GIORequestResponse`](../../doc/models/gio-request-response.md).
 
 ## Example Usage
 

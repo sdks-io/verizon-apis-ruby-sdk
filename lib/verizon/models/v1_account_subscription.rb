@@ -56,10 +56,8 @@ module Verizon
       []
     end
 
-    def initialize(account_name = SKIP,
-                   purchase_type = SKIP,
-                   license_count = SKIP,
-                   license_used_count = SKIP,
+    def initialize(account_name = SKIP, purchase_type = SKIP,
+                   license_count = SKIP, license_used_count = SKIP,
                    update_time = SKIP)
       @account_name = account_name unless account_name == SKIP
       @purchase_type = purchase_type unless purchase_type == SKIP

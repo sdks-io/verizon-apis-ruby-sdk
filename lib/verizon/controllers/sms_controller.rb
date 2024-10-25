@@ -10,7 +10,7 @@ module Verizon
     # possible, but they may be delayed due to traffic and routing
     # considerations.
     # @param [SMSSendRequest] body Required parameter: Request to send SMS.
-    # @return [DeviceManagementResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def send_sms_to_device(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -22,12 +22,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceManagementResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceManagementResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
@@ -37,7 +37,7 @@ module Verizon
     # @param [String] aname Required parameter: Account name.
     # @param [Integer] mnext Optional parameter: Continue the previous query
     # from the URL in Location Header.
-    # @return [SMSMessagesQueryResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_devices_sms_messages(aname,
                                   mnext: nil)
       new_api_call_builder
@@ -50,12 +50,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SMSMessagesQueryResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(SMSMessagesQueryResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
@@ -65,7 +65,7 @@ module Verizon
     # application, either by callback or synchronously with GET
     # /sms/{accountName}/history.
     # @param [String] aname Required parameter: Account name.
-    # @return [ConnectivityManagementSuccessResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def start_queued_sms_delivery(aname)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
@@ -76,12 +76,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ConnectivityManagementSuccessResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ConnectivityManagementSuccessResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
   end

@@ -44,9 +44,7 @@ module Verizon
       []
     end
 
-    def initialize(hasmoredata = SKIP,
-                   device_id = SKIP,
-                   usage_history = SKIP)
+    def initialize(hasmoredata = SKIP, device_id = SKIP, usage_history = SKIP)
       @hasmoredata = hasmoredata unless hasmoredata == SKIP
       @device_id = device_id unless device_id == SKIP
       @usage_history = usage_history unless usage_history == SKIP

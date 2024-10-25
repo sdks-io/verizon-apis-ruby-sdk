@@ -74,14 +74,9 @@ module Verizon
       []
     end
 
-    def initialize(acceleration = SKIP,
-                   battery = SKIP,
-                   humidity = SKIP,
-                   light = SKIP,
-                   pressure = SKIP,
-                   signal_strength = SKIP,
-                   temperature = SKIP,
-                   device_propertylocation = SKIP)
+    def initialize(acceleration = SKIP, battery = SKIP, humidity = SKIP,
+                   light = SKIP, pressure = SKIP, signal_strength = SKIP,
+                   temperature = SKIP, device_propertylocation = SKIP)
       @acceleration = acceleration unless acceleration == SKIP
       @battery = battery unless battery == SKIP
       @humidity = humidity unless humidity == SKIP

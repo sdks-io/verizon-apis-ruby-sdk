@@ -56,11 +56,8 @@ module Verizon
       []
     end
 
-    def initialize(carrier_service_plan_code = SKIP,
-                   code = SKIP,
-                   extended_attributes = SKIP,
-                   name = SKIP,
-                   size_kb = SKIP)
+    def initialize(carrier_service_plan_code = SKIP, code = SKIP,
+                   extended_attributes = SKIP, name = SKIP, size_kb = SKIP)
       unless carrier_service_plan_code == SKIP
         @carrier_service_plan_code =
           carrier_service_plan_code

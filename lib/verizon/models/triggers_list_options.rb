@@ -82,14 +82,10 @@ module Verizon
       []
     end
 
-    def initialize(trigger_id = SKIP,
-                   trigger_name = SKIP,
-                   organization_name = SKIP,
-                   trigger_category = SKIP,
-                   trigger_attributes = SKIP,
-                   created_at = SKIP,
-                   modified_at = SKIP,
-                   anomalyattributes = SKIP,
+    def initialize(trigger_id = SKIP, trigger_name = SKIP,
+                   organization_name = SKIP, trigger_category = SKIP,
+                   trigger_attributes = SKIP, created_at = SKIP,
+                   modified_at = SKIP, anomalyattributes = SKIP,
                    notification = SKIP)
       @trigger_id = trigger_id unless trigger_id == SKIP
       @trigger_name = trigger_name unless trigger_name == SKIP

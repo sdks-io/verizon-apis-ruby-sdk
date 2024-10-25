@@ -40,8 +40,7 @@ module Verizon
       []
     end
 
-    def initialize(start_on = SKIP,
-                   duration = SKIP)
+    def initialize(start_on = SKIP, duration = SKIP)
       @start_on = start_on unless start_on == SKIP
       @duration = duration unless duration == SKIP
     end

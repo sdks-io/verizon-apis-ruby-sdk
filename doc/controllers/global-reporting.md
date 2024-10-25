@@ -11,12 +11,12 @@ global_reporting_controller = client.global_reporting
 ## Methods
 
 * [Deviceprovhistory Using POST](../../doc/controllers/global-reporting.md#deviceprovhistory-using-post)
-* [Requeststatususing GET](../../doc/controllers/global-reporting.md#requeststatususing-get)
+* [Retrieve Global List](../../doc/controllers/global-reporting.md#retrieve-global-list)
 
 
 # Deviceprovhistory Using POST
 
-Retreive the provisioning history of a specific device or devices.
+Retrieve the provisioning history of a specific device or devices.
 
 ```ruby
 def deviceprovhistory_using_post(body)
@@ -34,7 +34,7 @@ def deviceprovhistory_using_post(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ESIMRequestResponse`](../../doc/models/esim-request-response.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ESIMRequestResponse`](../../doc/models/esim-request-response.md).
 
 ## Example Usage
 
@@ -70,21 +70,19 @@ result = global_reporting_controller.deviceprovhistory_using_post(body)
 | Default | Error response | [`ESIMRestErrorResponseException`](../../doc/models/esim-rest-error-response-exception.md) |
 
 
-# Requeststatususing GET
+# Retrieve Global List
 
-Get the status of a request made with the Device Actions.
+Retrieve a list of all devices associated with an account.
 
 ```ruby
-def requeststatususing_get(accountname,
-                           request_id)
+def retrieve_global_list(body)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `accountname` | `String` | Template, Required | - |
-| `request_id` | `String` | Template, Required | - |
+| `body` | [`ESIMGlobalDeviceList`](../../doc/models/esim-global-device-list.md) | Body, Required | Device List |
 
 ## Server
 
@@ -92,37 +90,19 @@ def requeststatususing_get(accountname,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ESIMStatusResponse`](../../doc/models/esim-status-response.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ESIMRequestResponse`](../../doc/models/esim-request-response.md).
 
 ## Example Usage
 
 ```ruby
-accountname = '0000123456-00001'
-
-request_id = '86c83330-4bf5-4235-9c4e-a83f93aeae4c'
-
-result = global_reporting_controller.requeststatususing_get(
-  accountname,
-  request_id
+body = ESIMGlobalDeviceList.new(
+  '0000123456-00001',
+  nil,
+  nil,
+  'VerizonWireless'
 )
-```
 
-## Example Response *(as JSON)*
-
-```json
-{
-  "requestId": "d1f08526-5443-4054-9a29-4456490ea9f8",
-  "status": "Success",
-  "subrequests": [
-    {
-      "id": "32-digit EID",
-      "kind": "eid"
-    },
-    {
-      "status": "success"
-    }
-  ]
-}
+result = global_reporting_controller.retrieve_global_list(body)
 ```
 
 ## Errors

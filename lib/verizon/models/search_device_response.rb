@@ -107,19 +107,10 @@ module Verizon
       []
     end
 
-    def initialize(action = SKIP,
-                   createdon = SKIP,
-                   deviceid = SKIP,
-                   fields = SKIP,
-                   id = SKIP,
-                   kind = SKIP,
-                   lastupdated = SKIP,
-                   name = SKIP,
-                   state = SKIP,
-                   tagids = SKIP,
-                   transactionid = SKIP,
-                   version = SKIP,
-                   versionid = SKIP)
+    def initialize(action = SKIP, createdon = SKIP, deviceid = SKIP,
+                   fields = SKIP, id = SKIP, kind = SKIP, lastupdated = SKIP,
+                   name = SKIP, state = SKIP, tagids = SKIP,
+                   transactionid = SKIP, version = SKIP, versionid = SKIP)
       @action = action unless action == SKIP
       @createdon = createdon unless createdon == SKIP
       @deviceid = deviceid unless deviceid == SKIP

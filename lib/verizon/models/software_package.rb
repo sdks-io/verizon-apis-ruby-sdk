@@ -62,13 +62,9 @@ module Verizon
       []
     end
 
-    def initialize(software_name = nil,
-                   launch_date = nil,
-                   model = nil,
-                   make = nil,
-                   distribution_type = nil,
-                   device_platform_id = nil,
-                   release_note = SKIP)
+    def initialize(software_name = nil, launch_date = nil, model = nil,
+                   make = nil, distribution_type = nil,
+                   device_platform_id = nil, release_note = SKIP)
       @software_name = software_name
       @launch_date = launch_date
       @release_note = release_note unless release_note == SKIP

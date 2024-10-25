@@ -10,7 +10,7 @@ module Verizon
     # types include: LTE, C-BAND and MMWAVE.
     # @param [GetWirelessCoverageRequestFWA] body Required parameter: Request
     # for network coverage details.
-    # @return [WNPRequestResponse] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def domestic4g_and_5g_fixed_wireless_qualification(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -22,12 +22,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(WNPRequestResponse.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'Error response',
-                                WNPRestErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(WNPRequestResponse.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'Error response',
+                                 WNPRestErrorResponseException))
         .execute
     end
   end

@@ -31,7 +31,7 @@ def get_device_check_in_history(account,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<CheckInHistoryItem>`](../../doc/models/check-in-history-item.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<CheckInHistoryItem>`](../../doc/models/check-in-history-item.md).
 
 ## Example Usage
 

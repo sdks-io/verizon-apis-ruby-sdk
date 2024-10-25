@@ -50,11 +50,8 @@ module Verizon
       []
     end
 
-    def initialize(account_name = nil,
-                   request_type = nil,
-                   location_type = nil,
-                   locations = nil,
-                   network_types_list = nil)
+    def initialize(account_name = nil, request_type = nil, location_type = nil,
+                   locations = nil, network_types_list = nil)
       @account_name = account_name
       @request_type = request_type
       @location_type = location_type

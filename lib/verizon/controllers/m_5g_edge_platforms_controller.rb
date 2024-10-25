@@ -24,7 +24,7 @@ module Verizon
     # @param [String] ue_identity Optional parameter: The identifier value for
     # User Equipment. The type of identifier is defined by the 'UEIdentityType'
     # parameter. The`IPAddress`format can be IPv4 or IPv6.
-    # @return [ListMECPlatformsResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_mec_platforms(region: nil,
                            service_profile_id: nil,
                            subscriber_density: nil,
@@ -42,25 +42,25 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ListMECPlatformsResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'HTTP 400 Bad Request.',
-                                EdgeDiscoveryResultException)
-                   .local_error('401',
-                                'HTTP 401 Unauthorized.',
-                                EdgeDiscoveryResultException)
-                   .local_error('default',
-                                'HTTP 500 Internal Server Error.',
-                                EdgeDiscoveryResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ListMECPlatformsResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'HTTP 400 Bad Request.',
+                                 EdgeDiscoveryResultException)
+                    .local_error('401',
+                                 'HTTP 401 Unauthorized.',
+                                 EdgeDiscoveryResultException)
+                    .local_error('default',
+                                 'HTTP 500 Internal Server Error.',
+                                 EdgeDiscoveryResultException))
         .execute
     end
 
     # List the geographical regions available, based on the user's bearer token.
     # **Note:** Country code, Metropolitan area, Area and Zone are future
     # functionality and will currently return a "null" value.
-    # @return [ListRegionsResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_regions
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -69,18 +69,18 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ListRegionsResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'HTTP 400 Bad Request.',
-                                EdgeDiscoveryResultException)
-                   .local_error('401',
-                                'HTTP 401 Unauthorized.',
-                                EdgeDiscoveryResultException)
-                   .local_error('default',
-                                'HTTP 500 Internal Server Error.',
-                                EdgeDiscoveryResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ListRegionsResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'HTTP 400 Bad Request.',
+                                 EdgeDiscoveryResultException)
+                    .local_error('401',
+                                 'HTTP 401 Unauthorized.',
+                                 EdgeDiscoveryResultException)
+                    .local_error('default',
+                                 'HTTP 500 Internal Server Error.',
+                                 EdgeDiscoveryResultException))
         .execute
     end
   end

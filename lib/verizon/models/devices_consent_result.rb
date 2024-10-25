@@ -62,12 +62,8 @@ module Verizon
       []
     end
 
-    def initialize(account_name = SKIP,
-                   all_device = SKIP,
-                   has_more_data = SKIP,
-                   total_count = SKIP,
-                   update_time = SKIP,
-                   exclusion = SKIP)
+    def initialize(account_name = SKIP, all_device = SKIP, has_more_data = SKIP,
+                   total_count = SKIP, update_time = SKIP, exclusion = SKIP)
       @account_name = account_name unless account_name == SKIP
       @all_device = all_device unless all_device == SKIP
       @has_more_data = has_more_data unless has_more_data == SKIP

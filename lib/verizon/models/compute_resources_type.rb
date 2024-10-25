@@ -44,9 +44,7 @@ module Verizon
       []
     end
 
-    def initialize(gpu = SKIP,
-                   min_ramgb = SKIP,
-                   min_storage_gb = SKIP)
+    def initialize(gpu = SKIP, min_ramgb = SKIP, min_storage_gb = SKIP)
       @gpu = gpu unless gpu == SKIP
       @min_ramgb = min_ramgb unless min_ramgb == SKIP
       @min_storage_gb = min_storage_gb unless min_storage_gb == SKIP

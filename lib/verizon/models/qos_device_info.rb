@@ -42,9 +42,7 @@ module Verizon
       []
     end
 
-    def initialize(device_id = nil,
-                   flow_info = nil,
-                   device_i_pv6_addr = SKIP)
+    def initialize(device_id = nil, flow_info = nil, device_i_pv6_addr = SKIP)
       @device_id = device_id
       @device_i_pv6_addr = device_i_pv6_addr unless device_i_pv6_addr == SKIP
       @flow_info = flow_info

@@ -8,7 +8,7 @@ module Verizon
   class SoftwareManagementCallbacksV2Controller < BaseController
     # This endpoint allows user to get the registered callback information.
     # @param [String] account Required parameter: Account identifier.
-    # @return [CallbackSummary] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_registered_callbacks(account)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -19,12 +19,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CallbackSummary.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV2ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CallbackSummary.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV2ResultException))
         .execute
     end
 
@@ -32,7 +32,7 @@ module Verizon
     # @param [String] account Required parameter: Account identifier.
     # @param [FotaV2CallbackRegistrationRequest] body Required parameter:
     # Callback URL registration.
-    # @return [FotaV2CallbackRegistrationResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def update_callback(account,
                         body)
       new_api_call_builder
@@ -47,12 +47,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(FotaV2CallbackRegistrationResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV2ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(FotaV2CallbackRegistrationResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV2ResultException))
         .execute
     end
 
@@ -60,7 +60,7 @@ module Verizon
     # @param [String] account Required parameter: Account identifier.
     # @param [FotaV2CallbackRegistrationRequest] body Required parameter:
     # Callback URL registration.
-    # @return [FotaV2CallbackRegistrationResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def register_callback(account,
                           body)
       new_api_call_builder
@@ -75,18 +75,18 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(FotaV2CallbackRegistrationResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV2ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(FotaV2CallbackRegistrationResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV2ResultException))
         .execute
     end
 
     # This endpoint allows user to delete a previously registered callback URL.
     # @param [String] account Required parameter: Account identifier.
-    # @return [FotaV2SuccessResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def deregister_callback(account)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::DELETE,
@@ -97,12 +97,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(FotaV2SuccessResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV2ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(FotaV2SuccessResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV2ResultException))
         .execute
     end
   end

@@ -64,12 +64,8 @@ module Verizon
       []
     end
 
-    def initialize(name = SKIP,
-                   value = SKIP,
-                   created_on = SKIP,
-                   is_observable = SKIP,
-                   is_observing = SKIP,
-                   frequency = SKIP)
+    def initialize(name = SKIP, value = SKIP, created_on = SKIP,
+                   is_observable = SKIP, is_observing = SKIP, frequency = SKIP)
       @name = name unless name == SKIP
       @value = value unless value == SKIP
       @created_on = created_on unless created_on == SKIP

@@ -47,9 +47,7 @@ module Verizon
       []
     end
 
-    def initialize(account_name = nil,
-                   start_date = nil,
-                   end_date = nil,
+    def initialize(account_name = nil, start_date = nil, end_date = nil,
                    usage_for_all_accounts = SKIP)
       @account_name = account_name
       @start_date = start_date

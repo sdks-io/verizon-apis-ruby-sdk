@@ -77,14 +77,10 @@ module Verizon
       []
     end
 
-    def initialize(client_type = nil,
-                   service_profile_id = SKIP,
-                   ecsp_filter = SKIP,
-                   client_schedule = SKIP,
-                   client_service_area = SKIP,
-                   network_resources = SKIP,
-                   compute_resources = SKIP,
-                   properties = SKIP)
+    def initialize(client_type = nil, service_profile_id = SKIP,
+                   ecsp_filter = SKIP, client_schedule = SKIP,
+                   client_service_area = SKIP, network_resources = SKIP,
+                   compute_resources = SKIP, properties = SKIP)
       @service_profile_id = service_profile_id unless service_profile_id == SKIP
       @client_type = client_type
       @ecsp_filter = ecsp_filter unless ecsp_filter == SKIP

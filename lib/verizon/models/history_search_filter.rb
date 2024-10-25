@@ -42,9 +42,7 @@ module Verizon
       []
     end
 
-    def initialize(account_name = nil,
-                   device = nil,
-                   attributes = SKIP)
+    def initialize(account_name = nil, device = nil, attributes = SKIP)
       @account_name = account_name
       @device = device
       @attributes = attributes unless attributes == SKIP

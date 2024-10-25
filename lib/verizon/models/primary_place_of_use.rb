@@ -38,8 +38,7 @@ module Verizon
       []
     end
 
-    def initialize(customer_name = SKIP,
-                   address = SKIP)
+    def initialize(customer_name = SKIP, address = SKIP)
       @customer_name = customer_name unless customer_name == SKIP
       @address = address unless address == SKIP
     end

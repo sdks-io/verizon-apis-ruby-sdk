@@ -10,7 +10,7 @@ module Verizon
     # registered for a given account.
     # @param [String] account Required parameter: Account identifier in
     # "##########-#####".
-    # @return [Array[RegisteredCallbacks]] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_registered_callbacks(account)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -21,13 +21,13 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(RegisteredCallbacks.method(:from_hash))
-                   .is_api_response(true)
-                   .is_response_array(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV1ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(RegisteredCallbacks.method(:from_hash))
+                    .is_api_response(true)
+                    .is_response_array(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV1ResultException))
         .execute
     end
 
@@ -37,7 +37,7 @@ module Verizon
     # "##########-#####".
     # @param [FotaV1CallbackRegistrationRequest] body Required parameter:
     # Callback details.
-    # @return [FotaV1CallbackRegistrationResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def register_callback(account,
                           body)
       new_api_call_builder
@@ -52,12 +52,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(FotaV1CallbackRegistrationResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV1ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(FotaV1CallbackRegistrationResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV1ResultException))
         .execute
     end
 
@@ -67,7 +67,7 @@ module Verizon
     # "##########-#####".
     # @param [CallbackServiceEnum] service Required parameter: Callback type.
     # Must be 'Fota' for Software Management Services API.
-    # @return [FotaV1SuccessResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def deregister_callback(account,
                             service)
       new_api_call_builder
@@ -81,12 +81,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(FotaV1SuccessResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV1ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(FotaV1SuccessResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV1ResultException))
         .execute
     end
   end

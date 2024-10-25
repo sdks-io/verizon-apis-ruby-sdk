@@ -10,7 +10,7 @@ module Verizon
     # @param [String] account_name Required parameter: Account identifier.
     # @param [String] devices Required parameter: Devices list format:
     # [{"id":"{imei1}","kind":"imei"},{"id":"{imei2}","kind":"imei"}].
-    # @return [Array[DiagnosticObservationSetting]] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_diagnostics_settings(account_name,
                                   devices)
       new_api_call_builder
@@ -22,13 +22,13 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DiagnosticObservationSetting.method(:from_hash))
-                   .is_api_response(true)
-                   .is_response_array(true)
-                   .local_error('default',
-                                'Error response.',
-                                DeviceDiagnosticsResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DiagnosticObservationSetting.method(:from_hash))
+                    .is_api_response(true)
+                    .is_response_array(true)
+                    .local_error('default',
+                                 'Error response.',
+                                 DeviceDiagnosticsResultException))
         .execute
     end
   end

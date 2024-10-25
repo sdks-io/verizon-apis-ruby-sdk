@@ -44,9 +44,7 @@ module Verizon
       []
     end
 
-    def initialize(msid = SKIP,
-                   pd = SKIP,
-                   error = SKIP)
+    def initialize(msid = SKIP, pd = SKIP, error = SKIP)
       @msid = msid unless msid == SKIP
       @pd = pd unless pd == SKIP
       @error = error unless error == SKIP

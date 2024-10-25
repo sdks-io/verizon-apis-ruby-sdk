@@ -57,10 +57,8 @@ module Verizon
       []
     end
 
-    def initialize(account_name = nil,
-                   trigger_name = SKIP,
-                   threshold_value = SKIP,
-                   sms_phone_numbers = SKIP,
+    def initialize(account_name = nil, trigger_name = SKIP,
+                   threshold_value = SKIP, sms_phone_numbers = SKIP,
                    email_addresses = SKIP)
       @trigger_name = trigger_name unless trigger_name == SKIP
       @account_name = account_name

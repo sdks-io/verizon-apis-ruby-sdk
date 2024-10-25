@@ -51,11 +51,8 @@ module Verizon
       []
     end
 
-    def initialize(device_id = nil,
-                   client_type = nil,
-                   result = nil,
-                   failure_type = nil,
-                   time_completed = nil)
+    def initialize(device_id = nil, client_type = nil, result = nil,
+                   failure_type = nil, time_completed = nil)
       @device_id = device_id
       @client_type = client_type
       @result = result

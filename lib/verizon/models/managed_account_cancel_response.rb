@@ -55,11 +55,8 @@ module Verizon
       []
     end
 
-    def initialize(txid = nil,
-                   account_name = nil,
-                   paccount_name = nil,
-                   service_name = ServiceNameEnum::LOCATION,
-                   status = nil,
+    def initialize(txid = nil, account_name = nil, paccount_name = nil,
+                   service_name = ServiceNameEnum::LOCATION, status = nil,
                    reason = nil)
       @txid = txid
       @account_name = account_name

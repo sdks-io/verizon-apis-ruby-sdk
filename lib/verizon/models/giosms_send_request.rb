@@ -72,14 +72,9 @@ module Verizon
       []
     end
 
-    def initialize(device_ids = nil,
-                   sms_message = nil,
-                   account_name = SKIP,
-                   custom_fields = SKIP,
-                   data_encoding = SKIP,
-                   group_name = SKIP,
-                   service_plan = SKIP,
-                   time_to_live = SKIP)
+    def initialize(device_ids = nil, sms_message = nil, account_name = SKIP,
+                   custom_fields = SKIP, data_encoding = SKIP,
+                   group_name = SKIP, service_plan = SKIP, time_to_live = SKIP)
       @account_name = account_name unless account_name == SKIP
       @custom_fields = custom_fields unless custom_fields == SKIP
       @data_encoding = data_encoding unless data_encoding == SKIP

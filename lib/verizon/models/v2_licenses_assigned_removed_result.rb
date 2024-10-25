@@ -45,10 +45,8 @@ module Verizon
       []
     end
 
-    def initialize(account_name = nil,
-                   lic_total_count = nil,
-                   lic_used_count = nil,
-                   device_list = nil)
+    def initialize(account_name = nil, lic_total_count = nil,
+                   lic_used_count = nil, device_list = nil)
       @account_name = account_name
       @lic_total_count = lic_total_count
       @lic_used_count = lic_used_count

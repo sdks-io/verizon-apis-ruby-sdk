@@ -35,7 +35,7 @@ def query_mec_performance_metrics(body: nil)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`MECPerformanceMetrics`](../../doc/models/mec-performance-metrics.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`MECPerformanceMetrics`](../../doc/models/mec-performance-metrics.md).
 
 ## Example Usage
 

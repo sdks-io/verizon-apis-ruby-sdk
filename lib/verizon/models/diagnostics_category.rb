@@ -40,8 +40,7 @@ module Verizon
       []
     end
 
-    def initialize(category_name = SKIP,
-                   extended_attributes = SKIP)
+    def initialize(category_name = SKIP, extended_attributes = SKIP)
       @category_name = category_name unless category_name == SKIP
       @extended_attributes = extended_attributes unless extended_attributes == SKIP
     end

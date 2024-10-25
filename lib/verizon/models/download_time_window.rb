@@ -38,8 +38,7 @@ module Verizon
       []
     end
 
-    def initialize(start_time = SKIP,
-                   end_time = SKIP)
+    def initialize(start_time = SKIP, end_time = SKIP)
       @start_time = start_time unless start_time == SKIP
       @end_time = end_time unless end_time == SKIP
     end

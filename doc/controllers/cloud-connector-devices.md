@@ -38,7 +38,7 @@ def update_devices_configuration_value(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ChangeConfigurationResponse`](../../doc/models/change-configuration-response.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ChangeConfigurationResponse`](../../doc/models/change-configuration-response.md).
 
 ## Example Usage
 
@@ -103,7 +103,7 @@ def find_device_by_property_values(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FindDeviceByPropertyResponseList`](../../doc/models/find-device-by-property-response-list.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FindDeviceByPropertyResponseList`](../../doc/models/find-device-by-property-response-list.md).
 
 ## Example Usage
 
@@ -184,7 +184,7 @@ def search_devices_resources_by_property_values(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`SearchDeviceByPropertyResponseList`](../../doc/models/search-device-by-property-response-list.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`SearchDeviceByPropertyResponseList`](../../doc/models/search-device-by-property-response-list.md).
 
 ## Example Usage
 
@@ -247,7 +247,7 @@ def search_device_event_history(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`SearchDeviceEventHistoryResponseList`](../../doc/models/search-device-event-history-response-list.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`SearchDeviceEventHistoryResponseList`](../../doc/models/search-device-event-history-response-list.md).
 
 ## Example Usage
 
@@ -334,7 +334,7 @@ def search_sensor_readings(fieldname,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`SearchSensorHistoryResponseList`](../../doc/models/search-sensor-history-response-list.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`SearchSensorHistoryResponseList`](../../doc/models/search-sensor-history-response-list.md).
 
 ## Example Usage
 
@@ -426,7 +426,7 @@ def delete_device_from_account(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance.
+This method returns a `ApiResponse` instance.
 
 ## Example Usage
 

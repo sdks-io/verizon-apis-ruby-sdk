@@ -28,7 +28,7 @@ def assign_license_to_devices(body,
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `body` | [`AssignLicenseRequest`](../../doc/models/assign-license-request.md) | Body, Required | Request to assign license to devices. |
-| `x_request_id` | `String` | Header, Optional | Transaction Id. |
+| `x_request_id` | `String` | Header, Optional | Transaction Id.<br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[0-9]-[0-9]{3,32}$` |
 
 ## Server
 
@@ -36,7 +36,7 @@ def assign_license_to_devices(body,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`SecuritySuccessResult`](../../doc/models/security-success-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`SecuritySuccessResult`](../../doc/models/security-success-result.md).
 
 ## Example Usage
 
@@ -92,7 +92,7 @@ def unassign_license_to_devices(x_request_id)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `x_request_id` | `String` | Header, Required | Transaction Id. |
+| `x_request_id` | `String` | Header, Required | Transaction Id.<br>**Constraints**: *Minimum Length*: `3`, *Maximum Length*: `32`, *Pattern*: `^[0-9]-[0-9]{3,32}$` |
 
 ## Server
 
@@ -100,7 +100,7 @@ def unassign_license_to_devices(x_request_id)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`SecuritySuccessResult`](../../doc/models/security-success-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`SecuritySuccessResult`](../../doc/models/security-success-result.md).
 
 ## Example Usage
 

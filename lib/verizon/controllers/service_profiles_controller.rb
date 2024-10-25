@@ -15,7 +15,7 @@ module Verizon
     # the request body. **Note:** The `maxLatencyMs` value must be submitted in
     # multiples of 5. Additionally, "GPU" is future functionality and the values
     # are not captured.
-    # @return [CreateServiceProfileResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def create_service_profile(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -27,23 +27,23 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CreateServiceProfileResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'HTTP 400 Bad Request.',
-                                EdgeDiscoveryResultException)
-                   .local_error('401',
-                                'HTTP 401 Unauthorized.',
-                                EdgeDiscoveryResultException)
-                   .local_error('default',
-                                'HTTP 500 Internal Server Error.',
-                                EdgeDiscoveryResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CreateServiceProfileResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'HTTP 400 Bad Request.',
+                                 EdgeDiscoveryResultException)
+                    .local_error('401',
+                                 'HTTP 401 Unauthorized.',
+                                 EdgeDiscoveryResultException)
+                    .local_error('default',
+                                 'HTTP 500 Internal Server Error.',
+                                 EdgeDiscoveryResultException))
         .execute
     end
 
     # List all service profiles registered under your API key.
-    # @return [ListServiceProfilesResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_service_profiles
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -52,24 +52,24 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ListServiceProfilesResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'HTTP 400 Bad Request.',
-                                EdgeDiscoveryResultException)
-                   .local_error('401',
-                                'HTTP 401 Unauthorized.',
-                                EdgeDiscoveryResultException)
-                   .local_error('default',
-                                'HTTP 500 Internal Server Error.',
-                                EdgeDiscoveryResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ListServiceProfilesResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'HTTP 400 Bad Request.',
+                                 EdgeDiscoveryResultException)
+                    .local_error('401',
+                                 'HTTP 401 Unauthorized.',
+                                 EdgeDiscoveryResultException)
+                    .local_error('default',
+                                 'HTTP 500 Internal Server Error.',
+                                 EdgeDiscoveryResultException))
         .execute
     end
 
     # Returns a specified service profile.
     # @param [String] service_profile_id Required parameter: Example:
-    # @return [ResourcesServiceProfileWithId] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def get_service_profile(service_profile_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -80,18 +80,18 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ResourcesServiceProfileWithId.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'HTTP 400 Bad Request.',
-                                EdgeDiscoveryResultException)
-                   .local_error('401',
-                                'HTTP 401 Unauthorized.',
-                                EdgeDiscoveryResultException)
-                   .local_error('default',
-                                'HTTP 500 Internal Server Error.',
-                                EdgeDiscoveryResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ResourcesServiceProfileWithId.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'HTTP 400 Bad Request.',
+                                 EdgeDiscoveryResultException)
+                    .local_error('401',
+                                 'HTTP 401 Unauthorized.',
+                                 EdgeDiscoveryResultException)
+                    .local_error('default',
+                                 'HTTP 500 Internal Server Error.',
+                                 EdgeDiscoveryResultException))
         .execute
     end
 
@@ -103,7 +103,7 @@ module Verizon
     # request body. **Note:** The `maxLatencyMs` value must be submitted in
     # multiples of 5. Additionally, "GPU" is future functionality and the values
     # are not captured. Default values to use are shown.
-    # @return [UpdateServiceProfileResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def update_service_profile(service_profile_id,
                                body)
       new_api_call_builder
@@ -118,24 +118,24 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(UpdateServiceProfileResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'HTTP 400 Bad Request.',
-                                EdgeDiscoveryResultException)
-                   .local_error('401',
-                                'HTTP 401 Unauthorized.',
-                                EdgeDiscoveryResultException)
-                   .local_error('default',
-                                'HTTP 500 Internal Server Error.',
-                                EdgeDiscoveryResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(UpdateServiceProfileResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'HTTP 400 Bad Request.',
+                                 EdgeDiscoveryResultException)
+                    .local_error('401',
+                                 'HTTP 401 Unauthorized.',
+                                 EdgeDiscoveryResultException)
+                    .local_error('default',
+                                 'HTTP 500 Internal Server Error.',
+                                 EdgeDiscoveryResultException))
         .execute
     end
 
     # Delete Service Profile based on unique service profile ID.
     # @param [String] service_profile_id Required parameter: Example:
-    # @return [DeleteServiceProfileResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def delete_service_profile(service_profile_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::DELETE,
@@ -146,18 +146,18 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeleteServiceProfileResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'HTTP 400 Bad Request.',
-                                EdgeDiscoveryResultException)
-                   .local_error('401',
-                                'HTTP 401 Unauthorized.',
-                                EdgeDiscoveryResultException)
-                   .local_error('default',
-                                'HTTP 500 Internal Server Error.',
-                                EdgeDiscoveryResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeleteServiceProfileResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'HTTP 400 Bad Request.',
+                                 EdgeDiscoveryResultException)
+                    .local_error('401',
+                                 'HTTP 401 Unauthorized.',
+                                 EdgeDiscoveryResultException)
+                    .local_error('default',
+                                 'HTTP 500 Internal Server Error.',
+                                 EdgeDiscoveryResultException))
         .execute
     end
   end

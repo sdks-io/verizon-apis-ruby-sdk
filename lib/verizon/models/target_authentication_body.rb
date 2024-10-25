@@ -56,11 +56,8 @@ module Verizon
       []
     end
 
-    def initialize(grant_type = SKIP,
-                   refresh_token = SKIP,
-                   scope = SKIP,
-                   headers = SKIP,
-                   host = SKIP)
+    def initialize(grant_type = SKIP, refresh_token = SKIP, scope = SKIP,
+                   headers = SKIP, host = SKIP)
       @grant_type = grant_type unless grant_type == SKIP
       @refresh_token = refresh_token unless refresh_token == SKIP
       @scope = scope unless scope == SKIP

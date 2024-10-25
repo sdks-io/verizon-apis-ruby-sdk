@@ -72,13 +72,9 @@ module Verizon
       []
     end
 
-    def initialize(account_name = nil,
-                   devices = nil,
-                   carrier_name = SKIP,
-                   service_plan = SKIP,
-                   mdn_zip_code = SKIP,
-                   primary_place_of_use = SKIP,
-                   smsr_oid = SKIP,
+    def initialize(account_name = nil, devices = nil, carrier_name = SKIP,
+                   service_plan = SKIP, mdn_zip_code = SKIP,
+                   primary_place_of_use = SKIP, smsr_oid = SKIP,
                    carrier_ip_pool_name = SKIP)
       @account_name = account_name
       @devices = devices

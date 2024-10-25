@@ -97,16 +97,10 @@ module Verizon
       []
     end
 
-    def initialize(accountidentifier = SKIP,
-                   description = SKIP,
-                   disabled = SKIP,
-                   email = SKIP,
-                   filter = SKIP,
-                   billingaccountid = SKIP,
-                   streamkind = SKIP,
-                   targetid = SKIP,
-                   name = SKIP,
-                   allowaggregation = SKIP)
+    def initialize(accountidentifier = SKIP, description = SKIP,
+                   disabled = SKIP, email = SKIP, filter = SKIP,
+                   billingaccountid = SKIP, streamkind = SKIP, targetid = SKIP,
+                   name = SKIP, allowaggregation = SKIP)
       @accountidentifier = accountidentifier unless accountidentifier == SKIP
       @description = description unless description == SKIP
       @disabled = disabled unless disabled == SKIP

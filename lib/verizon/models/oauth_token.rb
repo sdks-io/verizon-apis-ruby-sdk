@@ -62,12 +62,8 @@ module Verizon
       []
     end
 
-    def initialize(access_token = nil,
-                   token_type = nil,
-                   expires_in = SKIP,
-                   scope = SKIP,
-                   expiry = SKIP,
-                   refresh_token = SKIP)
+    def initialize(access_token = nil, token_type = nil, expires_in = SKIP,
+                   scope = SKIP, expiry = SKIP, refresh_token = SKIP)
       @access_token = access_token
       @token_type = token_type
       @expires_in = expires_in unless expires_in == SKIP

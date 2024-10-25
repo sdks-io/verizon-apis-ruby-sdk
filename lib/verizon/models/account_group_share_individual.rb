@@ -44,9 +44,7 @@ module Verizon
       []
     end
 
-    def initialize(filter_criteria = SKIP,
-                   condition = SKIP,
-                   action = SKIP)
+    def initialize(filter_criteria = SKIP, condition = SKIP, action = SKIP)
       @filter_criteria = filter_criteria unless filter_criteria == SKIP
       @condition = condition unless condition == SKIP
       @action = action unless action == SKIP

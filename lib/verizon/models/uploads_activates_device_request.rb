@@ -72,14 +72,9 @@ module Verizon
       []
     end
 
-    def initialize(account_name = nil,
-                   email_address = nil,
-                   device_sku = nil,
-                   upload_type = nil,
-                   service_plan = nil,
-                   mdn_zip_code = nil,
-                   devices = nil,
-                   carrier_ip_pool_name = SKIP)
+    def initialize(account_name = nil, email_address = nil, device_sku = nil,
+                   upload_type = nil, service_plan = nil, mdn_zip_code = nil,
+                   devices = nil, carrier_ip_pool_name = SKIP)
       @account_name = account_name
       @email_address = email_address
       @device_sku = device_sku

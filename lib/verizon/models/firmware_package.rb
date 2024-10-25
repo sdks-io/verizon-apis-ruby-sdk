@@ -66,14 +66,9 @@ module Verizon
       []
     end
 
-    def initialize(firmware_name = nil,
-                   firmware_from = nil,
-                   firmware_to = nil,
-                   launch_date = nil,
-                   release_note = nil,
-                   model = nil,
-                   make = nil,
-                   protocol = CampaignMetaInfoProtocolEnum::LW_M2M)
+    def initialize(firmware_name = nil, firmware_from = nil, firmware_to = nil,
+                   launch_date = nil, release_note = nil, model = nil,
+                   make = nil, protocol = CampaignMetaInfoProtocolEnum::LW_M2M)
       @firmware_name = firmware_name
       @firmware_from = firmware_from
       @firmware_to = firmware_to

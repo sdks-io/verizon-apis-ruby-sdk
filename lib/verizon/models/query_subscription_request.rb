@@ -50,8 +50,7 @@ module Verizon
       []
     end
 
-    def initialize(accountidentifier = SKIP,
-                   selection = SKIP,
+    def initialize(accountidentifier = SKIP, selection = SKIP,
                    resourceidentifier = SKIP)
       @accountidentifier = accountidentifier unless accountidentifier == SKIP
       @selection = selection unless selection == SKIP

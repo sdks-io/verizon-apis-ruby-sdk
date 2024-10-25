@@ -45,9 +45,7 @@ module Verizon
       []
     end
 
-    def initialize(device_ids = SKIP,
-                   message = SKIP,
-                   timestamp = SKIP)
+    def initialize(device_ids = SKIP, message = SKIP, timestamp = SKIP)
       @device_ids = device_ids unless device_ids == SKIP
       @message = message unless message == SKIP
       @timestamp = timestamp unless timestamp == SKIP

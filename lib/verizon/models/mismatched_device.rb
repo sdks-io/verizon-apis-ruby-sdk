@@ -69,12 +69,8 @@ module Verizon
       []
     end
 
-    def initialize(account_name = SKIP,
-                   mdn = SKIP,
-                   activation_date = SKIP,
-                   iccid = SKIP,
-                   pre_imei = SKIP,
-                   post_imei = SKIP,
+    def initialize(account_name = SKIP, mdn = SKIP, activation_date = SKIP,
+                   iccid = SKIP, pre_imei = SKIP, post_imei = SKIP,
                    sim_ota_date = SKIP)
       @account_name = account_name unless account_name == SKIP
       @mdn = mdn unless mdn == SKIP

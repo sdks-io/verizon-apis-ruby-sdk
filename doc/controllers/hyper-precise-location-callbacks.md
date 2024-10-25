@@ -35,7 +35,7 @@ def list_registered_callbacks(account_number)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<CallbackCreated>`](../../doc/models/callback-created.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<CallbackCreated>`](../../doc/models/callback-created.md).
 
 ## Example Usage
 
@@ -91,7 +91,7 @@ def register_callback(account_number,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`CallbackRegistered`](../../doc/models/callback-registered.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`CallbackRegistered`](../../doc/models/callback-registered.md).
 
 ## Example Usage
 
@@ -152,7 +152,7 @@ def deregister_callback(account_number,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance.
+This method returns a `ApiResponse` instance.
 
 ## Example Usage
 

@@ -50,11 +50,8 @@ module Verizon
       []
     end
 
-    def initialize(account_name = nil,
-                   devices = nil,
-                   email_address = nil,
-                   device_sku = nil,
-                   upload_type = nil)
+    def initialize(account_name = nil, devices = nil, email_address = nil,
+                   device_sku = nil, upload_type = nil)
       @account_name = account_name
       @devices = devices
       @email_address = email_address

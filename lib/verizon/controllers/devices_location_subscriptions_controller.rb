@@ -8,25 +8,25 @@ module Verizon
   class DevicesLocationSubscriptionsController < BaseController
     # This subscriptions endpoint retrieves an account's current location
     # subscription status.
-    # @param [String] account Required parameter: Account identifier in
+    # @param [String] account_name Required parameter: Account identifier in
     # "##########-#####".
-    # @return [DeviceLocationSubscription] response from the API call
-    def get_location_service_subscription_status(account)
+    # @return [ApiResponse]  the complete http response with raw body and status code.
+    def get_location_service_subscription_status(account_name)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/subscriptions/{account}',
+                                     '/subscriptions/{accountName}',
                                      Server::DEVICE_LOCATION)
-                   .template_param(new_parameter(account, key: 'account')
+                   .template_param(new_parameter(account_name, key: 'accountName')
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceLocationSubscription.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                DeviceLocationResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceLocationSubscription.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 DeviceLocationResultException))
         .execute
     end
 
@@ -34,7 +34,7 @@ module Verizon
     # on the provided date range.
     # @param [BillUsageRequest] body Required parameter: Request to obtain
     # billable usage for accounts.
-    # @return [Object] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def get_location_service_usage(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -46,11 +46,11 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:json_deserialize))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                DeviceLocationResultException))
+                    .deserializer(APIHelper.method(:json_deserialize))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 DeviceLocationResultException))
         .execute
     end
   end

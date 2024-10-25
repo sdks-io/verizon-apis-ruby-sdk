@@ -56,11 +56,8 @@ module Verizon
       []
     end
 
-    def initialize(uri = SKIP,
-                   fqdn = SKIP,
-                   i_pv4_address = SKIP,
-                   i_pv6_address = SKIP,
-                   port = SKIP)
+    def initialize(uri = SKIP, fqdn = SKIP, i_pv4_address = SKIP,
+                   i_pv6_address = SKIP, port = SKIP)
       @uri = uri unless uri == SKIP
       @fqdn = fqdn unless fqdn == SKIP
       @i_pv4_address = i_pv4_address unless i_pv4_address == SKIP

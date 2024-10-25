@@ -71,7 +71,7 @@ module Verizon
 
     # The IP address of the device.
     # @return [String]
-    attr_accessor :ip_address
+    attr_accessor :ipaddress
 
     # The name of a device group that the devices should be added to.
     # @return [String]
@@ -100,7 +100,7 @@ module Verizon
       @_hash['sku_number'] = 'skuNumber'
       @_hash['custom_fields'] = 'customFields'
       @_hash['devices_with_service_address'] = 'devicesWithServiceAddress'
-      @_hash['ip_address'] = 'ipAddress'
+      @_hash['ipaddress'] = 'ipAddress'
       @_hash['group_name'] = 'groupName'
       @_hash['primary_place_of_use'] = 'primaryPlaceOfUse'
       @_hash
@@ -116,7 +116,7 @@ module Verizon
         sku_number
         custom_fields
         devices_with_service_address
-        ip_address
+        ipaddress
         group_name
         primary_place_of_use
       ]
@@ -127,20 +127,12 @@ module Verizon
       []
     end
 
-    def initialize(service_name = nil,
-                   state_name = nil,
-                   service_plan = nil,
-                   mdn_zip_code = nil,
-                   devices = SKIP,
-                   filter = SKIP,
-                   carrier_ip_pool_name = SKIP,
-                   public_ip_restriction = SKIP,
-                   sku_number = SKIP,
-                   custom_fields = SKIP,
-                   devices_with_service_address = SKIP,
-                   ip_address = SKIP,
-                   group_name = SKIP,
-                   primary_place_of_use = SKIP)
+    def initialize(service_name = nil, state_name = nil, service_plan = nil,
+                   mdn_zip_code = nil, devices = SKIP, filter = SKIP,
+                   carrier_ip_pool_name = SKIP, public_ip_restriction = SKIP,
+                   sku_number = SKIP, custom_fields = SKIP,
+                   devices_with_service_address = SKIP, ipaddress = SKIP,
+                   group_name = SKIP, primary_place_of_use = SKIP)
       @service_name = service_name
       @state_name = state_name
       @service_plan = service_plan
@@ -155,7 +147,7 @@ module Verizon
         @devices_with_service_address =
           devices_with_service_address
       end
-      @ip_address = ip_address unless ip_address == SKIP
+      @ipaddress = ipaddress unless ipaddress == SKIP
       @group_name = group_name unless group_name == SKIP
       @primary_place_of_use = primary_place_of_use unless primary_place_of_use == SKIP
     end
@@ -197,7 +189,7 @@ module Verizon
       custom_fields = SKIP unless hash.key?('customFields')
       devices_with_service_address =
         hash.key?('devicesWithServiceAddress') ? hash['devicesWithServiceAddress'] : SKIP
-      ip_address = hash.key?('ipAddress') ? hash['ipAddress'] : SKIP
+      ipaddress = hash.key?('ipAddress') ? hash['ipAddress'] : SKIP
       group_name = hash.key?('groupName') ? hash['groupName'] : SKIP
       primary_place_of_use = PlaceOfUse.from_hash(hash['primaryPlaceOfUse']) if
         hash['primaryPlaceOfUse']
@@ -214,7 +206,7 @@ module Verizon
                            sku_number,
                            custom_fields,
                            devices_with_service_address,
-                           ip_address,
+                           ipaddress,
                            group_name,
                            primary_place_of_use)
     end

@@ -44,9 +44,7 @@ module Verizon
       []
     end
 
-    def initialize(id = SKIP,
-                   status = SKIP,
-                   reason = SKIP)
+    def initialize(id = SKIP, status = SKIP, reason = SKIP)
       @id = id unless id == SKIP
       @status = status unless status == SKIP
       @reason = reason unless reason == SKIP

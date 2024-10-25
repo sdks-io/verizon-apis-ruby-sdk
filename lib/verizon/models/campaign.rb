@@ -61,6 +61,19 @@ module Verizon
     # @return [String]
     attr_accessor :status
 
+    # Any device included in the device list which does not have a license will
+    # automatically be assigned a FOTA license, assuming there are enough FOTA
+    # licenses available, when set to true.
+    # @return [TrueClass | FalseClass]
+    attr_accessor :auto_assign_license_flag
+
+    # Beyond the devices included on the device list, any other device(s) which
+    # matches the eligibility criteria (same make, model, current firmware,
+    # protocol, billing account) will automatically be added to the campaign
+    # list during the life of the campaign when set to true.
+    # @return [TrueClass | FalseClass]
+    attr_accessor :auto_add_devices_flag
+
     # A mapping from model property names to API property names.
     def self.names
       @_hash = {} if @_hash.nil?
@@ -77,6 +90,8 @@ module Verizon
       @_hash['end_date'] = 'endDate'
       @_hash['campaign_time_window_list'] = 'campaignTimeWindowList'
       @_hash['status'] = 'status'
+      @_hash['auto_assign_license_flag'] = 'autoAssignLicenseFlag'
+      @_hash['auto_add_devices_flag'] = 'autoAddDevicesFlag'
       @_hash
     end
 
@@ -96,18 +111,11 @@ module Verizon
       []
     end
 
-    def initialize(id = nil,
-                   account_name = nil,
-                   protocol = 'LWM2M',
-                   make = nil,
-                   model = nil,
-                   start_date = nil,
-                   end_date = nil,
-                   status = nil,
-                   campaign_name = SKIP,
-                   firmware_name = SKIP,
-                   firmware_from = SKIP,
-                   firmware_to = SKIP,
+    def initialize(id = nil, account_name = nil, protocol = 'LWM2M', make = nil,
+                   model = nil, start_date = nil, end_date = nil, status = nil,
+                   auto_assign_license_flag = nil, auto_add_devices_flag = nil,
+                   campaign_name = SKIP, firmware_name = SKIP,
+                   firmware_from = SKIP, firmware_to = SKIP,
                    campaign_time_window_list = SKIP)
       @id = id
       @account_name = account_name
@@ -125,6 +133,8 @@ module Verizon
           campaign_time_window_list
       end
       @status = status
+      @auto_assign_license_flag = auto_assign_license_flag
+      @auto_add_devices_flag = auto_add_devices_flag
     end
 
     # Creates an instance of the object from a hash.
@@ -140,6 +150,10 @@ module Verizon
       start_date = hash.key?('startDate') ? hash['startDate'] : nil
       end_date = hash.key?('endDate') ? hash['endDate'] : nil
       status = hash.key?('status') ? hash['status'] : nil
+      auto_assign_license_flag =
+        hash.key?('autoAssignLicenseFlag') ? hash['autoAssignLicenseFlag'] : nil
+      auto_add_devices_flag =
+        hash.key?('autoAddDevicesFlag') ? hash['autoAddDevicesFlag'] : nil
       campaign_name = hash.key?('campaignName') ? hash['campaignName'] : SKIP
       firmware_name = hash.key?('firmwareName') ? hash['firmwareName'] : SKIP
       firmware_from = hash.key?('firmwareFrom') ? hash['firmwareFrom'] : SKIP
@@ -164,6 +178,8 @@ module Verizon
                    start_date,
                    end_date,
                    status,
+                   auto_assign_license_flag,
+                   auto_add_devices_flag,
                    campaign_name,
                    firmware_name,
                    firmware_from,

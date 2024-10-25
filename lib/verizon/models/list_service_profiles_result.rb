@@ -39,8 +39,7 @@ module Verizon
       []
     end
 
-    def initialize(status = SKIP,
-                   data = SKIP)
+    def initialize(status = SKIP, data = SKIP)
       @status = status unless status == SKIP
       @data = data unless data == SKIP
     end

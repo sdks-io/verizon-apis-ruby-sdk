@@ -35,8 +35,7 @@ module Verizon
       []
     end
 
-    def initialize(device_id = nil,
-                   expiry_date = nil)
+    def initialize(device_id = nil, expiry_date = nil)
       @device_id = device_id
       @expiry_date = expiry_date
     end

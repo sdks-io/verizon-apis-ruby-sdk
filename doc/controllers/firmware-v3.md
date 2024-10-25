@@ -37,7 +37,7 @@ def list_available_firmware(acc,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<FirmwarePackage>`](../../doc/models/firmware-package.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<FirmwarePackage>`](../../doc/models/firmware-package.md).
 
 ## Example Usage
 
@@ -98,7 +98,7 @@ def synchronize_device_firmware(acc,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceFirmwareList`](../../doc/models/device-firmware-list.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceFirmwareList`](../../doc/models/device-firmware-list.md).
 
 ## Example Usage
 
@@ -161,7 +161,7 @@ def report_device_firmware(acc,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceFirmwareVersionUpdateResult`](../../doc/models/device-firmware-version-update-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceFirmwareVersionUpdateResult`](../../doc/models/device-firmware-version-update-result.md).
 
 ## Example Usage
 

@@ -38,8 +38,7 @@ module Verizon
       []
     end
 
-    def initialize(year = SKIP,
-                   month = SKIP)
+    def initialize(year = SKIP, month = SKIP)
       @year = year unless year == SKIP
       @month = month unless month == SKIP
     end

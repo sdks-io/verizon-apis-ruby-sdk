@@ -44,8 +44,7 @@ module Verizon
       ]
     end
 
-    def initialize(has_more_data = nil,
-                   campaign_list = nil,
+    def initialize(has_more_data = nil, campaign_list = nil,
                    last_seen_campaign_id = SKIP)
       @has_more_data = has_more_data
       @last_seen_campaign_id = last_seen_campaign_id unless last_seen_campaign_id == SKIP

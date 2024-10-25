@@ -38,8 +38,7 @@ module Verizon
       []
     end
 
-    def initialize(request_id = SKIP,
-                   status = SKIP)
+    def initialize(request_id = SKIP, status = SKIP)
       @request_id = request_id unless request_id == SKIP
       @status = status unless status == SKIP
     end

@@ -43,9 +43,7 @@ module Verizon
       []
     end
 
-    def initialize(account_name = nil,
-                   devices = nil,
-                   monitor_type = SKIP)
+    def initialize(account_name = nil, devices = nil, monitor_type = SKIP)
       @account_name = account_name
       @devices = devices
       @monitor_type = monitor_type unless monitor_type == SKIP

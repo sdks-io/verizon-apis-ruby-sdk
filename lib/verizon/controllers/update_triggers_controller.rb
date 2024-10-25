@@ -8,7 +8,7 @@ module Verizon
   class UpdateTriggersController < BaseController
     # Updates the promotional triggers for pseudo-MDN.
     # @param [RequestTrigger] body Optional parameter: Update the triggers
-    # @return [Success] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def update_all_available_triggers(body: nil)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
@@ -20,12 +20,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Success.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'Error response',
-                                ReadySimRestErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(Success.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'Error response',
+                                 ReadySimRestErrorResponseException))
         .execute
     end
   end

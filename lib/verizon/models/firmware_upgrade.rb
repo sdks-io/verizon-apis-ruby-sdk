@@ -71,12 +71,8 @@ module Verizon
       []
     end
 
-    def initialize(id = SKIP,
-                   account_name = SKIP,
-                   firmware_name = SKIP,
-                   firmware_to = SKIP,
-                   start_date = SKIP,
-                   status = SKIP,
+    def initialize(id = SKIP, account_name = SKIP, firmware_name = SKIP,
+                   firmware_to = SKIP, start_date = SKIP, status = SKIP,
                    device_list = SKIP)
       @id = id unless id == SKIP
       @account_name = account_name unless account_name == SKIP

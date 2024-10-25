@@ -80,16 +80,10 @@ module Verizon
       []
     end
 
-    def initialize(device_id = nil,
-                   campaign_id = nil,
-                   account_name = nil,
-                   start_date = nil,
-                   status = nil,
-                   reason = nil,
-                   firmware_name = SKIP,
-                   firmware_from = SKIP,
-                   firmware_to = SKIP,
-                   report_updated_time = SKIP)
+    def initialize(device_id = nil, campaign_id = nil, account_name = nil,
+                   start_date = nil, status = nil, reason = nil,
+                   firmware_name = SKIP, firmware_from = SKIP,
+                   firmware_to = SKIP, report_updated_time = SKIP)
       @device_id = device_id
       @campaign_id = campaign_id
       @account_name = account_name

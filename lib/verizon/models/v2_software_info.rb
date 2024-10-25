@@ -40,9 +40,7 @@ module Verizon
       []
     end
 
-    def initialize(name = nil,
-                   version = nil,
-                   upgrade_time = nil)
+    def initialize(name = nil, version = nil, upgrade_time = nil)
       @name = name
       @version = version
       @upgrade_time = upgrade_time

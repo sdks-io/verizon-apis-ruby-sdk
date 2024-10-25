@@ -49,9 +49,7 @@ module Verizon
       []
     end
 
-    def initialize(account_name = nil,
-                   device_list = nil,
-                   accuracy_mode = SKIP,
+    def initialize(account_name = nil, device_list = nil, accuracy_mode = SKIP,
                    cache_mode = SKIP)
       @account_name = account_name
       @device_list = device_list

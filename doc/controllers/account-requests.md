@@ -31,7 +31,7 @@ def get_current_asynchronous_request_status(aname,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`AsynchronousRequestResult`](../../doc/models/asynchronous-request-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`AsynchronousRequestResult`](../../doc/models/asynchronous-request-result.md).
 
 ## Example Usage
 

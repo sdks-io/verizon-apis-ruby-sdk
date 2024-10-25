@@ -38,8 +38,7 @@ module Verizon
       []
     end
 
-    def initialize(account_name = SKIP,
-                   device_list = SKIP)
+    def initialize(account_name = SKIP, device_list = SKIP)
       @account_name = account_name unless account_name == SKIP
       @device_list = device_list unless device_list == SKIP
     end

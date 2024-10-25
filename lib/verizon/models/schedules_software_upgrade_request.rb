@@ -100,17 +100,11 @@ module Verizon
       []
     end
 
-    def initialize(campaign_name = SKIP,
-                   software_name = SKIP,
-                   software_from = SKIP,
-                   software_to = SKIP,
-                   distribution_type = SKIP,
-                   start_date = SKIP,
-                   end_date = SKIP,
-                   download_after_date = SKIP,
-                   download_time_window_list = SKIP,
-                   install_after_date = SKIP,
-                   install_time_window_list = SKIP,
+    def initialize(campaign_name = SKIP, software_name = SKIP,
+                   software_from = SKIP, software_to = SKIP,
+                   distribution_type = SKIP, start_date = SKIP, end_date = SKIP,
+                   download_after_date = SKIP, download_time_window_list = SKIP,
+                   install_after_date = SKIP, install_time_window_list = SKIP,
                    device_list = SKIP)
       @campaign_name = campaign_name unless campaign_name == SKIP
       @software_name = software_name unless software_name == SKIP

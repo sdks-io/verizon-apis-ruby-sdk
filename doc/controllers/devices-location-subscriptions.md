@@ -19,14 +19,14 @@ devices_location_subscriptions_controller = client.devices_location_subscription
 This subscriptions endpoint retrieves an account's current location subscription status.
 
 ```ruby
-def get_location_service_subscription_status(account)
+def get_location_service_subscription_status(account_name)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `account` | `String` | Template, Required | Account identifier in "##########-#####". |
+| `account_name` | `String` | Template, Required | Account identifier in "##########-#####". |
 
 ## Server
 
@@ -34,14 +34,14 @@ def get_location_service_subscription_status(account)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceLocationSubscription`](../../doc/models/device-location-subscription.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceLocationSubscription`](../../doc/models/device-location-subscription.md).
 
 ## Example Usage
 
 ```ruby
-account = '0000123456-00001'
+account_name = '0000123456-00001'
 
-result = devices_location_subscriptions_controller.get_location_service_subscription_status(account)
+result = devices_location_subscriptions_controller.get_location_service_subscription_status(account_name)
 ```
 
 ## Example Response *(as JSON)*
@@ -82,7 +82,7 @@ def get_location_service_usage(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type `Object`.
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type `Object`.
 
 ## Example Usage
 

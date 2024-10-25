@@ -26,7 +26,7 @@ def get_promo_device_usage_history(body)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`RequestBodyForUsage1`](../../doc/models/request-body-for-usage-1.md) | Body, Required | Retrieve Aggregate Usage |
+| `body` | [`ARequestBodyForUsage`](../../doc/models/a-request-body-for-usage.md) | Body, Required | Retrieve Aggregate Usage |
 
 ## Server
 
@@ -34,12 +34,12 @@ def get_promo_device_usage_history(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ResponseToUsageQuery`](../../doc/models/response-to-usage-query.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ResponseToUsageQuery`](../../doc/models/response-to-usage-query.md).
 
 ## Example Usage
 
 ```ruby
-body = RequestBodyForUsage1.new(
+body = ARequestBodyForUsage.new(
   nil,
   DateTimeHelper.from_rfc3339('08/15/2021 00:00:00'),
   DateTimeHelper.from_rfc3339('08/16/2021 00:00:00')
@@ -98,7 +98,7 @@ def get_promo_device_aggregate_usage_history(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`UsageRequestResponse`](../../doc/models/usage-request-response.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`UsageRequestResponse`](../../doc/models/usage-request-response.md).
 
 ## Example Usage
 

@@ -56,10 +56,8 @@ module Verizon
       []
     end
 
-    def initialize(ern = SKIP,
-                   service_endpoint = SKIP,
-                   application_server_provider_id = SKIP,
-                   application_id = SKIP,
+    def initialize(ern = SKIP, service_endpoint = SKIP,
+                   application_server_provider_id = SKIP, application_id = SKIP,
                    service_description = SKIP)
       @ern = ern unless ern == SKIP
       @service_endpoint = service_endpoint unless service_endpoint == SKIP

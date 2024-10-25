@@ -85,18 +85,12 @@ module Verizon
       []
     end
 
-    def initialize(trigger_id = nil,
-                   trigger_name = nil,
-                   account_name = nil,
+    def initialize(trigger_id = nil, trigger_name = nil, account_name = nil,
                    service_name = ServiceNameEnum::LOCATION,
-                   threshold_value = nil,
-                   allow_excess = nil,
-                   send_sms_notification = nil,
-                   sms_phone_numbers = nil,
-                   send_email_notification = nil,
-                   email_addresses = nil,
-                   create_date = nil,
-                   update_date = nil)
+                   threshold_value = nil, allow_excess = nil,
+                   send_sms_notification = nil, sms_phone_numbers = nil,
+                   send_email_notification = nil, email_addresses = nil,
+                   create_date = nil, update_date = nil)
       @trigger_id = trigger_id
       @trigger_name = trigger_name
       @account_name = account_name

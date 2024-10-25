@@ -10,7 +10,7 @@ module Verizon
     # @param [String] acc Required parameter: Account identifier.
     # @param [FirmwareProtocolEnum] protocol Required parameter: Filter to
     # retrieve a specific protocol type used.
-    # @return [Array[FirmwarePackage]] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_available_firmware(acc,
                                 protocol)
       new_api_call_builder
@@ -23,13 +23,13 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(FirmwarePackage.method(:from_hash))
-                   .is_api_response(true)
-                   .is_response_array(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV3ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(FirmwarePackage.method(:from_hash))
+                    .is_api_response(true)
+                    .is_response_array(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV3ResultException))
         .execute
     end
 
@@ -37,7 +37,7 @@ module Verizon
     # @param [String] acc Required parameter: Account identifier.
     # @param [FirmwareIMEI] body Required parameter: DeviceIds to get firmware
     # info synchronously.
-    # @return [DeviceFirmwareList] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def synchronize_device_firmware(acc,
                                     body)
       new_api_call_builder
@@ -52,19 +52,19 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceFirmwareList.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV3ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceFirmwareList.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV3ResultException))
         .execute
     end
 
     # Ask a device to report its firmware version asynchronously.
     # @param [String] acc Required parameter: Account identifier.
     # @param [String] device_id Required parameter: Device identifier.
-    # @return [DeviceFirmwareVersionUpdateResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def report_device_firmware(acc,
                                device_id)
       new_api_call_builder
@@ -78,12 +78,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceFirmwareVersionUpdateResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV3ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceFirmwareVersionUpdateResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV3ResultException))
         .execute
     end
   end

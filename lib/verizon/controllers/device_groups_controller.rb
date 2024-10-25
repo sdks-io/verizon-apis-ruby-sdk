@@ -11,7 +11,7 @@ module Verizon
     # their usage.
     # @param [CreateDeviceGroupRequest] body Required parameter: A request to
     # create a new device group.
-    # @return [ConnectivityManagementSuccessResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def create_device_group(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -23,18 +23,18 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ConnectivityManagementSuccessResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ConnectivityManagementSuccessResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
     # Returns a list of all device groups in a specified account.
     # @param [String] aname Required parameter: Account name.
-    # @return [Array[DeviceGroup]] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_device_groups(aname)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -45,13 +45,13 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceGroup.method(:from_hash))
-                   .is_api_response(true)
-                   .is_response_array(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceGroup.method(:from_hash))
+                    .is_api_response(true)
+                    .is_response_array(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
@@ -62,7 +62,7 @@ module Verizon
     # @param [String] gname Required parameter: Group name.
     # @param [Integer] mnext Optional parameter: Continue the previous query
     # from the pageUrl pagetoken.
-    # @return [DeviceGroupDevicesData] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def get_device_group_information(aname,
                                      gname,
                                      mnext: nil)
@@ -78,12 +78,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceGroupDevicesData.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceGroupDevicesData.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
@@ -93,7 +93,7 @@ module Verizon
     # @param [String] gname Required parameter: Group name.
     # @param [DeviceGroupUpdateRequest] body Required parameter: Request to
     # update device group.
-    # @return [ConnectivityManagementSuccessResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def update_device_group(aname,
                             gname,
                             body)
@@ -111,12 +111,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ConnectivityManagementSuccessResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ConnectivityManagementSuccessResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
 
@@ -124,7 +124,7 @@ module Verizon
     # the default device group and are not deleted from the account.
     # @param [String] aname Required parameter: Account name.
     # @param [String] gname Required parameter: Group name.
-    # @return [ConnectivityManagementSuccessResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def delete_device_group(aname,
                             gname)
       new_api_call_builder
@@ -138,12 +138,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ConnectivityManagementSuccessResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Error response.',
-                                ConnectivityManagementResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ConnectivityManagementSuccessResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Error response.',
+                                 ConnectivityManagementResultException))
         .execute
     end
   end

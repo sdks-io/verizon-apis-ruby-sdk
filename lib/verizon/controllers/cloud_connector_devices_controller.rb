@@ -10,7 +10,7 @@ module Verizon
     # device records and reports sensor readings.
     # @param [ChangeConfigurationRequest] body Required parameter: The request
     # body changes configuration values on a device.
-    # @return [ChangeConfigurationResponse] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def update_devices_configuration_value(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -22,9 +22,9 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ChangeConfigurationResponse.method(:from_hash))
-                   .is_api_response(true))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ChangeConfigurationResponse.method(:from_hash))
+                    .is_api_response(true))
         .execute
     end
 
@@ -32,7 +32,7 @@ module Verizon
     # resources.
     # @param [QuerySubscriptionRequest] body Required parameter: The request
     # body specifies fields and values to match.
-    # @return [FindDeviceByPropertyResponseList] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def find_device_by_property_values(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -44,9 +44,9 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(FindDeviceByPropertyResponseList.method(:from_hash))
-                   .is_api_response(true))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(FindDeviceByPropertyResponseList.method(:from_hash))
+                    .is_api_response(true))
         .execute
     end
 
@@ -54,7 +54,7 @@ module Verizon
     # device resources.
     # @param [QuerySubscriptionRequest] body Required parameter: The request
     # body specifies fields and values to match.
-    # @return [SearchDeviceByPropertyResponseList] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def search_devices_resources_by_property_values(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -66,9 +66,9 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SearchDeviceByPropertyResponseList.method(:from_hash))
-                   .is_api_response(true))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(SearchDeviceByPropertyResponseList.method(:from_hash))
+                    .is_api_response(true))
         .execute
     end
 
@@ -77,7 +77,7 @@ module Verizon
     # events.
     # @param [SearchDeviceEventHistoryRequest] body Required parameter: The
     # device identifier and fields to match in the search.
-    # @return [SearchDeviceEventHistoryResponseList] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def search_device_event_history(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -89,9 +89,9 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SearchDeviceEventHistoryResponseList.method(:from_hash))
-                   .is_api_response(true))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(SearchDeviceEventHistoryResponseList.method(:from_hash))
+                    .is_api_response(true))
         .execute
     end
 
@@ -101,7 +101,7 @@ module Verizon
     # @param [String] fieldname Required parameter: The name of the sensor.
     # @param [SearchSensorHistoryRequest] body Required parameter: The device
     # identifier and fields to match in the search.
-    # @return [SearchSensorHistoryResponseList] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def search_sensor_readings(fieldname,
                                body)
       new_api_call_builder
@@ -116,16 +116,16 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SearchSensorHistoryResponseList.method(:from_hash))
-                   .is_api_response(true))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(SearchSensorHistoryResponseList.method(:from_hash))
+                    .is_api_response(true))
         .execute
     end
 
     # Remove a device from a ThingSpace account.
     # @param [RemoveDeviceRequest] body Required parameter: The request body
     # identifies the device to delete.
-    # @return [void] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def delete_device_from_account(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -136,8 +136,8 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .is_response_void(true)
-                   .is_api_response(true))
+                    .is_response_void(true)
+                    .is_api_response(true))
         .execute
     end
   end

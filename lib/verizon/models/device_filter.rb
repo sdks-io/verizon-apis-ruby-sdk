@@ -52,9 +52,7 @@ module Verizon
       []
     end
 
-    def initialize(account = SKIP,
-                   group_name = SKIP,
-                   service_plan = SKIP,
+    def initialize(account = SKIP, group_name = SKIP, service_plan = SKIP,
                    custom_fields = SKIP)
       @account = account unless account == SKIP
       @group_name = group_name unless group_name == SKIP

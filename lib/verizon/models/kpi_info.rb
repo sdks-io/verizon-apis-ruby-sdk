@@ -74,14 +74,9 @@ module Verizon
       []
     end
 
-    def initialize(name = SKIP,
-                   value = SKIP,
-                   node_name = SKIP,
-                   node_type = SKIP,
-                   description = SKIP,
-                   unit = SKIP,
-                   category = SKIP,
-                   time_of_last_update = SKIP)
+    def initialize(name = SKIP, value = SKIP, node_name = SKIP,
+                   node_type = SKIP, description = SKIP, unit = SKIP,
+                   category = SKIP, time_of_last_update = SKIP)
       @name = name unless name == SKIP
       @value = value unless value == SKIP
       @node_name = node_name unless node_name == SKIP

@@ -74,13 +74,9 @@ module Verizon
       []
     end
 
-    def initialize(trigger_id = SKIP,
-                   trigger_name = SKIP,
-                   ecpd_id = SKIP,
-                   device_group_name = SKIP,
-                   trigger_category = SKIP,
-                   price_plan_trigger = SKIP,
-                   notification = SKIP,
+    def initialize(trigger_id = SKIP, trigger_name = SKIP, ecpd_id = SKIP,
+                   device_group_name = SKIP, trigger_category = SKIP,
+                   price_plan_trigger = SKIP, notification = SKIP,
                    active = SKIP)
       @trigger_id = trigger_id unless trigger_id == SKIP
       @trigger_name = trigger_name unless trigger_name == SKIP

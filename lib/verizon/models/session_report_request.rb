@@ -67,12 +67,8 @@ module Verizon
       ]
     end
 
-    def initialize(account_number = nil,
-                   imei = nil,
-                   start_date = SKIP,
-                   end_date = SKIP,
-                   duration_low = SKIP,
-                   duration_high = SKIP)
+    def initialize(account_number = nil, imei = nil, start_date = SKIP,
+                   end_date = SKIP, duration_low = SKIP, duration_high = SKIP)
       @account_number = account_number
       @imei = imei
       @start_date = start_date unless start_date == SKIP

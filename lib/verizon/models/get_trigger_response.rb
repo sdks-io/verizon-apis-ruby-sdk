@@ -111,20 +111,12 @@ module Verizon
       []
     end
 
-    def initialize(account_name = SKIP,
-                   comparator = SKIP,
-                   created_at = SKIP,
-                   group_name = SKIP,
-                   modified_at = SKIP,
-                   notification_group_name = SKIP,
-                   organization_name = SKIP,
-                   sms_type = SKIP,
-                   threshold = SKIP,
-                   threshold_unit = SKIP,
-                   trigger_category = SKIP,
-                   trigger_cycle = SKIP,
-                   trigger_id = SKIP,
-                   trigger_name = SKIP)
+    def initialize(account_name = SKIP, comparator = SKIP, created_at = SKIP,
+                   group_name = SKIP, modified_at = SKIP,
+                   notification_group_name = SKIP, organization_name = SKIP,
+                   sms_type = SKIP, threshold = SKIP, threshold_unit = SKIP,
+                   trigger_category = SKIP, trigger_cycle = SKIP,
+                   trigger_id = SKIP, trigger_name = SKIP)
       @account_name = account_name unless account_name == SKIP
       @comparator = comparator unless comparator == SKIP
       @created_at = created_at unless created_at == SKIP

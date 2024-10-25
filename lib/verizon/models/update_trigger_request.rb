@@ -98,17 +98,12 @@ module Verizon
       []
     end
 
-    def initialize(account_name = SKIP,
-                   active = SKIP,
-                   anomaly_trigger_request = SKIP,
-                   cycle_type = SKIP,
-                   data_trigger_request = SKIP,
-                   group_name = SKIP,
+    def initialize(account_name = SKIP, active = SKIP,
+                   anomaly_trigger_request = SKIP, cycle_type = SKIP,
+                   data_trigger_request = SKIP, group_name = SKIP,
                    promo_alert_trigger_request = SKIP,
-                   session_trigger_request = SKIP,
-                   sms_trigger_request = SKIP,
-                   trigger_category = SKIP,
-                   trigger_id = SKIP,
+                   session_trigger_request = SKIP, sms_trigger_request = SKIP,
+                   trigger_category = SKIP, trigger_id = SKIP,
                    trigger_name = SKIP)
       @account_name = account_name unless account_name == SKIP
       @active = active unless active == SKIP

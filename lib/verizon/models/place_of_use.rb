@@ -41,8 +41,7 @@ module Verizon
       []
     end
 
-    def initialize(address = nil,
-                   customer_name = nil)
+    def initialize(address = nil, customer_name = nil)
       @address = address
       @customer_name = customer_name
     end

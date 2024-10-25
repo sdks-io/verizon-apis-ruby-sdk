@@ -12,7 +12,7 @@ module Verizon
     # @param [String] distribution_type Required parameter: Filter the
     # distributionType to only retrieve files for a specific distribution
     # type.
-    # @return [RetrievesAvailableFilesResponseList] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def get_list_of_files(acc,
                           distribution_type)
       new_api_call_builder
@@ -25,12 +25,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(RetrievesAvailableFilesResponseList.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV2ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(RetrievesAvailableFilesResponseList.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV2ResultException))
         .execute
     end
 
@@ -46,7 +46,7 @@ module Verizon
     # model.
     # @param [String] local_target_path Optional parameter: Local target path on
     # the device.
-    # @return [UploadConfigurationFilesResponse] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def upload_config_file(acc,
                            fileupload: nil,
                            file_version: nil,
@@ -68,12 +68,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(UploadConfigurationFilesResponse.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                FotaV2ResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(UploadConfigurationFilesResponse.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 FotaV2ResultException))
         .execute
     end
   end

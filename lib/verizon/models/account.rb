@@ -76,13 +76,9 @@ module Verizon
       []
     end
 
-    def initialize(account_name = SKIP,
-                   account_number = SKIP,
-                   organization_name = SKIP,
-                   is_provisioning_allowed = SKIP,
-                   carriers = SKIP,
-                   features = SKIP,
-                   i_p_pools = SKIP,
+    def initialize(account_name = SKIP, account_number = SKIP,
+                   organization_name = SKIP, is_provisioning_allowed = SKIP,
+                   carriers = SKIP, features = SKIP, i_p_pools = SKIP,
                    service_plans = SKIP)
       @account_name = account_name unless account_name == SKIP
       @account_number = account_number unless account_number == SKIP

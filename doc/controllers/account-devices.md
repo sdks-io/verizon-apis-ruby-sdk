@@ -30,7 +30,7 @@ def get_account_device_information(acc,
 |  --- | --- | --- | --- |
 | `acc` | `String` | Template, Required | Account identifier. |
 | `last_seen_device_id` | `String` | Query, Optional | Last seen device identifier. |
-| `protocol` | [`DevicesProtocolEnum`](../../doc/models/devices-protocol-enum.md) | Query, Optional | Filter to retrieve a specific protocol type used. |
+| `protocol` | [`DevicesProtocolEnum`](../../doc/models/devices-protocol-enum.md) | Query, Optional | Filter to retrieve a specific protocol type used.<br>**Default**: `DevicesProtocolEnum::LW_M2M` |
 
 ## Server
 
@@ -38,7 +38,7 @@ def get_account_device_information(acc,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V3AccountDeviceList`](../../doc/models/v3-account-device-list.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V3AccountDeviceList`](../../doc/models/v3-account-device-list.md).
 
 ## Example Usage
 
@@ -85,7 +85,7 @@ def list_account_devices_information(acc,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceListResult`](../../doc/models/device-list-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceListResult`](../../doc/models/device-list-result.md).
 
 ## Example Usage
 

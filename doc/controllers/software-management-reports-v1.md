@@ -37,7 +37,7 @@ def list_account_devices(account,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceListQueryResult`](../../doc/models/device-list-query-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`DeviceListQueryResult`](../../doc/models/device-list-query-result.md).
 
 ## Example Usage
 
@@ -125,7 +125,7 @@ def list_upgrades_for_specified_status(account,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`UpgradeListQueryResult`](../../doc/models/upgrade-list-query-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`UpgradeListQueryResult`](../../doc/models/upgrade-list-query-result.md).
 
 ## Example Usage
 
@@ -172,7 +172,7 @@ def get_device_firmware_upgrade_history(account,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<DeviceUpgradeHistory>`](../../doc/models/device-upgrade-history.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<DeviceUpgradeHistory>`](../../doc/models/device-upgrade-history.md).
 
 ## Example Usage
 

@@ -41,8 +41,7 @@ module Verizon
       []
     end
 
-    def initialize(txid = nil,
-                   status = SKIP)
+    def initialize(txid = nil, status = SKIP)
       @txid = txid
       @status = status unless status == SKIP
     end

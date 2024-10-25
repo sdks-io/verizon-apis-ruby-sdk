@@ -9,7 +9,7 @@ module Verizon
     # This endpoint allows user to add managed accounts to a primary account.
     # @param [ManagedAccountsAddRequest] body Required parameter: Service name
     # and list of accounts to add
-    # @return [ManagedAccountsAddResponse] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def add_account(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -21,12 +21,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ManagedAccountsAddResponse.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error',
-                                DeviceLocationResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ManagedAccountsAddResponse.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error',
+                                 DeviceLocationResultException))
         .execute
     end
 
@@ -34,7 +34,7 @@ module Verizon
     # and the primary account.
     # @param [ManagedAccountsProvisionRequest] body Required parameter: Service
     # name and list of accounts to add
-    # @return [ManagedAccountsProvisionResponse] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def managed_account_action(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -46,12 +46,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ManagedAccountsProvisionResponse.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error',
-                                DeviceLocationResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ManagedAccountsProvisionResponse.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error',
+                                 DeviceLocationResultException))
         .execute
     end
 
@@ -59,7 +59,7 @@ module Verizon
     # account and the primary account.
     # @param [ManagedAccountCancelRequest] body Required parameter: Service name
     # and list of accounts to add
-    # @return [ManagedAccountCancelResponse] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def cancel_managed_account_action(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -71,12 +71,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ManagedAccountCancelResponse.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error',
-                                DeviceLocationResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ManagedAccountCancelResponse.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error',
+                                 DeviceLocationResultException))
         .execute
     end
 
@@ -85,7 +85,7 @@ module Verizon
     # @param [String] account_name Required parameter: Primary account
     # identifier
     # @param [String] service_name Required parameter: Service name
-    # @return [ManagedAccountsGetAllResponse] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_managed_account(account_name,
                              service_name)
       new_api_call_builder
@@ -99,12 +99,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(ManagedAccountsGetAllResponse.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error',
-                                DeviceLocationResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ManagedAccountsGetAllResponse.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error',
+                                 DeviceLocationResultException))
         .execute
     end
   end

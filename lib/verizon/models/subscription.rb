@@ -146,26 +146,13 @@ module Verizon
       []
     end
 
-    def initialize(configurationfailures = SKIP,
-                   createdon = SKIP,
-                   delegateid = SKIP,
-                   description = SKIP,
-                   disabled = SKIP,
-                   email = SKIP,
-                   filter = SKIP,
-                   id = SKIP,
-                   kind = SKIP,
-                   laststreamingstatus = SKIP,
-                   laststreamingtime = SKIP,
-                   lastupdated = SKIP,
-                   name = SKIP,
-                   networkfailures = SKIP,
-                   streamfailures = SKIP,
-                   streamkind = SKIP,
-                   targetid = SKIP,
-                   targettype = SKIP,
-                   version = SKIP,
-                   versionid = SKIP)
+    def initialize(configurationfailures = SKIP, createdon = SKIP,
+                   delegateid = SKIP, description = SKIP, disabled = SKIP,
+                   email = SKIP, filter = SKIP, id = SKIP, kind = SKIP,
+                   laststreamingstatus = SKIP, laststreamingtime = SKIP,
+                   lastupdated = SKIP, name = SKIP, networkfailures = SKIP,
+                   streamfailures = SKIP, streamkind = SKIP, targetid = SKIP,
+                   targettype = SKIP, version = SKIP, versionid = SKIP)
       @configurationfailures = configurationfailures unless configurationfailures == SKIP
       @createdon = createdon unless createdon == SKIP
       @delegateid = delegateid unless delegateid == SKIP

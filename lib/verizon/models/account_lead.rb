@@ -46,9 +46,7 @@ module Verizon
       []
     end
 
-    def initialize(address = SKIP,
-                   lead_id = SKIP,
-                   lead_state = SKIP)
+    def initialize(address = SKIP, lead_id = SKIP, lead_state = SKIP)
       @address = address unless address == SKIP
       @lead_id = lead_id unless lead_id == SKIP
       @lead_state = lead_state unless lead_state == SKIP

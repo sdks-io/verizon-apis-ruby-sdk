@@ -87,13 +87,9 @@ module Verizon
       []
     end
 
-    def initialize(account_name = SKIP,
-                   cost_center = SKIP,
-                   custom_fields = SKIP,
-                   devices = SKIP,
-                   group_name = SKIP,
-                   primary_place_of_use = SKIP,
-                   remove_cost_center = SKIP,
+    def initialize(account_name = SKIP, cost_center = SKIP,
+                   custom_fields = SKIP, devices = SKIP, group_name = SKIP,
+                   primary_place_of_use = SKIP, remove_cost_center = SKIP,
                    service_plan = SKIP)
       @account_name = account_name unless account_name == SKIP
       @cost_center = cost_center unless cost_center == SKIP

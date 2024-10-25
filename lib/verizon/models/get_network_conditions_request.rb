@@ -40,9 +40,7 @@ module Verizon
       []
     end
 
-    def initialize(account_name = nil,
-                   location_type = nil,
-                   coordinates = nil)
+    def initialize(account_name = nil, location_type = nil, coordinates = nil)
       @account_name = account_name
       @location_type = location_type
       @coordinates = coordinates

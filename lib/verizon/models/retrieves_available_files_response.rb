@@ -75,14 +75,9 @@ module Verizon
       []
     end
 
-    def initialize(file_name = SKIP,
-                   file_version = SKIP,
-                   release_note = SKIP,
-                   make = SKIP,
-                   model = SKIP,
-                   local_target_path = SKIP,
-                   distribution_type = SKIP,
-                   device_platform_id = SKIP)
+    def initialize(file_name = SKIP, file_version = SKIP, release_note = SKIP,
+                   make = SKIP, model = SKIP, local_target_path = SKIP,
+                   distribution_type = SKIP, device_platform_id = SKIP)
       @file_name = file_name unless file_name == SKIP
       @file_version = file_version unless file_version == SKIP
       @release_note = release_note unless release_note == SKIP

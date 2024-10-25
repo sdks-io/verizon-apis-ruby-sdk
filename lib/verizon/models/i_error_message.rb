@@ -50,10 +50,8 @@ module Verizon
       []
     end
 
-    def initialize(error_code = SKIP,
-                   error_message = SKIP,
-                   http_status_code = SKIP,
-                   detail_error_message = SKIP)
+    def initialize(error_code = SKIP, error_message = SKIP,
+                   http_status_code = SKIP, detail_error_message = SKIP)
       @error_code = error_code unless error_code == SKIP
       @error_message = error_message unless error_message == SKIP
       @http_status_code = http_status_code unless http_status_code == SKIP

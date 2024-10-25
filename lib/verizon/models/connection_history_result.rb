@@ -43,8 +43,7 @@ module Verizon
       []
     end
 
-    def initialize(connection_history = SKIP,
-                   has_more_data = SKIP)
+    def initialize(connection_history = SKIP, has_more_data = SKIP)
       @connection_history = connection_history unless connection_history == SKIP
       @has_more_data = has_more_data unless has_more_data == SKIP
     end

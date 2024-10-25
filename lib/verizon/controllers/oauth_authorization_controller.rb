@@ -13,7 +13,7 @@ module Verizon
     # space-delimited list.
     # @param [Hash] _field_parameters Additional optional form parameters are
     # supported by this endpoint.
-    # @return [OauthToken] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def request_token_thingspace_oauth(authorization,
                                        scope: nil,
                                        _field_parameters: nil)
@@ -28,15 +28,15 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .additional_form_params(_field_parameters))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(OauthToken.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'OAuth 2 provider returned an error.',
-                                OauthProviderException)
-                   .local_error('401',
-                                'OAuth 2 provider says client authentication failed.',
-                                OauthProviderException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(OauthToken.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'OAuth 2 provider returned an error.',
+                                 OauthProviderException)
+                    .local_error('401',
+                                 'OAuth 2 provider says client authentication failed.',
+                                 OauthProviderException))
         .execute
     end
   end

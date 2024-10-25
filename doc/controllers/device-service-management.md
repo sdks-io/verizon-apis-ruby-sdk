@@ -36,7 +36,7 @@ def get_device_hyper_precise_status(imei,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`BullseyeServiceResult`](../../doc/models/bullseye-service-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`BullseyeServiceResult`](../../doc/models/bullseye-service-result.md).
 
 ## Example Usage
 
@@ -97,7 +97,7 @@ def update_device_hyper_precise_status(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`BullseyeServiceResult`](../../doc/models/bullseye-service-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`BullseyeServiceResult`](../../doc/models/bullseye-service-result.md).
 
 ## Example Usage
 

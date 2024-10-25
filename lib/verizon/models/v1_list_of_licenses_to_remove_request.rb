@@ -40,8 +40,7 @@ module Verizon
       []
     end
 
-    def initialize(device_list = nil,
-                   type = SKIP)
+    def initialize(device_list = nil, type = SKIP)
       @type = type unless type == SKIP
       @device_list = device_list
     end

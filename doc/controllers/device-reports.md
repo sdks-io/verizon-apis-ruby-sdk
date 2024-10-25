@@ -35,7 +35,7 @@ def calculate_aggregated_report_synchronous(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`AggregateSessionReport`](../../doc/models/aggregate-session-report.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`AggregateSessionReport`](../../doc/models/aggregate-session-report.md).
 
 ## Example Usage
 
@@ -103,7 +103,7 @@ def calculate_aggregated_report_asynchronous(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`AggregatedReportCallbackResult`](../../doc/models/aggregated-report-callback-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`AggregatedReportCallbackResult`](../../doc/models/aggregated-report-callback-result.md).
 
 ## Example Usage
 
@@ -165,7 +165,7 @@ def get_sessions_report(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`SessionReport`](../../doc/models/session-report.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`SessionReport`](../../doc/models/session-report.md).
 
 ## Example Usage
 

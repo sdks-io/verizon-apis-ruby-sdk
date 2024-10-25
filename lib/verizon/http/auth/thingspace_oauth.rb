@@ -15,7 +15,6 @@ module Verizon
 
     # Initialization constructor.
     def initialize(thingspace_oauth_credentials, config)
-      auth_params = {}
       @_oauth_client_id = thingspace_oauth_credentials.oauth_client_id unless
         thingspace_oauth_credentials.nil? || thingspace_oauth_credentials.oauth_client_id.nil?
       @_oauth_client_secret = thingspace_oauth_credentials.oauth_client_secret unless
@@ -24,16 +23,21 @@ module Verizon
         thingspace_oauth_credentials.nil? || thingspace_oauth_credentials.oauth_token.nil?
       @_oauth_scopes = thingspace_oauth_credentials.oauth_scopes unless
         thingspace_oauth_credentials.nil? || thingspace_oauth_credentials.oauth_scopes.nil?
+      @_oauth_clock_skew = thingspace_oauth_credentials.oauth_clock_skew unless
+        thingspace_oauth_credentials.nil? || thingspace_oauth_credentials.oauth_clock_skew.nil?
+      @_oauth_token_provider = thingspace_oauth_credentials.oauth_token_provider unless
+        thingspace_oauth_credentials.nil? || thingspace_oauth_credentials.oauth_token_provider.nil?
+      @_oauth_on_token_update = thingspace_oauth_credentials.oauth_on_token_update unless
+        thingspace_oauth_credentials.nil? || thingspace_oauth_credentials.oauth_on_token_update.nil?
       @_o_auth_api = OauthAuthorizationController.new(config)
-      auth_params['Authorization'] = "Bearer #{@_oauth_token.access_token}" unless @_oauth_token.nil?
-
-      super auth_params
+      super({})
     end
 
     # Validates the oAuth token.
     # @return [Boolean] true if the token is present and not expired.
     def valid
-      !@_oauth_token.nil? && !token_expired?(@_oauth_token)
+      @_oauth_token = get_token_from_provider
+      @_oauth_token.is_a?(OAuthToken) && !token_expired?(@_oauth_token)
     end
 
     # Builds the basic auth header for endpoints in the OAuth Authorization Controller.
@@ -61,17 +65,45 @@ module Verizon
     # @param [OAuthToken] token The oAuth token instance.
     # @return [Boolean] true if the token's expiry exist and also the token is expired, false otherwise.
     def token_expired?(token)
-      token.respond_to?('expiry') && AuthHelper.token_expired?(token.expiry)
+      token.respond_to?('expiry') && AuthHelper.token_expired?(token.expiry, @_oauth_clock_skew)
+    end
+
+    def apply(http_request)
+      auth_params = { 'Authorization' => "Bearer #{@_oauth_token.access_token}" }
+      AuthHelper.apply(auth_params, http_request.method(:add_header))
+    end
+
+    private
+
+    # This provides the OAuth Token from either the user configured callbacks or from default provider.
+    # @return [OAuthToken] The fetched oauth token.
+    def get_token_from_provider
+      return @_oauth_token if @_oauth_token && !token_expired?(@_oauth_token)
+
+      if @_o_auth_token_provider
+        o_auth_token = @_o_auth_token_provider.call(@_oauth_token, self)
+        @_o_auth_on_token_update&.call(o_auth_token)
+        return o_auth_token
+      end
+      begin
+        o_auth_token = fetch_token
+        @_o_auth_on_token_update&.call(o_auth_token)
+        o_auth_token
+      rescue ApiException
+        @_o_auth_token
+      end
     end
   end
 
   # Data class for ThingspaceOauthCredentials.
   class ThingspaceOauthCredentials
     attr_reader :oauth_client_id, :oauth_client_secret, :oauth_token,
-                :oauth_scopes
+                :oauth_scopes, :oauth_token_provider, :oauth_on_token_update,
+                :oauth_clock_skew
 
     def initialize(oauth_client_id:, oauth_client_secret:, oauth_token: nil,
-                   oauth_scopes: nil)
+                   oauth_scopes: nil, oauth_token_provider: nil,
+                   oauth_on_token_update: nil, oauth_clock_skew: nil)
       raise ArgumentError, 'oauth_client_id cannot be nil' if oauth_client_id.nil?
       raise ArgumentError, 'oauth_client_secret cannot be nil' if oauth_client_secret.nil?
 
@@ -79,19 +111,30 @@ module Verizon
       @oauth_client_secret = oauth_client_secret
       @oauth_token = oauth_token
       @oauth_scopes = oauth_scopes
+      @oauth_token_provider = oauth_token_provider
+      @oauth_on_token_update = oauth_on_token_update
+      @oauth_clock_skew = oauth_clock_skew
     end
 
     def clone_with(oauth_client_id: nil, oauth_client_secret: nil,
-                   oauth_token: nil, oauth_scopes: nil)
+                   oauth_token: nil, oauth_scopes: nil,
+                   oauth_token_provider: nil, oauth_on_token_update: nil,
+                   oauth_clock_skew: nil)
       oauth_client_id ||= self.oauth_client_id
       oauth_client_secret ||= self.oauth_client_secret
       oauth_token ||= self.oauth_token
       oauth_scopes ||= self.oauth_scopes
+      oauth_token_provider ||= self.oauth_token_provider
+      oauth_on_token_update ||= self.oauth_on_token_update
+      oauth_clock_skew ||= self.oauth_clock_skew
 
-      ThingspaceOauthCredentials.new(oauth_client_id: oauth_client_id,
-                                     oauth_client_secret: oauth_client_secret,
-                                     oauth_token: oauth_token,
-                                     oauth_scopes: oauth_scopes)
+      ThingspaceOauthCredentials.new(
+        oauth_client_id: oauth_client_id,
+        oauth_client_secret: oauth_client_secret, oauth_token: oauth_token,
+        oauth_scopes: oauth_scopes, oauth_token_provider: oauth_token_provider,
+        oauth_on_token_update: oauth_on_token_update,
+        oauth_clock_skew: oauth_clock_skew
+      )
     end
   end
 end

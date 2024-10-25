@@ -62,11 +62,8 @@ module Verizon
       []
     end
 
-    def initialize(txid = SKIP,
-                   account_name = SKIP,
-                   paccount_name = SKIP,
-                   service_name = ServiceNameEnum::LOCATION,
-                   status = SKIP,
+    def initialize(txid = SKIP, account_name = SKIP, paccount_name = SKIP,
+                   service_name = ServiceNameEnum::LOCATION, status = SKIP,
                    reason = SKIP)
       @txid = txid unless txid == SKIP
       @account_name = account_name unless account_name == SKIP

@@ -31,7 +31,7 @@ def list_anomaly_detection_triggers
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<GetTriggerResponseList>`](../../doc/models/get-trigger-response-list.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<GetTriggerResponseList>`](../../doc/models/get-trigger-response-list.md).
 
 ## Example Usage
 
@@ -72,7 +72,7 @@ def update_anomaly_detection_trigger(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`AnomalyDetectionTrigger`](../../doc/models/anomaly-detection-trigger.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`AnomalyDetectionTrigger`](../../doc/models/anomaly-detection-trigger.md).
 
 ## Example Usage
 
@@ -125,7 +125,7 @@ def create_anomaly_detection_trigger(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`AnomalyDetectionTrigger`](../../doc/models/anomaly-detection-trigger.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`AnomalyDetectionTrigger`](../../doc/models/anomaly-detection-trigger.md).
 
 ## Example Usage
 
@@ -177,7 +177,7 @@ def list_anomaly_detection_trigger_settings(trigger_id)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<GetTriggerResponseList>`](../../doc/models/get-trigger-response-list.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<GetTriggerResponseList>`](../../doc/models/get-trigger-response-list.md).
 
 ## Example Usage
 
@@ -220,7 +220,7 @@ def delete_anomaly_detection_trigger(trigger_id)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`AnomalyDetectionTrigger`](../../doc/models/anomaly-detection-trigger.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`AnomalyDetectionTrigger`](../../doc/models/anomaly-detection-trigger.md).
 
 ## Example Usage
 

@@ -52,8 +52,7 @@ module Verizon
       []
     end
 
-    def initialize(primary_place_of_use = nil,
-                   account_name = SKIP,
+    def initialize(primary_place_of_use = nil, account_name = SKIP,
                    devices = SKIP)
       @primary_place_of_use = primary_place_of_use
       @account_name = account_name unless account_name == SKIP

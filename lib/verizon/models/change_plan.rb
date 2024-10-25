@@ -38,8 +38,7 @@ module Verizon
       []
     end
 
-    def initialize(trigger_date = SKIP,
-                   share_plan = SKIP)
+    def initialize(trigger_date = SKIP, share_plan = SKIP)
       @trigger_date = trigger_date unless trigger_date == SKIP
       @share_plan = share_plan unless share_plan == SKIP
     end

@@ -39,7 +39,7 @@ def list_available_software(account,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<SoftwarePackage>`](../../doc/models/software-package.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<SoftwarePackage>`](../../doc/models/software-package.md).
 
 ## Example Usage
 
@@ -101,7 +101,7 @@ def list_account_devices(account,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V2AccountDeviceList`](../../doc/models/v2-account-device-list.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V2AccountDeviceList`](../../doc/models/v2-account-device-list.md).
 
 ## Example Usage
 
@@ -224,7 +224,7 @@ def get_device_firmware_upgrade_history(account,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<DeviceSoftwareUpgrade>`](../../doc/models/device-software-upgrade.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<DeviceSoftwareUpgrade>`](../../doc/models/device-software-upgrade.md).
 
 ## Example Usage
 
@@ -295,7 +295,7 @@ def get_campaign_history_by_status(account,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V2CampaignHistory`](../../doc/models/v2-campaign-history.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V2CampaignHistory`](../../doc/models/v2-campaign-history.md).
 
 ## Example Usage
 
@@ -383,7 +383,7 @@ def get_campaign_device_status(account,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V2CampaignDevice`](../../doc/models/v2-campaign-device.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V2CampaignDevice`](../../doc/models/v2-campaign-device.md).
 
 ## Example Usage
 

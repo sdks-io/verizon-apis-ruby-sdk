@@ -38,8 +38,7 @@ module Verizon
       []
     end
 
-    def initialize(type = SKIP,
-                   data = SKIP)
+    def initialize(type = SKIP, data = SKIP)
       @type = type unless type == SKIP
       @data = data unless data == SKIP
     end

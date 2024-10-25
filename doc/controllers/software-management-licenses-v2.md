@@ -40,7 +40,7 @@ def get_account_license_status(account,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V2LicenseSummary`](../../doc/models/v2-license-summary.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V2LicenseSummary`](../../doc/models/v2-license-summary.md).
 
 ## Example Usage
 
@@ -117,7 +117,7 @@ def assign_licenses_to_devices(account,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V2LicensesAssignedRemovedResult`](../../doc/models/v2-licenses-assigned-removed-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V2LicensesAssignedRemovedResult`](../../doc/models/v2-licenses-assigned-removed-result.md).
 
 ## Example Usage
 
@@ -190,7 +190,7 @@ def remove_licenses_from_devices(account,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V2LicensesAssignedRemovedResult`](../../doc/models/v2-licenses-assigned-removed-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V2LicensesAssignedRemovedResult`](../../doc/models/v2-licenses-assigned-removed-result.md).
 
 ## Example Usage
 
@@ -269,7 +269,7 @@ def list_licenses_to_remove(account,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V2ListOfLicensesToRemove`](../../doc/models/v2-list-of-licenses-to-remove.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V2ListOfLicensesToRemove`](../../doc/models/v2-list-of-licenses-to-remove.md).
 
 ## Example Usage
 
@@ -328,7 +328,7 @@ def create_list_of_licenses_to_remove(account,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V2ListOfLicensesToRemoveResult`](../../doc/models/v2-list-of-licenses-to-remove-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`V2ListOfLicensesToRemoveResult`](../../doc/models/v2-list-of-licenses-to-remove-result.md).
 
 ## Example Usage
 
@@ -391,7 +391,7 @@ def delete_list_of_licenses_to_remove(account)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FotaV2SuccessResult`](../../doc/models/fota-v2-success-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`FotaV2SuccessResult`](../../doc/models/fota-v2-success-result.md).
 
 ## Example Usage
 

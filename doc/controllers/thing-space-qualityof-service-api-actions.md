@@ -34,7 +34,7 @@ def create_a_thing_space_quality_of_service_api_subscription(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`M201success`](../../doc/models/m201-success.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`M201success`](../../doc/models/m201-success.md).
 
 ## Example Usage
 
@@ -93,7 +93,7 @@ def stop_a_thing_space_quality_of_service_api_subscription(account_name,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`M201success`](../../doc/models/m201-success.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`M201success`](../../doc/models/m201-success.md).
 
 ## Example Usage
 

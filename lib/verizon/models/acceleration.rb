@@ -44,9 +44,7 @@ module Verizon
       []
     end
 
-    def initialize(x = SKIP,
-                   y = SKIP,
-                   z = SKIP)
+    def initialize(x = SKIP, y = SKIP, z = SKIP)
       @x = x unless x == SKIP
       @y = y unless y == SKIP
       @z = z unless z == SKIP

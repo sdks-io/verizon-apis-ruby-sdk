@@ -6,10 +6,86 @@
 module Verizon
   # ExclusionsController
   class ExclusionsController < BaseController
+    # Get the consent settings for the entire account or device list in an
+    # account.
+    # @param [String] account_name Required parameter: The numeric name of the
+    # account.
+    # @param [String] device_id Optional parameter: The IMEI of the device being
+    # queried
+    # @return [ApiResponse]  the complete http response with raw body and status code.
+    def devices_location_get_consent_async(account_name,
+                                           device_id: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/devicelocations/action/consents',
+                                     Server::DEVICE_LOCATION)
+                   .query_param(new_parameter(account_name, key: 'accountName'))
+                   .query_param(new_parameter(device_id, key: 'deviceId'))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
+        .response(new_response_handler
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(GetAccountDeviceConsent.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'Unexpected error.',
+                                 DeviceLocationResultException))
+        .execute
+    end
+
+    # Create a consent record to use location services as an asynchronous
+    # request.
+    # @param [AccountConsentCreate] body Optional parameter: Account details to
+    # create a consent record.
+    # @return [ApiResponse]  the complete http response with raw body and status code.
+    def devices_location_give_consent_async(body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/devicelocations/action/consents',
+                                     Server::DEVICE_LOCATION)
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
+        .response(new_response_handler
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ConsentTransactionID.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'Unexpected error.',
+                                 DeviceLocationResultException))
+        .execute
+    end
+
+    # Update the location services consent record for an entire account.
+    # @param [AccountConsentUpdate] body Optional parameter: Account details to
+    # update a consent record.
+    # @return [ApiResponse]  the complete http response with raw body and status code.
+    def devices_location_update_consent(body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/devicelocations/action/consents',
+                                     Server::DEVICE_LOCATION)
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
+        .response(new_response_handler
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(ConsentTransactionID.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'Unexpected error.',
+                                 DeviceLocationResultException))
+        .execute
+    end
+
     # This consents endpoint sets a new exclusion list.
     # @param [ConsentRequest] body Required parameter: Request to update account
     # consent exclusion list.
-    # @return [DeviceLocationSuccessResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def exclude_devices(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -21,12 +97,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceLocationSuccessResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                DeviceLocationResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceLocationSuccessResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 DeviceLocationResultException))
         .execute
     end
 
@@ -36,7 +112,7 @@ module Verizon
     # account.
     # @param [String] device_list Required parameter: A list of the device IDs
     # to remove from the exclusion list.
-    # @return [DeviceLocationSuccessResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def remove_devices_from_exclusion_list(account_name,
                                            device_list)
       new_api_call_builder
@@ -48,40 +124,40 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DeviceLocationSuccessResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                DeviceLocationResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DeviceLocationSuccessResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 DeviceLocationResultException))
         .execute
     end
 
     # This consents endpoint retrieves a list of excluded devices in an account.
-    # @param [String] account Required parameter: Account identifier in
+    # @param [String] account_name Required parameter: Account identifier in
     # "##########-#####".
     # @param [String] start_index Required parameter: Zero-based number of the
     # first record to return.
-    # @return [DevicesConsentResult] response from the API call
-    def list_excluded_devices(account,
+    # @return [ApiResponse]  the complete http response with raw body and status code.
+    def list_excluded_devices(account_name,
                               start_index)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/consents/{account}/index/{startIndex}',
+                                     '/consents/{accountName}/index/{startIndex}',
                                      Server::DEVICE_LOCATION)
-                   .template_param(new_parameter(account, key: 'account')
+                   .template_param(new_parameter(account_name, key: 'accountName')
                                     .should_encode(true))
                    .template_param(new_parameter(start_index, key: 'startIndex')
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(DevicesConsentResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Unexpected error.',
-                                DeviceLocationResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(DevicesConsentResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Unexpected error.',
+                                 DeviceLocationResultException))
         .execute
     end
   end

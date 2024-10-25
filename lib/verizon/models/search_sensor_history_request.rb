@@ -50,10 +50,8 @@ module Verizon
       []
     end
 
-    def initialize(accountidentifier = nil,
-                   resourceidentifier = nil,
-                   limitnumber = SKIP,
-                   page = SKIP)
+    def initialize(accountidentifier = nil, resourceidentifier = nil,
+                   limitnumber = SKIP, page = SKIP)
       @accountidentifier = accountidentifier
       @resourceidentifier = resourceidentifier
       @limitnumber = limitnumber unless limitnumber == SKIP

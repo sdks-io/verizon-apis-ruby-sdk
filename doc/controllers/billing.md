@@ -36,7 +36,7 @@ def add_account(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ManagedAccountsAddResponse`](../../doc/models/managed-accounts-add-response.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ManagedAccountsAddResponse`](../../doc/models/managed-accounts-add-response.md).
 
 ## Example Usage
 
@@ -59,7 +59,7 @@ result = billing_controller.add_account(body)
 
 ```json
 {
-  "txid": "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33",
+  "txid": "2c90bd28-eeee-ffff-gggg-7e3bd4fbff33",
   "statusList": [
     {
       "id": "1223334444-00001",
@@ -107,7 +107,7 @@ def managed_account_action(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ManagedAccountsProvisionResponse`](../../doc/models/managed-accounts-provision-response.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ManagedAccountsProvisionResponse`](../../doc/models/managed-accounts-provision-response.md).
 
 ## Example Usage
 
@@ -117,7 +117,7 @@ body = ManagedAccountsProvisionRequest.new(
   '1234567890-00001',
   ServiceNameEnum::LOCATION,
   'TS-LOC-COARSE-CellID-5K',
-  'd4fbff33-ece4-9f02-42ef-2c90bd287e3b'
+  'd4fbff33-eeee-ffff-gggg-2c90bd287e3b'
 )
 
 result = billing_controller.managed_account_action(body)
@@ -127,7 +127,7 @@ result = billing_controller.managed_account_action(body)
 
 ```json
 {
-  "txid": "4fbff332-ece4-42ef-9f02-7e3bdc90bd28",
+  "txid": "4fbff332-eeee-ffff-gggg-7e3bdc90bd28",
   "accountName": "1223334444-00001",
   "paccountName": "1234567890-00001",
   "serviceName": "Location",
@@ -163,7 +163,7 @@ def cancel_managed_account_action(body)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ManagedAccountCancelResponse`](../../doc/models/managed-account-cancel-response.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ManagedAccountCancelResponse`](../../doc/models/managed-account-cancel-response.md).
 
 ## Example Usage
 
@@ -173,7 +173,7 @@ body = ManagedAccountCancelRequest.new(
   '1234567890-00001',
   ServiceNameEnum::LOCATION,
   'TS-LOC-COARSE-CellID-5K',
-  'd4fbff33-ece4-9f02-42ef-2c90bd287e3b'
+  'd4fbff33-eeee-ffff-gggg-2c90bd287e3b'
 )
 
 result = billing_controller.cancel_managed_account_action(body)
@@ -183,7 +183,7 @@ result = billing_controller.cancel_managed_account_action(body)
 
 ```json
 {
-  "txid": "4fbff332-ece4-42ef-9f02-7e3bdc90bd28",
+  "txid": "4fbff332-eeee-ffff-gggg-7e3bdc90bd28",
   "accountName": "1223334444-00001",
   "paccountName": "1234567890-00001",
   "serviceName": "Location",
@@ -221,7 +221,7 @@ def list_managed_account(account_name,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ManagedAccountsGetAllResponse`](../../doc/models/managed-accounts-get-all-response.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ManagedAccountsGetAllResponse`](../../doc/models/managed-accounts-get-all-response.md).
 
 ## Example Usage
 
@@ -244,11 +244,11 @@ result = billing_controller.list_managed_account(
   "ManagedAccAddedList": [
     {
       "id": "1223334444-00001",
-      "txid": "2c90bd28-ece4-42ef-9f02-7e3bd4fbff33"
+      "txid": "2c90bd28-eeee-ffff-gggg-7e3bd4fbff33"
     },
     {
       "id": "2334445555-00001",
-      "txid": "d4fbff33-ece4-9f02-42ef-2c90bd287e3b"
+      "txid": "d4fbff33-eeee-ffff-gggg-2c90bd287e3b"
     }
   ]
 }

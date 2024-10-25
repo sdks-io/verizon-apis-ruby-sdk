@@ -35,8 +35,7 @@ module Verizon
       []
     end
 
-    def initialize(start_time = nil,
-                   end_time = nil)
+    def initialize(start_time = nil, end_time = nil)
       @start_time = start_time
       @end_time = end_time
     end

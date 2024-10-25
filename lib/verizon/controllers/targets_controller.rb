@@ -10,7 +10,7 @@ module Verizon
     # target resources.
     # @param [QueryTargetRequest] body Required parameter: Search for targets by
     # property values.
-    # @return [Array[Target]] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def query_target(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -22,17 +22,17 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Target.method(:from_hash))
-                   .is_api_response(true)
-                   .is_response_array(true))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(Target.method(:from_hash))
+                    .is_api_response(true)
+                    .is_response_array(true))
         .execute
     end
 
     # Remove a target from a ThingSpace account.
     # @param [DeleteTargetRequest] body Required parameter: The request body
     # identifies the target to delete.
-    # @return [void] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def delete_target(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -43,8 +43,8 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .is_response_void(true)
-                   .is_api_response(true))
+                    .is_response_void(true)
+                    .is_api_response(true))
         .execute
     end
 
@@ -53,7 +53,7 @@ module Verizon
     # data stream.
     # @param [CreateTargetRequest] body Required parameter: The request body
     # provides the details of the target that you want to create.
-    # @return [Target] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def create_target(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -65,9 +65,9 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(Target.method(:from_hash))
-                   .is_api_response(true))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(Target.method(:from_hash))
+                    .is_api_response(true))
         .execute
     end
 
@@ -75,7 +75,7 @@ module Verizon
     # security.
     # @param [GenerateExternalIDRequest] body Required parameter: The request
     # body only contains the authenticating account.
-    # @return [GenerateExternalIDResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def generate_target_external_id(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -84,11 +84,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(GenerateExternalIDResult.method(:from_hash))
-                   .is_api_response(true))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(GenerateExternalIDResult.method(:from_hash))
+                    .is_api_response(true))
         .execute
     end
 
@@ -99,7 +100,7 @@ module Verizon
     # @param [CreateIoTApplicationRequest] body Required parameter: The request
     # body must include the UUID of the subscription that you want to update
     # plus any properties that you want to change.
-    # @return [CreateIoTApplicationResponse] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def create_azure_central_io_t_application(billingaccount_id,
                                               body)
       new_api_call_builder
@@ -113,9 +114,9 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CreateIoTApplicationResponse.method(:from_hash))
-                   .is_api_response(true))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CreateIoTApplicationResponse.method(:from_hash))
+                    .is_api_response(true))
         .execute
     end
   end

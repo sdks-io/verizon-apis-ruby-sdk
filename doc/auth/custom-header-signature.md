@@ -23,7 +23,9 @@ You must provide credentials in the client as shown in the following code snippe
 
 ```ruby
 client = Verizon::Client.new(
-  vz_m2m_token_credentials: VZM2mTokenCredentials.new()
+  vz_m2m_token_credentials: VZM2mTokenCredentials.new(
+    vz_m2m_token: 'VZ-M2M-Token'
+  )
 )
 ```
 

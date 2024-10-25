@@ -45,8 +45,7 @@ module Verizon
     end
 
     def initialize(connection_event_attributes = SKIP,
-                   extended_attributes = SKIP,
-                   occurred_at = SKIP)
+                   extended_attributes = SKIP, occurred_at = SKIP)
       unless connection_event_attributes == SKIP
         @connection_event_attributes =
           connection_event_attributes

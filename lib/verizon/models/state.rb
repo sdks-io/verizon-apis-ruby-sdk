@@ -45,8 +45,7 @@ module Verizon
       []
     end
 
-    def initialize(name = SKIP,
-                   workflow_sequence_number = SKIP,
+    def initialize(name = SKIP, workflow_sequence_number = SKIP,
                    service_plans = SKIP)
       @name = name unless name == SKIP
       @workflow_sequence_number = workflow_sequence_number unless workflow_sequence_number == SKIP

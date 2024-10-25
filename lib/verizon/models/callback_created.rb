@@ -44,9 +44,7 @@ module Verizon
       []
     end
 
-    def initialize(aname = nil,
-                   name = nil,
-                   url = SKIP)
+    def initialize(aname = nil, name = nil, url = SKIP)
       @aname = aname
       @name = name
       @url = url unless url == SKIP

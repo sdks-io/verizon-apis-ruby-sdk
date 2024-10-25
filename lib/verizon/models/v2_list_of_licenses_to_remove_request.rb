@@ -43,9 +43,7 @@ module Verizon
       []
     end
 
-    def initialize(device_list = nil,
-                   type = SKIP,
-                   count = SKIP)
+    def initialize(device_list = nil, type = SKIP, count = SKIP)
       @type = type unless type == SKIP
       @count = count unless count == SKIP
       @device_list = device_list

@@ -41,9 +41,7 @@ module Verizon
       []
     end
 
-    def initialize(device_id = nil,
-                   earliest = nil,
-                   latest = nil)
+    def initialize(device_id = nil, earliest = nil, latest = nil)
       @device_id = device_id
       @earliest = earliest
       @latest = latest

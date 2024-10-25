@@ -45,9 +45,7 @@ module Verizon
       []
     end
 
-    def initialize(account_name = nil,
-                   request_type = nil,
-                   devices = nil,
+    def initialize(account_name = nil, request_type = nil, devices = nil,
                    monitor_expiration_time = nil)
       @account_name = account_name
       @request_type = request_type

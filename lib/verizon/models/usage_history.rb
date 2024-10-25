@@ -69,12 +69,8 @@ module Verizon
       []
     end
 
-    def initialize(bytes_used = SKIP,
-                   serviceplan = SKIP,
-                   sms_used = SKIP,
-                   mo_sms = SKIP,
-                   mt_sms = SKIP,
-                   source = SKIP,
+    def initialize(bytes_used = SKIP, serviceplan = SKIP, sms_used = SKIP,
+                   mo_sms = SKIP, mt_sms = SKIP, source = SKIP,
                    event_date_time = SKIP)
       @bytes_used = bytes_used unless bytes_used == SKIP
       @serviceplan = serviceplan unless serviceplan == SKIP

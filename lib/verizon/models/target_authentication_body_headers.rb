@@ -38,8 +38,7 @@ module Verizon
       []
     end
 
-    def initialize(authorization = SKIP,
-                   content_type = SKIP)
+    def initialize(authorization = SKIP, content_type = SKIP)
       @authorization = authorization unless authorization == SKIP
       @content_type = content_type unless content_type == SKIP
     end

@@ -38,8 +38,7 @@ module Verizon
       []
     end
 
-    def initialize(account = SKIP,
-                   name = SKIP)
+    def initialize(account = SKIP, name = SKIP)
       @account = account unless account == SKIP
       @name = name unless name == SKIP
     end

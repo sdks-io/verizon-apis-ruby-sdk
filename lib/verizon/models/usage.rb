@@ -64,11 +64,8 @@ module Verizon
       []
     end
 
-    def initialize(bytes_used = SKIP,
-                   extended_attributes = SKIP,
-                   service_plan = SKIP,
-                   sms_used = SKIP,
-                   source = SKIP,
+    def initialize(bytes_used = SKIP, extended_attributes = SKIP,
+                   service_plan = SKIP, sms_used = SKIP, source = SKIP,
                    timestamp = SKIP)
       @bytes_used = bytes_used unless bytes_used == SKIP
       @extended_attributes = extended_attributes unless extended_attributes == SKIP

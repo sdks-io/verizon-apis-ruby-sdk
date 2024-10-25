@@ -11,7 +11,7 @@ module Verizon
     # traffic and routing considerations.
     # @param [GIOSMSSendRequest] body Required parameter: SMS message to an
     # indiividual device.
-    # @return [GIORequestResponse] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def send_an_sms_message(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -23,12 +23,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(GIORequestResponse.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'Error response',
-                                GIORestErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(GIORequestResponse.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'Error response',
+                                 GIORestErrorResponseException))
         .execute
     end
 
@@ -37,7 +37,7 @@ module Verizon
     # @param [String] account_name Required parameter: Numeric account name
     # @param [String] mnext Optional parameter: Continue the previous query from
     # the pageUrl in Location Header
-    # @return [SmsMessagesResponse] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def get_sms_messages(account_name,
                          mnext: nil)
       new_api_call_builder
@@ -50,18 +50,18 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SmsMessagesResponse.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'Error response',
-                                GIORestErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(SmsMessagesResponse.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'Error response',
+                                 GIORestErrorResponseException))
         .execute
     end
 
     # Starts delivery of SMS messages for the specified account.
     # @param [String] account_name Required parameter: Numeric account name
-    # @return [SuccessResponse] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def start_sms_message_delivery(account_name)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
@@ -72,19 +72,19 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(SuccessResponse.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'Error response',
-                                GIORestErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(SuccessResponse.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'Error response',
+                                 GIORestErrorResponseException))
         .execute
     end
 
     # Returns a list of sms history for a given device during a specified time
     # frame.
     # @param [SMSEventHistoryRequest] body Required parameter: Device Query
-    # @return [GIORequestResponse] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_sms_message_history(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -96,12 +96,12 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(GIORequestResponse.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'Error response',
-                                GIORestErrorResponseException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(GIORequestResponse.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'Error response',
+                                 GIORestErrorResponseException))
         .execute
     end
   end

@@ -35,8 +35,7 @@ module Verizon
       []
     end
 
-    def initialize(earliest = nil,
-                   latest = nil)
+    def initialize(earliest = nil, latest = nil)
       @earliest = earliest
       @latest = latest
     end

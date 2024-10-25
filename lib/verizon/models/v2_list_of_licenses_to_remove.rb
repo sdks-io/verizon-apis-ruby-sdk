@@ -45,9 +45,7 @@ module Verizon
       []
     end
 
-    def initialize(count = nil,
-                   has_more_data = nil,
-                   update_time = nil,
+    def initialize(count = nil, has_more_data = nil, update_time = nil,
                    device_list = nil)
       @count = count
       @has_more_data = has_more_data

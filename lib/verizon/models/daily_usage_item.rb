@@ -44,9 +44,7 @@ module Verizon
       []
     end
 
-    def initialize(start_time = SKIP,
-                   end_time = SKIP,
-                   num_bytes = SKIP)
+    def initialize(start_time = SKIP, end_time = SKIP, num_bytes = SKIP)
       @start_time = start_time unless start_time == SKIP
       @end_time = end_time unless end_time == SKIP
       @num_bytes = num_bytes unless num_bytes == SKIP

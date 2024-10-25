@@ -9,7 +9,7 @@ module Verizon
     # Find registered callback listener for account by account number.
     # @param [String] account_number Required parameter: A unique identifier for
     # an account.
-    # @return [Array[CallbackCreated]] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_registered_callbacks(account_number)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -19,28 +19,28 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CallbackCreated.method(:from_hash))
-                   .is_api_response(true)
-                   .is_response_array(true)
-                   .local_error('400',
-                                'Bad request.',
-                                HyperPreciseLocationResultException)
-                   .local_error('401',
-                                'Unauthorized request. Access token is missing or invalid.',
-                                HyperPreciseLocationResultException)
-                   .local_error('403',
-                                'Forbidden request.',
-                                HyperPreciseLocationResultException)
-                   .local_error('404',
-                                'Bad request. Not found.',
-                                HyperPreciseLocationResultException)
-                   .local_error('409',
-                                'Bad request. Conflict state.',
-                                HyperPreciseLocationResultException)
-                   .local_error('500',
-                                'Internal Server Error.',
-                                HyperPreciseLocationResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CallbackCreated.method(:from_hash))
+                    .is_api_response(true)
+                    .is_response_array(true)
+                    .local_error('400',
+                                 'Bad request.',
+                                 HyperPreciseLocationResultException)
+                    .local_error('401',
+                                 'Unauthorized request. Access token is missing or invalid.',
+                                 HyperPreciseLocationResultException)
+                    .local_error('403',
+                                 'Forbidden request.',
+                                 HyperPreciseLocationResultException)
+                    .local_error('404',
+                                 'Bad request. Not found.',
+                                 HyperPreciseLocationResultException)
+                    .local_error('409',
+                                 'Bad request. Conflict state.',
+                                 HyperPreciseLocationResultException)
+                    .local_error('500',
+                                 'Internal Server Error.',
+                                 HyperPreciseLocationResultException))
         .execute
     end
 
@@ -52,7 +52,7 @@ module Verizon
     # @param [String] account_number Required parameter: A unique identifier for
     # an account.
     # @param [HyperPreciseLocationCallback] body Required parameter: Example:
-    # @return [CallbackRegistered] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def register_callback(account_number,
                           body)
       new_api_call_builder
@@ -66,27 +66,27 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(CallbackRegistered.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Bad request.',
-                                HyperPreciseLocationResultException)
-                   .local_error('401',
-                                'Unauthorized request. Access token is missing or invalid.',
-                                HyperPreciseLocationResultException)
-                   .local_error('403',
-                                'Forbidden request.',
-                                HyperPreciseLocationResultException)
-                   .local_error('404',
-                                'Bad request. Not found.',
-                                HyperPreciseLocationResultException)
-                   .local_error('409',
-                                'Bad request. Conflict state.',
-                                HyperPreciseLocationResultException)
-                   .local_error('500',
-                                'Internal Server Error.',
-                                HyperPreciseLocationResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(CallbackRegistered.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Bad request.',
+                                 HyperPreciseLocationResultException)
+                    .local_error('401',
+                                 'Unauthorized request. Access token is missing or invalid.',
+                                 HyperPreciseLocationResultException)
+                    .local_error('403',
+                                 'Forbidden request.',
+                                 HyperPreciseLocationResultException)
+                    .local_error('404',
+                                 'Bad request. Not found.',
+                                 HyperPreciseLocationResultException)
+                    .local_error('409',
+                                 'Bad request. Conflict state.',
+                                 HyperPreciseLocationResultException)
+                    .local_error('500',
+                                 'Internal Server Error.',
+                                 HyperPreciseLocationResultException))
         .execute
     end
 
@@ -96,7 +96,7 @@ module Verizon
     # a account.
     # @param [String] service Required parameter: The name of the callback
     # service that will be deleted.
-    # @return [void] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def deregister_callback(account_number,
                             service)
       new_api_call_builder
@@ -107,26 +107,26 @@ module Verizon
                    .query_param(new_parameter(service, key: 'service'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .is_response_void(true)
-                   .is_api_response(true)
-                   .local_error('400',
-                                'Bad request.',
-                                HyperPreciseLocationResultException)
-                   .local_error('401',
-                                'Unauthorized request. Access token is missing or invalid.',
-                                HyperPreciseLocationResultException)
-                   .local_error('403',
-                                'Forbidden request.',
-                                HyperPreciseLocationResultException)
-                   .local_error('404',
-                                'Bad request. Not found.',
-                                HyperPreciseLocationResultException)
-                   .local_error('409',
-                                'Bad request. Conflict state.',
-                                HyperPreciseLocationResultException)
-                   .local_error('500',
-                                'Internal Server Error.',
-                                HyperPreciseLocationResultException))
+                    .is_response_void(true)
+                    .is_api_response(true)
+                    .local_error('400',
+                                 'Bad request.',
+                                 HyperPreciseLocationResultException)
+                    .local_error('401',
+                                 'Unauthorized request. Access token is missing or invalid.',
+                                 HyperPreciseLocationResultException)
+                    .local_error('403',
+                                 'Forbidden request.',
+                                 HyperPreciseLocationResultException)
+                    .local_error('404',
+                                 'Bad request. Not found.',
+                                 HyperPreciseLocationResultException)
+                    .local_error('409',
+                                 'Bad request. Conflict state.',
+                                 HyperPreciseLocationResultException)
+                    .local_error('500',
+                                 'Internal Server Error.',
+                                 HyperPreciseLocationResultException))
         .execute
     end
   end

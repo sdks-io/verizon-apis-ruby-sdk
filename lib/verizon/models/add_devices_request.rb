@@ -71,12 +71,8 @@ module Verizon
       []
     end
 
-    def initialize(state = nil,
-                   devices_to_add = nil,
-                   account_name = SKIP,
-                   custom_fields = SKIP,
-                   group_name = SKIP,
-                   sku_number = SKIP,
+    def initialize(state = nil, devices_to_add = nil, account_name = SKIP,
+                   custom_fields = SKIP, group_name = SKIP, sku_number = SKIP,
                    smsr_oid = SKIP)
       @state = state
       @devices_to_add = devices_to_add

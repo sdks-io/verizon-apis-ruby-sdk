@@ -29,7 +29,7 @@ def list_account_service_plans(aname)
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<ServicePlan>`](../../doc/models/service-plan.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`Array<ServicePlan>`](../../doc/models/service-plan.md).
 
 ## Example Usage
 

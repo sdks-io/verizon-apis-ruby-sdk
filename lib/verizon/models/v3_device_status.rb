@@ -61,11 +61,8 @@ module Verizon
       []
     end
 
-    def initialize(device_id = nil,
-                   status = nil,
-                   result_reason = SKIP,
-                   updated_time = SKIP,
-                   recent_attempt_time = SKIP,
+    def initialize(device_id = nil, status = nil, result_reason = SKIP,
+                   updated_time = SKIP, recent_attempt_time = SKIP,
                    next_attempt_time = SKIP)
       @device_id = device_id
       @status = status

@@ -51,9 +51,7 @@ module Verizon
       []
     end
 
-    def initialize(account_id = SKIP,
-                   device_id = SKIP,
-                   start_time = SKIP,
+    def initialize(account_id = SKIP, device_id = SKIP, start_time = SKIP,
                    end_time = SKIP)
       @account_id = account_id unless account_id == SKIP
       @device_id = device_id unless device_id == SKIP

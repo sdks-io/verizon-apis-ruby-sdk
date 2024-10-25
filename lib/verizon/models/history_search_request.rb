@@ -54,9 +54,7 @@ module Verizon
       []
     end
 
-    def initialize(filter = nil,
-                   limit_number = SKIP,
-                   limit_time = SKIP,
+    def initialize(filter = nil, limit_number = SKIP, limit_time = SKIP,
                    page = SKIP)
       @filter = filter
       @limit_number = limit_number unless limit_number == SKIP

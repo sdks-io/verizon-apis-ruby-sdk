@@ -44,9 +44,7 @@ module Verizon
       []
     end
 
-    def initialize(engagement_id = SKIP,
-                   charging_group = SKIP,
-                   services = SKIP)
+    def initialize(engagement_id = SKIP, charging_group = SKIP, services = SKIP)
       @engagement_id = engagement_id unless engagement_id == SKIP
       @charging_group = charging_group unless charging_group == SKIP
       @services = services unless services == SKIP

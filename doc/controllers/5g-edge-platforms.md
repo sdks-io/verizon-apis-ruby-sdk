@@ -31,8 +31,8 @@ def list_mec_platforms(region: nil,
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `region` | `String` | Query, Optional | MEC region name. Current valid values are US_WEST_2 and US_EAST_1. |
-| `service_profile_id` | `String` | Query, Optional | Unique identifier of the service profile. |
-| `subscriber_density` | `Integer` | Query, Optional | Minimum number of 4G/5G subscribers per square kilometer. |
+| `service_profile_id` | `String` | Query, Optional | Unique identifier of the service profile.<br>**Constraints**: *Maximum Length*: `36`, *Pattern*: ``^[a-zA-Z0-9!@#$&()\-`.+,/"]{3,36}$`` |
+| `subscriber_density` | `Integer` | Query, Optional | Minimum number of 4G/5G subscribers per square kilometer.<br>**Constraints**: `>= 1`, `<= 100` |
 | `ue_identity_type` | [`UserEquipmentIdentityTypeEnum`](../../doc/models/user-equipment-identity-type-enum.md) | Query, Optional | Type of User Equipment identifier used in `UEIdentity`. |
 | `ue_identity` | `String` | Query, Optional | The identifier value for User Equipment. The type of identifier is defined by the 'UEIdentityType' parameter. The`IPAddress`format can be IPv4 or IPv6. |
 
@@ -44,7 +44,7 @@ def list_mec_platforms(region: nil,
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ListMECPlatformsResult`](../../doc/models/list-mec-platforms-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ListMECPlatformsResult`](../../doc/models/list-mec-platforms-result.md).
 
 ## Example Usage
 
@@ -102,7 +102,7 @@ def list_regions
 
 ## Response Type
 
-This method returns a `\ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ListRegionsResult`](../../doc/models/list-regions-result.md).
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`ListRegionsResult`](../../doc/models/list-regions-result.md).
 
 ## Example Usage
 

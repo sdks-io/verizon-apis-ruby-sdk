@@ -9,7 +9,7 @@ module Verizon
     # Creates the trigger to identify an anomaly.
     # @param [Array[CreateTriggerRequestOptions]] body Required parameter:
     # Request to create an anomaly trigger.
-    # @return [AnomalyDetectionTrigger] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def create_anomaly_detection_trigger_v2(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::POST,
@@ -21,19 +21,19 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(AnomalyDetectionTrigger.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'An error occurred.',
-                                IntelligenceResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(AnomalyDetectionTrigger.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'An error occurred.',
+                                 IntelligenceResultException))
         .execute
     end
 
     # Updates an existing trigger using the account name.
     # @param [Array[UpdateTriggerRequestOptions]] body Required parameter:
     # Request to update existing trigger.
-    # @return [IntelligenceSuccessResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def update_anomaly_detection_trigger_v2(body)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::PUT,
@@ -45,19 +45,19 @@ module Verizon
                    .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(IntelligenceSuccessResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'An error occurred.',
-                                IntelligenceResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(IntelligenceSuccessResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'An error occurred.',
+                                 IntelligenceResultException))
         .execute
     end
 
     # Retrieves the values for a specific trigger ID.
     # @param [String] trigger_id Required parameter: The trigger ID of a
     # specific trigger.
-    # @return [AnomalyTriggerResult] response from the API call
+    # @return [ApiResponse]  the complete http response with raw body and status code.
     def list_anomaly_detection_trigger_settings_v2(trigger_id)
       new_api_call_builder
         .request(new_request_builder(HttpMethodEnum::GET,
@@ -68,12 +68,12 @@ module Verizon
                    .header_param(new_parameter('application/json', key: 'accept'))
                    .auth(And.new('thingspace_oauth', 'VZ-M2M-Token')))
         .response(new_response_handler
-                   .deserializer(APIHelper.method(:custom_type_deserializer))
-                   .deserialize_into(AnomalyTriggerResult.method(:from_hash))
-                   .is_api_response(true)
-                   .local_error('default',
-                                'An error occurred.',
-                                IntelligenceResultException))
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(AnomalyTriggerResult.method(:from_hash))
+                    .is_api_response(true)
+                    .local_error('default',
+                                 'An error occurred.',
+                                 IntelligenceResultException))
         .execute
     end
   end
