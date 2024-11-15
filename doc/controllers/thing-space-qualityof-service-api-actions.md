@@ -28,15 +28,37 @@ def create_a_thing_space_quality_of_service_api_subscription(body)
 |  --- | --- | --- | --- |
 | `body` | [`SubscribeRequest`](../../doc/models/subscribe-request.md) | Body, Required | The request details to create a ThingSpace Quality of Service API subscription. |
 
+## Server
+
+`Server::THINGSPACE`
+
 ## Response Type
 
-[`M201success`](../../doc/models/m201-success.md)
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`M201success`](../../doc/models/m201-success.md).
 
 ## Example Usage
 
 ```ruby
 body = SubscribeRequest.new(
-  '0000123456-00001'
+  '0000123456-00001',
+  [
+    QosDeviceInfo.new(
+      QosDeviceId.new(
+        '10-digit phone number',
+        'mdn'
+      ),
+      [
+        FlowInfo.new(
+          '[IPv6 address]:port',
+          '[IPv6 address]:port',
+          'UPLINK',
+          'UDP',
+          'Premium'
+        )
+      ],
+      'IPv6 address'
+    )
+  ]
 )
 
 result = thing_space_quality_of_service_api_actions_controller.create_a_thing_space_quality_of_service_api_subscription(body)
@@ -46,7 +68,7 @@ result = thing_space_quality_of_service_api_actions_controller.create_a_thing_sp
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| Default | Error Response | [`DefaultException`](../../doc/models/default-exception.md) |
+| Default | Error Response | [`DefaultResponseException`](../../doc/models/default-response-exception.md) |
 
 
 # Stop a Thing Space Quality of Service API Subscription
@@ -65,9 +87,13 @@ def stop_a_thing_space_quality_of_service_api_subscription(account_name,
 | `account_name` | `String` | Query, Required | - |
 | `qos_subscription_id` | `String` | Query, Required | - |
 
+## Server
+
+`Server::THINGSPACE`
+
 ## Response Type
 
-[`M201success`](../../doc/models/m201-success.md)
+This method returns a `ApiResponse` instance. The `data` property in this instance returns the response data which is of type [`M201success`](../../doc/models/m201-success.md).
 
 ## Example Usage
 
@@ -86,5 +112,5 @@ result = thing_space_quality_of_service_api_actions_controller.stop_a_thing_spac
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| Default | Error Response | [`DefaultException`](../../doc/models/default-exception.md) |
+| Default | Error Response | [`DefaultResponseException`](../../doc/models/default-response-exception.md) |
 
